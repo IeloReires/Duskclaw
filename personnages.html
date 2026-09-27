@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#292a2e">
+  <meta name="theme-color" content="#10121b">
   <meta name="description" content="Le Cardex de Duskclaw : découvre les Furries et leurs évolutions.">
   <title>Cardex — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
@@ -14,7 +14,16 @@
     .cardex-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 40px 0 28px; }
     .cardex-heading h1 { margin: 0; font-size: clamp(2.8rem, 6vw, 5rem); }
     .cardex-heading p { margin: 0 0 8px; color: var(--muted); }
+    .cardex-filters { display: grid; grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(130px, 1fr)) minmax(140px, 1fr) auto; align-items: end; gap: 12px; margin: 0 0 16px; }
+    .cardex-control { display: grid; gap: 6px; color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .cardex-control input, .cardex-control select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; letter-spacing: normal; text-transform: none; }
+    .cardex-control input::placeholder { color: var(--muted); opacity: .8; }
+    .filter-reset { min-height: 44px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--text); font: inherit; cursor: pointer; }
+    .filter-reset:hover, .filter-reset:focus-visible { border-color: var(--accent); color: var(--accent); }
+    .cardex-results { min-height: 1.5em; margin: 0 0 14px; color: var(--muted); font-size: .86rem; }
+    .cardex-empty { padding: 32px 0; color: var(--muted); text-align: center; }
     .cardex-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+    .furry-entry[hidden] { display: none !important; }
     .furry-entry { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 18px; background: #f2f2f1; color: #25262a; text-decoration: none; box-shadow: 0 5px 16px rgba(0,0,0,.14); transition: transform .2s ease, box-shadow .2s ease; }
     a.furry-entry:hover, a.furry-entry:focus-visible { z-index: 2; transform: translateY(-4px) scale(1.025); box-shadow: 0 12px 30px rgba(0,0,0,.34); outline: 2px solid var(--accent); outline-offset: 2px; }
     .furry-entry img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 28%; }
@@ -24,10 +33,16 @@
     .furry-placeholder { display: grid; place-items: center; background: #e7e7e5; box-shadow: inset 0 0 0 1px rgba(35,36,39,.05); }
     .placeholder-mark { width: 42%; aspect-ratio: 1; display: grid; place-items: center; border: 3px solid #b6b7b8; border-radius: 50%; color: #aaabad; font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; }
     .placeholder-label { position: absolute; inset: auto 0 18px; color: #8d8f92; text-align: center; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
-    @media (max-width: 1050px) { .cardex-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    @media (max-width: 1100px) {
+      .cardex-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .cardex-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cardex-control:first-child, .filter-reset { grid-column: 1 / -1; }
+    }
     @media (max-width: 680px) {
       .cardex-page { width: 94%; padding-top: 24px; }
       .cardex-heading { align-items: start; flex-direction: column; margin: 30px 0 20px; gap: 8px; }
+      .cardex-filters { gap: 9px; }
+      .cardex-control { font-size: .65rem; }
       .cardex-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
       .furry-entry { border-radius: 12px; }
       .furry-caption { padding: 22px 8px 8px; }
@@ -52,16 +67,60 @@
       </div>
       <p><strong id="illustrated-count">6</strong> Furries illustrés sur 65</p>
     </div>
+    <form class="cardex-filters" id="cardex-filters">
+      <label class="cardex-control">
+        Nom
+        <input id="name-filter" type="search" placeholder="Rechercher un Furry…" autocomplete="off">
+      </label>
+      <label class="cardex-control">
+        Niveau
+        <select id="level-filter">
+          <option value="">Tous les niveaux</option>
+          <option value="base">Base</option>
+          <option value="niveau-1">Niveau 1</option>
+          <option value="niveau-2">Niveau 2</option>
+        </select>
+      </label>
+      <label class="cardex-control">
+        Type
+        <select id="type-filter">
+          <option value="">Tous les types</option>
+          <option value="eau">Eau</option>
+          <option value="plante">Plante</option>
+          <option value="roche">Roche</option>
+        </select>
+      </label>
+      <label class="cardex-control">
+        Famille
+        <select id="family-filter">
+          <option value="">Toutes les familles</option>
+          <option value="marin">Marin</option>
+          <option value="kael">Kael</option>
+          <option value="caine">Caine</option>
+        </select>
+      </label>
+      <label class="cardex-control">
+        Illustration
+        <select id="status-filter">
+          <option value="">Toutes les cases</option>
+          <option value="illustrated">Illustrées</option>
+          <option value="coming">À venir</option>
+        </select>
+      </label>
+      <button class="filter-reset" id="reset-filters" type="button">Tout effacer</button>
+    </form>
+    <p class="cardex-results" id="cardex-results" aria-live="polite">65 emplacements · 6 illustrés</p>
     <section class="cardex-grid" id="cardex-grid" aria-label="Les 65 emplacements du Cardex"></section>
+    <p class="cardex-empty" id="cardex-empty" hidden>Aucun Furry ne correspond à ces filtres.</p>
   </main>
   <script>
     const furries = [
-      { name: "Marin", stage: "Base · Eau", image: "marin.png", family: "marin.html" },
-      { name: "Marin", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" },
-      { name: "Marin", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" },
-      { name: "Kael", stage: "Base · Plante", image: "kael-base.png", family: "kael.html" },
-      { name: "Kael", stage: "Niveau 1 · Plante", image: "kael-evolution-1.png", family: "kael.html" },
-      { name: "Caine", stage: "Niveau 2 · Roche", image: "caine-niveau-2.png", family: "caine.html" }
+      { name: "Marin", familyName: "Marin", level: "base", type: "eau", stage: "Base · Eau", image: "marin.png", family: "marin.html" },
+      { name: "Marin", familyName: "Marin", level: "niveau-1", type: "eau", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" },
+      { name: "Marin", familyName: "Marin", level: "niveau-2", type: "eau", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" },
+      { name: "Kael", familyName: "Kael", level: "base", type: "plante", stage: "Base · Plante", image: "kael-base.png", family: "kael.html" },
+      { name: "Kael", familyName: "Kael", level: "niveau-1", type: "plante", stage: "Niveau 1 · Plante", image: "kael-evolution-1.png", family: "kael.html" },
+      { name: "Caine", familyName: "Caine", level: "niveau-2", type: "roche", stage: "Niveau 2 · Roche", image: "caine-niveau-2.png", family: "caine.html" }
     ];
     const grid = document.getElementById("cardex-grid");
     for (let number = 0; number < 65; number++) {
@@ -69,6 +128,11 @@
       if (furry) {
         const card = document.createElement("a");
         card.className = "furry-entry";
+        card.dataset.status = "illustrated";
+        card.dataset.name = furry.name.toLocaleLowerCase("fr");
+        card.dataset.level = furry.level;
+        card.dataset.type = furry.type;
+        card.dataset.family = furry.familyName.toLocaleLowerCase("fr");
         card.href = furry.family;
         card.setAttribute("aria-label", "Ouvrir la famille " + furry.name + " — " + furry.stage);
         const image = document.createElement("img");
@@ -86,6 +150,11 @@
       } else {
         const card = document.createElement("div");
         card.className = "furry-entry furry-placeholder";
+        card.dataset.status = "coming";
+        card.dataset.name = "";
+        card.dataset.level = "";
+        card.dataset.type = "";
+        card.dataset.family = "";
         card.setAttribute("aria-label", "Furry à venir");
         const mark = document.createElement("span");
         mark.className = "placeholder-mark";
@@ -98,6 +167,40 @@
         grid.append(card);
       }
     }
+    const nameFilter = document.getElementById("name-filter");
+    const levelFilter = document.getElementById("level-filter");
+    const typeFilter = document.getElementById("type-filter");
+    const familyFilter = document.getElementById("family-filter");
+    const statusFilter = document.getElementById("status-filter");
+    const results = document.getElementById("cardex-results");
+    const emptyMessage = document.getElementById("cardex-empty");
+    function filterCardex() {
+      const query = nameFilter.value.trim().toLocaleLowerCase("fr");
+      let visible = 0;
+      grid.querySelectorAll(".furry-entry").forEach((card) => {
+        const matches = (!query || card.dataset.name.includes(query))
+          && (!levelFilter.value || card.dataset.level === levelFilter.value)
+          && (!typeFilter.value || card.dataset.type === typeFilter.value)
+          && (!familyFilter.value || card.dataset.family === familyFilter.value)
+          && (!statusFilter.value || card.dataset.status === statusFilter.value);
+        card.hidden = !matches;
+        if (matches) visible++;
+      });
+      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 6 illustrés sur 65";
+      emptyMessage.hidden = visible > 0;
+    }
+    document.getElementById("cardex-filters").addEventListener("submit", (event) => event.preventDefault());
+    [nameFilter, levelFilter, typeFilter, familyFilter, statusFilter].forEach((filter) => {
+      filter.addEventListener("input", filterCardex);
+      filter.addEventListener("change", filterCardex);
+    });
+    document.getElementById("reset-filters").addEventListener("click", () => {
+      document.getElementById("cardex-filters").reset();
+      filterCardex();
+      nameFilter.focus();
+    });
   </script>
 </body>
 </html>
+
+
