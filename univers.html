@@ -324,7 +324,25 @@
       .pied-de-page { flex-direction: column; }
       .bouton-mode { bottom: 14px; left: 14px; }
     }
-  </style>
+      @media (max-width: 560px) {
+      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
+        position: static !important;
+        inset: auto !important;
+        width: max-content;
+        margin: 18px auto 24px;
+        padding: 7px 9px;
+        gap: 7px;
+        font-size: .7rem;
+        box-shadow: none;
+      }
+      .product-art {
+        width: min(84%, 340px);
+        min-height: 0;
+        aspect-ratio: 1.12 / 1;
+        margin-inline: auto;
+      }
+    }
+    </style>
 </head>
 
 <body data-time="jour">
