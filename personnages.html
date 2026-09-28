@@ -168,14 +168,13 @@
     <p class="cardex-empty" id="cardex-empty" hidden>Aucun Furry ne correspond à ces filtres.</p>
   </main>
   <script>
-    const furries = [
-      { name: "Marin", familyName: "Marin", level: "base", type: "eau", rarity: "commun", rarityLabel: "Commun", stage: "Base · Eau", image: "marin.png", family: "marin.html" },
-      { name: "Marin", familyName: "Marin", level: "niveau-1", type: "eau", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" },
-      { name: "Marin", familyName: "Marin", level: "niveau-2", type: "eau", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" },
-      { name: "Kael", familyName: "Kael", level: "base", type: "plante", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Base · Plante", image: "kael-base.png", family: "kael.html" },
-      { name: "Kael", familyName: "Kael", level: "niveau-1", type: "plante", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 1 · Plante", image: "kael-evolution-1.png", family: "kael.html" },
-      { name: "Caine", familyName: "Caine", level: "niveau-2", type: "roche", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Roche", image: "caine-niveau-2.png", family: "caine.html" }
-    ];
+    const furries = Array(65).fill(null);
+    furries[3] = { name: "Marin", familyName: "Marin", level: "base", type: "eau", rarity: "commun", rarityLabel: "Commun", stage: "Base · Eau", image: "marin.png", family: "marin.html" };
+    furries[4] = { name: "Marin", familyName: "Marin", level: "niveau-1", type: "eau", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" };
+    furries[5] = { name: "Marin", familyName: "Marin", level: "niveau-2", type: "eau", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" };
+    furries[23] = { name: "Caine", familyName: "Caine", level: "niveau-2", type: "roche", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Roche", image: "caine-niveau-2.png", family: "caine.html" };
+    furries[40] = { name: "Kael", familyName: "Kael", level: "base", type: "plante", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Base · Plante", image: "kael-base.png", family: "kael.html" };
+    furries[41] = { name: "Kael", familyName: "Kael", level: "niveau-1", type: "plante", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 1 · Plante", image: "kael-evolution-1.png", family: "kael.html" };
     const grid = document.getElementById("cardex-grid");
     for (let number = 0; number < 65; number++) {
       const furry = furries[number];
