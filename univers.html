@@ -342,7 +342,10 @@
         margin-inline: auto;
       }
     }
-    </style>
+    
+    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--dusk-rule, var(--line, rgba(60,58,47,.24))); color:var(--dusk-ink, var(--text, #252920)) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
+    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--dusk-accent, var(--accent, #8a6a37)); background:var(--dusk-accent, var(--accent, #8a6a37)); color:#fff !important; outline:none; }
+  </style>
 </head>
 
 <body data-time="jour">
@@ -463,7 +466,8 @@
   </dialog>
 
   <footer class="pied-de-page conteneur">
-    <span>Un monde de cartes et de créatures.</span>
+        <a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a>
+<span>Un monde de cartes et de créatures.</span>
     <span>© DUSKCLAW</span>
   </footer>
 
