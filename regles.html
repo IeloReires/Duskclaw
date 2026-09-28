@@ -3,537 +3,1551 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f1ead9">
-  <meta name="description" content="Découvre les zones et les plateaux de Duskclaw.">
-  <title>Les zones — Duskclaw</title>
+  <meta name="theme-color" content="#11121a">
+  <meta name="description" content="Règles complètes de Duskclaw, jeu de cartes tactique sur plateau hexagonal.">
+  <title>Règles complètes — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
-
   <style>
-    body {
-      --fond: #f1ead9;
-      --papier: #f8f3e8;
-      --texte: #252920;
-      --texte-doux: #66695f;
-      --accent: #8a6a37;
-      --trait: rgba(60, 58, 47, .24);
-      margin: 0;
-      background: var(--fond);
-      color: var(--texte);
-      transition: background .4s ease, color .4s ease;
+    .rules-page { width: min(1080px, 88%); margin: 0 auto; padding: 46px 0 100px; }
+    .rules-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 64px; }
+    .rules-home { color: var(--accent); font-weight: 600; }
+    .rules-hero { padding: 58px 0 44px; border-bottom: 1px solid var(--line); }
+    .rules-hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); margin-bottom: 18px; }
+    .rules-lead { max-width: 700px; color: var(--muted); font-size: 1.08rem; }
+    .rules-toc { margin: 34px 0 70px; padding: 28px; border: 1px solid var(--line); background: var(--surface); }
+    .rules-toc summary { cursor: pointer; color: var(--accent); font-weight: 700; font-size: 1.1rem; }
+    .rules-toc ol { columns: 2; column-gap: 40px; padding-left: 22px; }
+    .rules-toc li { break-inside: avoid; padding: 5px 0; color: var(--muted); }
+    .rules-toc a { color: inherit; }
+    .rules-toc a:hover, .rules-home:hover { color: var(--text); }
+    .rule-chapter { padding: 36px 0 42px; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
+    .rule-chapter h2 { margin-bottom: 22px; color: var(--text); font-size: clamp(2rem, 4vw, 3rem); }
+    .rule-chapter h3 { margin: 32px 0 12px; color: var(--accent); font-size: 1.55rem; }
+    .rule-chapter h4 { margin: 24px 0 10px; font-size: 1.15rem; }
+    .rule-chapter p, .rule-chapter li { color: var(--muted); }
+    .rule-chapter p { margin: 12px 0; }
+    .rule-chapter strong { color: var(--text); }
+    .rule-chapter code { padding: 2px 6px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--accent); }
+    .rule-chapter pre { overflow-x: auto; padding: 18px; background: #0c0d13; border: 1px solid var(--line); }
+    .rule-list { padding-left: 24px; }
+    .rule-list li { margin: 7px 0; }
+    .rule-list li[style] { margin-left: calc(var(--list-indent) * 1rem); }
+    .table-wrap { overflow-x: auto; margin: 20px 0; }
+    .rule-chapter table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,.025); }
+    .rule-chapter th, .rule-chapter td { padding: 11px 14px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .rule-chapter th { color: var(--accent); background: rgba(255,255,255,.04); }
+    .rule-chapter td { color: var(--muted); }
+    .rules-footer { padding-top: 34px; text-align: center; }    html { scroll-behavior: smooth; }
+    .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 1000; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.28); font-size: 1.5rem; text-decoration: none; transition: transform .2s ease, background .2s ease, color .2s ease; }
+    .back-to-top:hover, .back-to-top:focus-visible { transform: translateY(-4px); background: var(--accent); color: #10121b; outline: none; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .back-to-top { transition: none; } }
+    @media (max-width: 680px) {
+      .rules-page { width: 90%; padding-top: 26px; }
+      .rules-top { margin-bottom: 42px; }
+      .rules-toc { padding: 20px; }
+      .rules-toc ol { columns: 1; }
+      .rule-chapter th, .rule-chapter td { padding: 9px; }
     }
-
-    body[data-time="nuit"] {
-      --fond: #111724;
-      --papier: #1a2030;
-      --texte: #ece9e1;
-      --texte-doux: #b8bdca;
-      --accent: #b8a6df;
-      --trait: rgba(229, 225, 243, .2);
-      color-scheme: dark;
-    }
-
-    .conteneur { width: min(1200px, 90%); margin-inline: auto; }
-
-    .entete {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      width: min(1320px, 90%);
-      min-height: 82px;
-      margin-inline: auto;
-      border-bottom: 1px solid var(--trait);
-    }
-
-    .logo {
-      color: var(--texte);
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: .19em;
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--accent); }
-    .navigation { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
-
-    .navigation a {
-      color: var(--texte-doux);
-      font-size: .9rem;
-      text-decoration: none;
-    }
-
-    .navigation a:hover,
-    .navigation a:focus-visible { color: var(--accent); }
-
-    .navigation a:last-child {
-      padding: 10px 14px;
-      border: 1px solid var(--trait);
-      color: var(--texte);
-    }
-
-    .introduction {
-      max-width: 800px;
-      padding: clamp(70px, 10vw, 120px) 0 55px;
-    }
-
-    .petit-titre {
-      color: var(--accent);
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-
-    h1, .zone h2, .fin h2, .fenetre-zone h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 400;
-    }
-
-    h1 {
-      margin: 18px 0;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      letter-spacing: -.06em;
-      line-height: .96;
-    }
-
-    h1 em { color: var(--accent); font-weight: 400; }
-
-    .introduction > p:last-child {
-      max-width: 690px;
-      color: var(--texte-doux);
-      font-size: 1.08rem;
-      line-height: 1.8;
-    }
-
-    .zones {
-      padding: 35px 0 90px;
-      border-top: 1px solid var(--trait);
-    }
-
-    .grille-zones {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .zone {
-      padding: 12px;
-      border: 1px solid var(--trait);
-      background: var(--papier);
-      cursor: pointer;
-      transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
-    }
-
-    .zone:hover, .zone:focus-visible {
-      transform: translateY(-3px);
-      border-color: var(--accent);
-      box-shadow: 0 8px 25px rgba(35, 30, 20, .12);
-      outline: none;
-    }
-
-    .emplacement-image {
-      display: grid;
-      min-height: 190px;
-      place-items: center;
-      border: 1px dashed var(--trait);
-      color: var(--texte-doux);
-      text-align: center;
-    }
-
-    .emplacement-image span {
-      padding: 16px;
-      font-size: .75rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .emplacement-image strong {
-      display: block;
-      margin-top: 9px;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      letter-spacing: 0;
-      text-transform: none;
-    }
-
-    .numero-zone {
-      display: block;
-      margin-top: 17px;
-      color: var(--accent);
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    .zone h2 { margin: 9px 0 6px; font-size: 1.65rem; }
-
-    .zone p {
-      margin: 0;
-      color: var(--texte-doux);
-      font-size: .9rem;
-      line-height: 1.65;
-    }
-
-    .invitation {
-      margin-top: 17px;
-      padding-top: 12px;
-      border-top: 1px solid var(--trait);
-      color: var(--accent);
-      font-size: .78rem;
-    }
-
-    .fin {
-      padding: 48px 0 95px;
-      border-top: 1px solid var(--trait);
-      text-align: center;
-    }
-
-    .fin h2 { margin: 12px 0; font-size: clamp(2.4rem, 5vw, 4rem); }
-
-    .fin p {
-      max-width: 580px;
-      margin: 0 auto;
-      color: var(--texte-doux);
-      line-height: 1.8;
-    }
-
-    .pied-de-page {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 24px 0 32px;
-      border-top: 1px solid var(--trait);
-      color: var(--texte-doux);
-      font-size: .8rem;
-    }
-
-    .fenetre-zone {
-      width: min(900px, 90vw);
-      max-height: 85vh;
-      padding: clamp(20px, 4vw, 38px);
-      overflow-y: auto;
-      border: 1px solid var(--trait);
-      background: var(--papier);
-      color: var(--texte);
-    }
-
-    .fenetre-zone::backdrop {
-      background: rgba(8, 10, 15, .72);
-      backdrop-filter: blur(4px);
-    }
-
-    .entete-fenetre {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .entete-fenetre h2 {
-      margin: 7px 0 12px;
-      font-size: clamp(2rem, 5vw, 3.3rem);
-    }
-
-    .fermer {
-      padding: 10px 14px;
-      border: 1px solid var(--trait);
-      background: transparent;
-      color: var(--texte);
-      font: inherit;
-      cursor: pointer;
-    }
-
-    .fermer:hover, .fermer:focus-visible {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .description-fenetre { color: var(--texte-doux); line-height: 1.7; }
-
-    .grille-fenetre {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .grand-emplacement {
-      display: grid;
-      min-height: 270px;
-      padding: 18px;
-      place-items: center;
-      border: 1px dashed var(--trait);
-      color: var(--texte-doux);
-      text-align: center;
-    }
-
-    .grand-emplacement strong {
-      display: block;
-      margin-top: 10px;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-    }
-
-    .bouton-mode {
-      position: fixed;
-      z-index: 10;
-      bottom: 22px;
-      left: 22px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 13px;
-      border: 1px solid var(--trait);
-      background: var(--papier);
-      color: var(--texte-doux);
-      font-size: .78rem;
-      font-weight: 700;
-      box-shadow: 0 5px 22px rgba(18, 21, 29, .2);
-      cursor: pointer;
-    }
-
-    .bouton-mode input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-    }
-
-    .interrupteur {
-      position: relative;
-      width: 42px;
-      height: 23px;
-      border: 1px solid var(--trait);
-      border-radius: 20px;
-      background: #d9cfb9;
-    }
-
-    .interrupteur::before {
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      background: #fffaf0;
-      content: "";
-      transition: transform .25s ease;
-    }
-
-    body[data-time="nuit"] .interrupteur { background: #5e527f; }
-
-    .bouton-mode input:checked + .interrupteur::before {
-      transform: translateX(19px);
-      background: #e5dcf5;
-    }
-
-    .bouton-mode input:focus-visible + .interrupteur {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 760px) {
-      .grille-zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .entete { flex-wrap: wrap; padding: 17px 0; }
-      .navigation { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
-      .navigation a { font-size: .82rem; }
-    }
-
-    @media (max-width: 520px) {
-      .grille-zones, .grille-fenetre { grid-template-columns: 1fr; }
-      .pied-de-page { flex-direction: column; }
-      .bouton-mode { bottom: 14px; left: 14px; }
-    }
+      body:not(.dual-page)[data-time="jour"] { --dusk-bg: #f1ead9; --dusk-paper: #f8f3e8; --dusk-ink: #252920; --dusk-muted: #66695f; --dusk-accent: #8a6a37; --dusk-rule: rgba(60,58,47,.24); --bg: #f1ead9; --background: #f1ead9; --surface: #f8f3e8; --text: #252920; --muted: #66695f; --accent: #8a6a37; --line: rgba(60,58,47,.24); background: #f1ead9 !important; color: #252920 !important; color-scheme: light; }
+    body:not(.dual-page)[data-time="nuit"] { --dusk-bg: #111724; --dusk-paper: #1a2030; --dusk-ink: #ece9e1; --dusk-muted: #b8bdca; --dusk-accent: #b8a6df; --dusk-rule: rgba(229,225,243,.2); --bg: #111724; --background: #111724; --surface: #1a2030; --text: #ece9e1; --muted: #b8bdca; --accent: #b8a6df; --line: rgba(229,225,243,.2); background: #111724 !important; color: #ece9e1 !important; color-scheme: dark; }
+    body:not(.dual-page) { transition: background-color .45s ease, color .45s ease; }
+    body:not(.dual-page) :where(.site-header, .rules-toc, .feature-card, .feature-card-alt, .stats-list, .family-info, .filter-reset, .cardex-control input, .cardex-control select, .rule-chapter table, .rule-chapter th, .rule-chapter td, .global-mode-switch) { transition: background-color .45s ease, color .45s ease, border-color .45s ease; }
+    .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--dusk-rule); background: var(--dusk-paper); color: var(--dusk-muted); font-family: inherit; font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
+    body:not(.dual-page)[data-time="jour"] .global-mode-switch .mode-day, body:not(.dual-page)[data-time="nuit"] .global-mode-switch .mode-night { color: var(--dusk-accent); }
+    .global-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .global-mode-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--dusk-rule); border-radius: 20px; background: #d9cfb9; transition: background .25s ease; }
+    .global-mode-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fffaf0; box-shadow: 0 1px 4px rgba(0,0,0,.24); content: ""; transition: transform .25s ease, background .25s ease; }
+    body:not(.dual-page)[data-time="nuit"] .global-mode-track { background: #5e527f; }
+    .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); background: #e5dcf5; }
+    .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
+    @media (max-width: 560px) { .global-mode-switch { bottom: 14px; left: 14px; } }
   </style>
 </head>
-
-<body data-time="jour">
-  <header class="entete">
-    <a class="logo" href="index.html">DUSK<span>CLAW</span></a>
-
-    <nav class="navigation" aria-label="Navigation principale">
-      <a href="personnages.html">Cardex</a>
-      <a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
-    </nav>
+<body id="top" data-time="jour">
+  <header class="site-header">
+    <a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <a class="rules-home" href="index.html">← Retour à l’accueil</a>
   </header>
-
-  <main>
-    <section class="introduction conteneur">
-      <p class="petit-titre">Atlas des zones · Environ 30 prévues</p>
-      <h1>Les terres<br><em>à explorer.</em></h1>
-      <p>
-        Chaque carte de zone présente un lieu et la disposition des pièces sur
-        le plateau. Une carte est tirée au début de la partie : le plateau choisi
-        reste le même jusqu’à la fin, même lorsque le temps passe du Jour à la Nuit.
-        Clique sur une zone pour l’agrandir.
-      </p>
+  <main class="rules-page">
+    <section class="rules-hero">
+      <p class="eyebrow">GUIDE DU JOUEUR</p>
+      <h1>Les règles<br><span style="color:var(--accent)">de Duskclaw.</span></h1>
+      <p class="rules-lead">Le guide complet du jeu : prépare ton deck, déploie tes Furries et maîtrise le plateau au fil du Jour et de la Nuit.</p>
     </section>
-
-    <section class="zones conteneur" aria-label="Zones de Duskclaw">
-      <div class="grille-zones">
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 01</span>
-          <h2>Les Marches d’Auréval</h2>
-          <p>Proposition : des collines ouvertes, des routes anciennes et des tours de veille.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 02</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 03</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 04</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 05</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 06</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-      </div>
-    </section>
-
-    <section class="fin conteneur">
-      <p class="petit-titre">L’atlas s’agrandira</p>
-      <h2>Il reste tant à découvrir.</h2>
-      <p>
-        D’autres zones, paysages et histoires viendront s’ajouter à l’atlas
-        de Duskclaw au fil de leur création.
-      </p>
-    </section>
+    <details class="rules-toc" open>
+      <summary>Sommaire — 49 chapitres</summary>
+      <ol><li><a href="#chapter-1-pr-sentation-du-jeu">Présentation du jeu</a></li>
+<li><a href="#chapter-2-but-de-la-partie">But de la partie</a></li>
+<li><a href="#chapter-3-mat-riel-n-cessaire">Matériel nécessaire</a></li>
+<li><a href="#chapter-4-composition-du-deck">Composition du deck</a></li>
+<li><a href="#chapter-5-types-de-cartes">Types de cartes</a></li>
+<li><a href="#chapter-6-zones-de-jeu">Zones de jeu</a></li>
+<li><a href="#chapter-7-le-plateau-hexagonal">Le plateau hexagonal</a></li>
+<li><a href="#chapter-8-niveaux-et-hauteur">Niveaux et hauteur</a></li>
+<li><a href="#chapter-9-obstacles-et-terrains-du-plateau">Obstacles et terrains du plateau</a></li>
+<li><a href="#chapter-10-caract-ristiques-des-furries">Caractéristiques des Furries</a></li>
+<li><a href="#chapter-11-valeurs-jour-nuit">Valeurs Jour/Nuit</a></li>
+<li><a href="#chapter-12-mise-en-place">Mise en place</a></li>
+<li><a href="#chapter-13-nouvelle-main-sans-furry-de-base">Nouvelle main sans Furry de base</a></li>
+<li><a href="#chapter-14-premier-joueur">Premier joueur</a></li>
+<li><a href="#chapter-15-rounds-tours-et-phases">Rounds, tours et phases</a></li>
+<li><a href="#chapter-16-cycle-jour-nuit">Cycle Jour/Nuit</a></li>
+<li><a href="#chapter-17-d-roulement-d-un-tour">Déroulement d’un tour</a></li>
+<li><a href="#chapter-18-r-gles-g-n-rales-des-nergies">Règles générales des Énergies</a></li>
+<li><a href="#chapter-19-attachement-des-nergies">Attachement des Énergies</a></li>
+<li><a href="#chapter-20-d-ploiement-des-furries">Déploiement des Furries</a></li>
+<li><a href="#chapter-21-d-placement">Déplacement</a></li>
+<li><a href="#chapter-22-zones-de-contact">Zones de contact</a></li>
+<li><a href="#chapter-23-attaques-d-opportunit">Attaques d’opportunité</a></li>
+<li><a href="#chapter-24-port-e-et-distance">Portée et distance</a></li>
+<li><a href="#chapter-25-ligne-de-vue">Ligne de vue</a></li>
+<li><a href="#chapter-26-hauteur-et-combat">Hauteur et combat</a></li>
+<li><a href="#chapter-27-attaques">Attaques</a></li>
+<li><a href="#chapter-28-calcul-des-d-g-ts">Calcul des dégâts</a></li>
+<li><a href="#chapter-29-types-faiblesses-et-r-sistances">Types, faiblesses et résistances</a></li>
+<li><a href="#chapter-30-reculs-pouss-es-attractions-et-chutes">Reculs, poussées, attractions et chutes</a></li>
+<li><a href="#chapter-31-volution-des-furries">Évolution des Furries</a></li>
+<li><a href="#chapter-32-talents">Talents</a></li>
+<li><a href="#chapter-33-objets">Objets</a></li>
+<li><a href="#chapter-34-supporters">Supporters</a></li>
+<li><a href="#chapter-35-terrains">Terrains</a></li>
+<li><a href="#chapter-36-capacit-s-de-r-action">Capacités de Réaction</a></li>
+<li><a href="#chapter-37-tats-tactiques">États tactiques</a></li>
+<li><a href="#chapter-38-k-o">K.O.</a></li>
+<li><a href="#chapter-39-points-de-domination">Points de domination</a></li>
+<li><a href="#chapter-40-contr-le-des-objectifs">Contrôle des objectifs</a></li>
+<li><a href="#chapter-41-conditions-de-victoire-simultan-es">Conditions de victoire simultanées</a></li>
+<li><a href="#chapter-42-cibles-et-r-solution-des-effets">Cibles et résolution des effets</a></li>
+<li><a href="#chapter-43-effets-temporaires-et-permanents">Effets temporaires et permanents</a></li>
+<li><a href="#chapter-44-ordre-de-r-solution">Ordre de résolution</a></li>
+<li><a href="#chapter-45-r-gles-concernant-les-cartes">Règles concernant les cartes</a></li>
+<li><a href="#chapter-46-mots-cl-s">Mots-clés</a></li>
+<li><a href="#chapter-exemple-de-tour-complet">Exemple de tour complet</a></li>
+<li><a href="#chapter-47-tableau-r-capitulatif">Tableau récapitulatif</a></li>
+<li><a href="#chapter-48-glossaire">Glossaire</a></li></ol>
+    </details>
+    <article class="rules-content">
+<section class="rule-chapter" id="chapter-1-pr-sentation-du-jeu">
+<h2>1. Présentation du jeu</h2>
+<p>Duskclaw est un jeu de cartes tactique pour deux joueurs utilisant un plateau composé de cases hexagonales réparties sur plusieurs niveaux.</p>
+<p>Chaque joueur dirige une équipe de Furries pouvant :</p>
+<ul class="rule-list">
+<li>se déplacer sur le plateau ;</li>
+<li>grimper ou descendre entre les niveaux ;</li>
+<li>attaquer au corps à corps ou à distance ;</li>
+<li>utiliser des Talents ;</li>
+<li>déclencher des Réactions ;</li>
+<li>évoluer ;</li>
+<li>recevoir des Énergies et des Objets ;</li>
+<li>contrôler des objectifs ;</li>
+<li>exploiter le cycle Jour/Nuit.</li>
+</ul>
+<p>Chaque joueur utilise son propre deck de 40 cartes.</p>
+<p>Les cartes Énergie permettent aux Furries d’effectuer leurs attaques et d’utiliser certaines capacités. Les Énergies attachées ne sont normalement pas défaussées après leur utilisation.</p>
+</section>
+<section class="rule-chapter" id="chapter-2-but-de-la-partie">
+<h2>2. But de la partie</h2>
+<p>Chaque joueur commence avec <strong>0 point de domination</strong>.</p>
+<p>Un joueur gagne immédiatement lorsqu’il remplit au moins une des conditions suivantes.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Condition</th><th>Explication</th></tr></thead>
+<tbody>
+<tr><td>Domination</td><td>Atteindre 6 points de domination</td></tr>
+<tr><td>Élimination</td><td>Mettre tous les Furries adverses K.O.</td></tr>
+<tr><td>Deck vide</td><td>Forcer l’adversaire à piocher dans un deck vide</td></tr>
+<tr><td>Contrôle du plateau</td><td>Contrôler l’objectif central pendant 3 fins de round consécutives</td></tr>
+<tr><td>Incapacité de déploiement</td><td>L’adversaire ne contrôle plus aucun Furry et ne peut en déployer aucun</td></tr>
+</tbody></table></div>
+<p>La partie s’arrête dès qu’une condition de victoire est remplie, sauf si plusieurs conditions sont remplies simultanément. Dans ce cas, les règles de victoire simultanée sont appliquées.</p>
+</section>
+<section class="rule-chapter" id="chapter-3-mat-riel-n-cessaire">
+<h2>3. Matériel nécessaire</h2>
+<h3>3.1. Matériel de chaque joueur</h3>
+<p>Chaque joueur doit posséder :</p>
+<ul class="rule-list">
+<li>un deck de <strong>40 cartes</strong> ;</li>
+<li>jusqu’à 4 figurines ou pions Furry ;</li>
+<li>des compteurs de dégâts ;</li>
+<li>un compteur de domination ;</li>
+<li>des marqueurs d’état ;</li>
+<li>des marqueurs de déplacement ;</li>
+<li>des marqueurs d’attaque ;</li>
+<li>des marqueurs de Talent ;</li>
+<li>des marqueurs de Réaction ;</li>
+<li>des marqueurs de contrôle ;</li>
+<li>une pièce.</li>
+</ul>
+<h3>3.2. Matériel commun</h3>
+<p>Le matériel commun comprend :</p>
+<ul class="rule-list">
+<li>un plateau composé de cases hexagonales ;</li>
+<li>des indications ou marqueurs de niveau ;</li>
+<li>des obstacles ;</li>
+<li>un marqueur Jour/Nuit ;</li>
+<li>un compteur de rounds ;</li>
+<li>des marqueurs d’objectif ;</li>
+<li>les éventuels éléments liés au scénario.</li>
+</ul>
+</section>
+<section class="rule-chapter" id="chapter-4-composition-du-deck">
+<h2>4. Composition du deck</h2>
+<p>Un deck contient exactement <strong>40 cartes</strong>, Énergies comprises.</p>
+<p>Il peut contenir :</p>
+<ul class="rule-list">
+<li>des Furries de base ;</li>
+<li>des Furries évolués ;</li>
+<li>des cartes Énergie ;</li>
+<li>des Objets ;</li>
+<li>des Supporters ;</li>
+<li>des Terrains.</li>
+</ul>
+<h3>4.1. Limite d’exemplaires</h3>
+<p>Un deck peut contenir au maximum <strong>4 cartes portant exactement le même nom</strong>.</p>
+<p>Cette limite prend en compte toutes les cartes partageant ce nom, même si elles possèdent des illustrations différentes.</p>
+<h3>4.2. Énergies de base</h3>
+<p>Un deck peut contenir n’importe quel nombre d’Énergies de base.</p>
+<p>Les Énergies spéciales sont soumises à la limite de 4 exemplaires portant le même nom.</p>
+<h3>4.3. Recommandation de construction</h3>
+<p>Pour les premières parties, il est recommandé d’utiliser approximativement :</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Catégorie</th><th>Nombre recommandé</th></tr></thead>
+<tbody>
+<tr><td>Furries de base</td><td>8 à 12</td></tr>
+<tr><td>Évolutions</td><td>4 à 8</td></tr>
+<tr><td>Énergies</td><td>12 à 16</td></tr>
+<tr><td>Objets, Supporters et Terrains</td><td>8 à 14</td></tr>
+</tbody></table></div>
+<p>Il s’agit d’une recommandation et non d’une obligation.</p>
+</section>
+<section class="rule-chapter" id="chapter-5-types-de-cartes">
+<h2>5. Types de cartes</h2>
+<h3>5.1. Furries de base</h3>
+<p>Un Furry de base peut être :</p>
+<ul class="rule-list">
+<li>placé pendant le déploiement initial ;</li>
+<li>déployé depuis la main pendant la partie ;</li>
+<li>mis en jeu par l’effet d’une carte.</li>
+</ul>
+<p>Il n’a pas besoin d’être placé sur une autre carte.</p>
+<h3>5.2. Furries évolués</h3>
+<p>Un Furry évolué doit être placé sur le Furry correspondant.</p>
+<p>Une évolution ne peut pas être déployée seule, sauf indication explicite.</p>
+<h3>5.3. Énergies</h3>
+<p>Les Énergies sont attachées aux Furries.</p>
+<p>Elles permettent notamment de remplir les coûts :</p>
+<ul class="rule-list">
+<li>des attaques ;</li>
+<li>des Réactions ;</li>
+<li>des attaques d’opportunité ;</li>
+<li>de certains Talents ;</li>
+<li>de certains effets particuliers.</li>
+</ul>
+<h3>5.4. Objets</h3>
+<p>Les Objets produisent des effets tactiques ou sont attachés à des Furries.</p>
+<p>Certains Objets peuvent être placés directement sur le plateau.</p>
+<h3>5.5. Supporters</h3>
+<p>Les Supporters produisent un effet immédiat, puis sont placés dans la défausse.</p>
+<h3>5.6. Terrains</h3>
+<p>Les Terrains modifient les règles de la partie ou une zone du plateau.</p>
+<p>Chaque joueur peut contrôler un Terrain actif.</p>
+</section>
+<section class="rule-chapter" id="chapter-6-zones-de-jeu">
+<h2>6. Zones de jeu</h2>
+<h3>6.1. Le deck</h3>
+<p>Le deck est placé face cachée.</p>
+<p>Un joueur ne peut pas consulter ou réorganiser son deck, sauf si un effet l’y autorise.</p>
+<p>Lorsqu’un joueur doit piocher une carte alors que son deck est vide, il perd immédiatement.</p>
+<h3>6.2. La main</h3>
+<p>La main contient les cartes que le joueur peut jouer.</p>
+<ul class="rule-list">
+<li>La main est secrète.</li>
+<li>Son propriétaire peut la consulter à tout moment.</li>
+<li>Il n’existe pas de limite de cartes en main.</li>
+<li>L’adversaire ne peut pas la consulter sans effet l’y autorisant.</li>
+</ul>
+<h3>6.3. La défausse</h3>
+<p>La défausse contient notamment :</p>
+<ul class="rule-list">
+<li>les cartes utilisées ;</li>
+<li>les cartes défaussées ;</li>
+<li>les Furries K.O. ;</li>
+<li>leurs évolutions ;</li>
+<li>leurs Objets et Énergies ;</li>
+<li>les Terrains remplacés.</li>
+</ul>
+<p>Les cartes de la défausse sont placées face visible. Les deux joueurs peuvent consulter toutes les défausses.</p>
+<p>L’ordre des cartes de la défausse ne peut pas être modifié, sauf indication contraire.</p>
+<p>Chaque joueur possède une zone pouvant accueillir un Terrain actif.</p>
+<h3>6.4. Le plateau de combat</h3>
+<p>Tous les Furries déployés sur le plateau sont en jeu.</p>
+<p>Un joueur peut contrôler au maximum <strong>4 Furries sur le plateau</strong>.</p>
+<p>Chaque Furry peut agir indépendamment.</p>
+<h3>6.5. La zone de domination</h3>
+<p>Chaque joueur utilise un compteur indiquant son total de points de domination.</p>
+</section>
+<section class="rule-chapter" id="chapter-7-le-plateau-hexagonal">
+<h2>7. Le plateau hexagonal</h2>
+<h3>7.1. Cases</h3>
+<p>Chaque hexagone constitue une case.</p>
+<p>Un Furry occupe normalement une seule case.</p>
+<p>Deux Furries ne peuvent pas occuper la même case, sauf si un effet l’autorise explicitement.</p>
+<h3>7.2. Cases adjacentes</h3>
+<p>Deux cases sont adjacentes lorsqu’elles partagent un côté.</p>
+<p>Des cases qui ne se touchent que par un angle ne sont pas adjacentes.</p>
+<h3>7.3. Zones de déploiement</h3>
+<p>Chaque joueur possède une zone de déploiement située à une extrémité du plateau.</p>
+<p>Une zone de déploiement est constituée de plusieurs cases identifiées par :</p>
+<ul class="rule-list">
+<li>une couleur ;</li>
+<li>un symbole ;</li>
+<li>un contour ;</li>
+<li>ou les règles du scénario.</li>
+</ul>
+<h3>7.4. Zone centrale</h3>
+<p>La zone centrale est constituée :</p>
+<ul class="rule-list">
+<li>de la case centrale ;</li>
+<li>ou de plusieurs cases centrales indiquées sur le plateau.</li>
+</ul>
+<p>Elle peut servir d’objectif stratégique.</p>
+<h3>7.5. Cases spéciales</h3>
+<p>Un scénario peut ajouter :</p>
+<ul class="rule-list">
+<li>des cases difficiles ;</li>
+<li>des zones d’ombre ;</li>
+<li>des zones éclairées ;</li>
+<li>des cases dangereuses ;</li>
+<li>des portails ;</li>
+<li>des pièges ;</li>
+<li>des zones élémentaires.</li>
+</ul>
+<p>Les effets de ces cases doivent être définis avant la partie.</p>
+</section>
+<section class="rule-chapter" id="chapter-8-niveaux-et-hauteur">
+<h2>8. Niveaux et hauteur</h2>
+<p>Chaque case appartient à un niveau.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Niveau</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Niveau 0</td><td>Partie basse</td></tr>
+<tr><td>Niveau 1</td><td>Partie intermédiaire</td></tr>
+<tr><td>Niveau 2</td><td>Partie haute</td></tr>
+<tr><td>Niveau 3</td><td>Sommet</td></tr>
+</tbody></table></div>
+<p>Les niveaux représentent la hauteur du terrain.</p>
+<h3>8.1. Différence maximale normale</h3>
+<p>Un Furry peut normalement passer entre deux cases adjacentes si leur différence ne dépasse pas un niveau.</p>
+<p>Il ne peut pas passer directement :</p>
+<ul class="rule-list">
+<li>du niveau 0 au niveau 2 ;</li>
+<li>du niveau 0 au niveau 3 ;</li>
+<li>du niveau 1 au niveau 3.</li>
+</ul>
+<p>Un Talent, un mot-clé ou un effet peut autoriser ce déplacement.</p>
+</section>
+<section class="rule-chapter" id="chapter-9-obstacles-et-terrains-du-plateau">
+<h2>9. Obstacles et terrains du plateau</h2>
+<h3>9.1. Obstacle bloquant</h3>
+<p>Un obstacle bloquant :</p>
+<ul class="rule-list">
+<li>ne peut pas être occupé ;</li>
+<li>ne peut pas être traversé ;</li>
+<li>bloque normalement la ligne de vue ;</li>
+<li>interrompt une poussée ou une attraction.</li>
+</ul>
+<h3>9.2. Obstacle bas</h3>
+<p>Un obstacle bas :</p>
+<ul class="rule-list">
+<li>peut être traversé si le plateau l’autorise ;</li>
+<li>consomme davantage de VIT ;</li>
+<li>ne bloque pas toujours entièrement la ligne de vue.</li>
+</ul>
+<h3>9.3. Terrain difficile</h3>
+<p>Entrer sur une case de terrain difficile consomme normalement <strong>2 points de VIT</strong>.</p>
+<p>Quitter cette case ne coûte pas davantage, sauf indication contraire.</p>
+<h3>9.4. Case infranchissable</h3>
+<p>Une case infranchissable :</p>
+<ul class="rule-list">
+<li>ne peut pas être occupée ;</li>
+<li>ne peut pas être traversée ;</li>
+<li>ne peut pas être la destination d’un déplacement imposé.</li>
+</ul>
+<h3>9.5. Destruction des obstacles</h3>
+<p>Un obstacle ne peut être attaqué ou détruit que si le scénario ou une carte lui attribue :</p>
+<ul class="rule-list">
+<li>des PV ;</li>
+<li>une résistance ;</li>
+<li>ou une règle de destruction.</li>
+</ul>
+</section>
+<section class="rule-chapter" id="chapter-10-caract-ristiques-des-furries">
+<h2>10. Caractéristiques des Furries</h2>
+<p>Chaque carte Furry indique au minimum :</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Caractéristique</th><th>Fonction</th></tr></thead>
+<tbody>
+<tr><td>Nom</td><td>Identité du Furry</td></tr>
+<tr><td>Stade</td><td>Base ou évolution</td></tr>
+<tr><td>Type</td><td>Type élémentaire</td></tr>
+<tr><td>PV</td><td>Points de Vie maximum</td></tr>
+<tr><td>VIT</td><td>Vitesse de déplacement</td></tr>
+<tr><td>ATK</td><td>Dégâts de l’attaque de base</td></tr>
+<tr><td>POR</td><td>Portée de l’attaque</td></tr>
+<tr><td>Coût</td><td>Énergies nécessaires</td></tr>
+<tr><td>Faiblesse</td><td>Type infligeant des dégâts supplémentaires</td></tr>
+<tr><td>Résistance</td><td>Type infligeant des dégâts réduits</td></tr>
+<tr><td>Talent</td><td>Capacité spéciale éventuelle</td></tr>
+</tbody></table></div>
+<h3>10.1. Points de Vie</h3>
+<p>Les PV représentent les dégâts qu’un Furry peut supporter.</p>
+<p>Un Furry est mis K.O. lorsque les dégâts placés sur lui atteignent ou dépassent ses PV maximum.</p>
+<h3>10.2. Vitesse</h3>
+<p>La VIT représente la quantité maximale de déplacement utilisable pendant un déplacement normal.</p>
+<p>Il n’existe aucune vitesse commune par défaut. La VIT est toujours indiquée sur la carte.</p>
+<h3>10.3. Attaque</h3>
+<p>L’ATK représente les dégâts de base de l’attaque normale du Furry.</p>
+<h3>10.4. Portée</h3>
+<p>La POR représente la distance maximale à laquelle l’attaque peut atteindre une cible.</p>
+<ul class="rule-list">
+<li><code>POR 1</code> correspond généralement au corps à corps.</li>
+<li><code>POR 2</code> ou plus correspond généralement à une attaque à distance.</li>
+</ul>
+<h3>10.5. Plusieurs attaques</h3>
+<p>Un Furry peut posséder plusieurs attaques.</p>
+<p>Chaque attaque peut avoir :</p>
+<ul class="rule-list">
+<li>son propre nom ;</li>
+<li>son propre coût ;</li>
+<li>sa propre valeur de dégâts ;</li>
+<li>sa propre portée ;</li>
+<li>ses propres effets.</li>
+</ul>
+<p>Si une attaque indique qu’elle utilise l’ATK, elle utilise la valeur d’ATK actuelle du Furry.</p>
+</section>
+<section class="rule-chapter" id="chapter-11-valeurs-jour-nuit">
+<h2>11. Valeurs Jour/Nuit</h2>
+<p>Lorsqu’une caractéristique contient deux valeurs séparées par une barre oblique, elles sont toujours indiquées dans cet ordre :</p>
+<p>Jour/Nuit</p>
+<h3>11.1. ATK variable</h3>
+<pre><code>ATK : 20/40</code></pre>
+<p>Le Furry possède :</p>
+<ul class="rule-list">
+<li>20 ATK pendant le Jour ;</li>
+<li>40 ATK pendant la Nuit.</li>
+</ul>
+<h3>11.2. VIT variable</h3>
+<pre><code>VIT : 2/4</code></pre>
+<p>Le Furry possède :</p>
+<ul class="rule-list">
+<li>2 VIT pendant le Jour ;</li>
+<li>4 VIT pendant la Nuit.</li>
+</ul>
+<h3>11.3. Portée variable</h3>
+<pre><code>POR : 3/2</code></pre>
+<p>Le Furry possède :</p>
+<ul class="rule-list">
+<li>une portée de 3 pendant le Jour ;</li>
+<li>une portée de 2 pendant la Nuit.</li>
+</ul>
+<h3>11.4. Valeur unique</h3>
+<p>Lorsqu’une seule valeur est indiquée, elle est utilisée pendant le Jour et la Nuit.</p>
+<h3>11.5. Coût variable</h3>
+<p>Une attaque peut avoir des coûts différents selon la période.</p>
+<pre><code>Jour : 🌱◇
+Nuit : 🌱</code></pre>
+<p>Le coût correspondant à la période actuelle est utilisé.</p>
+<h3>11.6. Changement de phase</h3>
+<p>Les valeurs changent immédiatement lorsque la phase change.</p>
+<p>Le changement de phase :</p>
+<ul class="rule-list">
+<li>ne soigne pas le Furry ;</li>
+<li>ne retire pas ses dégâts ;</li>
+<li>ne retire pas ses Énergies ;</li>
+<li>ne réinitialise pas ses actions ;</li>
+<li>ne lui permet pas d’attaquer ou de se déplacer à nouveau.</li>
+</ul>
+</section>
+<section class="rule-chapter" id="chapter-12-mise-en-place">
+<h2>12. Mise en place</h2>
+<p>Chaque joueur :</p>
+<ol class="rule-list">
+<li>présente son deck de 40 cartes ;</li>
+<li>mélange son deck ;</li>
+<li>le propose à l’adversaire pour une coupe ;</li>
+<li>place le deck face cachée ;</li>
+<li>prépare sa défausse ;</li>
+<li>place son compteur de domination sur 0 ;</li>
+<li>pioche 7 cartes ;</li>
+<li>vérifie s’il possède au moins un Furry de base.</li>
+</ol>
+</section>
+<section class="rule-chapter" id="chapter-13-nouvelle-main-sans-furry-de-base">
+<h2>13. Nouvelle main sans Furry de base</h2>
+<p>Si un joueur ne possède aucun Furry de base dans sa main initiale :</p>
+<ol class="rule-list">
+<li>il révèle sa main ;</li>
+<li>il remet les 7 cartes dans son deck ;</li>
+<li>il mélange ;</li>
+<li>il pioche 7 nouvelles cartes ;</li>
+<li>l’adversaire peut piocher une carte supplémentaire ;</li>
+<li>le joueur vérifie sa nouvelle main.</li>
+</ol>
+<p>La procédure est répétée jusqu’à ce que le joueur obtienne au moins un Furry de base.</p>
+<p>L’adversaire peut piocher une carte supplémentaire pour chaque nouvelle main effectuée.</p>
+<p>Si les deux joueurs doivent refaire simultanément leur main, aucun joueur ne pioche de carte supplémentaire pour cette nouvelle main commune.</p>
+<p>Un joueur ne perd pas pour deck vide pendant cette procédure.</p>
+</section>
+<section class="rule-chapter" id="chapter-14-premier-joueur">
+<h2>14. Premier joueur</h2>
+<h3>14.1. Déploiement initial</h3>
+<p>Chaque joueur choisit secrètement :</p>
+<ul class="rule-list">
+<li>1 Furry de base obligatoire ;</li>
+<li>jusqu’à 3 Furries de base supplémentaires.</li>
+</ul>
+<p>Les cartes sont placées face cachée sur des cases libres de la zone de déploiement.</p>
+<p>Lorsque les deux joueurs ont terminé, tous les Furries sont révélés simultanément.</p>
+<p>Les cartes déployées sont retirées de la main.</p>
+<p>Aucune Énergie ne commence attachée.</p>
+<h3>14.2. Détermination du premier joueur</h3>
+<p>Les joueurs lancent une pièce.</p>
+<p>Le gagnant choisit qui commence.</p>
+<h3>14.3. Restrictions du premier tour</h3>
+<p>Pendant son premier tour, le premier joueur :</p>
+<ul class="rule-list">
+<li>ne peut pas attacher d’Énergie ;</li>
+<li>peut déployer des Furries ;</li>
+<li>peut déplacer ses Furries ;</li>
+<li>peut jouer des Objets, Supporters et Terrains ;</li>
+<li>peut utiliser des Talents autorisés ;</li>
+<li>ne peut effectuer aucune attaque.</li>
+</ul>
+<p>Il peut utiliser des Réactions pendant le tour adverse si leurs conditions sont remplies.</p>
+</section>
+<section class="rule-chapter" id="chapter-15-rounds-tours-et-phases">
+<h2>15. Rounds, tours et phases</h2>
+<h3>15.1. Tour</h3>
+<p>Un tour appartient entièrement à un seul joueur.</p>
+<h3>15.2. Round</h3>
+<p>Un round comprend :</p>
+<ol class="rule-list">
+<li>le tour du premier joueur ;</li>
+<li>le tour du second joueur ;</li>
+<li>la fin du round.</li>
+</ol>
+<h3>15.3. Fin du round</h3>
+<p>À la fin du round :</p>
+<ol class="rule-list">
+<li>les effets « à la fin du round » sont résolus ;</li>
+<li>le contrôle des objectifs est vérifié ;</li>
+<li>les marqueurs de contrôle sont mis à jour ;</li>
+<li>les marqueurs « une fois par round » sont retirés ;</li>
+<li>le compteur de round avance ;</li>
+<li>le changement de phase est vérifié.</li>
+</ol>
+<p>Le premier joueur reste le même pendant toute la partie.</p>
+</section>
+<section class="rule-chapter" id="chapter-16-cycle-jour-nuit">
+<h2>16. Cycle Jour/Nuit</h2>
+<p>La partie commence pendant le Jour.</p>
+<p>Chaque période dure 3 rounds.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Phase</th><th>Rounds</th></tr></thead>
+<tbody>
+<tr><td>Premier Jour</td><td>Rounds 1 à 3</td></tr>
+<tr><td>Première Nuit</td><td>Rounds 4 à 6</td></tr>
+<tr><td>Jour suivant</td><td>Rounds 7 à 9</td></tr>
+<tr><td>Nuit suivante</td><td>Rounds 10 à 12</td></tr>
+</tbody></table></div>
+<h3>16.1. Changement de phase</h3>
+<p>Après la fin du troisième round de la phase :</p>
+<ol class="rule-list">
+<li>la phase actuelle prend fin ;</li>
+<li>les effets de fin de phase sont résolus ;</li>
+<li>le marqueur Jour/Nuit est retourné ;</li>
+<li>les caractéristiques Jour/Nuit sont mises à jour ;</li>
+<li>les effets de début de la nouvelle phase sont résolus ;</li>
+<li>les K.O. éventuels sont vérifiés.</li>
+</ol>
+<h3>16.2. Pendant le Jour</h3>
+<p>Pendant le Jour :</p>
+<ul class="rule-list">
+<li>les valeurs de gauche sont utilisées ;</li>
+<li>les effets diurnes sont actifs ;</li>
+<li>les effets uniquement nocturnes sont inactifs ;</li>
+<li>les attaques utilisent leur portée normale.</li>
+</ul>
+<h3>16.3. Pendant la Nuit</h3>
+<p>Pendant la Nuit :</p>
+<ul class="rule-list">
+<li>les valeurs de droite sont utilisées ;</li>
+<li>les effets nocturnes sont actifs ;</li>
+<li>les effets uniquement diurnes sont inactifs ;</li>
+<li>la visibilité normale est limitée à 3 cases.</li>
+</ul>
+<p>Une attaque ne peut normalement pas cibler un Furry situé à plus de 3 cases pendant la Nuit, même si sa portée est supérieure.</p>
+<p><strong>Vision nocturne</strong> permet d’ignorer cette limitation.</p>
+</section>
+<section class="rule-chapter" id="chapter-17-d-roulement-d-un-tour">
+<h2>17. Déroulement d’un tour</h2>
+<h3>17.1. Début du tour</h3>
+<p>Le joueur actif :</p>
+<ol class="rule-list">
+<li>pioche une carte ;</li>
+<li>résout les effets « au début de ton tour » ;</li>
+<li>résout les effets liés à la période actuelle ;</li>
+<li>retire les états expirant au début de son tour ;</li>
+<li>réinitialise les marqueurs « une fois par tour ».</li>
+</ol>
+<p>S’il ne peut pas piocher, il perd immédiatement.</p>
+<h3>17.2. Phase principale</h3>
+<p>Le joueur peut, dans l’ordre de son choix :</p>
+<ul class="rule-list">
+<li>attacher une Énergie ;</li>
+<li>déployer un Furry ;</li>
+<li>déplacer un Furry ;</li>
+<li>faire évoluer un Furry ;</li>
+<li>utiliser un Talent ;</li>
+<li>jouer un Objet ;</li>
+<li>jouer un Supporter ;</li>
+<li>jouer un Terrain ;</li>
+<li>effectuer un Switch ;</li>
+<li>attaquer ;</li>
+<li>interagir avec un objectif.</li>
+</ul>
+<p>Chaque action doit être entièrement résolue avant d’en commencer une autre.</p>
+<h3>17.3. Limites normales</h3>
+<p>Pendant un même tour :</p>
+<ul class="rule-list">
+<li>chaque Furry peut effectuer un déplacement normal ;</li>
+<li>chaque Furry peut effectuer une attaque normale ;</li>
+<li>chaque Furry peut utiliser un Talent ;</li>
+<li>chaque Furry peut évoluer une fois ;</li>
+<li>le joueur peut attacher une Énergie depuis sa main ;</li>
+<li>le joueur peut jouer un Objet ;</li>
+<li>le joueur peut jouer un Supporter ;</li>
+<li>le joueur peut jouer un Terrain.</li>
+</ul>
+<p>Les cartes peuvent modifier ces limites.</p>
+<h3>17.4. Fin du tour</h3>
+<p>Le joueur :</p>
+<ol class="rule-list">
+<li>annonce la fin de sa phase principale ;</li>
+<li>résout les effets de fin de tour ;</li>
+<li>retire les effets expirés ;</li>
+<li>vérifie les K.O. ;</li>
+<li>vérifie les conditions de victoire ;</li>
+<li>termine son tour.</li>
+</ol>
+<p>Attaquer ne met pas automatiquement fin au tour. Un Furry ne peut pas ou plus se déplacer après son attaque.</p>
+</section>
+<section class="rule-chapter" id="chapter-18-r-gles-g-n-rales-des-nergies">
+<h2>18. Règles générales des Énergies</h2>
+<h3>18.1. Types d’Énergie</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Type</th><th>Symbole</th></tr></thead>
+<tbody>
+<tr><td>Glace</td><td>❄️</td></tr>
+<tr><td>Plante</td><td>🌱</td></tr>
+<tr><td>Roche</td><td>🏔️</td></tr>
+<tr><td>Eau</td><td>💧</td></tr>
+<tr><td>Vent</td><td>🌬️</td></tr>
+<tr><td>Incolore</td><td>◇</td></tr>
+</tbody></table></div>
+<p>Le symbole incolore n’est pas nécessairement un type de carte. Il représente un coût pouvant être rempli par n’importe quelle Énergie.</p>
+<h3>18.2. Unités d’Énergie</h3>
+<p>Une Énergie de base fournit une unité de son type.</p>
+<p>Une Énergie spéciale peut fournir plusieurs unités ou plusieurs types si son texte l’indique.</p>
+<h3>18.3. Énergies non dépensées</h3>
+<p>Les Énergies requises pour une attaque ou une capacité restent normalement attachées.</p>
+<p>Elles ne sont défaussées que si le texte emploie explicitement le terme <strong>défaussez</strong>.</p>
+<h3>18.4. Énergie propre au Furry</h3>
+<p>Un Furry ne peut utiliser que ses propres Énergies attachées.</p>
+<p>Il ne peut pas utiliser les Énergies :</p>
+<ul class="rule-list">
+<li>d’un allié ;</li>
+<li>d’un Terrain ;</li>
+<li>de la main ;</li>
+<li>de la défausse ;</li>
+</ul>
+<p>sauf si une carte l’autorise.</p>
+<h3>18.5. Coût impossible</h3>
+<p>Un coût doit être rempli entièrement.</p>
+<p>Une attaque ou une capacité ne peut pas être annoncée si son coût ne peut pas être rempli.</p>
+<h3>18.6. Réductions</h3>
+<p>Un effet réduisant un coût incolore retire un symbole ◇ .</p>
+<p>Un effet réduisant un coût typé retire uniquement un symbole du type indiqué.</p>
+<p>Un coût peut être réduit à zéro.</p>
+</section>
+<section class="rule-chapter" id="chapter-19-attachement-des-nergies">
+<h2>19. Attachement des Énergies</h2>
+<h3>19.1. Attachement normal</h3>
+<p>Une fois pendant son tour, le joueur peut attacher une Énergie de sa main à l’un de ses Furries en jeu.</p>
+<p>Cette action :</p>
+<ul class="rule-list">
+<li>est gratuite ;</li>
+<li>ne nécessite pas de cible adverse ;</li>
+<li>ne compte pas comme un Objet ;</li>
+<li>peut être effectuée à n’importe quel moment de la phase principale.</li>
+</ul>
+<h3>19.2. Attachements supplémentaires</h3>
+<p>Une carte peut autoriser un attachement supplémentaire.</p>
+<p>Un attachement effectué par un effet ne consomme pas l’attachement normal du tour, sauf indication contraire.</p>
+<h3>19.3. Limite d’Énergies</h3>
+<p>Un Furry peut posséder n’importe quel nombre d’Énergies attachées.</p>
+<h3>19.4. Évolution</h3>
+<p>Toutes les Énergies restent attachées lors d’une évolution.</p>
+<h3>19.5. K.O.</h3>
+<p>Lorsqu’un Furry est mis K.O., toutes ses Énergies sont défaussées.</p>
+<h3>19.6. Retour dans la main</h3>
+<p>Lorsqu’un Furry retourne dans la main :</p>
+<ul class="rule-list">
+<li>ses Énergies sont défaussées ;</li>
+<li>ses Objets sont défaussés ;</li>
+<li>ses évolutions retournent également dans la main, sauf indication contraire ;</li>
+<li>ses dégâts et marqueurs sont retirés.</li>
+</ul>
+<h3>19.7. Carte Énergie spéciale</h3>
+<p>Si une Énergie spéciale perd ses conditions de fonctionnement, elle reste attachée mais ne fournit plus son effet tant que ses conditions ne sont pas remplies.</p>
+</section>
+<section class="rule-chapter" id="chapter-20-d-ploiement-des-furries">
+<h2>20. Déploiement des Furries</h2>
+<h3>20.1. Déploiement normal</h3>
+<p>Pendant sa phase principale, un joueur peut déployer un Furry de base depuis sa main.</p>
+<p>Le Furry doit être placé :</p>
+<ul class="rule-list">
+<li>sur une case libre de sa zone de déploiement ;</li>
+<li>sur une case qu’il peut normalement occuper ;</li>
+<li>sans dépasser 4 Furries contrôlés.</li>
+</ul>
+<p>Le déploiement ne nécessite aucune Énergie.</p>
+<h3>20.2. Limite de déploiement</h3>
+<p>Aucune limite de déploiement. Il faut juste ne pas dépasser 4 Furries dans son équipe active sur le terrain.</p>
+<h3>20.3. Tour de déploiement</h3>
+<p>Un Furry déployé pendant le tour :</p>
+<ul class="rule-list">
+<li>peut se déplacer ;</li>
+<li>peut recevoir une Énergie ;</li>
+<li>peut utiliser un Talent autorisé ;</li>
+<li>ne peut pas évoluer ;</li>
+<li>ne peut pas attaquer.</li>
+</ul>
+<p>Le mot-clé <strong>Charge</strong> lui permet d’attaquer pendant son tour de déploiement.</p>
+<h3>20.4. Zone bloquée</h3>
+<p>Si aucune case de la zone de déploiement n’est libre, le joueur ne peut pas effectuer de déploiement normal.</p>
+<p>Une carte peut autoriser un déploiement sur une autre case.</p>
+</section>
+<section class="rule-chapter" id="chapter-21-d-placement">
+<h2>21. Déplacement</h2>
+<h3>21.1. Déplacement normal</h3>
+<p>Chaque Furry peut effectuer un déplacement normal par tour.</p>
+<p>Le nombre maximal de points de déplacement utilisables est égal à sa VIT actuelle.</p>
+<p>Le déplacement est gratuit.</p>
+<h3>21.2. Coût des déplacements</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Mouvement</th><th>VIT consommée</th></tr></thead>
+<tbody>
+<tr><td>Case adjacente au même niveau</td><td>1</td></tr>
+<tr><td>Descendre d’un niveau</td><td>1</td></tr>
+<tr><td>Monter d’un niveau</td><td>2</td></tr>
+<tr><td>Entrer sur un terrain difficile</td><td>2</td></tr>
+<tr><td>Traverser un obstacle bas autorisé</td><td>2</td></tr>
+</tbody></table></div>
+<h3>21.3. Déplacement partiel</h3>
+<p>Un Furry peut utiliser moins de VIT que sa valeur maximale.</p>
+<p>Les points non utilisés sont perdus à la fin du déplacement. Ils ne sont pas conservés pour plus tard dans le tour.</p>
+<h3>21.4. Interruption du déplacement</h3>
+<p>Une fois son déplacement terminé, le Furry ne peut pas le reprendre plus tard, sauf si un effet lui accorde un déplacement supplémentaire.</p>
+<h3>21.5. Cases occupées</h3>
+<p>Un Furry :</p>
+<ul class="rule-list">
+<li>ne peut pas terminer sur une case occupée ;</li>
+<li>ne peut pas traverser un ennemi ;</li>
+<li>peut traverser un allié ;</li>
+<li>ne peut pas s’arrêter sur un allié.</li>
+</ul>
+<p>La case alliée traversée consomme normalement de la VIT.</p>
+<h3>21.6. Montée et descente</h3>
+<p>Un Furry ne peut pas monter ou descendre de plus d’un niveau entre deux cases adjacentes, sauf effet contraire.</p>
+<h3>21.7. Déplacement supplémentaire</h3>
+<p>Lorsqu’un Furry reçoit un déplacement supplémentaire, il récupère sa VIT maximale pour ce nouveau déplacement.</p>
+<h3>21.8. Déplacement après une attaque</h3>
+<p>Un Furry peut se déplacer après avoir attaqué s’il n’a pas encore effectué son déplacement normal.</p>
+</section>
+<section class="rule-chapter" id="chapter-22-zones-de-contact">
+<h2>22. Zones de contact</h2>
+<p>Un Furry se trouve dans la zone de contact d’un adversaire lorsqu’il occupe une case adjacente au même niveau.</p>
+<p>Un Furry situé sur un autre niveau n’est pas considéré comme étant dans la zone de contact, même s’il occupe une case adjacente.</p>
+<p>Entrer dans une zone de contact n’interrompt pas le déplacement.</p>
+<p>Quitter volontairement une zone de contact peut déclencher une attaque d’opportunité.</p>
+</section>
+<section class="rule-chapter" id="chapter-23-attaques-d-opportunit">
+<h2>23. Attaques d’opportunité</h2>
+<h3>23.1. Déclenchement</h3>
+<p>Lorsqu’un Furry quitte volontairement une case située dans la zone de contact d’un adversaire, cet adversaire peut effectuer une attaque d’opportunité.</p>
+<h3>23.2. Conditions</h3>
+<p>Le Furry effectuant l’attaque d’opportunité doit :</p>
+<ul class="rule-list">
+<li>être au même niveau que la cible ;</li>
+<li>être adjacent à la cible avant son déplacement ;</li>
+<li>ne pas être Étourdi ;</li>
+<li>posséder au moins une Énergie attachée ;</li>
+<li>ne pas avoir déjà effectué d’attaque d’opportunité pendant ce round.</li>
+</ul>
+<h3>23.3. Coût</h3>
+<p>Le coût normal d’une attaque d’opportunité est :</p>
+<p>◇</p>
+<p>L’Énergie utilisée reste attachée.</p>
+<p>Si la carte indique un coût spécifique d’opportunité, ce coût remplace le coût normal.</p>
+<h3>23.4. Dégâts</h3>
+<p>L’attaque inflige la moitié de l’ATK actuelle, arrondie à la dizaine inférieure.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>ATK</th><th>Dégâts</th></tr></thead>
+<tbody>
+<tr><td>20</td><td>10</td></tr>
+<tr><td>30</td><td>10</td></tr>
+<tr><td>40</td><td>20</td></tr>
+<tr><td>50</td><td>20</td></tr>
+<tr><td>60</td><td>30</td></tr>
+</tbody></table></div>
+<p>Les attaques d’opportunité :</p>
+<ul class="rule-list">
+<li>n’appliquent pas faiblesse ou résistance ;</li>
+<li>n’appliquent pas de bonus de hauteur ;</li>
+<li>peuvent être réduites par des protections ;</li>
+<li>n’appliquent pas les effets secondaires de l’attaque normale.</li>
+</ul>
+<h3>23.5. Résolution</h3>
+<p>L’attaque est résolue avant que la cible quitte sa case.</p>
+<p>Si la cible est mise K.O., son déplacement est annulé.</p>
+<h3>23.6. Exceptions</h3>
+<p>Ne déclenchent pas d’attaque d’opportunité :</p>
+<ul class="rule-list">
+<li>une poussée ;</li>
+<li>une attraction ;</li>
+<li>une téléportation ;</li>
+<li>un Switch ;</li>
+<li>un déplacement imposé ;</li>
+<li>un déplacement indiquant explicitement qu’il l’ignore.</li>
+</ul>
+</section>
+<section class="rule-chapter" id="chapter-24-port-e-et-distance">
+<h2>24. Portée et distance</h2>
+<h3>24.1. Calcul de la distance</h3>
+<p>La distance correspond au nombre minimal de cases nécessaires pour relier l’attaquant à la cible.</p>
+<p>La case de l’attaquant n’est pas comptée.</p>
+<p>Les obstacles n’augmentent pas la distance, mais peuvent rendre la cible invalide.</p>
+<h3>24.2. Catégories de portée</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Portée</th><th>Cibles</th></tr></thead>
+<tbody>
+<tr><td>Soi-même</td><td>L’utilisateur uniquement</td></tr>
+<tr><td>POR 1</td><td>Case adjacente</td></tr>
+<tr><td>POR 2</td><td>Jusqu’à 2 cases</td></tr>
+<tr><td>POR 3</td><td>Jusqu’à 3 cases</td></tr>
+<tr><td>POR X</td><td>Jusqu’à X cases</td></tr>
+<tr><td>Globale</td><td>Toute cible autorisée sur le plateau</td></tr>
+</tbody></table></div>
+<h3>24.3. Vérification</h3>
+<p>La portée est vérifiée :</p>
+<ol class="rule-list">
+<li>lors de l’annonce ;</li>
+<li>juste avant la résolution.</li>
+</ol>
+<p>Si la cible n’est plus à portée lors de la résolution, l’attaque échoue contre cette cible.</p>
+</section>
+<section class="rule-chapter" id="chapter-25-ligne-de-vue">
+<h2>25. Ligne de vue</h2>
+<h3>25.1. Attaques à distance</h3>
+<p>Une attaque de portée 2 ou plus nécessite normalement une ligne de vue.</p>
+<h3>25.2. Vérification</h3>
+<p>Une ligne imaginaire est tracée entre le centre de la case de l’attaquant et celui de la cible. Celle-ci doit obligatoirement suivre l’un des 3 axes de l’hexagone.</p>
+<p>La ligne de vue est bloquée si elle traverse :</p>
+<ul class="rule-list">
+<li>un obstacle bloquant suffisamment haut ;</li>
+<li>une structure masquant entièrement la cible ;</li>
+<li>un effet bloquant la vision.</li>
+</ul>
+<h3>25.3. Furries intermédiaires</h3>
+<p>Un Furry adverse situé entre l’attaquant et la cible bloque entièrement la ligne de vue. Ce dernier subi les dégâts de l’attaque. Un Furry allié bloque l’attaque, cette dernière est donc annulée.</p>
+<h3>25.4. Corps à corps</h3>
+<p>Une attaque de corps à corps ne nécessite pas de vérification supplémentaire de ligne de vue, mais les deux Furries doivent être au même niveau.</p>
+</section>
+<section class="rule-chapter" id="chapter-26-hauteur-et-combat">
+<h2>26. Hauteur et combat</h2>
+<h3>26.1. Attaque à distance vers le bas</h3>
+<p>Lorsqu’un Furry attaque à distance une cible située plus bas, il reçoit pour chaque niveau de différence :</p>
+<ul class="rule-list">
+<li>+1 de portée ;</li>
+<li>+10 dégâts.</li>
+</ul>
+<p>Les bonus sont limités à :</p>
+<ul class="rule-list">
+<li>+3 de portée ;</li>
+<li>+30 dégâts.</li>
+</ul>
+<h4>Exemple</h4>
+<p>Un attaquant de niveau 3 vise une cible de niveau 0.</p>
+<p>Il reçoit :</p>
+<p>+3 de portée</p>
+<p>et :</p>
+<p>+30 dégâts</p>
+<h3>26.2. Attaque à distance vers le haut</h3>
+<p>Lorsqu’une cible se trouve au moins deux niveaux plus haut, la portée de l’attaquant est réduite de 1.</p>
+<p>La portée ne peut pas être réduite sous 1.</p>
+<h3>26.3. Recul vers une cible plus haute</h3>
+<p>Lorsqu’une attaque à distance touche une cible située plus haut que l’attaquant, elle lui applique un recul égal à la différence de niveau :</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Différence</th><th>Recul</th></tr></thead>
+<tbody>
+<tr><td>1 niveau</td><td>Recul 1</td></tr>
+<tr><td>2 niveaux</td><td>Recul 2</td></tr>
+<tr><td>3 niveaux</td><td>Recul 3</td></tr>
+</tbody></table></div>
+<p>Ce recul automatique s’applique après les dégâts normaux.</p>
+<p>Il ne s’applique pas si :</p>
+<ul class="rule-list">
+<li>l’attaque indique qu’elle ne provoque aucun recul ;</li>
+<li>la cible est Inébranlable ;</li>
+<li>l’effet est annulé par une protection.</li>
+</ul>
+<h3>26.4. Corps à corps</h3>
+<p>Une attaque de corps à corps ne peut cibler qu’un Furry :</p>
+<ul class="rule-list">
+<li>adjacent ;</li>
+<li>situé au même niveau.</li>
+</ul>
+<p>Il est impossible d’attaquer au corps à corps une cible située plus haut ou plus bas.</p>
+</section>
+<section class="rule-chapter" id="chapter-27-attaques">
+<h2>27. Attaques</h2>
+<h3>27.1. Limite</h3>
+<p>Chaque Furry peut effectuer une attaque normale par tour.</p>
+<p>Une carte peut autoriser une attaque supplémentaire.</p>
+<h3>27.2. Conditions</h3>
+<p>Pour attaquer, le Furry doit :</p>
+<ul class="rule-list">
+<li>être en jeu ;</li>
+<li>ne pas avoir déjà attaqué ;</li>
+<li>avoir une cible valide ;</li>
+<li>avoir la cible à portée ;</li>
+<li>avoir une ligne de vue si nécessaire ;</li>
+<li>remplir son coût d’Énergie ;</li>
+<li>ne pas être empêché d’attaquer.</li>
+</ul>
+<h3>27.3. Procédure</h3>
+<ol class="rule-list">
+<li>Choisir le Furry attaquant.</li>
+<li>Annoncer l’attaque.</li>
+<li>Choisir les cibles.</li>
+<li>Vérifier les conditions.</li>
+<li>Vérifier la portée et la ligne de vue.</li>
+<li>Vérifier le coût d’Énergie.</li>
+<li>Payer les éventuels coûts de défausse.</li>
+<li>L’adversaire regarde si une Réaction est possible et s’il souhaite en utiliser une.</li>
+<li>Résoudre les Réactions.</li>
+<li>Vérifier à nouveau les cibles.</li>
+<li>Calculer les dégâts.</li>
+<li>Appliquer les effets secondaires.</li>
+<li>Vérifier les K.O.</li>
+<li>Placer un marqueur Attaque.</li>
+</ol>
+<h3>27.4. Énergies après l’attaque</h3>
+<p>Les Énergies restent attachées, sauf si l’attaque demande explicitement de les défausser.</p>
+<h3>27.5. Attaque sans dégâts</h3>
+<p>Une attaque infligeant 0 dégât peut tout de même appliquer ses effets secondaires, sauf si ceux-ci nécessitent que des dégâts soient infligés.</p>
+<h3>27.6. Attaque supplémentaire</h3>
+<p>Une attaque supplémentaire ne réinitialise pas :</p>
+<ul class="rule-list">
+<li>le déplacement ;</li>
+<li>le Talent ;</li>
+<li>les effets « une fois par tour ».</li>
+</ul>
+<p>Elle permet uniquement d’attaquer à nouveau.</p>
+</section>
+<section class="rule-chapter" id="chapter-28-calcul-des-d-g-ts">
+<h2>28. Calcul des dégâts</h2>
+<p>Les dégâts sont calculés dans l’ordre suivant :</p>
+<ol class="rule-list">
+<li>dégâts de base ou ATK ;</li>
+<li>bonus généraux de l’attaquant ;</li>
+<li>faiblesse ;</li>
+<li>résistance ;</li>
+<li>bonus de hauteur ;</li>
+<li>réductions générales ;</li>
+<li>protections finales ;</li>
+<li>dégâts placés.</li>
+</ol>
+<p>La formule générale est :</p>
+<p>Les dégâts finaux ne peuvent pas être inférieurs à 0.</p>
+<h3>28.1. Dégâts directs</h3>
+<p>Les dégâts directs :</p>
+<ul class="rule-list">
+<li>ne sont pas une attaque ;</li>
+<li>n’appliquent pas faiblesse ou résistance ;</li>
+<li>n’appliquent pas le couvert ;</li>
+<li>n’appliquent pas la hauteur.</li>
+</ul>
+</section>
+<section class="rule-chapter" id="chapter-29-types-faiblesses-et-r-sistances">
+<h2>29. Types, faiblesses et résistances</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Type</th><th>Faiblesse</th><th>Résistance</th></tr></thead>
+<tbody>
+<tr><td>❄️ Glace</td><td>🏔️ Roche</td><td>💧 Eau</td></tr>
+<tr><td>🌱 Plante</td><td>❄️ Glace</td><td>🏔️ Roche</td></tr>
+<tr><td>🏔️ Roche</td><td>🌬️ Vent</td><td>❄️ Glace</td></tr>
+<tr><td>💧 Eau</td><td>🌱 Plante</td><td>🌬️ Vent</td></tr>
+<tr><td>🌬️ Vent</td><td>💧 Eau</td><td>🌱 Plante</td></tr>
+</tbody></table></div>
+<h3>29.1. Faiblesse</h3>
+<p>Une attaque du type correspondant à la faiblesse inflige :</p>
+<p>+20 dégâts</p>
+<h3>29.2. Résistance</h3>
+<p>Une attaque du type correspondant à la résistance inflige :</p>
+<p>−20 dégâts</p>
+<h3>29.3. Type d’une attaque</h3>
+<p>Le type d’une attaque est automatiquement le type du Furry, indiqué en haut à droite de la carte.</p>
+</section>
+<section class="rule-chapter" id="chapter-30-reculs-pouss-es-attractions-et-chutes">
+<h2>30. Reculs, poussées, attractions et chutes</h2>
+<h3>30.1. Poussée et recul</h3>
+<p>Une poussée éloigne la cible de la source en suivant la direction de la provenance de l’attaque subie.</p>
+<p>Chaque valeur de poussée correspond à une case.</p>
+<p>Le Furry ne peut pas être poussé en dehors des limites du terrain. Si ce dernier est sur le bord d’un terrain, les effets de poussée et recul s’annulent.</p>
+<p>En cas de blocage sur le terrain (exemple: le Furry est au niveau 0 et est enterré de mûrs de niveau 3), ce dernier retourne à la zone de déploiement.</p>
+<h3>30.2. Attraction</h3>
+<p>Une attraction rapproche la cible de la source en suivant la direction de la provenance de l’attaque subie.</p>
+<p>En cas de blocage sur le terrain (exemple: le Furry est au niveau 0 et est enterré de mûrs de niveau 3), ce dernier retourne à la zone de déploiement.</p>
+<h3>30.3. Téléportation</h3>
+<p>Une téléportation déplace directement le Furry vers une case valide.</p>
+<p>Elle ignore :</p>
+<ul class="rule-list">
+<li>les zones de contact ;</li>
+<li>les attaques d’opportunité ;</li>
+<li>les coûts de VIT.</li>
+</ul>
+<p>Elle n’ignore pas les restrictions de la case de destination.</p>
+<h3>30.4. Chute</h3>
+<p>Si un déplacement imposé fait tomber un Furry vers une case située plus bas, il reçoit :</p>
+<p>10×nombre de niveaux descendus</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Chute</th><th>Dégâts</th></tr></thead>
+<tbody>
+<tr><td>1 niveau</td><td>10</td></tr>
+<tr><td>2 niveaux</td><td>20</td></tr>
+<tr><td>3 niveaux</td><td>30</td></tr>
+</tbody></table></div>
+<p>Les dégâts de chute :</p>
+<ul class="rule-list">
+<li>n’ont pas de type ;</li>
+<li>ignorent faiblesse et résistance ;</li>
+<li>peuvent être réduits par un effet mentionnant les chutes ou les dégâts directs.</li>
+</ul>
+<h3>30.5. Case d’atterrissage occupée</h3>
+<p>Un Furry ne peut pas tomber sur une case occupée. Celui-ci atterris sur la case suivante.</p>
+<p>Si aucune case d’atterrissage valide n’est disponible, il reste sur la dernière case valide.</p>
+</section>
+<section class="rule-chapter" id="chapter-31-volution-des-furries">
+<h2>31. Évolution des Furries</h2>
+<h3>31.1. Conditions</h3>
+<p>Pour évoluer :</p>
+<ol class="rule-list">
+<li>l’évolution doit correspondre au Furry ;</li>
+<li>le Furry doit être en jeu depuis le début du tour ;</li>
+<li>il ne doit pas avoir déjà évolué ce tour ;</li>
+</ol>
+<h3>31.2. Procédure</h3>
+<ol class="rule-list">
+<li>Révéler l’évolution.</li>
+<li>Choisir le Furry correspondant.</li>
+<li>Vérifier les conditions.</li>
+<li>Placer l’évolution sur le Furry.</li>
+<li>Appliquer les nouvelles caractéristiques.</li>
+<li>Résoudre les effets d’évolution.</li>
+</ol>
+<h3>31.3. Éléments conservés</h3>
+<p>Le Furry conserve :</p>
+<ul class="rule-list">
+<li>sa case ;</li>
+<li>ses dégâts ;</li>
+<li>ses Énergies ;</li>
+<li>ses Objets ;</li>
+<li>ses états ;</li>
+<li>ses marqueurs ;</li>
+<li>ses effets temporaires ;</li>
+<li>le fait d’avoir bougé ;</li>
+<li>le fait d’avoir attaqué ;</li>
+<li>le fait d’avoir utilisé un Talent ou une Réaction.</li>
+</ul>
+<h3>31.4. Modification des PV</h3>
+<p>Évoluer ne soigne pas les dégâts.</p>
+<h3>31.5. Une évolution par tour</h3>
+<p>Un Furry ne peut évoluer qu’une fois par tour.</p>
+</section>
+<section class="rule-chapter" id="chapter-32-talents">
+<h2>32. Talents</h2>
+<h3>32.1. Définition</h3>
+<p>Un Talent est une capacité imprimée sur un Furry.</p>
+<h3>32.2. Limite</h3>
+<p>Chaque Furry peut normalement utiliser son Talent une fois par tour.</p>
+<p>Un Talent passif n’est pas « utilisé » et reste actif en permanence tant que ses conditions sont remplies.</p>
+<h3>32.3. Coût</h3>
+<p>Un Talent n’a aucun coût par défaut.</p>
+<p>Il peut demander :</p>
+<ul class="rule-list">
+<li>une Énergie attachée ;</li>
+<li>un coût précis ;</li>
+<li>la défausse d’une Énergie ;</li>
+<li>un déplacement ;</li>
+<li>une autre condition.</li>
+</ul>
+<h3>32.4. Portée</h3>
+<p>Si aucune portée n’est indiquée :</p>
+<ul class="rule-list">
+<li>un Talent personnel cible son utilisateur ;</li>
+<li>un Talent ciblant un allié nécessite une portée précisée ;</li>
+<li>un Talent ciblant un adversaire nécessite une ligne de vue.</li>
+</ul>
+<h3>32.5. Furry Étourdi</h3>
+<p>Un Furry Étourdi ne peut pas utiliser de Talent activé.</p>
+<p>Ses Talents passifs restent actifs, sauf indication contraire.</p>
+</section>
+<section class="rule-chapter" id="chapter-33-objets">
+<h2>33. Objets</h2>
+<h3>33.1. Limite</h3>
+<p>Chaque Furry ne peut recevoir qu’un Objet.</p>
+<h3>33.2. Objet attaché</h3>
+<p>Un Objet attaché reste avec le Furry jusqu’à ce que :</p>
+<ul class="rule-list">
+<li>le Furry soit mis K.O. ;</li>
+<li>l’Objet soit détruit ;</li>
+<li>le Furry retourne dans la main ;</li>
+<li>un effet le détache.</li>
+</ul>
+<h3>33.3. Objets de plateau</h3>
+<p>Un Objet de plateau doit indiquer :</p>
+<ul class="rule-list">
+<li>sa portée de placement ;</li>
+<li>sa durée ;</li>
+<li>sa solidité éventuelle ;</li>
+<li>s’il bloque le déplacement ;</li>
+<li>s’il bloque la ligne de vue ;</li>
+<li>ses conditions de déclenchement.</li>
+</ul>
+<p>Une case ne peut contenir qu’un Objet de plateau.</p>
+</section>
+<section class="rule-chapter" id="chapter-34-supporters">
+<h2>34. Supporters</h2>
+<p>Un joueur peut jouer un Supporter par tour.</p>
+<p>Pour jouer un Supporter :</p>
+<ol class="rule-list">
+<li>il annonce la carte ;</li>
+<li>choisit les cibles ;</li>
+<li>résout entièrement son effet ;</li>
+<li>place la carte dans la défausse.</li>
+</ol>
+<p>Un Supporter ne requiert aucune Énergie, sauf indication contraire.</p>
+</section>
+<section class="rule-chapter" id="chapter-35-terrains">
+<h2>35. Terrains</h2>
+<h3>35.1. Limite</h3>
+<p>Chaque joueur peut jouer un Terrain par tour.</p>
+<p>Ce dernier impose l’effet indiqué sur la carte Terrain.</p>
+<h3>35.2. Remplacement</h3>
+<p>Lorsqu’un joueur joue un nouveau Terrain :</p>
+<ol class="rule-list">
+<li>l’ancien Terrain qu’il contrôle est défaussé ;</li>
+<li>ses effets cessent ;</li>
+<li>le nouveau Terrain devient actif ;</li>
+<li>ses effets d’arrivée sont résolus.</li>
+</ol>
+<h3>35.3. Portée d’un Terrain</h3>
+<p>Un Terrain peut affecter :</p>
+<ul class="rule-list">
+<li>tous les Furries ;</li>
+<li>un niveau déterminé.</li>
+</ul>
+<h3>35.4. Zone de Terrain</h3>
+<p>Le terrain contrôle tout l’espace de jeu.</p>
+</section>
+<section class="rule-chapter" id="chapter-36-capacit-s-de-r-action">
+<h2>36. Capacités de Réaction</h2>
+<h3>36.1. Définition</h3>
+<p>Une Réaction est une capacité utilisable en réponse à un déclencheur précis, généralement pendant le tour adverse.</p>
+<h3>36.2. Déclencheurs</h3>
+<p>Exemples :</p>
+<ul class="rule-list">
+<li>lorsqu’une attaque est déclarée ;</li>
+<li>lorsqu’un Furry devient une cible ;</li>
+<li>avant de recevoir des dégâts ;</li>
+<li>après avoir reçu des dégâts ;</li>
+<li>lorsqu’un Furry va être mis K.O.</li>
+</ul>
+<h3>36.3. Coût en Énergie</h3>
+<p>Le Furry utilisant une Réaction doit posséder les Énergies indiquées.</p>
+<p>Les Énergies restent attachées, sauf si le texte demande une défausse.</p>
+<h3>36.4. Limite</h3>
+<p>Chaque Furry peut utiliser une Réaction par round.</p>
+<h3>36.5. Fenêtre de Réaction</h3>
+<p>Lorsqu’un événement autorise une Réaction :</p>
+<ol class="rule-list">
+<li>le joueur non actif peut déclarer une Réaction ;</li>
+<li>l’événement initial reprend.</li>
+</ol>
+<h3>36.6. Réactions en chaîne</h3>
+<p>Une Réaction ne peut pas déclencher une nouvelle Réaction.</p>
+<h3>36.7. Cible disparue</h3>
+<p>Si une Réaction retire ou déplace la seule cible de l’action initiale, l’action initiale échoue, mais ses coûts déjà payés ne sont pas remboursés.</p>
+</section>
+<section class="rule-chapter" id="chapter-37-tats-tactiques">
+<h2>37. États tactiques</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>État</th><th>Effet</th></tr></thead>
+<tbody>
+<tr><td>Immobilisé</td><td>Ne peut pas se déplacer ni effectuer de Switch</td></tr>
+<tr><td>Ralenti</td><td>VIT réduite de 1</td></tr>
+<tr><td>Caché</td><td>Ne peut pas être ciblé à distance au-delà de 2 cases</td></tr>
+<tr><td>Étourdi</td><td>Ne peut pas attaquer ni utiliser de Talent activé</td></tr>
+<tr><td>Provocation</td><td>Les ennemis adjacents doivent le cibler au corps à corps</td></tr>
+<tr><td>Vol</td><td>Ignore les obstacles bas et les différences de niveau pendant le déplacement</td></tr>
+<tr><td>Inébranlable</td><td>Ne peut pas être déplacé par un adversaire</td></tr>
+<tr><td>Désarmé</td><td>Ne peut pas utiliser son Objet attaché</td></tr>
+<tr><td>Aveuglé</td><td>Sa portée maximale devient 1</td></tr>
+<tr><td>Marqué</td><td>Ne peut pas bénéficier de Caché</td></tr>
+</tbody></table></div>
+<h3>37.1. Durée normale</h3>
+<p>Sauf indication contraire, un état expire à la fin du prochain tour du propriétaire du Furry.</p>
+<h3>37.2. États identiques</h3>
+<p>Appliquer une seconde fois le même état ne cumule pas son effet. Sa durée est renouvelée.</p>
+<h3>37.3. États différents</h3>
+<p>Plusieurs états différents peuvent affecter simultanément un même Furry.</p>
+<h3>37.4. VIT minimale</h3>
+<p>Ralenti ne peut pas réduire la VIT sous 1.</p>
+<p>Immobilisé empêche entièrement le déplacement.</p>
+</section>
+<section class="rule-chapter" id="chapter-38-k-o">
+<h2>38. K.O.</h2>
+<h3>38.1. Condition</h3>
+<p>Un Furry est K.O. lorsque ses dégâts atteignent ou dépassent ses PV maximum.</p>
+<h3>38.2. Procédure</h3>
+<ol class="rule-list">
+<li>Identifier le Furry K.O.</li>
+<li>Résoudre les effets empêchant le K.O.</li>
+<li>Retirer sa figurine.</li>
+<li>Placer sa carte et ses évolutions dans la défausse.</li>
+<li>Défausser ses Énergies.</li>
+<li>Défausser ses Objets.</li>
+<li>Retirer ses marqueurs.</li>
+<li>Résoudre ses effets de K.O.</li>
+<li>Attribuer les points de domination.</li>
+<li>Vérifier les conditions de victoire.</li>
+</ol>
+<h3>38.3. Case libérée</h3>
+<p>La case devient libre immédiatement après le retrait du Furry.</p>
+<h3>38.4. K.O. simultanés</h3>
+<p>Si plusieurs Furries sont K.O. simultanément :</p>
+<ol class="rule-list">
+<li>tous sont identifiés ;</li>
+<li>tous les effets empêchant les K.O. sont résolus ;</li>
+<li>les Furries restants K.O. sont retirés ensemble ;</li>
+<li>les cartes attachées sont défaussées ;</li>
+<li>les effets de K.O. sont résolus ;</li>
+<li>les points sont attribués ;</li>
+<li>la victoire est vérifiée.</li>
+</ol>
+</section>
+<section class="rule-chapter" id="chapter-39-points-de-domination">
+<h2>39. Points de domination</h2>
+<h3>39.1. Gain normal</h3>
+<p>Mettre un Furry adverse K.O. rapporte normalement 1 point de domination.</p>
+<h3>39.2. Responsable du K.O.</h3>
+<p>Le joueur dont l’attaque ou l’effet a directement provoqué le K.O. gagne le point.</p>
+<h3>39.3. K.O. sans responsable adverse</h3>
+<p>Si un Furry est mis K.O. par :</p>
+<ul class="rule-list">
+<li>son propre effet ;</li>
+<li>un effet neutre du plateau ;</li>
+</ul>
+<p>l’adversaire gagne normalement 1 point.</p>
+<h3>39.6. Victoire</h3>
+<p>Un joueur gagne immédiatement lorsqu’il atteint 6 points.</p>
+</section>
+<section class="rule-chapter" id="chapter-40-contr-le-des-objectifs">
+<h2>40. Contrôle des objectifs</h2>
+<h3>40.1. Contrôle d’une case</h3>
+<p>Un joueur contrôle une case d’objectif s’il possède un Furry dessus.</p>
+<h3>40.2. Marqueurs consécutifs</h3>
+<p>À la fin de chaque round :</p>
+<ul class="rule-list">
+<li>un joueur contrôlant seul l’objectif reçoit un marqueur ;</li>
+<li>si le contrôle change de joueur, les marqueurs du précédent contrôleur sont retirés ;</li>
+<li>si le même joueur conserve le contrôle, ses marqueurs sont conservés.</li>
+<li>contrôler l’objectif pendant deux fins de round consécutives rapporte 1 point de domination ;</li>
+<li>les marqueurs sont ensuite retirés.</li>
+</ul>
+</section>
+<section class="rule-chapter" id="chapter-41-conditions-de-victoire-simultan-es">
+<h2>41. Conditions de victoire simultanées</h2>
+<p>Si les deux joueurs remplissent simultanément une condition de victoire :</p>
+<ol class="rule-list">
+<li>le joueur ayant le plus de points de domination gagne ;</li>
+<li>en cas d’égalité, la partie est déclarée nulle.</li>
+</ol>
+</section>
+<section class="rule-chapter" id="chapter-42-cibles-et-r-solution-des-effets">
+<h2>42. Cibles et résolution des effets</h2>
+<h3>42.1. Cible valide</h3>
+<p>Une cible doit respecter toutes les conditions au moment où elle est choisie.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Texte</th><th>Cible valide</th></tr></thead>
+<tbody>
+<tr><td>« Un Furry »</td><td>N’importe quel Furry autorisé</td></tr>
+<tr><td>« Un Furry adverse »</td><td>Un Furry contrôlé par l’adversaire</td></tr>
+<tr><td>« Un allié »</td><td>Un autre Furry du même joueur</td></tr>
+<tr><td>« Ce Furry »</td><td>Le Furry utilisant la capacité</td></tr>
+<tr><td>« Une case libre »</td><td>Une case pouvant être occupée</td></tr>
+<tr><td>« Un Furry à portée 2 »</td><td>Un Furry situé à 2 cases ou moins</td></tr>
+</tbody></table></div>
+<h3>42.2. Cible devenue invalide</h3>
+<p>Si une cible devient invalide :</p>
+<ul class="rule-list">
+<li>l’effet ne s’applique pas à cette cible ;</li>
+<li>les autres cibles valides restent affectées ;</li>
+<li>si toutes les cibles sont invalides, l’effet échoue.</li>
+</ul>
+<p>Les coûts ne sont pas remboursés.</p>
+<h3>42.3. Effet obligatoire</h3>
+<p>Le joueur doit effectuer un effet obligatoire autant que possible.</p>
+<h3>42.4. Effet optionnel</h3>
+<p>Les formulations « vous pouvez » ou « peut » indiquent un choix facultatif.</p>
+<h3>42.5. Faire autant que possible</h3>
+<p>Si une partie d’un effet est impossible, le reste est résolu autant que possible, sauf si l’action impossible constituait un coût.</p>
+</section>
+<section class="rule-chapter" id="chapter-43-effets-temporaires-et-permanents">
+<h2>43. Effets temporaires et permanents</h2>
+<h3>43.1. Durées</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Formulation</th><th>Durée</th></tr></thead>
+<tbody>
+<tr><td>Jusqu’à la fin du tour</td><td>Jusqu’à la fin du tour actuel</td></tr>
+<tr><td>Jusqu’au début de votre prochain tour</td><td>Jusqu’au début du prochain tour du joueur concerné</td></tr>
+<tr><td>Jusqu’à la fin du round</td><td>Jusqu’à la fin du round actuel</td></tr>
+<tr><td>Pendant le Jour</td><td>Tant que la période est le Jour</td></tr>
+<tr><td>Pendant la Nuit</td><td>Tant que la période est la Nuit</td></tr>
+<tr><td>Pour cette attaque</td><td>Jusqu’à la résolution complète de l’attaque</td></tr>
+<tr><td>Tant que cette carte est en jeu</td><td>Jusqu’à ce qu’elle quitte le jeu</td></tr>
+</tbody></table></div>
+<h3>43.2. Effets permanents</h3>
+<p>Un effet permanent reste actif tant que :</p>
+<ul class="rule-list">
+<li>sa source est en jeu ;</li>
+<li>ses conditions sont remplies ;</li>
+<li>aucun effet ne le désactive.</li>
+</ul>
+<h3>43.3. Effets contradictoires</h3>
+<p>Lorsqu’un effet autorise une action et qu’un autre l’interdit, l’interdiction l’emporte.</p>
+<p>Si plusieurs effets modifient une valeur, ils sont appliqués dans l’ordre où ils ont été créés, sauf indication contraire.</p>
+</section>
+<section class="rule-chapter" id="chapter-44-ordre-de-r-solution">
+<h2>44. Ordre de résolution</h2>
+<p>Lorsqu’une action provoque plusieurs événements :</p>
+<ol class="rule-list">
+<li>annoncer l’action ;</li>
+<li>choisir les cibles ;</li>
+<li>vérifier les conditions ;</li>
+<li>vérifier la portée et la ligne de vue ;</li>
+<li>vérifier et payer les coûts ;</li>
+<li>ouvrir la fenêtre de Réaction ;</li>
+<li>résoudre les Réactions ;</li>
+<li>vérifier à nouveau les cibles ;</li>
+<li>résoudre l’action initiale ;</li>
+<li>appliquer les déplacements ;</li>
+<li>calculer les dégâts ;</li>
+<li>placer les dégâts ;</li>
+<li>résoudre les effets déclenchés ;</li>
+<li>vérifier les K.O. ;</li>
+<li>attribuer les points de domination ;</li>
+<li>vérifier les objectifs si nécessaire ;</li>
+<li>vérifier les conditions de victoire.</li>
+</ol>
+<h3>44.1. Effets simultanés d’un même joueur</h3>
+<p>Le joueur contrôlant les effets choisit leur ordre.</p>
+<h3>44.2. Effets simultanés des deux joueurs</h3>
+<p>Le joueur actif place d’abord ses effets dans l’ordre de son choix, puis l’adversaire fait de même.</p>
+<p>Ils sont ensuite résolus en commençant par les effets de l’adversaire, puis ceux du joueur actif.</p>
+<h3>44.3. Résolution complète</h3>
+<p>Un effet doit être entièrement résolu avant de passer au suivant, sauf indication contraire.</p>
+</section>
+<section class="rule-chapter" id="chapter-45-r-gles-concernant-les-cartes">
+<h2>45. Règles concernant les cartes</h2>
+<h3>45.1. Priorité du texte</h3>
+<p>Le texte d’une carte peut modifier les règles générales.</p>
+<p>Lorsqu’une carte contredit directement une règle, le texte de la carte l’emporte.</p>
+<h3>45.2. « Ne peut pas »</h3>
+<p>Une interdiction formulée avec « ne peut pas » l’emporte sur un effet autorisant normalement l’action.</p>
+<h3>45.3. Informations publiques</h3>
+<p>Sont publiques :</p>
+<ul class="rule-list">
+<li>les Furries en jeu ;</li>
+<li>leurs dégâts ;</li>
+<li>leurs Énergies ;</li>
+<li>leurs Objets ;</li>
+<li>les cartes des défausses ;</li>
+<li>le nombre de cartes dans chaque main et deck ;</li>
+<li>les marqueurs ;</li>
+<li>les Terrains actifs.</li>
+</ul>
+<p>Le contenu des mains et des decks reste secret.</p>
+<h3>45.4. Recherche dans le deck</h3>
+<p>Après avoir cherché une carte dans son deck, le joueur doit mélanger son deck, sauf indication contraire.</p>
+<p>Si la carte recherchée possède une caractéristique précise, le joueur doit la révéler avant de l’ajouter à sa main.</p>
+<h3>45.5. Mélange et coupe</h3>
+<p>Après un mélange, l’adversaire peut couper le deck.</p>
+<h3>45.6. Propriété et contrôle</h3>
+<p>Le propriétaire d’une carte est le joueur dont le deck contenait cette carte au début de la partie.</p>
+<p>Le contrôleur est le joueur qui l’utilise actuellement.</p>
+<p>Une carte quittant le jeu retourne toujours dans la zone de son propriétaire.</p>
+<h3>45.7. Carte détruite</h3>
+<p>Une carte détruite est placée dans la défausse de son propriétaire.</p>
+</section>
+<section class="rule-chapter" id="chapter-46-mots-cl-s">
+<h2>46. Mots-clés</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Mot-clé</th><th>Règle</th></tr></thead>
+<tbody>
+<tr><td><strong>Agile</strong></td><td>Peut se déplacer après une attaque qui l’interdirait normalement</td></tr>
+<tr><td><strong>Charge</strong></td><td>Peut attaquer pendant son tour de déploiement</td></tr>
+<tr><td><strong>Escalade</strong></td><td>Monter d’un niveau ne consomme pas de VIT</td></tr>
+<tr><td><strong>Vol</strong></td><td>Ignore les obstacles bas et les différences de niveau pendant le déplacement</td></tr>
+<tr><td><strong>Gardien</strong></td><td>Peut intercepter une attaque visant un allié adjacent</td></tr>
+<tr><td><strong>Longue portée</strong></td><td>Gagne 1 portée supplémentaire en attaquant depuis une position haute</td></tr>
+<tr><td><strong>Mobilité</strong></td><td>Peut effectuer un déplacement supplémentaire selon les conditions de la carte</td></tr>
+<tr><td><strong>Bond X</strong></td><td>Se déplace jusqu’à X cases en ignorant les cases intermédiaires</td></tr>
+<tr><td><strong>Poussée X</strong></td><td>Éloigne la cible de X cases</td></tr>
+<tr><td><strong>Attraction X</strong></td><td>Rapproche la cible de X cases</td></tr>
+<tr><td><strong>Recul X</strong></td><td>Pousse la cible dans la direction opposée à l’attaque</td></tr>
+<tr><td><strong>Vision nocturne</strong></td><td>Ignore la limitation de visibilité nocturne</td></tr>
+<tr><td><strong>Camouflage</strong></td><td>Devient Caché selon la condition indiquée</td></tr>
+<tr><td><strong>Inébranlable</strong></td><td>Ne peut pas être déplacé par un effet adverse</td></tr>
+<tr><td><strong>Imposant</strong></td><td>Bloque la ligne de vue à travers sa case</td></tr>
+<tr><td><strong>Perforant X</strong></td><td>Ignore X points de réduction ou de couvert</td></tr>
+<tr><td><strong>Drain X</strong></td><td>Soigne X dégâts après avoir infligé des dégâts</td></tr>
+<tr><td><strong>Régénération X</strong></td><td>Retire X dégâts au moment indiqué</td></tr>
+<tr><td><strong>Furtif</strong></td><td>Ne déclenche pas d’attaque d’opportunité</td></tr>
+<tr><td><strong>Sentinelle</strong></td><td>Peut effectuer une attaque d’opportunité supplémentaire par round</td></tr>
+</tbody></table></div>
+</section>
+<section class="rule-chapter" id="chapter-47-tableau-r-capitulatif">
+<h2>47. Tableau récapitulatif</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Élément</th><th>Règle</th></tr></thead>
+<tbody>
+<tr><td>Taille du deck</td><td>40 cartes</td></tr>
+<tr><td>Énergies comprises dans le deck</td><td>Oui</td></tr>
+<tr><td>Furries sur le plateau</td><td>4 maximum</td></tr>
+<tr><td>Déploiement initial</td><td>1 obligatoire, jusqu’à 4</td></tr>
+<tr><td>Déploiement normal</td><td>1 par tour</td></tr>
+<tr><td>Coût du déploiement</td><td>Aucun</td></tr>
+<tr><td>Attachement d’Énergie</td><td>1 par tour</td></tr>
+<tr><td>Énergies maximum sur un Furry</td><td>Aucune limite</td></tr>
+<tr><td>Énergies après une attaque</td><td>Restent attachées</td></tr>
+<tr><td>Déplacement</td><td>Selon la VIT</td></tr>
+<tr><td>Déplacement normal</td><td>1 par Furry et par tour</td></tr>
+<tr><td>Monter d’un niveau</td><td>2 VIT</td></tr>
+<tr><td>Descendre d’un niveau</td><td>1 VIT</td></tr>
+<tr><td>Terrain difficile</td><td>2 VIT</td></tr>
+<tr><td>Attaque normale</td><td>1 par Furry et par tour</td></tr>
+<tr><td>Attaque d’opportunité</td><td>1 par Furry et par round</td></tr>
+<tr><td>Coût d’opportunité</td><td>1 Énergie quelconque</td></tr>
+<tr><td>Réaction</td><td>1 par Furry et par round</td></tr>
+<tr><td>Talent</td><td>1 activé par Furry et par tour</td></tr>
+<tr><td>Évolution</td><td>1 par Furry et par tour</td></tr>
+<tr><td>Objet</td><td>1 joué par joueur et par tour</td></tr>
+<tr><td>Supporter</td><td>1 par joueur et par tour</td></tr>
+<tr><td>Terrain</td><td>1 joué par joueur et par tour</td></tr>
+<tr><td>Objet attaché</td><td>1 par Furry</td></tr>
+<tr><td>Switch</td><td>1 par joueur et par tour</td></tr>
+<tr><td>Corps à corps</td><td>Même niveau uniquement</td></tr>
+<tr><td>Couvert léger</td><td>−10  dégâts à distance</td></tr>
+<tr><td>Couvert lourd</td><td>−20  dégâts à distance</td></tr>
+<tr><td>Hauteur offensive</td><td>+10  dégâts et +1  portée par niveau</td></tr>
+<tr><td>Bonus maximal de hauteur</td><td>+30  dégâts et +3  portée</td></tr>
+<tr><td>Chute</td><td>10 dégâts par niveau</td></tr>
+<tr><td>Faiblesse</td><td>+20  dégâts</td></tr>
+<tr><td>Résistance</td><td>−20  dégâts</td></tr>
+<tr><td>Jour</td><td>3 rounds</td></tr>
+<tr><td>Nuit</td><td>3 rounds</td></tr>
+<tr><td>Visibilité nocturne</td><td>3 cases</td></tr>
+<tr><td>Domination nécessaire</td><td>6 points</td></tr>
+<tr><td>Contrôle central</td><td>3 fins de round consécutives</td></tr>
+</tbody></table></div>
+</section>
+<section class="rule-chapter" id="chapter-48-glossaire">
+<h2>48. Glossaire</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Terme</th><th>Définition</th></tr></thead>
+<tbody>
+<tr><td>Adjacente</td><td>Case partageant un côté avec une autre case</td></tr>
+<tr><td>Alliée</td><td>Carte ou unité contrôlée par le même joueur</td></tr>
+<tr><td>ATK</td><td>Valeur de dégâts de base d’un Furry</td></tr>
+<tr><td>Attachement</td><td>Action plaçant une Énergie ou un Objet sur un Furry</td></tr>
+<tr><td>Attaque d’opportunité</td><td>Attaque déclenchée lorsqu’un ennemi quitte une zone de contact</td></tr>
+<tr><td>Base</td><td>Furry pouvant être déployé directement</td></tr>
+<tr><td>Case</td><td>Hexagone individuel du plateau</td></tr>
+<tr><td>Contrôle</td><td>Fait de diriger une carte ou d’occuper un objectif</td></tr>
+<tr><td>Couvert</td><td>Protection contre une attaque à distance</td></tr>
+<tr><td>Défausse</td><td>Zone des cartes utilisées ou détruites</td></tr>
+<tr><td>Déploiement</td><td>Mise en jeu d’un Furry de base</td></tr>
+<tr><td>Déplacement imposé</td><td>Déplacement produit par un effet et non volontaire</td></tr>
+<tr><td>Domination</td><td>Points principalement gagnés grâce aux K.O.</td></tr>
+<tr><td>Énergie</td><td>Carte attachée permettant d’utiliser des attaques ou capacités</td></tr>
+<tr><td>Évolution</td><td>Carte placée sur un Furry correspondant</td></tr>
+<tr><td>Furry</td><td>Personnage contrôlé par un joueur</td></tr>
+<tr><td>Jour/Nuit</td><td>Périodes modifiant certaines caractéristiques</td></tr>
+<tr><td>K.O.</td><td>État d’un Furry dont les dégâts atteignent ses PV</td></tr>
+<tr><td>Ligne de vue</td><td>Trajet visuel entre une source et une cible</td></tr>
+<tr><td>Niveau</td><td>Hauteur d’une case</td></tr>
+<tr><td>Objet</td><td>Carte produisant un effet ou restant attachée</td></tr>
+<tr><td>POR</td><td>Portée maximale d’une attaque</td></tr>
+<tr><td>PV</td><td>Points de Vie maximum</td></tr>
+<tr><td>Réaction</td><td>Capacité utilisée en réponse à un événement</td></tr>
+<tr><td>Recul</td><td>Déplacement éloignant une cible</td></tr>
+<tr><td>Round</td><td>Tour du premier joueur, tour du second, puis fin de round</td></tr>
+<tr><td>Supporter</td><td>Carte à effet immédiat jouable une fois par tour</td></tr>
+<tr><td>Switch</td><td>Échange de position de deux alliés adjacents</td></tr>
+<tr><td>Talent</td><td>Capacité propre à un Furry</td></tr>
+<tr><td>Terrain</td><td>Carte modifiant le plateau ou les règles</td></tr>
+<tr><td>Tour</td><td>Ensemble des actions d’un joueur</td></tr>
+<tr><td>VIT</td><td>Quantité maximale de déplacement d’un Furry</td></tr>
+<tr><td>Zone de contact</td><td>Cases adjacentes au même niveau autour d’un Furry</td></tr>
+<tr><td>Zone de déploiement</td><td>Cases depuis lesquelles les Furries entrent normalement en jeu</td></tr>
+</tbody></table></div>
+</section>
+    </article>
+    <div class="rules-footer"><a class="text-link" href="index.html">Retour à l’accueil ↑</a></div>
   </main>
-
-  <dialog class="fenetre-zone" id="fenetre-zone" aria-labelledby="titre-fenetre">
-    <div class="entete-fenetre">
-      <div>
-        <span class="petit-titre" id="numero-fenetre">Zone</span>
-        <h2 id="titre-fenetre">Nom de la zone</h2>
-      </div>
-      <button class="fermer" id="fermer-fenetre" type="button">Fermer ×</button>
-    </div>
-
-    <p class="description-fenetre" id="description-fenetre"></p>
-
-    <div class="grille-fenetre">
-      <div class="grand-emplacement">
-        <span>Emplacement réservé à la grande illustration<strong>Image de la zone</strong></span>
-      </div>
-      <div class="grand-emplacement">
-        <span>Emplacement réservé au plan<strong>Disposition du plateau</strong></span>
-      </div>
-    </div>
-  </dialog>
-
-  <footer class="pied-de-page conteneur">
-    <span>Un monde de cartes et de créatures.</span>
-    <span>© DUSKCLAW</span>
-  </footer>
-
-  <label class="bouton-mode" title="Basculer entre les ambiances Jour et Nuit">
-    <span>Jour</span>
-    <input id="theme-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit">
-    <span class="interrupteur" aria-hidden="true"></span>
-    <span>Nuit</span>
+  <a class="back-to-top" href="#top" aria-label="Remonter en haut de la page"><span aria-hidden="true">↑</span></a>
+  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
+    <span class="mode-day">Jour</span>
+    <input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="global-mode-track" aria-hidden="true"></span>
+    <span class="mode-night">Nuit</span>
   </label>
-
   <script>
-    const themeSwitch = document.getElementById("theme-toggle");
-
-    function setTheme(time, save = false) {
+    const globalThemeSwitch = document.getElementById("global-mode-toggle");
+    function applySiteTheme(time, save = false) {
       document.body.dataset.time = time;
-      themeSwitch.checked = time === "nuit";
-      document.querySelector('meta[name="theme-color"]').content =
-        time === "nuit" ? "#111724" : "#f1ead9";
-
-      if (save) {
-        localStorage.setItem("duskclaw-time", time);
-      }
+      globalThemeSwitch.checked = time === "nuit";
+      globalThemeSwitch.setAttribute("aria-checked", String(time === "nuit"));
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.content = time === "nuit" ? "#11121a" : "#f1ead9";
+      if (save) localStorage.setItem("duskclaw-time", time);
     }
-
-    themeSwitch.addEventListener("change", () => {
-      setTheme(themeSwitch.checked ? "nuit" : "jour", true);
-    });
-
-    setTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
-
-    const fenetre = document.getElementById("fenetre-zone");
-    const numeroFenetre = document.getElementById("numero-fenetre");
-    const titreFenetre = document.getElementById("titre-fenetre");
-    const descriptionFenetre = document.getElementById("description-fenetre");
-
-    function ouvrirZone(zone) {
-      numeroFenetre.textContent = zone.querySelector(".numero-zone").textContent;
-      titreFenetre.textContent = zone.querySelector("h2").textContent;
-      descriptionFenetre.textContent = zone.querySelector(".zone p").textContent;
-      fenetre.showModal();
-    }
-
-    document.querySelectorAll(".zone").forEach((zone) => {
-      zone.addEventListener("click", () => ouvrirZone(zone));
-
-      zone.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          ouvrirZone(zone);
-        }
-      });
-    });
-
-    document.getElementById("fermer-fenetre").addEventListener("click", () => {
-      fenetre.close();
-    });
-
-    fenetre.addEventListener("click", (event) => {
-      if (event.target === fenetre) {
-        fenetre.close();
-      }
-    });
+    globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
+    applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
 </body>
 </html>
+
+
