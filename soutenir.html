@@ -40,7 +40,10 @@
     .shop-support p { max-width: 560px; margin: 8px 0 0; color: var(--shop-muted); font-size: .88rem; line-height: 1.7; }
     .donate-link { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 12px; padding: 12px 15px; background: var(--shop-accent); color: #fff !important; font-size: .86rem; font-weight: 800; text-decoration: none; transition: filter .2s ease, transform .2s ease; }
     .donate-link:hover, .donate-link:focus-visible { filter: brightness(1.1); transform: translateY(-2px); }
-    .shop-footer { display: flex; justify-content: space-between; gap: 18px; padding: 22px 0 30px; border-top: 1px solid var(--shop-line); color: var(--shop-muted); font-size: .8rem; }
+    .dusk-footer { display:flex; justify-content:space-between; align-items:center; gap:18px; padding-block:23px 30px; border-top:1px solid var(--shop-line); color:var(--shop-muted); font-size:.8rem; }
+    .dusk-footer a { color:var(--shop-ink); text-decoration:none; }
+    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--shop-line); color:var(--shop-ink) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
+    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--shop-accent); background:var(--shop-accent); color:#fff !important; outline:none; }
     .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--shop-line); background: var(--shop-paper); color: var(--shop-muted); font-family: inherit; font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
     body[data-time="jour"] .global-mode-switch .mode-day, body[data-time="nuit"] .global-mode-switch .mode-night { color: var(--shop-accent); }
     .global-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -50,7 +53,7 @@
     .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); background: #e5dcf5; }
     .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--shop-accent); outline-offset: 3px; }
     @media (max-width: 760px) { .shop-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 16px; } .shop-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; } .shop-nav a { font-size: .82rem; } .shop-products { gap: 26px; } .product-art { min-height: 220px; } .shop-support { align-items: flex-start; flex-direction: column; } }
-    @media (max-width: 560px) { .shop-products { grid-template-columns: 1fr; } .product-art { min-height: 240px; } .product-details { gap: 10px; } .product-status { font-size: .58rem; } .shop-footer { flex-direction: column; } .global-mode-switch { bottom: 14px; left: 14px; } }
+    @media (max-width: 560px) { .shop-products { grid-template-columns: 1fr; } .product-art { min-height: 240px; } .product-details { gap: 10px; } .product-status { font-size: .58rem; } .dusk-footer { align-items:flex-start; flex-direction:column; } .global-mode-switch { bottom: 14px; left: 14px; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
       @media (max-width: 560px) {
       .global-mode-switch, .dusk-mode-switch, .bouton-mode {
@@ -129,7 +132,8 @@
     </section>
   </main>
 
-  <footer class="shop-footer shop-shell">
+  <footer class="dusk-footer shop-shell">
+    <a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a>
     <span>Un monde de cartes et de créatures.</span>
     <span>© DUSKCLAW</span>
   </footer>
