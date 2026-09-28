@@ -19,6 +19,8 @@
     .dusk-nav a { color: var(--dusk-muted); font-size: .88rem; text-decoration: none; }
     .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--dusk-accent); }
     .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); }
+    .dusk-nav .dusk-support { padding: 10px 14px; background: var(--dusk-accent); color: #fff !important; font-weight: 700; }
+    .dusk-nav .dusk-support:hover, .dusk-nav .dusk-support:focus-visible { filter: brightness(1.08); }
     .dusk-main { position: relative; overflow: hidden; }
     .dusk-hero { position: relative; display: grid; grid-template-columns: 1fr .92fr; align-items: center; gap: clamp(45px, 8vw, 110px); min-height: min(720px, calc(100svh - 83px)); padding-block: 64px 78px; isolation: isolate; }
     .dusk-hero::before { position: absolute; z-index: -2; inset: 0 -5.6vw; background: radial-gradient(ellipse at 76% 46%, rgba(183,151,97,.14), transparent 39%), linear-gradient(112deg, var(--dusk-bg), var(--dusk-paper) 63%, #e7dfcd); content: ""; transition: background .45s ease; }
@@ -100,6 +102,7 @@
       <a href="univers.html">Univers</a>
       <a href="personnages.html">Cardex</a>
       <a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+      <a class="dusk-support" href="soutenir.html">Soutenir</a>
     </nav>
   </header>
 
