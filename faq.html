@@ -39,6 +39,10 @@
     .faq-cta a { display:inline-block; margin-top:8px; color:var(--faq-accent); font-weight:700; text-underline-offset:4px; }
     .faq-footer { display:flex; justify-content:space-between; gap:18px; padding:22px 0 30px; border-top:1px solid var(--faq-rule); color:var(--faq-muted); font-size:.82rem; }
     .faq-footer a { color:var(--faq-ink); text-decoration:none; }
+    .dusk-footer { display:flex; justify-content:space-between; align-items:center; gap:18px; width:min(1320px,90%); margin:32px auto 0; padding:23px 0 30px; border-top:1px solid var(--faq-rule); color:var(--faq-muted); font-size:.8rem; }
+    .dusk-footer a { color:var(--faq-ink); text-decoration:none; }
+    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--faq-rule); color:var(--faq-ink) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
+    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--faq-accent); background:var(--faq-accent); color:#fff !important; outline:none; }
     .faq-mode { position:fixed; z-index:20; bottom:20px; left:20px; display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--faq-rule); background:var(--faq-paper); color:var(--faq-muted); font-size:.78rem; font-weight:700; cursor:pointer; box-shadow:0 5px 20px rgba(0,0,0,.15); }
     .faq-mode input { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
     .faq-track { position:relative; width:40px; height:22px; border:1px solid var(--faq-rule); border-radius:20px; background:#d9cfb9; }
@@ -47,7 +51,7 @@
     .faq-mode input:checked + .faq-track::before { transform:translateX(18px); background:#e5dcf5; }
     .faq-mode input:focus-visible + .faq-track { outline:2px solid var(--faq-accent); outline-offset:3px; }
     @media(max-width:760px) { .faq-header { flex-wrap:wrap; padding-block:17px; } .faq-nav { order:3; width:100%; justify-content:space-between; gap:10px; } .faq-nav a { font-size:.8rem; } .faq-main { padding-top:38px; } }
-    @media(max-width:560px) { .faq-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .faq-footer { flex-direction:column; } }
+    @media(max-width:560px) { .faq-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .faq-footer { flex-direction:column; } .dusk-footer { align-items:flex-start; flex-direction:column; } }
     @media(prefers-reduced-motion:reduce) { body { transition:none; } .faq-track::before { transition:none; } }
   </style>
 </head>
@@ -101,7 +105,9 @@
     <div class="faq-cta">Besoin d’un détail de jeu ou d’une règle complète&nbsp;?<br><a href="regles.html">Consulter le guide complet des règles <span aria-hidden="true">→</span></a></div>
   </main>
 
-  <footer class="faq-footer faq-shell">
+  <footer class="dusk-footer">
+    <a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a>
+    <span>Un monde de cartes et de créatures.</span>
     <span>© DUSKCLAW</span>
   </footer>
   <label class="faq-mode" title="Basculer entre les ambiances Jour et Nuit">
