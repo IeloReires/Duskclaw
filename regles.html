@@ -9,8 +9,14 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .rules-page { width: min(1080px, 88%); margin: 0 auto; padding: 46px 0 100px; }
-    .rules-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 64px; }
-    .rules-home { color: var(--accent); font-weight: 600; }
+    .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
+    .dusk-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 82px; border-bottom: 1px solid var(--dusk-rule); }
+    .dusk-brand { color: var(--dusk-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
+    .dusk-brand span { color: var(--dusk-accent); }
+    .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
+    .dusk-nav a { color: var(--dusk-muted); font-size: .88rem; text-decoration: none; }
+    .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--dusk-accent); }
+    .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); }
     .rules-hero { padding: 58px 0 44px; border-bottom: 1px solid var(--line); }
     .rules-hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); margin-bottom: 18px; }
     .rules-lead { max-width: 700px; color: var(--muted); font-size: 1.08rem; }
@@ -19,7 +25,7 @@
     .rules-toc ol { columns: 2; column-gap: 40px; padding-left: 22px; }
     .rules-toc li { break-inside: avoid; padding: 5px 0; color: var(--muted); }
     .rules-toc a { color: inherit; }
-    .rules-toc a:hover, .rules-home:hover { color: var(--text); }
+    .rules-toc a:hover { color: var(--text); }
     .rule-chapter { padding: 36px 0 42px; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
     .rule-chapter h2 { margin-bottom: 22px; color: var(--text); font-size: clamp(2rem, 4vw, 3rem); }
     .rule-chapter h3 { margin: 32px 0 12px; color: var(--accent); font-size: 1.55rem; }
@@ -41,9 +47,13 @@
     .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 1000; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.28); font-size: 1.5rem; text-decoration: none; transition: transform .2s ease, background .2s ease, color .2s ease; }
     .back-to-top:hover, .back-to-top:focus-visible { transform: translateY(-4px); background: var(--accent); color: #10121b; outline: none; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .back-to-top { transition: none; } }
+    @media (max-width: 800px) {
+      .dusk-header { flex-wrap: wrap; padding-block: 17px; }
+      .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
+      .dusk-nav a { font-size: .82rem; }
+    }
     @media (max-width: 680px) {
       .rules-page { width: 90%; padding-top: 26px; }
-      .rules-top { margin-bottom: 42px; }
       .rules-toc { padding: 20px; }
       .rules-toc ol { columns: 1; }
       .rule-chapter th, .rule-chapter td { padding: 9px; }
@@ -64,9 +74,13 @@
   </style>
 </head>
 <body id="top" data-time="jour">
-  <header class="site-header">
-    <a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-    <a class="rules-home" href="index.html">← Retour à l’accueil</a>
+  <header class="dusk-header dusk-shell">
+    <a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <nav class="dusk-nav" aria-label="Navigation principale">
+      <a href="univers.html">Univers</a>
+      <a href="personnages.html">Cardex</a>
+      <a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    </nav>
   </header>
   <main class="rules-page">
     <section class="rules-hero">
