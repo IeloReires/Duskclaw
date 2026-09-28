@@ -4,148 +4,739 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1ead9">
-  <meta name="description" content="Découvre le cycle du Jour et de la Nuit dans l’univers de Duskclaw.">
+  <meta name="description" content="Découvre les régions et les cartes de plateau de l’univers de Duskclaw.">
   <title>L’Univers — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
-    body.universe-page { --u-bg:#f1ead9; --u-paper:#f8f3e8; --u-ink:#252920; --u-muted:#66695f; --u-accent:#8a6a37; --u-line:rgba(60,58,47,.24); margin:0; background:var(--u-bg); color:var(--u-ink); transition:background .45s ease,color .45s ease; }
-    body.universe-page[data-time="nuit"] { --u-bg:#111724; --u-paper:#1a2030; --u-ink:#ece9e1; --u-muted:#b8bdca; --u-accent:#b8a6df; --u-line:rgba(229,225,243,.2); color-scheme:dark; }
-    .u-shell { width:min(1240px,90%); margin-inline:auto; }
-    .u-header { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:80px; border-bottom:1px solid var(--u-line); }
-    .u-brand { color:var(--u-ink); font-size:1rem; font-weight:800; letter-spacing:.19em; text-decoration:none; }
-    .u-brand span { color:var(--u-accent); }
-    .u-nav { display:flex; align-items:center; gap:clamp(16px,3vw,36px); }
-    .u-nav a { color:var(--u-muted); font-size:.88rem; text-decoration:none; }
-    .u-nav a:hover,.u-nav a:focus-visible { color:var(--u-accent); }
-    .u-intro { max-width:780px; padding:clamp(70px,10vw,126px) 0 62px; }
-    .u-kicker { color:var(--u-accent); font-size:.7rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; }
-    .u-intro h1 { margin:18px 0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(3.5rem,8vw,7rem); font-weight:400; letter-spacing:-.06em; line-height:.96; }
-    .u-intro h1 em { color:var(--u-accent); font-weight:400; }
-    .u-intro > p:last-child { max-width:650px; color:var(--u-muted); font-size:1.1rem; line-height:1.8; }
-    .u-realms { display:grid; grid-template-columns:1fr 1fr; border-block:1px solid var(--u-line); }
-    .u-realm { position:relative; min-height:350px; padding:clamp(28px,5vw,62px); overflow:hidden; }
-    .u-realm + .u-realm { border-left:1px solid var(--u-line); }
-    .u-realm-day { background:radial-gradient(ellipse at 86% 13%,rgba(202,157,84,.24),transparent 42%),linear-gradient(145deg,var(--u-paper),var(--u-bg)); }
-    .u-realm-night { background:radial-gradient(ellipse at 86% 13%,rgba(142,126,207,.22),transparent 42%),linear-gradient(145deg,var(--u-paper),var(--u-bg)); }
-    .u-sigil { display:grid; width:70px; aspect-ratio:1; place-items:center; border:1px solid var(--u-line); border-radius:50%; color:var(--u-accent); font-size:2rem; }
-    .u-realm h2 { margin:32px 0 12px; font-family:Georgia,"Times New Roman",serif; font-size:clamp(2.5rem,4.5vw,4rem); font-weight:400; }
-    .u-realm p { max-width:460px; color:var(--u-muted); line-height:1.8; }
-    .u-region { display:grid; grid-template-columns:1fr .92fr; align-items:center; gap:clamp(34px,7vw,90px); padding:clamp(66px,9vw,108px) 0; border-bottom:1px solid var(--u-line); }
-    .u-region-copy h2 { margin:12px 0 16px; font-family:Georgia,"Times New Roman",serif; font-size:clamp(2.5rem,5vw,4.6rem); font-weight:400; letter-spacing:-.045em; line-height:1; }
-    .u-region-copy > p { max-width:570px; color:var(--u-muted); line-height:1.8; }
-    .u-region-details { display:flex; flex-wrap:wrap; gap:8px; margin-top:23px; }
-    .u-region-details span { padding:8px 11px; border:1px solid var(--u-line); color:var(--u-accent); font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-    .u-region-scene { position:relative; display:grid; min-height:310px; place-items:center; overflow:hidden; border:1px solid var(--u-line); background:radial-gradient(circle at 68% 25%,rgba(220,184,112,.35),transparent 20%),linear-gradient(160deg,var(--u-paper),var(--u-bg)); }
-    .u-region-scene::before { position:absolute; right:-8%; bottom:-14%; left:-8%; height:59%; background:linear-gradient(160deg,rgba(158,151,115,.23),rgba(110,131,103,.25)); clip-path:polygon(0 52%,18% 23%,32% 45%,52% 10%,70% 43%,83% 22%,100% 52%,100% 100%,0 100%); content:""; }
-    .u-region-scene::after { position:absolute; right:0; bottom:0; left:0; height:1px; background:var(--u-line); content:""; }
-    .u-sun-disc { position:absolute; top:14%; right:23%; display:grid; width:55px; aspect-ratio:1; place-items:center; border:1px solid var(--u-accent); border-radius:50%; color:var(--u-accent); font-size:1.5rem; }
-    .u-road { position:absolute; z-index:1; bottom:-5%; left:41%; width:35%; height:54%; border:2px solid rgba(138,106,55,.4); border-width:0 0 0 2px; border-radius:50% 0 0 0; transform:rotate(25deg); }
-    body.universe-page[data-time="nuit"] .u-road { border-color:rgba(184,166,223,.48); }
-    .u-watchtower { position:absolute; z-index:2; bottom:31%; left:28%; width:28px; height:84px; border:1px solid var(--u-accent); background:var(--u-paper); clip-path:polygon(20% 21%,50% 0,80% 21%,80% 100%,20% 100%); }
-    .u-watchtower::after { position:absolute; top:17%; left:40%; width:6px; height:14px; background:var(--u-accent); content:""; }
-    .u-cycle { padding:clamp(66px,9vw,110px) 0; }
-    .u-cycle-heading { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:32px; }
-    .u-cycle-heading h2 { margin:12px 0 0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(2.4rem,5vw,4.5rem); font-weight:400; letter-spacing:-.04em; }
-    .u-cycle-heading p { max-width:430px; margin:0; color:var(--u-muted); line-height:1.7; }
-    .u-timeline { display:grid; grid-template-columns:repeat(4,1fr); border-block:1px solid var(--u-line); }
-    .u-period { position:relative; padding:24px 20px 27px 0; }
-    .u-period + .u-period { padding-left:20px; border-left:1px solid var(--u-line); }
-    .u-period span { color:var(--u-accent); font-size:.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
-    .u-period h3 { margin:12px 0 5px; font-family:Georgia,"Times New Roman",serif; font-size:1.6rem; font-weight:400; }
-    .u-period p { margin:0; color:var(--u-muted); font-size:.88rem; }
-    .u-next { display:flex; justify-content:space-between; align-items:center; gap:25px; margin-bottom:80px; padding:24px 0; border-bottom:1px solid var(--u-line); }
-    .u-next p { margin:0; color:var(--u-muted); }
-    .u-next a { display:inline-flex; gap:12px; padding:13px 17px; background:var(--u-ink); color:var(--u-paper); text-decoration:none; font-weight:700; }
-    .u-footer { display:flex; justify-content:space-between; gap:18px; padding:24px 0 32px; border-top:1px solid var(--u-line); color:var(--u-muted); font-size:.8rem; }
-    .u-footer a { color:var(--u-ink); text-decoration:none; }
-    .u-mode-switch { position:fixed; z-index:30; bottom:22px; left:22px; display:inline-flex; align-items:center; gap:10px; padding:10px 13px; border:1px solid var(--u-line); background:var(--u-paper); color:var(--u-muted); font-family: inherit; font-size: .78rem; font-weight: 700; box-shadow:0 5px 22px rgba(18,21,29,.2); cursor:pointer; }
-    .u-mode-switch .mode-day,body.universe-page[data-time="nuit"] .u-mode-switch .mode-night { color:var(--u-accent); }
-    .u-mode-switch input { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
-    .u-mode-track { position:relative; width:42px; height:23px; border:1px solid var(--u-line); border-radius:20px; background:#d9cfb9; transition:background .25s ease; }
-    .u-mode-track::before { position:absolute; top:2px; left:2px; width:17px; height:17px; border-radius:50%; background:#fffaf0; box-shadow:0 1px 4px rgba(0,0,0,.24); content:""; transition:transform .25s ease,background .25s ease; }
-    body.universe-page[data-time="nuit"] .u-mode-track { background:#5e527f; }
-    .u-mode-switch input:checked + .u-mode-track::before { transform:translateX(19px); background:#e5dcf5; }
-    .u-mode-switch input:focus-visible + .u-mode-track { outline:2px solid var(--u-accent); outline-offset:3px; }
-    @media(max-width:720px) { .u-header { flex-wrap:wrap; padding-block:16px; } .u-nav { width:100%; justify-content:space-between; gap:10px; } .u-nav a { font-size:.8rem; } .u-cycle-heading { align-items:start; flex-direction:column; } .u-next { align-items:start; flex-direction:column; } }
-    @media(max-width:720px) { .u-region { grid-template-columns:1fr; } }
-    @media(max-width:560px) { .u-realms { grid-template-columns:1fr; } .u-realm { min-height:0; padding:30px 6%; } .u-realm + .u-realm { border-top:1px solid var(--u-line); border-left:0; } .u-timeline { grid-template-columns:1fr 1fr; } .u-period { padding:18px 10px 18px 0; } .u-period + .u-period { padding-left:12px; } .u-period:nth-child(3) { border-left:0; padding-left:0; } .u-period:nth-child(n+3) { border-top:1px solid var(--u-line); } .u-mode-switch { bottom:14px; left:14px; } .u-footer { flex-direction:column; } }
-    @media(prefers-reduced-motion:reduce) { .universe-page * { transition-duration:.01ms!important; } }
+    body.universe-page {
+      --u-bg: #f1ead9;
+      --u-paper: #f8f3e8;
+      --u-ink: #252920;
+      --u-muted: #66695f;
+      --u-accent: #8a6a37;
+      --u-line: rgba(60, 58, 47, .24);
+      margin: 0;
+      background: var(--u-bg);
+      color: var(--u-ink);
+      transition: background .45s ease, color .45s ease;
+    }
+
+    body.universe-page[data-time="nuit"] {
+      --u-bg: #111724;
+      --u-paper: #1a2030;
+      --u-ink: #ece9e1;
+      --u-muted: #b8bdca;
+      --u-accent: #b8a6df;
+      --u-line: rgba(229, 225, 243, .2);
+      color-scheme: dark;
+    }
+
+    .u-shell {
+      width: min(1240px, 90%);
+      margin-inline: auto;
+    }
+
+    .u-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 80px;
+      border-bottom: 1px solid var(--u-line);
+    }
+
+    .u-brand {
+      color: var(--u-ink);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: .19em;
+      text-decoration: none;
+    }
+
+    .u-brand span {
+      color: var(--u-accent);
+    }
+
+    .u-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 3vw, 36px);
+    }
+
+    .u-nav a {
+      color: var(--u-muted);
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .u-nav a:hover,
+    .u-nav a:focus-visible {
+      color: var(--u-accent);
+    }
+
+    .u-intro {
+      max-width: 780px;
+      padding: clamp(70px, 10vw, 126px) 0 62px;
+    }
+
+    .u-kicker {
+      color: var(--u-accent);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .u-intro h1 {
+      margin: 18px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 400;
+      letter-spacing: -.06em;
+      line-height: .96;
+    }
+
+    .u-intro h1 em {
+      color: var(--u-accent);
+      font-weight: 400;
+    }
+
+    .u-intro > p:last-child {
+      max-width: 650px;
+      color: var(--u-muted);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .u-realms {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-block: 1px solid var(--u-line);
+    }
+
+    .u-realm {
+      position: relative;
+      min-height: 350px;
+      padding: clamp(28px, 5vw, 62px);
+      overflow: hidden;
+    }
+
+    .u-realm + .u-realm {
+      border-left: 1px solid var(--u-line);
+    }
+
+    .u-realm-day {
+      background:
+        radial-gradient(ellipse at 86% 13%, rgba(202, 157, 84, .24), transparent 42%),
+        linear-gradient(145deg, var(--u-paper), var(--u-bg));
+    }
+
+    .u-realm-night {
+      background:
+        radial-gradient(ellipse at 86% 13%, rgba(142, 126, 207, .22), transparent 42%),
+        linear-gradient(145deg, var(--u-paper), var(--u-bg));
+    }
+
+    .u-sigil {
+      display: grid;
+      width: 70px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid var(--u-line);
+      border-radius: 50%;
+      color: var(--u-accent);
+      font-size: 2rem;
+    }
+
+    .u-realm h2 {
+      margin: 32px 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: 400;
+    }
+
+    .u-realm p {
+      max-width: 460px;
+      color: var(--u-muted);
+      line-height: 1.8;
+    }
+
+    .u-zones {
+      padding: clamp(66px, 9vw, 108px) 0;
+      border-bottom: 1px solid var(--u-line);
+    }
+
+    .u-zones-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .u-zones-heading h2 {
+      margin: 12px 0 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 5vw, 4.6rem);
+      font-weight: 400;
+      letter-spacing: -.045em;
+      line-height: 1;
+    }
+
+    .u-zones-heading > p {
+      max-width: 490px;
+      margin: 0;
+      color: var(--u-muted);
+      line-height: 1.8;
+    }
+
+    .u-zone-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .u-zone {
+      padding: 12px;
+      border: 1px solid var(--u-line);
+      background: var(--u-paper);
+      transition: border-color .25s ease, transform .25s ease;
+    }
+
+    .u-zone:hover {
+      border-color: var(--u-accent);
+      transform: translateY(-3px);
+    }
+
+    .u-zone-image {
+      display: grid;
+      min-height: 190px;
+      place-items: center;
+      border: 1px dashed var(--u-line);
+      background: linear-gradient(145deg, rgba(125, 116, 93, .06), transparent);
+      color: var(--u-muted);
+      text-align: center;
+    }
+
+    .u-zone-image span {
+      display: block;
+      padding: 16px;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .u-zone-image strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--u-accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .u-zone-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      color: var(--u-accent);
+      font-size: .67rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .u-zone h3 {
+      margin: 11px 0 5px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.55rem;
+      font-weight: 400;
+    }
+
+    .u-zone p {
+      margin: 0;
+      color: var(--u-muted);
+      font-size: .88rem;
+      line-height: 1.65;
+    }
+
+    .u-zone-layout {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--u-line);
+      color: var(--u-muted);
+      font-size: .75rem;
+    }
+
+    .u-zone-layout span {
+      color: var(--u-accent);
+      font-size: 1.1rem;
+    }
+
+    .u-cycle {
+      padding: clamp(66px, 9vw, 110px) 0;
+    }
+
+    .u-cycle-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 32px;
+    }
+
+    .u-cycle-heading h2 {
+      margin: 12px 0 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 400;
+      letter-spacing: -.04em;
+    }
+
+    .u-cycle-heading p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--u-muted);
+      line-height: 1.7;
+    }
+
+    .u-timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-block: 1px solid var(--u-line);
+    }
+
+    .u-period {
+      position: relative;
+      padding: 24px 20px 27px 0;
+    }
+
+    .u-period + .u-period {
+      padding-left: 20px;
+      border-left: 1px solid var(--u-line);
+    }
+
+    .u-period span {
+      color: var(--u-accent);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .u-period h3 {
+      margin: 12px 0 5px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+
+    .u-period p {
+      margin: 0;
+      color: var(--u-muted);
+      font-size: .88rem;
+    }
+
+    .u-next {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      margin-bottom: 80px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--u-line);
+    }
+
+    .u-next p {
+      margin: 0;
+      color: var(--u-muted);
+    }
+
+    .u-next a {
+      display: inline-flex;
+      gap: 12px;
+      padding: 13px 17px;
+      background: var(--u-ink);
+      color: var(--u-paper);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .u-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px 0 32px;
+      border-top: 1px solid var(--u-line);
+      color: var(--u-muted);
+      font-size: .8rem;
+    }
+
+    .u-footer a {
+      color: var(--u-ink);
+      text-decoration: none;
+    }
+
+    .u-mode-switch {
+      position: fixed;
+      z-index: 30;
+      bottom: 22px;
+      left: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 13px;
+      border: 1px solid var(--u-line);
+      background: var(--u-paper);
+      color: var(--u-muted);
+      font-family: inherit;
+      font-size: .78rem;
+      font-weight: 700;
+      box-shadow: 0 5px 22px rgba(18, 21, 29, .2);
+      cursor: pointer;
+    }
+
+    .u-mode-switch .mode-day,
+    body.universe-page[data-time="nuit"] .u-mode-switch .mode-night {
+      color: var(--u-accent);
+    }
+
+    .u-mode-switch input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .u-mode-track {
+      position: relative;
+      width: 42px;
+      height: 23px;
+      border: 1px solid var(--u-line);
+      border-radius: 20px;
+      background: #d9cfb9;
+      transition: background .25s ease;
+    }
+
+    .u-mode-track::before {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #fffaf0;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .24);
+      content: "";
+      transition: transform .25s ease, background .25s ease;
+    }
+
+    body.universe-page[data-time="nuit"] .u-mode-track {
+      background: #5e527f;
+    }
+
+    .u-mode-switch input:checked + .u-mode-track::before {
+      transform: translateX(19px);
+      background: #e5dcf5;
+    }
+
+    .u-mode-switch input:focus-visible + .u-mode-track {
+      outline: 2px solid var(--u-accent);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .u-header {
+        flex-wrap: wrap;
+        padding-block: 16px;
+      }
+
+      .u-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .u-nav a {
+        font-size: .8rem;
+      }
+
+      .u-cycle-heading,
+      .u-zones-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .u-next {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .u-zone-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .u-realms {
+        grid-template-columns: 1fr;
+      }
+
+      .u-realm {
+        min-height: 0;
+        padding: 30px 6%;
+      }
+
+      .u-realm + .u-realm {
+        border-top: 1px solid var(--u-line);
+        border-left: 0;
+      }
+
+      .u-zone-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .u-timeline {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .u-period {
+        padding: 18px 10px 18px 0;
+      }
+
+      .u-period + .u-period {
+        padding-left: 12px;
+      }
+
+      .u-period:nth-child(3) {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .u-period:nth-child(n + 3) {
+        border-top: 1px solid var(--u-line);
+      }
+
+      .u-mode-switch {
+        bottom: 14px;
+        left: 14px;
+      }
+
+      .u-footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .universe-page * {
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
+
 <body class="universe-page" data-time="jour">
   <header class="u-header u-shell">
     <a class="u-brand" href="index.html">DUSK<span>CLAW</span></a>
+
     <nav class="u-nav" aria-label="Navigation principale">
       <a href="index.html">Accueil</a>
       <a href="personnages.html">Cardex</a>
       <a href="regles.html">Les règles</a>
     </nav>
   </header>
+
   <main>
     <section class="u-intro u-shell">
       <p class="u-kicker">Atlas de Duskclaw · Les deux veilles</p>
       <h1>Un monde entre<br><em>deux lumières.</em></h1>
-      <p>Dans Duskclaw, le Jour et la Nuit se succèdent et rythment les voyages comme les affrontements. Voici les premières pages de cet univers : ses terres et ses histoires restent à découvrir.</p>
+      <p>
+        Dans Duskclaw, le Jour et la Nuit se succèdent et rythment les voyages
+        comme les affrontements. Voici les premières pages de cet univers :
+        ses terres et ses histoires restent à découvrir.
+      </p>
     </section>
+
     <section class="u-realms" aria-label="Le Jour et la Nuit">
       <article class="u-realm u-realm-day">
         <span class="u-sigil" aria-hidden="true">☼</span>
         <p class="u-kicker">La première veille</p>
         <h2>Le Jour</h2>
-        <p>La partie commence sous le Jour. Pendant cette phase, les valeurs diurnes et les effets liés à la lumière s’appliquent. Les chemins sont pleinement visibles.</p>
+        <p>
+          La partie commence sous le Jour. Pendant cette phase, les valeurs
+          diurnes et les effets liés à la lumière s’appliquent. Les chemins
+          sont pleinement visibles.
+        </p>
       </article>
+
       <article class="u-realm u-realm-night">
         <span class="u-sigil" aria-hidden="true">☾</span>
         <p class="u-kicker">La veille des étoiles</p>
         <h2>La Nuit</h2>
-        <p>Quand la Nuit tombe, certaines caractéristiques et capacités changent. La visibilité se réduit : il faut alors adapter ses déplacements et ses choix.</p>
+        <p>
+          Quand la Nuit tombe, certaines caractéristiques et capacités changent.
+          La visibilité se réduit : il faut alors adapter ses déplacements et
+          ses choix.
+        </p>
       </article>
     </section>
-    <section class="u-region u-shell" aria-labelledby="aureval-title">
-      <div class="u-region-copy">
-        <p class="u-kicker">Première région du Jour · Proposition</p>
-        <h2 id="aureval-title">Les Marches<br>d’Auréval</h2>
-        <p>Un pays de collines ouvertes et de routes anciennes, où des tours de veille ponctuent l’horizon. À l’aube, leurs miroirs attrapent le premier rayon et le renvoient de colline en colline : les voyageurs peuvent suivre cette chaîne de lumière jusqu’au prochain relais.</p>
-        <div class="u-region-details" aria-label="Paysages d’Auréval"><span>Collines</span><span>Routes de crête</span><span>Tours de veille</span></div>
+
+    <section class="u-zones u-shell" aria-labelledby="zones-title">
+      <div class="u-zones-heading">
+        <div>
+          <p class="u-kicker">Atlas des plateaux · Environ 30 zones prévues</p>
+          <h2 id="zones-title">Les terres à explorer.</h2>
+        </div>
+        <p>
+          Au début de la partie, une carte est tirée au hasard. Elle indique la
+          zone et la disposition des pièces sur le plateau. Chaque carte
+          correspond donc à une zone de Duskclaw.
+        </p>
       </div>
-      <div class="u-region-scene" role="img" aria-label="Paysage de collines baignées par l’aube, traversé par une ancienne route et dominé par une tour de veille">
-        <span class="u-sun-disc" aria-hidden="true">☼</span><span class="u-road" aria-hidden="true"></span><span class="u-watchtower" aria-hidden="true"></span>
+
+      <div class="u-zone-grid">
+        <article class="u-zone">
+          <div class="u-zone-image" aria-label="Emplacement réservé à l’illustration de la zone 1">
+            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
+          </div>
+          <div class="u-zone-meta"><span>Zone 01</span><span>Jour</span></div>
+          <h3>Les Marches d’Auréval</h3>
+          <p>Proposition : collines ouvertes, anciennes routes de crête et tours de veille.</p>
+          <div class="u-zone-layout"><span aria-hidden="true">▦</span>Disposition du plateau : à définir</div>
+        </article>
+
+        <article class="u-zone">
+          <div class="u-zone-image" aria-label="Emplacement réservé à l’illustration de la zone 2">
+            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
+          </div>
+          <div class="u-zone-meta"><span>Zone 02</span><span>Jour ou nuit</span></div>
+          <h3>Nom à définir</h3>
+          <p>Le paysage et l’ambiance de cette zone restent à imaginer.</p>
+          <div class="u-zone-layout"><span aria-hidden="true">▦</span>Disposition du plateau : à définir</div>
+        </article>
+
+        <article class="u-zone">
+          <div class="u-zone-image" aria-label="Emplacement réservé à l’illustration de la zone 3">
+            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
+          </div>
+          <div class="u-zone-meta"><span>Zone 03</span><span>Jour ou nuit</span></div>
+          <h3>Nom à définir</h3>
+          <p>Le paysage et l’ambiance de cette zone restent à imaginer.</p>
+          <div class="u-zone-layout"><span aria-hidden="true">▦</span>Disposition du plateau : à définir</div>
+        </article>
+
+        <article class="u-zone">
+          <div class="u-zone-image" aria-label="Emplacement réservé à l’illustration de la zone 4">
+            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
+          </div>
+          <div class="u-zone-meta"><span>Zone 04</span><span>Jour ou nuit</span></div>
+          <h3>Nom à définir</h3>
+          <p>Le paysage et l’ambiance de cette zone restent à imaginer.</p>
+          <div class="u-zone-layout"><span aria-hidden="true">▦</span>Disposition du plateau : à définir</div>
+        </article>
+
+        <article class="u-zone">
+          <div class="u-zone-image" aria-label="Emplacement réservé à l’illustration de la zone 5">
+            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
+          </div>
+          <div class="u-zone-meta"><span>Zone 05</span><span>Jour ou nuit</span></div>
+          <h3>Nom à définir</h3>
+          <p>Le paysage et l’ambiance de cette zone restent à imaginer.</p>
+          <div class="u-zone-layout"><span aria-hidden="true">▦</span>Disposition du plateau : à définir</div>
+        </article>
+
+        <article class="u-zone">
+          <div class="u-zone-image" aria-label="Emplacement réservé à l’illustration de la zone 6">
+            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
+          </div>
+          <div class="u-zone-meta"><span>Zone 06</span><span>Jour ou nuit</span></div>
+          <h3>Nom à définir</h3>
+          <p>Le paysage et l’ambiance de cette zone restent à imaginer.</p>
+          <div class="u-zone-layout"><span aria-hidden="true">▦</span>Disposition du plateau : à définir</div>
+        </article>
       </div>
     </section>
+
     <section class="u-cycle u-shell">
       <div class="u-cycle-heading">
-        <div><p class="u-kicker">Le cycle du monde</p><h2>Trois rounds.<br>Puis l’autre veille.</h2></div>
+        <div>
+          <p class="u-kicker">Le cycle du monde</p>
+          <h2>Trois rounds.<br>Puis l’autre veille.</h2>
+        </div>
         <p>Chaque phase dure trois rounds. Le cycle fait alterner Jour et Nuit au fil de la partie.</p>
       </div>
+
       <div class="u-timeline" aria-label="Alternance du Jour et de la Nuit">
-        <article class="u-period"><span>Rounds 1 à 3</span><h3>Premier Jour</h3><p>La partie commence ici.</p></article>
-        <article class="u-period"><span>Rounds 4 à 6</span><h3>Première Nuit</h3><p>Le monde change de phase.</p></article>
-        <article class="u-period"><span>Rounds 7 à 9</span><h3>Jour suivant</h3><p>La lumière revient.</p></article>
-        <article class="u-period"><span>Rounds 10 à 12</span><h3>Nuit suivante</h3><p>Le cycle continue.</p></article>
+        <article class="u-period">
+          <span>Rounds 1 à 3</span>
+          <h3>Premier Jour</h3>
+          <p>La partie commence ici.</p>
+        </article>
+        <article class="u-period">
+          <span>Rounds 4 à 6</span>
+          <h3>Première Nuit</h3>
+          <p>Le monde change de phase.</p>
+        </article>
+        <article class="u-period">
+          <span>Rounds 7 à 9</span>
+          <h3>Jour suivant</h3>
+          <p>La lumière revient.</p>
+        </article>
+        <article class="u-period">
+          <span>Rounds 10 à 12</span>
+          <h3>Nuit suivante</h3>
+          <p>Le cycle continue.</p>
+        </article>
       </div>
     </section>
+
     <section class="u-next u-shell">
       <p>Les régions, leurs habitants et leurs légendes viendront enrichir cet atlas au fil de la création du monde.</p>
       <a href="regles.html">Lire le détail du cycle <span aria-hidden="true">→</span></a>
     </section>
   </main>
+
   <footer class="u-footer u-shell">
     <a class="u-brand" href="index.html">DUSK<span>CLAW</span></a>
-    <span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span>
+    <span>Un monde de cartes et de créatures.</span>
+    <span>© DUSKCLAW</span>
   </footer>
+
   <label class="u-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
-    <span class="mode-day">Jour</span><input id="universe-theme-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="u-mode-track" aria-hidden="true"></span><span class="mode-night">Nuit</span>
+    <span class="mode-day">Jour</span>
+    <input id="universe-theme-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="u-mode-track" aria-hidden="true"></span>
+    <span class="mode-night">Nuit</span>
   </label>
+
   <script>
     const themeSwitch = document.getElementById("universe-theme-toggle");
+
     function setTheme(time, save = false) {
       document.body.dataset.time = time;
       themeSwitch.checked = time === "nuit";
       themeSwitch.setAttribute("aria-checked", String(themeSwitch.checked));
-      document.querySelector('meta[name="theme-color"]').content = time === "nuit" ? "#111724" : "#f1ead9";
-      if (save) localStorage.setItem("duskclaw-time", time);
+      document.querySelector('meta[name="theme-color"]').content =
+        time === "nuit" ? "#111724" : "#f1ead9";
+
+      if (save) {
+        localStorage.setItem("duskclaw-time", time);
+      }
     }
-    themeSwitch.addEventListener("change", () => setTheme(themeSwitch.checked ? "nuit" : "jour", true));
+
+    themeSwitch.addEventListener("change", () => {
+      setTheme(themeSwitch.checked ? "nuit" : "jour", true);
+    });
+
     setTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
 </body>
