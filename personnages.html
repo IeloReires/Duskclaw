@@ -37,7 +37,7 @@
     .rarity-rare { --rarity-color: #e3b84f; }
     .rarity-epique { --rarity-color: #bd83ec; }
     .rarity-legendaire { --rarity-color: #7de0d1; }
-    a.furry-entry:hover, a.furry-entry:focus-visible { z-index: 2; transform: translateY(-4px) scale(1.025); box-shadow: 0 12px 30px rgba(0,0,0,.34), 0 0 22px color-mix(in srgb, var(--rarity-color) 55%, transparent); outline: 3px solid var(--rarity-color); outline-offset: 2px; }
+    .furry-entry:hover, a.furry-entry:focus-visible { z-index: 2; transform: translateY(-4px) scale(1.025); box-shadow: 0 12px 30px rgba(0,0,0,.34), 0 0 22px color-mix(in srgb, var(--rarity-color) 55%, transparent); outline: 3px solid var(--rarity-color); outline-offset: 2px; }
     .furry-entry img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 28%; }
     .furry-caption { position: absolute; inset: auto 0 0; display: flex; flex-direction: column; gap: 3px; padding: 28px 12px 11px; color: white; background: linear-gradient(transparent, rgba(18,19,23,.86)); }
     .furry-caption strong { font-size: 1rem; }
@@ -45,7 +45,7 @@
     .furry-caption .rarity-label { color: var(--rarity-color); font-weight: 800; }
     .furry-placeholder { display: grid; place-items: center; background: #e7e7e5; box-shadow: inset 0 0 0 1px rgba(35,36,39,.05); }
     .placeholder-mark { width: 42%; aspect-ratio: 1; display: grid; place-items: center; border: 3px solid #b6b7b8; border-radius: 50%; color: #aaabad; font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; }
-    .placeholder-label { position: absolute; inset: auto 0 18px; color: #8d8f92; text-align: center; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+    .placeholder-label { position: absolute; inset: auto 6px 12px; color: #777a7e; text-align: center; font-size: .61rem; line-height: 1.45; letter-spacing: .04em; text-transform: uppercase; white-space: pre-line; }
     @media (max-width: 1100px) {
       .cardex-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .cardex-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -121,7 +121,7 @@
         <p class="eyebrow">LES FAMILLES DE DUSKCLAW</p>
         <h1>Cardex<span style="color:var(--accent)">.</span></h1>
       </div>
-      <p><strong>6</strong> formes renseignées sur 65</p>
+      <p><strong>6</strong> formes illustrées sur 65</p>
     </div>
     <form class="cardex-filters" id="cardex-filters">
       <label class="cardex-control">
@@ -143,7 +143,9 @@
           <option value="">Tous les types</option>
           <option value="eau">Eau</option>
           <option value="plante">Plante</option>
+          <option value="glace">Glace</option>
           <option value="roche">Roche</option>
+          <option value="vent">Vent</option>
         </select>
       </label>
       <label class="cardex-control">
@@ -168,12 +170,44 @@
       </label>
       <button class="filter-reset" id="reset-filters" type="button">Tout effacer</button>
     </form>
-    <p class="cardex-results" id="cardex-results" aria-live="polite">65 emplacements · 6 formes renseignées</p>
+    <p class="cardex-results" id="cardex-results" aria-live="polite">65 formes classées · 6 illustrées</p>
     <section class="cardex-grid" id="cardex-grid" aria-label="Les 65 emplacements du Cardex"></section>
     <p class="cardex-empty" id="cardex-empty" hidden>Aucun Furry ne correspond à ces filtres.</p>
   </main>
   <script>
     const furries = Array(65).fill(null);
+    const familyGroups = [
+      [1, 3, "plante"], [4, 6, "eau", "Marin"], [7, 9, "glace"],
+      [10, 12, "roche"], [13, 15, "vent"], [16, 18, "eau"],
+      [19, 21, "glace"], [22, 24, "roche", "Caine"], [25, 27, "vent"],
+      [28, 30, "plante"], [31, 33, "eau"], [34, 36, "roche"],
+      [37, 38, "vent"], [39, 40, "glace"], [41, 42, "plante", "Kael"],
+      [43, 44, "eau"], [45, 46, "glace"], [47, 48, "roche"],
+      [49, 50, "vent"], [51, 52, "glace"], [53, 54, "plante"],
+      [55, 56, "vent"], [57, 58, "plante"], [59, 59, "eau"],
+      [60, 60, "roche"], [61, 61, "glace"], [62, 62, "roche"],
+      [63, 63, "plante"], [64, 64, "vent"], [65, 65, "eau"]
+    ];
+    const levelNames = ["base", "niveau-1", "niveau-2"];
+    const levelLabels = ["Base", "Niveau 1", "Niveau 2"];
+    const rarityNames = ["commun", "peu-commun", "rare"];
+    const rarityLabels = ["Commun", "Peu commun", "Rare"];
+    familyGroups.forEach(([first, last, type, knownFamily], groupIndex) => {
+      const familyName = knownFamily || "Famille " + String(groupIndex + 1).padStart(2, "0");
+      for (let number = first; number <= last; number++) {
+        const stage = number - first;
+        const level = levelNames[stage] || "base";
+        let rarityIndex = Math.min(stage, 2);
+        if (knownFamily === "Kael") rarityIndex = stage === 0 ? 1 : 2;
+        furries[number - 1] = {
+          name: knownFamily === "Caine" ? "Caine" : knownFamily === "Marin" ? "Marin" : knownFamily === "Kael" ? "Kael" : "",
+          familyName, level, levelLabel: levelLabels[stage] || "Base", type,
+          rarity: rarityNames[rarityIndex], rarityLabel: rarityLabels[rarityIndex],
+          stage: (levelLabels[stage] || "Base") + " · " + type,
+          image: "", family: knownFamily ? knownFamily.toLocaleLowerCase("fr") + ".html" : ""
+        };
+      }
+    });
     furries[3] = { name: "Marin", familyName: "Marin", level: "base", type: "eau", rarity: "commun", rarityLabel: "Commun", stage: "Base · Eau", image: "marin.png", family: "marin.html" };
     furries[4] = { name: "Marin", familyName: "Marin", level: "niveau-1", type: "eau", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" };
     furries[5] = { name: "Marin", familyName: "Marin", level: "niveau-2", type: "eau", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" };
@@ -183,7 +217,7 @@
     const grid = document.getElementById("cardex-grid");
     for (let number = 0; number < 65; number++) {
       const furry = furries[number];
-      if (furry) {
+      if (furry && furry.image) {
         const card = document.createElement("a");
         card.className = "furry-entry rarity-" + furry.rarity;
         card.dataset.name = furry.name.toLocaleLowerCase("fr");
@@ -209,22 +243,26 @@
         card.append(image, caption);
         grid.append(card);
       } else {
+        const data = furry || { familyName: "Famille à venir", levelLabel: "", type: "", rarity: "", rarityLabel: "" };
         const card = document.createElement("div");
-        card.className = "furry-entry furry-placeholder";
-        card.dataset.rarity = "";
-        card.dataset.name = "";
-        card.dataset.level = "";
-        card.dataset.type = "";
-        card.dataset.family = "";
+        card.className = "furry-entry furry-placeholder" + (data.rarity ? " rarity-" + data.rarity : "");
+        card.dataset.rarity = data.rarity || "";
+        card.dataset.name = (data.name || "").toLocaleLowerCase("fr");
+        card.dataset.level = data.level || "";
+        card.dataset.type = data.type || "";
+        card.dataset.family = (data.familyName || "").toLocaleLowerCase("fr");
         const slotNumber = String(number + 1).padStart(2, "0");
-        card.setAttribute("aria-label", "Emplacement " + slotNumber + " sur 65 — Furry à venir");
+        const typeLabel = data.type ? data.type.charAt(0).toLocaleUpperCase("fr") + data.type.slice(1) : "Type à définir";
+        const summary = [data.levelLabel, typeLabel, data.rarityLabel].filter(Boolean).join(" · ");
+        card.title = [data.familyName, summary].filter(Boolean).join(" — ");
+        card.setAttribute("aria-label", "Emplacement " + slotNumber + " sur 65 — " + card.title);
         const mark = document.createElement("span");
         mark.className = "placeholder-mark";
         mark.setAttribute("aria-hidden", "true");
         mark.textContent = slotNumber;
         const label = document.createElement("span");
         label.className = "placeholder-label";
-        label.textContent = "À venir";
+        label.textContent = (data.name || data.familyName) + (summary ? "\n" + summary : "\nÀ venir");
         card.append(mark, label);
         grid.append(card);
       }
@@ -248,7 +286,7 @@
         card.hidden = !matches;
         if (matches) visible++;
       });
-      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 6 formes renseignées sur 65";
+      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 65 fiches classées, 6 illustrées";
       emptyMessage.hidden = visible > 0;
     }
     document.getElementById("cardex-filters").addEventListener("submit", (event) => event.preventDefault());
