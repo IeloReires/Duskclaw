@@ -177,43 +177,48 @@
   <script>
     const furries = Array(65).fill(null);
     const familyGroups = [
-      [1, 3, "plante"], [4, 6, "eau", "Marin"], [7, 9, "glace"],
-      [10, 12, "roche"], [13, 15, "vent"], [16, 18, "eau"],
-      [19, 21, "glace"], [22, 24, "roche", "Caine"], [25, 27, "vent"],
-      [28, 30, "plante"], [31, 33, "eau"], [34, 36, "roche"],
-      [37, 38, "vent"], [39, 40, "glace"], [41, 42, "plante", "Kael"],
-      [43, 44, "eau"], [45, 46, "glace"], [47, 48, "roche"],
-      [49, 50, "vent"], [51, 52, "glace"], [53, 54, "plante"],
-      [55, 56, "vent"], [57, 58, "plante"], [59, 59, "eau"],
-      [60, 60, "roche"], [61, 61, "glace"], [62, 62, "roche"],
-      [63, 63, "plante"], [64, 64, "vent"], [65, 65, "eau"]
+      [2, "glace"], [3, "eau", "Marin"], [3, "vent"], [3, "plante"],
+      [3, "roche"], [3, "eau"], [3, "glace"], [3, "vent"], [3, "plante"],
+      [3, "eau"], [3, "roche"], [2, "glace"], [2, "vent"], [2, "plante", "Kael"],
+      [2, "eau"], [2, "roche"], [2, "glace"], [2, "vent"], [2, "plante"],
+      [3, "roche", "Caine"], [2, "glace"], [2, "plante"], [2, "vent"],
+      [1, "eau"], [1, "roche"],
+      [1, "plante"], [1, "glace"], [1, "roche"], [1, "vent"], [1, "eau", "", "epique"]
     ];
     const levelNames = ["base", "niveau-1", "niveau-2"];
     const levelLabels = ["Base", "Niveau 1", "Niveau 2"];
     const rarityNames = ["commun", "peu-commun", "rare"];
     const rarityLabels = ["Commun", "Peu commun", "Rare"];
-    familyGroups.forEach(([first, last, type, knownFamily], groupIndex) => {
+    const rarityLabelByName = { commun: "Commun", "peu-commun": "Peu commun", rare: "Rare", epique: "Épique" };
+    let nextCard = 0;
+    familyGroups.forEach(([size, type, knownFamily, specialRarity], groupIndex) => {
       const familyName = knownFamily || "Famille " + String(groupIndex + 1).padStart(2, "0");
-      for (let number = first; number <= last; number++) {
-        const stage = number - first;
+      for (let stage = 0; stage < size; stage++) {
         const level = levelNames[stage] || "base";
         let rarityIndex = Math.min(stage, 2);
         if (knownFamily === "Kael") rarityIndex = stage === 0 ? 1 : 2;
-        furries[number - 1] = {
+        const rarity = specialRarity || rarityNames[rarityIndex];
+        furries[nextCard++] = {
           name: knownFamily === "Caine" ? "Caine" : knownFamily === "Marin" ? "Marin" : knownFamily === "Kael" ? "Kael" : "",
           familyName, level, levelLabel: levelLabels[stage] || "Base", type,
-          rarity: rarityNames[rarityIndex], rarityLabel: rarityLabels[rarityIndex],
+          rarity, rarityLabel: rarityLabelByName[rarity] || rarityLabels[rarityIndex],
           stage: (levelLabels[stage] || "Base") + " · " + type,
           image: "", family: knownFamily ? knownFamily.toLocaleLowerCase("fr") + ".html" : ""
         };
       }
     });
-    furries[3] = { name: "Marin", familyName: "Marin", level: "base", type: "eau", rarity: "commun", rarityLabel: "Commun", stage: "Base · Eau", image: "marin.png", family: "marin.html" };
-    furries[4] = { name: "Marin", familyName: "Marin", level: "niveau-1", type: "eau", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" };
-    furries[5] = { name: "Marin", familyName: "Marin", level: "niveau-2", type: "eau", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" };
-    furries[23] = { name: "Caine", familyName: "Caine", level: "niveau-2", type: "roche", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Roche", image: "caine-niveau-2.png", family: "caine.html" };
-    furries[40] = { name: "Kael", familyName: "Kael", level: "base", type: "plante", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Base · Plante", image: "kael-base.png", family: "kael.html" };
-    furries[41] = { name: "Kael", familyName: "Kael", level: "niveau-1", type: "plante", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 1 · Plante", image: "kael-evolution-1.png", family: "kael.html" };
+    const illustrations = {
+      "Marin|base": "marin.png",
+      "Marin|niveau-1": "marin-evolution-1.png",
+      "Marin|niveau-2": "marin-evolution-2.png",
+      "Caine|niveau-2": "caine-niveau-2.png",
+      "Kael|base": "kael-base.png",
+      "Kael|niveau-1": "kael-evolution-1.png"
+    };
+    furries.forEach((furry) => {
+      const image = illustrations[furry.familyName + "|" + furry.level];
+      if (image) furry.image = image;
+    });
     const grid = document.getElementById("cardex-grid");
     for (let number = 0; number < 65; number++) {
       const furry = furries[number];
