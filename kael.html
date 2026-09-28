@@ -44,12 +44,23 @@
       .stats-list { margin-top: 18px; }
     }
     @media (prefers-reduced-motion: reduce) { .portrait { transition: none; } }
+      body:not(.dual-page)[data-time="jour"] { --bg: #f1ead9; --background: #f1ead9; --surface: #f8f3e8; --text: #252920; --muted: #66695f; --accent: #8a6a37; --line: rgba(60,58,47,.24); background: #f1ead9 !important; color: #252920 !important; color-scheme: light; }
+    body:not(.dual-page)[data-time="nuit"] { --bg: #11121a; --background: #11121a; --surface: #191b25; --text: #f1f0eb; --muted: #a6a9b2; --accent: #d7bb82; --line: rgba(232,229,218,.16); background: #11121a !important; color: #f1f0eb !important; color-scheme: dark; }
+    .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 2px; background: var(--surface); color: var(--muted); font: 700 .78rem Arial, sans-serif; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
+    .global-mode-switch .mode-day, body:not(.dual-page)[data-time="nuit"] .global-mode-switch .mode-night { color: var(--accent); }
+    .global-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .global-mode-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--line); border-radius: 20px; background: rgba(120,110,90,.22); transition: background .25s ease; }
+    .global-mode-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: var(--text); content: ""; transition: transform .25s ease; }
+    .global-mode-switch input:checked + .global-mode-track { background: rgba(157,133,207,.38); }
+    .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); }
+    .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--accent); outline-offset: 3px; }
+    @media (max-width: 560px) { .global-mode-switch { bottom: 14px; left: 14px; } }
   </style>
 </head>
-<body>
+<body data-time="jour">
   <header class="site-header family-top">
     <a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-<a href="personnages.html">← Retour au Cardex</a>
+    <a href="personnages.html">← Retour au Cardex</a>
   </header>
 
   <main class="family-page">
@@ -109,8 +120,28 @@
       portrait.addEventListener("click", activate);
     });
   </script>
+  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
+    <span class="mode-day">Jour</span>
+    <input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="global-mode-track" aria-hidden="true"></span>
+    <span class="mode-night">Nuit</span>
+  </label>
+  <script>
+    const globalThemeSwitch = document.getElementById("global-mode-toggle");
+    function applySiteTheme(time, save = false) {
+      document.body.dataset.time = time;
+      globalThemeSwitch.checked = time === "nuit";
+      globalThemeSwitch.setAttribute("aria-checked", String(time === "nuit"));
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.content = time === "nuit" ? "#11121a" : "#f1ead9";
+      if (save) localStorage.setItem("duskclaw-time", time);
+    }
+    globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
+    applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
+  </script>
 </body>
 </html>
+
 
 
 
