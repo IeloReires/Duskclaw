@@ -8,7 +8,7 @@
   <title>Duskclaw — Un monde entre le Jour et la Nuit</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    :root { --world-ink: #edf0e9; --world-muted: #b8c0bd; --world-night: #111820; --world-deep: #18242b; --world-gold: #d9b77a; --world-line: rgba(237,240,233,.18); }
+    :root { --world-ink: #f0eee9; --world-muted: #b8c0cc; --world-night: #0d1020; --world-deep: #17182c; --world-gold: #e1c18a; --world-line: rgba(237,240,233,.18); }
     body.world-home { margin: 0; background: var(--world-night); color: var(--world-ink); }
     .world-home a { color: inherit; }
     .world-shell { width: min(1440px, 92%); margin-inline: auto; }
@@ -18,15 +18,15 @@
     .world-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); }
     .world-nav a { color: var(--world-muted); text-decoration: none; font-size: .9rem; transition: color .2s ease; }
     .world-nav a:hover, .world-nav a:focus-visible { color: var(--world-gold); }
-    .world-nav .world-nav-cta { padding: 11px 17px; border: 1px solid rgba(217,183,122,.7); color: var(--world-ink); }
+    .world-nav .world-nav-cta { padding: 11px 17px; border: 1px solid rgba(225,193,138,.7); color: var(--world-ink); }
     .world-hero { position: relative; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: clamp(36px, 6vw, 90px); min-height: min(720px, calc(100svh - 83px)); padding-block: 58px 76px; isolation: isolate; }
-    .world-hero::before { position: absolute; z-index: -2; content: ""; inset: 0 -4.4vw; background: radial-gradient(ellipse at 76% 55%, rgba(117,129,126,.19), transparent 31%), radial-gradient(ellipse at 52% 105%, rgba(193,137,77,.22), transparent 41%), linear-gradient(110deg, #111820 15%, #19242b 58%, #243139); }
-    .world-hero::after { position: absolute; z-index: -1; content: ""; width: min(45vw, 640px); aspect-ratio: 1; right: 3%; top: 50%; transform: translateY(-48%); border: 1px solid rgba(217,183,122,.23); border-radius: 50%; box-shadow: 0 0 0 28px rgba(217,183,122,.025), 0 0 0 68px rgba(217,183,122,.02); }
+    .world-hero::before { position: absolute; z-index: -2; content: ""; inset: 0 -4.4vw; background: radial-gradient(1px 1px at 11% 22%, #f5e8c7 99%, transparent), radial-gradient(1.5px 1.5px at 30% 73%, #d6d5ee 99%, transparent), radial-gradient(1px 1px at 44% 16%, #f5e8c7 99%, transparent), radial-gradient(1.5px 1.5px at 68% 26%, #ddd4ff 99%, transparent), radial-gradient(1px 1px at 91% 71%, #f5e8c7 99%, transparent), radial-gradient(ellipse at 76% 51%, rgba(109,111,182,.31), transparent 34%), radial-gradient(ellipse at 53% 104%, rgba(208,153,94,.2), transparent 42%), linear-gradient(115deg, #0d1020 12%, #17182d 57%, #202344); }
+    .world-hero::after { position: absolute; z-index: -1; content: ""; width: min(45vw, 640px); aspect-ratio: 1; right: 3%; top: 50%; transform: translateY(-48%); border: 1px solid rgba(225,193,138,.34); border-radius: 50%; box-shadow: 0 0 0 18px rgba(225,193,138,.025), 0 0 0 52px rgba(160,151,219,.055), 0 0 0 94px rgba(225,193,138,.025), inset 0 0 65px rgba(155,146,223,.1); }
     .world-copy { max-width: 650px; }
     .world-kicker, .world-overline { color: var(--world-gold); font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
     .world-kicker { display: flex; align-items: center; gap: 13px; }
     .world-kicker::before { width: 34px; height: 1px; background: var(--world-gold); content: ""; }
-    .world-title { max-width: 740px; margin: 25px 0 22px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.2rem, 7.3vw, 7rem); font-weight: 400; letter-spacing: -.055em; line-height: .98; }
+    .world-title { max-width: 740px; margin: 25px 0 22px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.2rem, 7.3vw, 7rem); font-weight: 400; letter-spacing: -.055em; line-height: .98; text-shadow: 0 0 46px rgba(171,158,238,.17); }
     .world-title em { color: var(--world-gold); font-weight: 400; }
     .world-lead { max-width: 520px; color: #d2d7d3; font-size: clamp(1.02rem, 1.45vw, 1.2rem); line-height: 1.8; }
     .world-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px 25px; margin-top: 33px; }
@@ -34,7 +34,9 @@
     .world-button:hover, .world-button:focus-visible { transform: translateY(-2px); background: #edcf9b; }
     .world-secondary { color: var(--world-ink) !important; text-decoration-color: rgba(237,240,233,.45); text-underline-offset: 5px; }
     .world-art { position: relative; display: grid; place-items: center; min-height: 490px; }
-    .world-art-frame { position: relative; width: min(100%, 540px); padding: 13px; border: 1px solid rgba(217,183,122,.62); background: #e9e5d9; box-shadow: 0 28px 80px rgba(0,0,0,.34); transform: rotate(1deg); }
+    .world-art::before { position: absolute; top: 5%; left: 50%; width: 82%; aspect-ratio: 1; border: 1px solid rgba(191,180,242,.35); border-radius: 50%; background: radial-gradient(circle, rgba(139,131,202,.2), rgba(88,82,149,.08) 54%, transparent 70%); box-shadow: 0 0 65px rgba(134,128,214,.24), inset 0 0 55px rgba(224,203,148,.1); content: ""; transform: translateX(-50%); }
+    .world-art::after { position: absolute; top: 5%; left: 50%; display: grid; place-items: center; width: 82%; aspect-ratio: 1; border: 1px dashed rgba(235,211,161,.3); border-radius: 50%; color: rgba(244,223,178,.7); content: "✧　✦　✧"; font-size: 1.1rem; letter-spacing: 1.2em; transform: translateX(-50%) rotate(-18deg); pointer-events: none; }
+    .world-art-frame { position: relative; z-index: 1; width: min(100%, 540px); padding: 13px; border: 1px solid rgba(225,193,138,.82); background: linear-gradient(135deg, #f5eddc, #d7d0c1); box-shadow: 0 28px 80px rgba(0,0,0,.38), 0 0 38px rgba(176,156,233,.23); transform: rotate(1deg); }
     .world-art-frame::before { position: absolute; z-index: 1; inset: 7px; border: 1px solid rgba(91,83,66,.3); content: ""; pointer-events: none; }
     .world-art-frame img { display: block; width: 100%; max-height: 490px; object-fit: contain; }
     .world-art-note { position: absolute; right: 1%; bottom: 10px; color: var(--world-muted); font-family: Georgia, "Times New Roman", serif; font-size: .82rem; font-style: italic; letter-spacing: .04em; }
@@ -45,8 +47,8 @@
     .cycle-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--world-line); }
     .cycle-panel { position: relative; min-height: 245px; overflow: hidden; padding: clamp(25px, 4vw, 48px); }
     .cycle-panel + .cycle-panel { border-left: 1px solid var(--world-line); }
-    .cycle-day { background: radial-gradient(ellipse at 85% 10%, rgba(226,190,123,.2), transparent 38%), linear-gradient(145deg, #29333a, #202a30); }
-    .cycle-night { background: radial-gradient(ellipse at 86% 10%, rgba(125,154,189,.18), transparent 38%), linear-gradient(145deg, #17212b, #111820); }
+    .cycle-day { background: radial-gradient(ellipse at 85% 10%, rgba(226,190,123,.22), transparent 38%), linear-gradient(145deg, #302b38, #202638); }
+    .cycle-night { background: radial-gradient(ellipse at 86% 10%, rgba(148,137,221,.21), transparent 38%), linear-gradient(145deg, #1c1d36, #111521); }
     .cycle-orb { position: absolute; top: 34px; right: 40px; width: 70px; aspect-ratio: 1; border-radius: 50%; }
     .cycle-day .cycle-orb { background: #dfbd7c; box-shadow: 0 0 45px rgba(223,189,124,.32); }
     .cycle-night .cycle-orb { border: 1px solid #aebbd0; background: #b9c3d1; box-shadow: 0 0 45px rgba(174,187,208,.24); }
@@ -97,8 +99,8 @@
     <section class="world-hero world-shell" id="accueil">
       <div class="world-copy">
         <p class="world-kicker">Un jeu de cartes tactique · Fantasy</p>
-        <h1 class="world-title">Deux horizons.<br>Un monde à <em>parcourir.</em></h1>
-        <p class="world-lead">Le Jour ouvre les routes. La Nuit garde leurs secrets. Pars à la rencontre des Furries et découvre les terres qui changent au fil du crépuscule.</p>
+        <h1 class="world-title">Quand le Jour s’endort,<br>la magie <em>s’éveille.</em></h1>
+        <p class="world-lead">Aux frontières du Jour et de la Nuit, un monde fantastique attend les voyageurs. Rencontre ses Furries, explore ses contrées et découvre ce qui change quand le crépuscule tombe.</p>
         <div class="world-actions">
           <a class="world-button" href="personnages.html">Entrer dans le Cardex <span aria-hidden="true">→</span></a>
           <a class="world-secondary" href="regles.html">Comment jouer</a>
@@ -108,7 +110,7 @@
         <div class="world-art-frame">
           <img src="duskclaw-hero.png" alt="Illustration au trait de trois personnages de Duskclaw" loading="eager">
         </div>
-        <span class="world-art-note">Carnet de voyage · Première veille</span>
+        <span class="world-art-note">Bestiaire des deux horizons · Première veille</span>
       </div>
     </section>
 
@@ -116,22 +118,22 @@
       <div class="world-section-heading">
         <div>
           <p class="world-overline">Le cycle de Duskclaw</p>
-          <h2>La lumière change.<br>Le voyage continue.</h2>
+          <h2>Deux royaumes de lumière.<br>Un seul grand voyage.</h2>
         </div>
-        <p>Dans ces contrées, le Jour et la Nuit se succèdent et transforment la façon de parcourir le terrain. À chaque cycle, de nouveaux chemins et de nouvelles stratégies se dessinent.</p>
+        <p>Le monde de Duskclaw est régi par deux puissances qui se succèdent sans jamais se confondre. Leurs cycles transforment le terrain et invitent les voyageurs à adapter leur route.</p>
       </div>
       <div class="cycle-grid">
         <article class="cycle-panel cycle-day">
           <span class="cycle-orb" aria-hidden="true"></span>
           <p class="world-overline">Quand le soleil monte</p>
           <h3>Le Jour</h3>
-          <p>Les sentiers s’ouvrent, les reliefs se révèlent. Saisis l’occasion et avance vers les objectifs.</p>
+          <p>Les sentiers s’ouvrent sous une lumière dorée. Les reliefs se révèlent et les voyageurs prennent la route.</p>
         </article>
         <article class="cycle-panel cycle-night">
           <span class="cycle-orb" aria-hidden="true"></span>
           <p class="world-overline">Quand le ciel s’assombrit</p>
           <h3>La Nuit</h3>
-          <p>Les ombres changent le terrain. Reste attentif : la visibilité baisse et chaque choix compte.</p>
+          <p>Les étoiles veillent sur les chemins obscurs. Les ombres transforment le terrain : chaque choix peut révéler une nouvelle voie.</p>
         </article>
       </div>
     </section>
