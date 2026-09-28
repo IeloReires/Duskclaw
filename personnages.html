@@ -212,11 +212,12 @@
         card.dataset.level = "";
         card.dataset.type = "";
         card.dataset.family = "";
-        card.setAttribute("aria-label", "Furry à venir");
+        const slotNumber = String(number + 1).padStart(2, "0");
+        card.setAttribute("aria-label", "Emplacement " + slotNumber + " sur 65 — Furry à venir");
         const mark = document.createElement("span");
         mark.className = "placeholder-mark";
         mark.setAttribute("aria-hidden", "true");
-        mark.textContent = "?";
+        mark.textContent = slotNumber;
         const label = document.createElement("span");
         label.className = "placeholder-label";
         label.textContent = "À venir";
