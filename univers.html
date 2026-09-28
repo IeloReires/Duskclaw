@@ -34,34 +34,14 @@
 
     .conteneur { width: min(1200px, 90%); margin-inline: auto; }
 
-    .entete {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 80px;
-      border-bottom: 1px solid var(--trait);
-    }
-
-    .logo {
-      color: var(--texte);
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: .19em;
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--accent); }
-    .navigation { display: flex; gap: clamp(16px, 3vw, 36px); }
-
-    .navigation a {
-      color: var(--texte-doux);
-      font-size: .9rem;
-      text-decoration: none;
-    }
-
-    .navigation a:hover,
-    .navigation a:focus-visible { color: var(--accent); }
+    .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
+    .dusk-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 82px; border-bottom: 1px solid var(--trait); }
+    .dusk-brand { color: var(--texte); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
+    .dusk-brand span { color: var(--accent); }
+    .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
+    .dusk-nav a { color: var(--texte-doux); font-size: .88rem; text-decoration: none; }
+    .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--accent); }
+    .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--trait); color: var(--texte); }
 
     .introduction {
       max-width: 800px;
@@ -332,8 +312,9 @@
 
     @media (max-width: 760px) {
       .grille-zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .entete { flex-wrap: wrap; padding: 16px 0; }
-      .navigation { width: 100%; justify-content: space-between; }
+      .dusk-header { flex-wrap: wrap; padding-block: 17px; }
+      .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
+      .dusk-nav a { font-size: .82rem; }
     }
 
     @media (max-width: 520px) {
@@ -345,13 +326,12 @@
 </head>
 
 <body data-time="jour">
-  <header class="entete conteneur">
-    <a class="logo" href="index.html">DUSK<span>CLAW</span></a>
-
-    <nav class="navigation" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a>
+  <header class="dusk-header dusk-shell">
+    <a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <nav class="dusk-nav" aria-label="Navigation principale">
+      <a href="univers.html">Univers</a>
       <a href="personnages.html">Cardex</a>
-      <a href="regles.html">Les règles</a>
+      <a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
