@@ -37,10 +37,7 @@
     .rule-chapter th, .rule-chapter td { padding: 11px 14px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
     .rule-chapter th { color: var(--accent); background: rgba(255,255,255,.04); }
     .rule-chapter td { color: var(--muted); }
-    .rules-footer { padding-top: 34px; text-align: center; }    html { scroll-behavior: smooth; }
-    .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 1000; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.28); font-size: 1.5rem; text-decoration: none; transition: transform .2s ease, background .2s ease, color .2s ease; }
-    .back-to-top:hover, .back-to-top:focus-visible { transform: translateY(-4px); background: var(--accent); color: #10121b; outline: none; }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .back-to-top { transition: none; } }
+    .rules-footer { padding-top: 34px; text-align: center; }
     @media (max-width: 680px) {
       .rules-page { width: 90%; padding-top: 26px; }
       .rules-top { margin-bottom: 42px; }
@@ -48,9 +45,20 @@
       .rules-toc ol { columns: 1; }
       .rule-chapter th, .rule-chapter td { padding: 9px; }
     }
+      body:not(.dual-page)[data-time="jour"] { --bg: #f1ead9; --background: #f1ead9; --surface: #f8f3e8; --text: #252920; --muted: #66695f; --accent: #8a6a37; --line: rgba(60,58,47,.24); background: #f1ead9 !important; color: #252920 !important; color-scheme: light; }
+    body:not(.dual-page)[data-time="nuit"] { --bg: #11121a; --background: #11121a; --surface: #191b25; --text: #f1f0eb; --muted: #a6a9b2; --accent: #d7bb82; --line: rgba(232,229,218,.16); background: #11121a !important; color: #f1f0eb !important; color-scheme: dark; }
+    .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 2px; background: var(--surface); color: var(--muted); font: 700 .78rem Arial, sans-serif; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
+    .global-mode-switch .mode-day, body:not(.dual-page)[data-time="nuit"] .global-mode-switch .mode-night { color: var(--accent); }
+    .global-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .global-mode-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--line); border-radius: 20px; background: rgba(120,110,90,.22); transition: background .25s ease; }
+    .global-mode-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: var(--text); content: ""; transition: transform .25s ease; }
+    .global-mode-switch input:checked + .global-mode-track { background: rgba(157,133,207,.38); }
+    .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); }
+    .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--accent); outline-offset: 3px; }
+    @media (max-width: 560px) { .global-mode-switch { bottom: 14px; left: 14px; } }
   </style>
 </head>
-<body id="top">
+<body data-time="jour">
   <header class="site-header">
     <a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <a class="rules-home" href="index.html">← Retour à l’accueil</a>
@@ -63,55 +71,55 @@
     </section>
     <details class="rules-toc" open>
       <summary>Sommaire — 49 chapitres</summary>
-      <ol><li><a href="#chapter-1-pr-sentation-du-jeu">Présentation du jeu</a></li>
-<li><a href="#chapter-2-but-de-la-partie">But de la partie</a></li>
-<li><a href="#chapter-3-mat-riel-n-cessaire">Matériel nécessaire</a></li>
-<li><a href="#chapter-4-composition-du-deck">Composition du deck</a></li>
-<li><a href="#chapter-5-types-de-cartes">Types de cartes</a></li>
-<li><a href="#chapter-6-zones-de-jeu">Zones de jeu</a></li>
-<li><a href="#chapter-7-le-plateau-hexagonal">Le plateau hexagonal</a></li>
-<li><a href="#chapter-8-niveaux-et-hauteur">Niveaux et hauteur</a></li>
-<li><a href="#chapter-9-obstacles-et-terrains-du-plateau">Obstacles et terrains du plateau</a></li>
-<li><a href="#chapter-10-caract-ristiques-des-furries">Caractéristiques des Furries</a></li>
-<li><a href="#chapter-11-valeurs-jour-nuit">Valeurs Jour/Nuit</a></li>
-<li><a href="#chapter-12-mise-en-place">Mise en place</a></li>
-<li><a href="#chapter-13-nouvelle-main-sans-furry-de-base">Nouvelle main sans Furry de base</a></li>
-<li><a href="#chapter-14-premier-joueur">Premier joueur</a></li>
-<li><a href="#chapter-15-rounds-tours-et-phases">Rounds, tours et phases</a></li>
-<li><a href="#chapter-16-cycle-jour-nuit">Cycle Jour/Nuit</a></li>
-<li><a href="#chapter-17-d-roulement-d-un-tour">Déroulement d’un tour</a></li>
-<li><a href="#chapter-18-r-gles-g-n-rales-des-nergies">Règles générales des Énergies</a></li>
-<li><a href="#chapter-19-attachement-des-nergies">Attachement des Énergies</a></li>
-<li><a href="#chapter-20-d-ploiement-des-furries">Déploiement des Furries</a></li>
-<li><a href="#chapter-21-d-placement">Déplacement</a></li>
-<li><a href="#chapter-22-zones-de-contact">Zones de contact</a></li>
-<li><a href="#chapter-23-attaques-d-opportunit">Attaques d’opportunité</a></li>
-<li><a href="#chapter-24-port-e-et-distance">Portée et distance</a></li>
-<li><a href="#chapter-25-ligne-de-vue">Ligne de vue</a></li>
-<li><a href="#chapter-26-hauteur-et-combat">Hauteur et combat</a></li>
-<li><a href="#chapter-27-attaques">Attaques</a></li>
-<li><a href="#chapter-28-calcul-des-d-g-ts">Calcul des dégâts</a></li>
-<li><a href="#chapter-29-types-faiblesses-et-r-sistances">Types, faiblesses et résistances</a></li>
-<li><a href="#chapter-30-reculs-pouss-es-attractions-et-chutes">Reculs, poussées, attractions et chutes</a></li>
-<li><a href="#chapter-31-volution-des-furries">Évolution des Furries</a></li>
-<li><a href="#chapter-32-talents">Talents</a></li>
-<li><a href="#chapter-33-objets">Objets</a></li>
-<li><a href="#chapter-34-supporters">Supporters</a></li>
-<li><a href="#chapter-35-terrains">Terrains</a></li>
-<li><a href="#chapter-36-capacit-s-de-r-action">Capacités de Réaction</a></li>
-<li><a href="#chapter-37-tats-tactiques">États tactiques</a></li>
-<li><a href="#chapter-38-k-o">K.O.</a></li>
-<li><a href="#chapter-39-points-de-domination">Points de domination</a></li>
-<li><a href="#chapter-40-contr-le-des-objectifs">Contrôle des objectifs</a></li>
-<li><a href="#chapter-41-conditions-de-victoire-simultan-es">Conditions de victoire simultanées</a></li>
-<li><a href="#chapter-42-cibles-et-r-solution-des-effets">Cibles et résolution des effets</a></li>
-<li><a href="#chapter-43-effets-temporaires-et-permanents">Effets temporaires et permanents</a></li>
-<li><a href="#chapter-44-ordre-de-r-solution">Ordre de résolution</a></li>
-<li><a href="#chapter-45-r-gles-concernant-les-cartes">Règles concernant les cartes</a></li>
-<li><a href="#chapter-46-mots-cl-s">Mots-clés</a></li>
+      <ol><li><a href="#chapter-pr-sentation-du-jeu">Présentation du jeu</a></li>
+<li><a href="#chapter-but-de-la-partie">But de la partie</a></li>
+<li><a href="#chapter-mat-riel-n-cessaire">Matériel nécessaire</a></li>
+<li><a href="#chapter-composition-du-deck">Composition du deck</a></li>
+<li><a href="#chapter-types-de-cartes">Types de cartes</a></li>
+<li><a href="#chapter-zones-de-jeu">Zones de jeu</a></li>
+<li><a href="#chapter-le-plateau-hexagonal">Le plateau hexagonal</a></li>
+<li><a href="#chapter-niveaux-et-hauteur">Niveaux et hauteur</a></li>
+<li><a href="#chapter-obstacles-et-terrains-du-plateau">Obstacles et terrains du plateau</a></li>
+<li><a href="#chapter-caract-ristiques-des-furries">Caractéristiques des Furries</a></li>
+<li><a href="#chapter-valeurs-jour-nuit">Valeurs Jour/Nuit</a></li>
+<li><a href="#chapter-mise-en-place">Mise en place</a></li>
+<li><a href="#chapter-nouvelle-main-sans-furry-de-base">Nouvelle main sans Furry de base</a></li>
+<li><a href="#chapter-premier-joueur">Premier joueur</a></li>
+<li><a href="#chapter-rounds-tours-et-phases">Rounds, tours et phases</a></li>
+<li><a href="#chapter-cycle-jour-nuit">Cycle Jour/Nuit</a></li>
+<li><a href="#chapter-d-roulement-d-un-tour">Déroulement d’un tour</a></li>
+<li><a href="#chapter-r-gles-g-n-rales-des-nergies">Règles générales des Énergies</a></li>
+<li><a href="#chapter-attachement-des-nergies">Attachement des Énergies</a></li>
+<li><a href="#chapter-d-ploiement-des-furries">Déploiement des Furries</a></li>
+<li><a href="#chapter-d-placement">Déplacement</a></li>
+<li><a href="#chapter-zones-de-contact">Zones de contact</a></li>
+<li><a href="#chapter-attaques-d-opportunit">Attaques d’opportunité</a></li>
+<li><a href="#chapter-port-e-et-distance">Portée et distance</a></li>
+<li><a href="#chapter-ligne-de-vue">Ligne de vue</a></li>
+<li><a href="#chapter-hauteur-et-combat">Hauteur et combat</a></li>
+<li><a href="#chapter-attaques">Attaques</a></li>
+<li><a href="#chapter-calcul-des-d-g-ts">Calcul des dégâts</a></li>
+<li><a href="#chapter-types-faiblesses-et-r-sistances">Types, faiblesses et résistances</a></li>
+<li><a href="#chapter-reculs-pouss-es-attractions-et-chutes">Reculs, poussées, attractions et chutes</a></li>
+<li><a href="#chapter-volution-des-furries">Évolution des Furries</a></li>
+<li><a href="#chapter-talents">Talents</a></li>
+<li><a href="#chapter-objets">Objets</a></li>
+<li><a href="#chapter-supporters">Supporters</a></li>
+<li><a href="#chapter-terrains">Terrains</a></li>
+<li><a href="#chapter-capacit-s-de-r-action">Capacités de Réaction</a></li>
+<li><a href="#chapter-tats-tactiques">États tactiques</a></li>
+<li><a href="#chapter-k-o">K.O.</a></li>
+<li><a href="#chapter-points-de-domination">Points de domination</a></li>
+<li><a href="#chapter-contr-le-des-objectifs">Contrôle des objectifs</a></li>
+<li><a href="#chapter-conditions-de-victoire-simultan-es">Conditions de victoire simultanées</a></li>
+<li><a href="#chapter-cibles-et-r-solution-des-effets">Cibles et résolution des effets</a></li>
+<li><a href="#chapter-effets-temporaires-et-permanents">Effets temporaires et permanents</a></li>
+<li><a href="#chapter-ordre-de-r-solution">Ordre de résolution</a></li>
+<li><a href="#chapter-r-gles-concernant-les-cartes">Règles concernant les cartes</a></li>
+<li><a href="#chapter-mots-cl-s">Mots-clés</a></li>
 <li><a href="#chapter-exemple-de-tour-complet">Exemple de tour complet</a></li>
-<li><a href="#chapter-47-tableau-r-capitulatif">Tableau récapitulatif</a></li>
-<li><a href="#chapter-48-glossaire">Glossaire</a></li></ol>
+<li><a href="#chapter-tableau-r-capitulatif">Tableau récapitulatif</a></li>
+<li><a href="#chapter-glossaire">Glossaire</a></li></ol>
     </details>
     <article class="rules-content">
 <section class="rule-chapter" id="chapter-1-pr-sentation-du-jeu">
@@ -1514,8 +1522,24 @@ Nuit : 🌱</code></pre>
     </article>
     <div class="rules-footer"><a class="text-link" href="index.html">Retour à l’accueil ↑</a></div>
   </main>
-  <a class="back-to-top" href="#top" aria-label="Remonter en haut de la page"><span aria-hidden="true">↑</span></a>
+  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
+    <span class="mode-day">Jour</span>
+    <input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="global-mode-track" aria-hidden="true"></span>
+    <span class="mode-night">Nuit</span>
+  </label>
+  <script>
+    const globalThemeSwitch = document.getElementById("global-mode-toggle");
+    function applySiteTheme(time, save = false) {
+      document.body.dataset.time = time;
+      globalThemeSwitch.checked = time === "nuit";
+      globalThemeSwitch.setAttribute("aria-checked", String(time === "nuit"));
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.content = time === "nuit" ? "#11121a" : "#f1ead9";
+      if (save) localStorage.setItem("duskclaw-time", time);
+    }
+    globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
+    applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
+  </script>
 </body>
 </html>
-
-
