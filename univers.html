@@ -32,10 +32,7 @@
       color-scheme: dark;
     }
 
-    .conteneur {
-      width: min(1200px, 90%);
-      margin-inline: auto;
-    }
+    .conteneur { width: min(1200px, 90%); margin-inline: auto; }
 
     .entete {
       display: flex;
@@ -54,14 +51,8 @@
       text-decoration: none;
     }
 
-    .logo span {
-      color: var(--accent);
-    }
-
-    .navigation {
-      display: flex;
-      gap: clamp(16px, 3vw, 36px);
-    }
+    .logo span { color: var(--accent); }
+    .navigation { display: flex; gap: clamp(16px, 3vw, 36px); }
 
     .navigation a {
       color: var(--texte-doux);
@@ -70,9 +61,7 @@
     }
 
     .navigation a:hover,
-    .navigation a:focus-visible {
-      color: var(--accent);
-    }
+    .navigation a:focus-visible { color: var(--accent); }
 
     .introduction {
       max-width: 800px;
@@ -87,10 +76,7 @@
       text-transform: uppercase;
     }
 
-    h1,
-    .zone h2,
-    .fin h2,
-    .fenetre-zone h2 {
+    h1, .zone h2, .fin h2, .fenetre-zone h2 {
       font-family: Georgia, "Times New Roman", serif;
       font-weight: 400;
     }
@@ -102,10 +88,7 @@
       line-height: .96;
     }
 
-    h1 em {
-      color: var(--accent);
-      font-weight: 400;
-    }
+    h1 em { color: var(--accent); font-weight: 400; }
 
     .introduction > p:last-child {
       max-width: 690px;
@@ -133,8 +116,7 @@
       transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
     }
 
-    .zone:hover,
-    .zone:focus-visible {
+    .zone:hover, .zone:focus-visible {
       transform: translateY(-3px);
       border-color: var(--accent);
       box-shadow: 0 8px 25px rgba(35, 30, 20, .12);
@@ -178,10 +160,7 @@
       text-transform: uppercase;
     }
 
-    .zone h2 {
-      margin: 9px 0 6px;
-      font-size: 1.65rem;
-    }
+    .zone h2 { margin: 9px 0 6px; font-size: 1.65rem; }
 
     .zone p {
       margin: 0;
@@ -204,10 +183,7 @@
       text-align: center;
     }
 
-    .fin h2 {
-      margin: 12px 0;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-    }
+    .fin h2 { margin: 12px 0; font-size: clamp(2.4rem, 5vw, 4rem); }
 
     .fin p {
       max-width: 580px;
@@ -262,16 +238,12 @@
       cursor: pointer;
     }
 
-    .fermer:hover,
-    .fermer:focus-visible {
+    .fermer:hover, .fermer:focus-visible {
       border-color: var(--accent);
       color: var(--accent);
     }
 
-    .description-fenetre {
-      color: var(--texte-doux);
-      line-height: 1.7;
-    }
+    .description-fenetre { color: var(--texte-doux); line-height: 1.7; }
 
     .grille-fenetre {
       display: grid;
@@ -346,9 +318,7 @@
       transition: transform .25s ease;
     }
 
-    body[data-time="nuit"] .interrupteur {
-      background: #5e527f;
-    }
+    body[data-time="nuit"] .interrupteur { background: #5e527f; }
 
     .bouton-mode input:checked + .interrupteur::before {
       transform: translateX(19px);
@@ -361,35 +331,15 @@
     }
 
     @media (max-width: 760px) {
-      .grille-zones {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .entete {
-        flex-wrap: wrap;
-        padding: 16px 0;
-      }
-
-      .navigation {
-        width: 100%;
-        justify-content: space-between;
-      }
+      .grille-zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .entete { flex-wrap: wrap; padding: 16px 0; }
+      .navigation { width: 100%; justify-content: space-between; }
     }
 
     @media (max-width: 520px) {
-      .grille-zones,
-      .grille-fenetre {
-        grid-template-columns: 1fr;
-      }
-
-      .pied-de-page {
-        flex-direction: column;
-      }
-
-      .bouton-mode {
-        bottom: 14px;
-        left: 14px;
-      }
+      .grille-zones, .grille-fenetre { grid-template-columns: 1fr; }
+      .pied-de-page { flex-direction: column; }
+      .bouton-mode { bottom: 14px; left: 14px; }
     }
   </style>
 </head>
@@ -513,7 +463,6 @@
   </dialog>
 
   <footer class="pied-de-page conteneur">
-    <a class="logo" href="index.html">DUSK<span>CLAW</span></a>
     <span>Un monde de cartes et de créatures.</span>
     <span>© DUSKCLAW</span>
   </footer>
