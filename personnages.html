@@ -8,13 +8,15 @@
   <title>Cardex — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .cardex-site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); min-height: 82px; margin-inline: auto; border-bottom: 1px solid var(--dusk-rule); }
+    .cardex-site-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--dusk-rule); }
     .cardex-site-brand { color: var(--dusk-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
     .cardex-site-brand span { color: var(--dusk-accent); }
     .cardex-site-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
     .cardex-site-nav a { color: var(--dusk-muted); font-size: .88rem; text-decoration: none; }
     .cardex-site-nav a:hover, .cardex-site-nav a:focus-visible { color: var(--dusk-accent); }
     .cardex-site-nav .cardex-rules-link { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); }
+    .cardex-site-nav .cardex-support-link { padding: 10px 14px; background: var(--dusk-accent); color: #fff; font-weight: 700; }
+    .cardex-site-nav .cardex-support-link:hover, .cardex-site-nav .cardex-support-link:focus-visible { filter: brightness(1.08); }
     .cardex-page { width: min(1600px, 96%); margin: 0 auto; padding: 38px 0 70px; }
     .cardex-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 40px 0 28px; }
     .cardex-heading h1 { margin: 0; font-size: clamp(2.8rem, 6vw, 5rem); }
@@ -50,7 +52,7 @@
       .cardex-control:first-child, .filter-reset { grid-column: 1 / -1; }
     }
     @media (max-width: 680px) {
-      .cardex-site-header { flex-wrap: wrap; padding-block: 17px; }
+      .cardex-site-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
       .cardex-site-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
       .cardex-site-nav a { font-size: .82rem; }
       .cardex-page { width: 94%; padding-top: 24px; }
@@ -87,6 +89,7 @@
     <nav class="cardex-site-nav" aria-label="Navigation principale">
       <a href="univers.html">Univers</a>
       <a class="cardex-rules-link" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+      <a class="cardex-support-link" href="soutenir.html">Soutenir</a>
     </nav>
   </header>
   <main class="cardex-page">
