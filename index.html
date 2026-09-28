@@ -7,6 +7,7 @@
   <meta name="description" content="Découvre Duskclaw, un monde de Furries, de cartes et de contrées mystérieuses, entre le Jour et la Nuit.">
   <title>Duskclaw — Entre le Jour et la Nuit</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
     :root { --dusk-bg: #f1ead9; --dusk-paper: #f8f3e8; --dusk-ink: #252920; --dusk-muted: #66695f; --dusk-accent: #8a6a37; --dusk-rule: rgba(60,58,47,.24); }
     body.dual-page { margin: 0; background: var(--dusk-bg); color: var(--dusk-ink); transition: background .45s ease, color .45s ease; }
@@ -66,6 +67,7 @@
     body.dual-page[data-time="nuit"] .dusk-art::before { border-color: rgba(184,166,223,.4); box-shadow: 0 0 0 13px rgba(184,166,223,.06), 0 0 0 45px rgba(184,166,223,.035); }
     body.dual-page[data-time="nuit"] .dusk-emblem { background: #25253d; color: #d6c5f2; border-color: rgba(184,166,223,.55); transform: rotate(-16deg); }
     body.dual-page[data-time="nuit"] .dusk-art-frame { border-color: rgba(184,166,223,.6); box-shadow: 0 24px 58px rgba(0,0,0,.35), 0 0 30px rgba(141,121,194,.15); }
+
     @media (max-width: 800px) {
       .dusk-header { flex-wrap: wrap; padding-block: 17px; }
       .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
@@ -78,6 +80,7 @@
       .dusk-emblem { right: 12%; }
       .dusk-mode-switch { bottom: 14px; left: 14px; }
     }
+
     @media (max-width: 560px) {
       .dusk-shell { width: 90%; }
       .dusk-title { font-size: clamp(3.2rem, 14vw, 5rem); }
@@ -89,9 +92,15 @@
       .dusk-lore article + article { border-top: 1px solid var(--dusk-rule); border-left: 0; }
       .dusk-footer { flex-direction: column; }
     }
-    @media (prefers-reduced-motion: reduce) { .dual-page *, .dual-page *::before, .dual-page *::after { transition-duration: .01ms !important; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dual-page *, .dual-page *::before, .dual-page *::after {
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
+
 <body class="dual-page" data-time="jour">
   <header class="dusk-header dusk-shell">
     <a class="dusk-brand" href="#accueil" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
@@ -113,6 +122,7 @@
           <a class="dusk-secondary" href="regles.html">Découvrir les règles</a>
         </div>
       </div>
+
       <div class="dusk-art">
         <span class="dusk-emblem" id="day-emblem" aria-hidden="true">☼</span>
         <div class="dusk-art-frame">
@@ -123,6 +133,7 @@
     </section>
 
     <div class="dusk-divider dusk-shell" aria-hidden="true">Un monde, deux veilles</div>
+
     <section class="dusk-lore dusk-shell" id="monde" aria-label="Le cycle de Duskclaw">
       <div class="dusk-lore-grid">
         <article>
@@ -138,16 +149,17 @@
   </main>
 
   <footer class="dusk-footer dusk-shell">
-    <a class="dusk-brand" href="#accueil">DUSK<span>CLAW</span></a>
     <span>Un monde de cartes et de créatures.</span>
     <span>© DUSKCLAW</span>
   </footer>
+
   <label class="dusk-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
     <span class="mode-day-label">Jour</span>
     <input id="mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
     <span class="dusk-switch-track" aria-hidden="true"></span>
     <span class="mode-night-label">Nuit</span>
   </label>
+
   <script>
     const dayNightContent = {
       jour: {
@@ -165,24 +177,33 @@
         artCaption: "Chroniques du royaume · Veille nocturne"
       }
     };
+
     const modeToggle = document.getElementById("mode-toggle");
+
     function setTime(time, remember = false) {
       const content = dayNightContent[time];
       document.body.dataset.time = time;
-      document.querySelector('meta[name="theme-color"]').content = time === "jour" ? "#f1ead9" : "#111724";
+      document.querySelector('meta[name="theme-color"]').content =
+        time === "jour" ? "#f1ead9" : "#111724";
       document.getElementById("time-kicker").textContent = content.kicker;
       document.getElementById("hero-title").innerHTML = content.title;
       document.getElementById("hero-description").textContent = content.description;
       document.getElementById("day-emblem").textContent = content.emblem;
       document.getElementById("art-caption").textContent = content.artCaption;
+
       const isNight = time === "nuit";
       modeToggle.checked = isNight;
       modeToggle.setAttribute("aria-checked", String(isNight));
-      if (remember) localStorage.setItem("duskclaw-time", time);
+
+      if (remember) {
+        localStorage.setItem("duskclaw-time", time);
+      }
     }
+
     modeToggle.addEventListener("change", () => {
       setTime(modeToggle.checked ? "nuit" : "jour", true);
     });
+
     setTime(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
 </body>
