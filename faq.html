@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1ead9">
+  <meta name="description" content="Réponses rapides aux questions fréquentes sur les règles du jeu Duskclaw.">
+  <title>Questions fréquentes — Duskclaw</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root { --faq-bg:#f1ead9; --faq-paper:#f8f3e8; --faq-ink:#252920; --faq-muted:#66695f; --faq-accent:#8a6a37; --faq-rule:rgba(60,58,47,.24); }
+    body { margin:0; background:var(--faq-bg); color:var(--faq-ink); transition:background .35s ease,color .35s ease; }
+    body[data-time="nuit"] { --faq-bg:#111724; --faq-paper:#1a2030; --faq-ink:#ece9e1; --faq-muted:#b8bdca; --faq-accent:#b8a6df; --faq-rule:rgba(229,225,243,.2); color-scheme:dark; }
+    .faq-shell { width:min(1180px,90%); margin-inline:auto; }
+    .faq-header { box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; gap:24px; width:min(1320px,90%); min-height:83px; margin-inline:auto; border-bottom:1px solid var(--faq-rule); }
+    .faq-brand { color:var(--faq-ink); font-size:1rem; font-weight:800; letter-spacing:.19em; text-decoration:none; }
+    .faq-brand span { color:var(--faq-accent); }
+    .faq-nav { display:flex; align-items:center; gap:clamp(14px,3vw,38px); }
+    .faq-nav a { color:var(--faq-muted); font-size:.88rem; text-decoration:none; }
+    .faq-nav a:hover,.faq-nav a:focus-visible { color:var(--faq-accent); }
+    .faq-nav .faq-rules { padding:10px 14px; border:1px solid var(--faq-rule); color:var(--faq-ink); }
+    .faq-nav .faq-support { padding:10px 14px; background:var(--faq-accent); color:#fff; font-weight:700; }
+    .faq-main { max-width:900px; padding:64px 0 82px; }
+    .faq-eyebrow { color:var(--faq-accent); font-size:.72rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+    .faq-main h1 { margin:18px 0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(2.8rem,7vw,5rem); font-weight:400; letter-spacing:-.045em; line-height:1; }
+    .faq-lead { max-width:670px; color:var(--faq-muted); font-size:1.08rem; line-height:1.75; }
+    .faq-list { margin-top:42px; border-top:1px solid var(--faq-rule); }
+    .faq-list details { border-bottom:1px solid var(--faq-rule); }
+    .faq-list summary { position:relative; padding:23px 44px 23px 2px; color:var(--faq-ink); font-family:Georgia,"Times New Roman",serif; font-size:1.25rem; cursor:pointer; list-style:none; }
+    .faq-list summary::-webkit-details-marker { display:none; }
+    .faq-list summary::after { position:absolute; top:20px; right:6px; color:var(--faq-accent); font-family:Arial,sans-serif; font-size:1.4rem; content:"+"; }
+    .faq-list details[open] summary::after { content:"−"; }
+    .faq-answer { max-width:760px; padding:0 0 24px 2px; color:var(--faq-muted); line-height:1.75; }
+    .faq-answer p { margin:0 0 12px; }
+    .faq-answer ul { padding-left:22px; }
+    .faq-answer li { margin:6px 0; }
+    .faq-answer strong { color:var(--faq-ink); }
+    .faq-cta { margin-top:48px; padding-top:28px; border-top:1px solid var(--faq-rule); color:var(--faq-muted); line-height:1.7; }
+    .faq-cta a { display:inline-block; margin-top:8px; color:var(--faq-accent); font-weight:700; text-underline-offset:4px; }
+    .faq-footer { display:flex; justify-content:space-between; gap:18px; padding:22px 0 30px; border-top:1px solid var(--faq-rule); color:var(--faq-muted); font-size:.82rem; }
+    .faq-footer a { color:var(--faq-ink); text-decoration:none; }
+    .faq-mode { position:fixed; z-index:20; bottom:20px; left:20px; display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--faq-rule); background:var(--faq-paper); color:var(--faq-muted); font-size:.78rem; font-weight:700; cursor:pointer; box-shadow:0 5px 20px rgba(0,0,0,.15); }
+    .faq-mode input { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+    .faq-track { position:relative; width:40px; height:22px; border:1px solid var(--faq-rule); border-radius:20px; background:#d9cfb9; }
+    .faq-track::before { position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fffaf0; content:""; transition:transform .2s ease; }
+    .faq-mode input:checked + .faq-track { background:#5e527f; }
+    .faq-mode input:checked + .faq-track::before { transform:translateX(18px); background:#e5dcf5; }
+    .faq-mode input:focus-visible + .faq-track { outline:2px solid var(--faq-accent); outline-offset:3px; }
+    @media(max-width:760px) { .faq-header { flex-wrap:wrap; padding-block:17px; } .faq-nav { order:3; width:100%; justify-content:space-between; gap:10px; } .faq-nav a { font-size:.8rem; } .faq-main { padding-top:38px; } }
+    @media(max-width:560px) { .faq-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .faq-footer { flex-direction:column; } }
+    @media(prefers-reduced-motion:reduce) { body { transition:none; } .faq-track::before { transition:none; } }
+  </style>
+</head>
+<body id="top" data-time="jour">
+  <header class="faq-header">
+    <a class="faq-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <nav class="faq-nav" aria-label="Navigation principale">
+      <a href="univers.html">Univers</a>
+      <a href="personnages.html">Cardex</a>
+      <a class="faq-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+      <a class="faq-support" href="soutenir.html">Soutenir</a>
+    </nav>
+  </header>
+
+  <main class="faq-main faq-shell">
+    <p class="faq-eyebrow">AIDE AUX JOUEURS</p>
+    <h1>Questions<br>fréquentes.</h1>
+    <p class="faq-lead">Quelques réponses pour découvrir Duskclaw et comprendre les premières étapes d’une partie. Les règles complètes restent la référence pour jouer.</p>
+
+    <section class="faq-list" aria-label="Questions fréquentes sur Duskclaw">
+      <details>
+        <summary>Qu’est-ce que Duskclaw&nbsp;?</summary>
+        <div class="faq-answer"><p>Duskclaw est un jeu de cartes tactique pour deux joueurs. Chaque joueur dirige une équipe de Furries sur un plateau d’hexagones répartis sur plusieurs niveaux.</p></div>
+      </details>
+      <details>
+        <summary>Comment remporter la partie&nbsp;?</summary>
+        <div class="faq-answer"><p>La partie s’arrête dès qu’un joueur remplit une condition de victoire&nbsp;:</p><ul><li>atteindre 6 points de domination&nbsp;;</li><li>mettre tous les Furries adverses K.O.&nbsp;;</li><li>forcer l’adversaire à piocher dans un deck vide&nbsp;;</li><li>contrôler l’objectif central pendant 3 fins de round consécutives&nbsp;;</li><li>l’adversaire ne contrôle plus de Furry et ne peut plus en déployer.</li></ul></div>
+      </details>
+      <details>
+        <summary>Comment commence une partie&nbsp;?</summary>
+        <div class="faq-answer"><p>Chaque joueur mélange un deck de 40 cartes et pioche 7 cartes. Si sa main ne contient aucun Furry de base, il la reprend selon la procédure de nouvelle main des règles.</p><p>Chaque joueur déploie ensuite secrètement 1 Furry de base obligatoire et jusqu’à 3 Furries de base supplémentaires. Une pièce est lancée pour déterminer qui choisit le premier joueur.</p></div>
+      </details>
+      <details>
+        <summary>Que peut-on faire pendant son tour&nbsp;?</summary>
+        <div class="faq-answer"><p>Le joueur actif pioche d’abord une carte. Pendant sa phase principale, il peut ensuite effectuer les actions autorisées dans l’ordre de son choix&nbsp;: attacher une Énergie, déployer ou déplacer un Furry, le faire évoluer, utiliser un Talent, jouer des cartes, attaquer ou interagir avec un objectif. Chaque action doit être résolue avant la suivante, et certaines actions ont une limite par tour.</p></div>
+      </details>
+      <details>
+        <summary>Quand un Furry peut-il évoluer&nbsp;?</summary>
+        <div class="faq-answer"><p>L’évolution doit correspondre à ce Furry. Il doit être en jeu depuis le début du tour et ne pas avoir déjà évolué pendant ce tour.</p></div>
+      </details>
+      <details>
+        <summary>Comment fonctionne le cycle Jour/Nuit&nbsp;?</summary>
+        <div class="faq-answer"><p>La partie commence le Jour. Le Jour et la Nuit durent chacun 3 rounds. À la Nuit, les valeurs nocturnes s’appliquent et la visibilité normale est limitée à 3 cases. La capacité Vision nocturne permet d’ignorer cette limite.</p></div>
+      </details>
+      <details>
+        <summary>Les Énergies sont-elles défaussées après une attaque&nbsp;?</summary>
+        <div class="faq-answer"><p>En règle générale, les Énergies attachées ne sont pas défaussées après leur utilisation. Certaines cartes ou capacités peuvent préciser une règle différente.</p></div>
+      </details>
+    </section>
+
+    <div class="faq-cta">Besoin d’un détail de jeu ou d’une règle complète&nbsp;?<br><a href="regles.html">Consulter le guide complet des règles <span aria-hidden="true">→</span></a></div>
+  </main>
+
+  <footer class="faq-footer faq-shell">
+    <a href="index.html">Retour à l’accueil</a>
+    <span>© DUSKCLAW</span>
+  </footer>
+  <label class="faq-mode" title="Basculer entre les ambiances Jour et Nuit">
+    <span>Jour</span>
+    <input id="faq-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="faq-track" aria-hidden="true"></span>
+    <span>Nuit</span>
+  </label>
+  <script>
+    const faqSwitch = document.getElementById("faq-mode-toggle");
+    function setFaqTheme(night, save = false) {
+      document.body.dataset.time = night ? "nuit" : "jour";
+      faqSwitch.checked = night;
+      faqSwitch.setAttribute("aria-checked", String(night));
+      if (save) localStorage.setItem("duskclaw-time", night ? "nuit" : "jour");
+    }
+    faqSwitch.addEventListener("change", () => setFaqTheme(faqSwitch.checked, true));
+    setFaqTheme(localStorage.getItem("duskclaw-time") === "nuit");
+  </script>
+</body>
+</html>
