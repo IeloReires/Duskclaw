@@ -37,6 +37,8 @@
     .offer h3 { margin: 28px 0 10px; font: 400 clamp(1.6rem, 3vw, 2.2rem) Georgia, "Times New Roman", serif; }
     .offer p { max-width: 450px; margin: 0; color: var(--page-muted); line-height: 1.75; }
     .coming-soon { display: inline-block; margin-top: 25px; padding: 9px 12px; border: 1px solid var(--page-line); color: var(--page-muted); font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .donate-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 25px; padding: 12px 15px; background: var(--page-accent); color: #fff !important; font-size: .86rem; font-weight: 800; text-decoration: none; transition: filter .2s ease, transform .2s ease; }
+    .donate-link:hover, .donate-link:focus-visible { filter: brightness(1.1); transform: translateY(-2px); }
     .support-note { margin: 18px 0 0; color: var(--page-muted); font-size: .84rem; line-height: 1.65; }
     .support-footer { display: flex; justify-content: space-between; gap: 18px; padding: 23px 0 30px; border-top: 1px solid var(--page-line); color: var(--page-muted); font-size: .8rem; }
     .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--page-line); background: var(--page-paper); color: var(--page-muted); font-family: inherit; font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
@@ -73,14 +75,14 @@
     <section class="support-section support-shell" aria-labelledby="don-title">
       <div class="section-heading">
         <div><p class="support-eyebrow">SOUTENIR LE PROJET</p><h2 id="don-title">Un coup de pouce<br>pour l’aventure.</h2></div>
-        <p>Les contributions aideront à faire avancer la création de Duskclaw : nouvelles illustrations, cartes, univers et matériel de jeu. Les modalités seront précisées lorsque cette option sera prête.</p>
+        <p>Tu peux dès maintenant soutenir la création de Duskclaw : tes contributions aideront à faire avancer les illustrations, les cartes et le monde du jeu.</p>
       </div>
       <div class="offer-grid">
         <article class="offer">
           <span class="offer-number">01 · Contribution</span>
           <h3>Soutenir la création</h3>
           <p>Une façon de participer au développement du jeu et de ses prochaines étapes.</p>
-          <span class="coming-soon">Bientôt disponible</span>
+          <a class="donate-link" href="https://ko-fi.com/duskclawproject" target="_blank" rel="noopener noreferrer">Faire un don sur Ko-fi <span aria-hidden="true">↗</span></a>
         </article>
         <article class="offer">
           <span class="offer-number">02 · Suivre l’aventure</span>
@@ -89,7 +91,7 @@
           <span class="coming-soon">Informations à venir</span>
         </article>
       </div>
-      <p class="support-note">Aucun paiement ni don n’est proposé sur cette page pour le moment.</p>
+      <p class="support-note">Le paiement se fait sur Ko-fi. Les commandes du jeu de base et des boosters ne sont pas encore ouvertes.</p>
     </section>
 
     <section class="support-section support-shell" aria-labelledby="order-title">
