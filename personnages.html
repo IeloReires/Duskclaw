@@ -24,12 +24,18 @@
     .cardex-empty { padding: 32px 0; color: var(--muted); text-align: center; }
     .cardex-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
     .furry-entry[hidden] { display: none !important; }
-    .furry-entry { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 18px; background: #f2f2f1; color: #25262a; text-decoration: none; box-shadow: 0 5px 16px rgba(0,0,0,.14); transition: transform .2s ease, box-shadow .2s ease; }
-    a.furry-entry:hover, a.furry-entry:focus-visible { z-index: 2; transform: translateY(-4px) scale(1.025); box-shadow: 0 12px 30px rgba(0,0,0,.34); outline: 2px solid var(--accent); outline-offset: 2px; }
+    .furry-entry { --rarity-color: transparent; position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 18px; background: #f2f2f1; color: #25262a; text-decoration: none; box-shadow: 0 5px 16px rgba(0,0,0,.14); transition: transform .2s ease, box-shadow .2s ease, outline-color .2s ease; }
+    .rarity-commun { --rarity-color: #b87945; }
+    .rarity-peu-commun { --rarity-color: #c8d0d8; }
+    .rarity-rare { --rarity-color: #e3b84f; }
+    .rarity-epique { --rarity-color: #bd83ec; }
+    .rarity-legendaire { --rarity-color: #7de0d1; }
+    a.furry-entry:hover, a.furry-entry:focus-visible { z-index: 2; transform: translateY(-4px) scale(1.025); box-shadow: 0 12px 30px rgba(0,0,0,.34), 0 0 22px color-mix(in srgb, var(--rarity-color) 55%, transparent); outline: 3px solid var(--rarity-color); outline-offset: 2px; }
     .furry-entry img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 28%; }
     .furry-caption { position: absolute; inset: auto 0 0; display: flex; flex-direction: column; gap: 3px; padding: 28px 12px 11px; color: white; background: linear-gradient(transparent, rgba(18,19,23,.86)); }
     .furry-caption strong { font-size: 1rem; }
     .furry-caption span { font-size: .68rem; letter-spacing: .09em; text-transform: uppercase; }
+    .furry-caption .rarity-label { color: var(--rarity-color); font-weight: 800; }
     .furry-placeholder { display: grid; place-items: center; background: #e7e7e5; box-shadow: inset 0 0 0 1px rgba(35,36,39,.05); }
     .placeholder-mark { width: 42%; aspect-ratio: 1; display: grid; place-items: center; border: 3px solid #b6b7b8; border-radius: 50%; color: #aaabad; font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; }
     .placeholder-label { position: absolute; inset: auto 0 18px; color: #8d8f92; text-align: center; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
@@ -65,7 +71,7 @@
         <p class="eyebrow">LES FAMILLES DE DUSKCLAW</p>
         <h1>Cardex<span style="color:var(--accent)">.</span></h1>
       </div>
-      <p><strong id="illustrated-count">6</strong> Furries illustrés sur 65</p>
+      <p><strong>6</strong> formes renseignées sur 65</p>
     </div>
     <form class="cardex-filters" id="cardex-filters">
       <label class="cardex-control">
@@ -100,39 +106,42 @@
         </select>
       </label>
       <label class="cardex-control">
-        Illustration
-        <select id="status-filter">
-          <option value="">Toutes les cases</option>
-          <option value="illustrated">Illustrées</option>
-          <option value="coming">À venir</option>
+        Rareté
+        <select id="rarity-filter">
+          <option value="">Toutes les raretés</option>
+          <option value="commun">Commun</option>
+          <option value="peu-commun">Peu commun</option>
+          <option value="rare">Rare</option>
+          <option value="epique">Épique</option>
+          <option value="legendaire">Légendaire</option>
         </select>
       </label>
       <button class="filter-reset" id="reset-filters" type="button">Tout effacer</button>
     </form>
-    <p class="cardex-results" id="cardex-results" aria-live="polite">65 emplacements · 6 illustrés</p>
+    <p class="cardex-results" id="cardex-results" aria-live="polite">65 emplacements · 6 formes renseignées</p>
     <section class="cardex-grid" id="cardex-grid" aria-label="Les 65 emplacements du Cardex"></section>
     <p class="cardex-empty" id="cardex-empty" hidden>Aucun Furry ne correspond à ces filtres.</p>
   </main>
   <script>
     const furries = [
-      { name: "Marin", familyName: "Marin", level: "base", type: "eau", stage: "Base · Eau", image: "marin.png", family: "marin.html" },
-      { name: "Marin", familyName: "Marin", level: "niveau-1", type: "eau", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" },
-      { name: "Marin", familyName: "Marin", level: "niveau-2", type: "eau", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" },
-      { name: "Kael", familyName: "Kael", level: "base", type: "plante", stage: "Base · Plante", image: "kael-base.png", family: "kael.html" },
-      { name: "Kael", familyName: "Kael", level: "niveau-1", type: "plante", stage: "Niveau 1 · Plante", image: "kael-evolution-1.png", family: "kael.html" },
-      { name: "Caine", familyName: "Caine", level: "niveau-2", type: "roche", stage: "Niveau 2 · Roche", image: "caine-niveau-2.png", family: "caine.html" }
+      { name: "Marin", familyName: "Marin", level: "base", type: "eau", rarity: "commun", rarityLabel: "Commun", stage: "Base · Eau", image: "marin.png", family: "marin.html" },
+      { name: "Marin", familyName: "Marin", level: "niveau-1", type: "eau", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Niveau 1 · Eau", image: "marin-evolution-1.png", family: "marin.html" },
+      { name: "Marin", familyName: "Marin", level: "niveau-2", type: "eau", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Eau", image: "marin-evolution-2.png", family: "marin.html" },
+      { name: "Kael", familyName: "Kael", level: "base", type: "plante", rarity: "peu-commun", rarityLabel: "Peu commun", stage: "Base · Plante", image: "kael-base.png", family: "kael.html" },
+      { name: "Kael", familyName: "Kael", level: "niveau-1", type: "plante", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 1 · Plante", image: "kael-evolution-1.png", family: "kael.html" },
+      { name: "Caine", familyName: "Caine", level: "niveau-2", type: "roche", rarity: "rare", rarityLabel: "Rare", stage: "Niveau 2 · Roche", image: "caine-niveau-2.png", family: "caine.html" }
     ];
     const grid = document.getElementById("cardex-grid");
     for (let number = 0; number < 65; number++) {
       const furry = furries[number];
       if (furry) {
         const card = document.createElement("a");
-        card.className = "furry-entry";
-        card.dataset.status = "illustrated";
+        card.className = "furry-entry rarity-" + furry.rarity;
         card.dataset.name = furry.name.toLocaleLowerCase("fr");
         card.dataset.level = furry.level;
         card.dataset.type = furry.type;
         card.dataset.family = furry.familyName.toLocaleLowerCase("fr");
+        card.dataset.rarity = furry.rarity;
         card.href = furry.family;
         card.setAttribute("aria-label", "Ouvrir la famille " + furry.name + " — " + furry.stage);
         const image = document.createElement("img");
@@ -144,13 +153,16 @@
         name.textContent = furry.name;
         const stage = document.createElement("span");
         stage.textContent = furry.stage;
-        caption.append(name, stage);
+        const rarity = document.createElement("span");
+        rarity.className = "rarity-label";
+        rarity.textContent = furry.rarityLabel;
+        caption.append(name, stage, rarity);
         card.append(image, caption);
         grid.append(card);
       } else {
         const card = document.createElement("div");
         card.className = "furry-entry furry-placeholder";
-        card.dataset.status = "coming";
+        card.dataset.rarity = "";
         card.dataset.name = "";
         card.dataset.level = "";
         card.dataset.type = "";
@@ -171,7 +183,7 @@
     const levelFilter = document.getElementById("level-filter");
     const typeFilter = document.getElementById("type-filter");
     const familyFilter = document.getElementById("family-filter");
-    const statusFilter = document.getElementById("status-filter");
+    const rarityFilter = document.getElementById("rarity-filter");
     const results = document.getElementById("cardex-results");
     const emptyMessage = document.getElementById("cardex-empty");
     function filterCardex() {
@@ -182,15 +194,15 @@
           && (!levelFilter.value || card.dataset.level === levelFilter.value)
           && (!typeFilter.value || card.dataset.type === typeFilter.value)
           && (!familyFilter.value || card.dataset.family === familyFilter.value)
-          && (!statusFilter.value || card.dataset.status === statusFilter.value);
+          && (!rarityFilter.value || card.dataset.rarity === rarityFilter.value);
         card.hidden = !matches;
         if (matches) visible++;
       });
-      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 6 illustrés sur 65";
+      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 6 formes renseignées sur 65";
       emptyMessage.hidden = visible > 0;
     }
     document.getElementById("cardex-filters").addEventListener("submit", (event) => event.preventDefault());
-    [nameFilter, levelFilter, typeFilter, familyFilter, statusFilter].forEach((filter) => {
+    [nameFilter, levelFilter, typeFilter, familyFilter, rarityFilter].forEach((filter) => {
       filter.addEventListener("input", filterCardex);
       filter.addEventListener("change", filterCardex);
     });
