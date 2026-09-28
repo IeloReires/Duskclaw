@@ -12,7 +12,7 @@
     body.dual-page { margin: 0; background: var(--dusk-bg); color: var(--dusk-ink); transition: background .45s ease, color .45s ease; }
     .dual-page a { color: inherit; }
     .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
-    .dusk-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 82px; border-bottom: 1px solid var(--dusk-rule); }
+    .dusk-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--dusk-rule); }
     .dusk-brand { color: var(--dusk-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
     .dusk-brand span { color: var(--dusk-accent); }
     .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
@@ -67,7 +67,7 @@
     body.dual-page[data-time="nuit"] .dusk-emblem { background: #25253d; color: #d6c5f2; border-color: rgba(184,166,223,.55); transform: rotate(-16deg); }
     body.dual-page[data-time="nuit"] .dusk-art-frame { border-color: rgba(184,166,223,.6); box-shadow: 0 24px 58px rgba(0,0,0,.35), 0 0 30px rgba(141,121,194,.15); }
     @media (max-width: 800px) {
-      .dusk-header { flex-wrap: wrap; padding-block: 17px; }
+      .dusk-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
       .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
       .dusk-nav a { font-size: .82rem; }
       .dusk-hero { grid-template-columns: 1fr; gap: 35px; min-height: 0; padding-block: 58px 62px; }
