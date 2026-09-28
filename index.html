@@ -28,11 +28,11 @@
     .dusk-title { margin: 23px 0 21px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.4rem, 7vw, 7rem); font-weight: 400; letter-spacing: -.065em; line-height: .94; }
     .dusk-title em { color: var(--dusk-accent); font-weight: 400; }
     .dusk-description { max-width: 500px; margin: 0; color: var(--dusk-muted); font-size: clamp(1rem, 1.4vw, 1.12rem); line-height: 1.8; }
-    .dusk-cycle { display: inline-flex; gap: 4px; margin: 30px 0 0; padding: 4px; border: 1px solid var(--dusk-rule); background: rgba(255,255,255,.24); }
-    .dusk-cycle button { min-width: 106px; padding: 10px 13px; border: 0; background: transparent; color: var(--dusk-muted); font: inherit; font-size: .85rem; cursor: pointer; transition: background .25s ease, color .25s ease; }
-    .dusk-cycle button[aria-pressed="true"] { background: var(--dusk-ink); color: var(--dusk-paper); }
-    .dusk-cycle button:focus-visible { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
-    .dusk-cycle-caption { margin: 10px 0 0; color: var(--dusk-muted); font-family: Georgia, "Times New Roman", serif; font-size: .87rem; font-style: italic; }
+    .dusk-mode-toggle { position: fixed; z-index: 20; top: 50%; right: 22px; display: grid; width: 52px; aspect-ratio: 1; place-items: center; border: 1px solid var(--dusk-rule); border-radius: 50%; background: var(--dusk-paper); color: var(--dusk-accent); font-size: 1.45rem; cursor: pointer; box-shadow: 0 5px 22px rgba(18,21,29,.2); transform: translateY(-50%); transition: background .3s ease, color .3s ease, border-color .3s ease, transform .2s ease; }
+    .dusk-mode-toggle:hover { transform: translateY(-50%) scale(1.07); }
+    .dusk-mode-toggle:focus-visible { outline: 2px solid var(--dusk-accent); outline-offset: 4px; }
+    .dusk-mode-toggle::after { position: absolute; right: 62px; padding: 7px 10px; background: var(--dusk-ink); color: var(--dusk-paper); content: attr(data-tooltip); font-size: .72rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+    .dusk-mode-toggle:hover::after, .dusk-mode-toggle:focus-visible::after { opacity: 1; }
     .dusk-links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 23px; margin-top: 32px; }
     .dusk-primary { display: inline-flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--dusk-ink); color: var(--dusk-paper) !important; font-size: .88rem; font-weight: 750; text-decoration: none; transition: transform .2s ease, background .3s ease; }
     .dusk-primary:hover, .dusk-primary:focus-visible { transform: translateY(-2px); background: var(--dusk-accent); }
@@ -56,8 +56,7 @@
     .dusk-footer a { color: var(--dusk-ink); text-decoration: none; }
     body.dual-page[data-time="nuit"] { --dusk-bg: #111724; --dusk-paper: #1a2030; --dusk-ink: #ece9e1; --dusk-muted: #b8bdca; --dusk-accent: #b8a6df; --dusk-rule: rgba(229,225,243,.2); }
     body.dual-page[data-time="nuit"] .dusk-hero::before { background: radial-gradient(ellipse at 76% 46%, rgba(124,109,183,.22), transparent 40%), radial-gradient(ellipse at 32% 85%, rgba(50,77,103,.18), transparent 45%), linear-gradient(112deg, #111724, #1a2030 63%, #20233a); }
-    body.dual-page[data-time="nuit"] .dusk-cycle { background: rgba(0,0,0,.12); }
-    body.dual-page[data-time="nuit"] .dusk-cycle button[aria-pressed="true"] { background: #d5c9ee; color: #19172a; }
+    body.dual-page[data-time="nuit"] .dusk-mode-toggle { background: #25253d; color: #d6c5f2; border-color: rgba(184,166,223,.6); }
     body.dual-page[data-time="nuit"] .dusk-primary { background: #d5c9ee; color: #19172a !important; }
     body.dual-page[data-time="nuit"] .dusk-primary:hover, body.dual-page[data-time="nuit"] .dusk-primary:focus-visible { background: #eadff4; }
     body.dual-page[data-time="nuit"] .dusk-art::before { border-color: rgba(184,166,223,.4); box-shadow: 0 0 0 13px rgba(184,166,223,.06), 0 0 0 45px rgba(184,166,223,.035); }
@@ -73,6 +72,9 @@
       .dusk-art::before { width: min(72vw, 430px); }
       .dusk-art-frame { width: min(82%, 410px); }
       .dusk-emblem { right: 12%; }
+      .dusk-mode-toggle { top: auto; right: 15px; bottom: 18px; width: 48px; transform: none; }
+      .dusk-mode-toggle:hover { transform: scale(1.05); }
+      .dusk-mode-toggle::after { right: 58px; }
     }
     @media (max-width: 560px) {
       .dusk-shell { width: 90%; }
@@ -104,11 +106,6 @@
         <p class="dusk-kicker" id="time-kicker">Le royaume du Jour</p>
         <h1 class="dusk-title" id="hero-title">Les routes<br>s’ouvrent à <em>l’aube.</em></h1>
         <p class="dusk-description" id="hero-description">Sous la lumière dorée, les voyageurs quittent les remparts et s’aventurent vers des terres encore inconnues. Le premier pas t’appartient.</p>
-        <div class="dusk-cycle" role="group" aria-label="Choisir une ambiance">
-          <button type="button" data-time-choice="jour" aria-pressed="true">☼ &nbsp; Jour</button>
-          <button type="button" data-time-choice="nuit" aria-pressed="false">☾ &nbsp; Nuit</button>
-        </div>
-        <p class="dusk-cycle-caption" id="cycle-caption">Une lumière nouvelle sur les chemins.</p>
         <div class="dusk-links">
           <a class="dusk-primary" href="personnages.html">Entrer dans le Cardex <span aria-hidden="true">→</span></a>
           <a class="dusk-secondary" href="regles.html">Découvrir les règles</a>
@@ -143,13 +140,13 @@
     <span>Un monde de cartes et de créatures.</span>
     <span>© DUSKCLAW</span>
   </footer>
+  <button class="dusk-mode-toggle" id="mode-toggle" type="button" aria-label="Activer le mode Nuit" aria-pressed="false" data-tooltip="Passer en mode Nuit" title="Passer en mode Nuit"><span aria-hidden="true">☾</span></button>
   <script>
     const dayNightContent = {
       jour: {
         kicker: "Le royaume du Jour",
         title: "Les routes<br>s’ouvrent à <em>l’aube.</em>",
         description: "Sous la lumière dorée, les voyageurs quittent les remparts et s’aventurent vers des terres encore inconnues. Le premier pas t’appartient.",
-        caption: "Une lumière nouvelle sur les chemins.",
         emblem: "☼",
         artCaption: "Chroniques du royaume · Première veille"
       },
@@ -157,27 +154,32 @@
         kicker: "Le royaume de la Nuit",
         title: "Les secrets<br>veillent sous <em>la lune.</em>",
         description: "Quand le dernier rayon disparaît, les étoiles éclairent d’autres chemins. Avance avec prudence : la Nuit révèle autant qu’elle dissimule.",
-        caption: "La lune veille sur les terres endormies.",
         emblem: "☾",
         artCaption: "Chroniques du royaume · Veille nocturne"
       }
     };
-    document.querySelectorAll("[data-time-choice]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const time = button.dataset.timeChoice;
-        const content = dayNightContent[time];
-        document.body.dataset.time = time;
-        document.getElementById("time-kicker").textContent = content.kicker;
-        document.getElementById("hero-title").innerHTML = content.title;
-        document.getElementById("hero-description").textContent = content.description;
-        document.getElementById("cycle-caption").textContent = content.caption;
-        document.getElementById("day-emblem").textContent = content.emblem;
-        document.getElementById("art-caption").textContent = content.artCaption;
-        document.querySelectorAll("[data-time-choice]").forEach((choice) => {
-          choice.setAttribute("aria-pressed", String(choice === button));
-        });
-      });
+    const modeToggle = document.getElementById("mode-toggle");
+    function setTime(time, remember = false) {
+      const content = dayNightContent[time];
+      document.body.dataset.time = time;
+      document.querySelector('meta[name="theme-color"]').content = time === "jour" ? "#f1ead9" : "#111724";
+      document.getElementById("time-kicker").textContent = content.kicker;
+      document.getElementById("hero-title").innerHTML = content.title;
+      document.getElementById("hero-description").textContent = content.description;
+      document.getElementById("day-emblem").textContent = content.emblem;
+      document.getElementById("art-caption").textContent = content.artCaption;
+      const isNight = time === "nuit";
+      modeToggle.querySelector("span").textContent = isNight ? "☼" : "☾";
+      modeToggle.setAttribute("aria-label", isNight ? "Revenir au mode Jour" : "Activer le mode Nuit");
+      modeToggle.setAttribute("aria-pressed", String(isNight));
+      modeToggle.dataset.tooltip = isNight ? "Revenir au mode Jour" : "Passer en mode Nuit";
+      modeToggle.title = modeToggle.dataset.tooltip;
+      if (remember) localStorage.setItem("duskclaw-time", time);
+    }
+    modeToggle.addEventListener("click", () => {
+      setTime(document.body.dataset.time === "jour" ? "nuit" : "jour", true);
     });
+    setTime(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
 </body>
 </html>
