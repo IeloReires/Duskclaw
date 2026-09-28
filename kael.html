@@ -11,6 +11,7 @@
     .family-page { width: min(1400px, 94%); min-height: calc(100vh - 82px); margin: 0 auto; padding: 38px 0 54px; display: flex; flex-direction: column; }
     .family-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
     .family-top a { color: var(--accent); font-weight: 600; }
+    .family-top .support-link { padding: 9px 13px; background: var(--accent); color: #fff; text-decoration: none; }
     .family-heading { margin: 26px 0 18px; }
     .family-heading h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
     .family-heading h1 span { color: var(--accent); }
@@ -57,12 +58,31 @@
     .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); background: #e5dcf5; }
     .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
     @media (max-width: 560px) { .global-mode-switch { bottom: 14px; left: 14px; } }
-  </style>
+      @media (max-width: 560px) {
+      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
+        position: static !important;
+        inset: auto !important;
+        width: max-content;
+        margin: 18px auto 24px;
+        padding: 7px 9px;
+        gap: 7px;
+        font-size: .7rem;
+        box-shadow: none;
+      }
+      .product-art {
+        width: min(84%, 340px);
+        min-height: 0;
+        aspect-ratio: 1.12 / 1;
+        margin-inline: auto;
+      }
+    }
+    </style>
 </head>
 <body data-time="jour">
   <header class="site-header family-top">
     <a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <a href="personnages.html">← Retour au Cardex</a>
+    <a class="support-link" href="soutenir.html">Soutenir</a>
   </header>
 
   <main class="family-page">
