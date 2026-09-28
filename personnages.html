@@ -8,9 +8,14 @@
   <title>Cardex — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    .cardex-site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); min-height: 82px; margin-inline: auto; border-bottom: 1px solid var(--dusk-rule); }
+    .cardex-site-brand { color: var(--dusk-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
+    .cardex-site-brand span { color: var(--dusk-accent); }
+    .cardex-site-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
+    .cardex-site-nav a { color: var(--dusk-muted); font-size: .88rem; text-decoration: none; }
+    .cardex-site-nav a:hover, .cardex-site-nav a:focus-visible { color: var(--dusk-accent); }
+    .cardex-site-nav .cardex-rules-link { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); }
     .cardex-page { width: min(1600px, 96%); margin: 0 auto; padding: 38px 0 70px; }
-    .cardex-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .cardex-top a:last-child { color: var(--accent); font-weight: 600; }
     .cardex-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 40px 0 28px; }
     .cardex-heading h1 { margin: 0; font-size: clamp(2.8rem, 6vw, 5rem); }
     .cardex-heading p { margin: 0 0 8px; color: var(--muted); }
@@ -45,6 +50,9 @@
       .cardex-control:first-child, .filter-reset { grid-column: 1 / -1; }
     }
     @media (max-width: 680px) {
+      .cardex-site-header { flex-wrap: wrap; padding-block: 17px; }
+      .cardex-site-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
+      .cardex-site-nav a { font-size: .82rem; }
       .cardex-page { width: 94%; padding-top: 24px; }
       .cardex-heading { align-items: start; flex-direction: column; margin: 30px 0 20px; gap: 8px; }
       .cardex-filters { gap: 9px; }
@@ -74,9 +82,12 @@
   </style>
 </head>
 <body data-time="jour">
-  <header class="site-header cardex-top">
-    <a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-    <a href="index.html">← Retour à l’accueil</a>
+  <header class="cardex-site-header">
+    <a class="cardex-site-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <nav class="cardex-site-nav" aria-label="Navigation principale">
+      <a href="univers.html">Univers</a>
+      <a class="cardex-rules-link" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    </nav>
   </header>
   <main class="cardex-page">
     <div class="cardex-heading">
