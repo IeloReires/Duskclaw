@@ -35,13 +35,15 @@
     .conteneur { width: min(1200px, 90%); margin-inline: auto; }
 
     .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
-    .dusk-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 82px; border-bottom: 1px solid var(--trait); }
+    .dusk-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--trait); }
     .dusk-brand { color: var(--texte); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
     .dusk-brand span { color: var(--accent); }
     .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
     .dusk-nav a { color: var(--texte-doux); font-size: .88rem; text-decoration: none; }
     .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--accent); }
     .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--trait); color: var(--texte); }
+    .dusk-nav .dusk-support { padding: 10px 14px; background: var(--accent); color: #fff !important; font-weight: 700; }
+    .dusk-nav .dusk-support:hover, .dusk-nav .dusk-support:focus-visible { filter: brightness(1.08); }
 
     .introduction {
       max-width: 800px;
@@ -312,7 +314,7 @@
 
     @media (max-width: 760px) {
       .grille-zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .dusk-header { flex-wrap: wrap; padding-block: 17px; }
+      .dusk-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
       .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
       .dusk-nav a { font-size: .82rem; }
     }
@@ -331,6 +333,7 @@
     <nav class="dusk-nav" aria-label="Navigation principale">
       <a href="personnages.html">Cardex</a>
       <a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+      <a class="dusk-support" href="soutenir.html">Soutenir</a>
     </nav>
   </header>
 
