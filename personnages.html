@@ -99,6 +99,11 @@
         margin-inline: auto;
       }
     }
+    .dusk-footer { display:flex; justify-content:space-between; align-items:center; gap:18px; width:min(1320px,90%); margin:32px auto 0; padding:23px 0 30px; border-top:1px solid var(--dusk-rule, var(--line, rgba(60,58,47,.24))); color:var(--dusk-muted, var(--muted, #66695f)); font-size:.8rem; }
+    .dusk-footer a { color:var(--dusk-ink, var(--text, #252920)); text-decoration:none; }
+    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--dusk-rule, var(--line, rgba(60,58,47,.24))); color:var(--dusk-ink, var(--text, #252920)) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
+    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--dusk-accent, var(--accent, #8a6a37)); background:var(--dusk-accent, var(--accent, #8a6a37)); color:#fff !important; outline:none; }
+    @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
 </head>
 <body data-time="jour">
@@ -276,7 +281,11 @@
     globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
     applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
-  <footer style="width:min(1320px,90%);margin:32px auto 0;padding:20px 0 28px;border-top:1px solid var(--line, var(--dusk-rule, rgba(60,58,47,.24)));text-align:center"><a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid var(--accent, var(--dusk-accent, #8a6a37));border-radius:999px;color:var(--accent, var(--dusk-accent, #8a6a37));text-decoration:none;font-weight:600;transition:background .2s,color .2s">Nous contacter <span aria-hidden="true">→</span></a></footer>
+  <footer class="dusk-footer">
+    <a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a>
+    <span>Un monde de cartes et de créatures.</span>
+    <span>© DUSKCLAW</span>
+  </footer>
 </body>
 </html>
 
