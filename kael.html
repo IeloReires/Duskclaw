@@ -44,16 +44,18 @@
       .stats-list { margin-top: 18px; }
     }
     @media (prefers-reduced-motion: reduce) { .portrait { transition: none; } }
-      body:not(.dual-page)[data-time="jour"] { --bg: #f1ead9; --background: #f1ead9; --surface: #f8f3e8; --text: #252920; --muted: #66695f; --accent: #8a6a37; --line: rgba(60,58,47,.24); background: #f1ead9 !important; color: #252920 !important; color-scheme: light; }
-    body:not(.dual-page)[data-time="nuit"] { --bg: #11121a; --background: #11121a; --surface: #191b25; --text: #f1f0eb; --muted: #a6a9b2; --accent: #d7bb82; --line: rgba(232,229,218,.16); background: #11121a !important; color: #f1f0eb !important; color-scheme: dark; }
-    .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 2px; background: var(--surface); color: var(--muted); font: 700 .78rem Arial, sans-serif; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
-    .global-mode-switch .mode-day, body:not(.dual-page)[data-time="nuit"] .global-mode-switch .mode-night { color: var(--accent); }
+      body:not(.dual-page)[data-time="jour"] { --dusk-bg: #f1ead9; --dusk-paper: #f8f3e8; --dusk-ink: #252920; --dusk-muted: #66695f; --dusk-accent: #8a6a37; --dusk-rule: rgba(60,58,47,.24); --bg: #f1ead9; --background: #f1ead9; --surface: #f8f3e8; --text: #252920; --muted: #66695f; --accent: #8a6a37; --line: rgba(60,58,47,.24); background: #f1ead9 !important; color: #252920 !important; color-scheme: light; }
+    body:not(.dual-page)[data-time="nuit"] { --dusk-bg: #111724; --dusk-paper: #1a2030; --dusk-ink: #ece9e1; --dusk-muted: #b8bdca; --dusk-accent: #b8a6df; --dusk-rule: rgba(229,225,243,.2); --bg: #111724; --background: #111724; --surface: #1a2030; --text: #ece9e1; --muted: #b8bdca; --accent: #b8a6df; --line: rgba(229,225,243,.2); background: #111724 !important; color: #ece9e1 !important; color-scheme: dark; }
+    body:not(.dual-page) { transition: background-color .45s ease, color .45s ease; }
+    body:not(.dual-page) :where(.site-header, .rules-toc, .feature-card, .feature-card-alt, .stats-list, .family-info, .filter-reset, .cardex-control input, .cardex-control select, .rule-chapter table, .rule-chapter th, .rule-chapter td, .global-mode-switch) { transition: background-color .45s ease, color .45s ease, border-color .45s ease; }
+    .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--dusk-rule); background: var(--dusk-paper); color: var(--dusk-muted); font-family: inherit; font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
+    body:not(.dual-page)[data-time="jour"] .global-mode-switch .mode-day, body:not(.dual-page)[data-time="nuit"] .global-mode-switch .mode-night { color: var(--dusk-accent); }
     .global-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .global-mode-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--line); border-radius: 20px; background: rgba(120,110,90,.22); transition: background .25s ease; }
-    .global-mode-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: var(--text); content: ""; transition: transform .25s ease; }
-    .global-mode-switch input:checked + .global-mode-track { background: rgba(157,133,207,.38); }
-    .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); }
-    .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .global-mode-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--dusk-rule); border-radius: 20px; background: #d9cfb9; transition: background .25s ease; }
+    .global-mode-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fffaf0; box-shadow: 0 1px 4px rgba(0,0,0,.24); content: ""; transition: transform .25s ease, background .25s ease; }
+    body:not(.dual-page)[data-time="nuit"] .global-mode-track { background: #5e527f; }
+    .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); background: #e5dcf5; }
+    .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
     @media (max-width: 560px) { .global-mode-switch { bottom: 14px; left: 14px; } }
   </style>
 </head>
