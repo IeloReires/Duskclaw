@@ -52,7 +52,25 @@
     @media (max-width: 760px) { .shop-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 16px; } .shop-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; } .shop-nav a { font-size: .82rem; } .shop-products { gap: 26px; } .product-art { min-height: 220px; } .shop-support { align-items: flex-start; flex-direction: column; } }
     @media (max-width: 560px) { .shop-products { grid-template-columns: 1fr; } .product-art { min-height: 240px; } .product-details { gap: 10px; } .product-status { font-size: .58rem; } .shop-footer { flex-direction: column; } .global-mode-switch { bottom: 14px; left: 14px; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
-  </style>
+      @media (max-width: 560px) {
+      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
+        position: static !important;
+        inset: auto !important;
+        width: max-content;
+        margin: 18px auto 24px;
+        padding: 7px 9px;
+        gap: 7px;
+        font-size: .7rem;
+        box-shadow: none;
+      }
+      .product-art {
+        width: min(84%, 340px);
+        min-height: 0;
+        aspect-ratio: 1.12 / 1;
+        margin-inline: auto;
+      }
+    }
+    </style>
 </head>
 <body data-time="jour">
   <header class="shop-header">
