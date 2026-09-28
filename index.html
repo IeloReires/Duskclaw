@@ -28,11 +28,15 @@
     .dusk-title { margin: 23px 0 21px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.4rem, 7vw, 7rem); font-weight: 400; letter-spacing: -.065em; line-height: .94; }
     .dusk-title em { color: var(--dusk-accent); font-weight: 400; }
     .dusk-description { max-width: 500px; margin: 0; color: var(--dusk-muted); font-size: clamp(1rem, 1.4vw, 1.12rem); line-height: 1.8; }
-    .dusk-mode-toggle { position: fixed; z-index: 20; top: 50%; right: 22px; display: grid; width: 52px; aspect-ratio: 1; place-items: center; border: 1px solid var(--dusk-rule); border-radius: 50%; background: var(--dusk-paper); color: var(--dusk-accent); font-size: 1.45rem; cursor: pointer; box-shadow: 0 5px 22px rgba(18,21,29,.2); transform: translateY(-50%); transition: background .3s ease, color .3s ease, border-color .3s ease, transform .2s ease; }
-    .dusk-mode-toggle:hover { transform: translateY(-50%) scale(1.07); }
-    .dusk-mode-toggle:focus-visible { outline: 2px solid var(--dusk-accent); outline-offset: 4px; }
-    .dusk-mode-toggle::after { position: absolute; right: 62px; padding: 7px 10px; background: var(--dusk-ink); color: var(--dusk-paper); content: attr(data-tooltip); font-size: .72rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
-    .dusk-mode-toggle:hover::after, .dusk-mode-toggle:focus-visible::after { opacity: 1; }
+    .dusk-mode-switch { position: fixed; z-index: 20; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--dusk-rule); background: var(--dusk-paper); color: var(--dusk-muted); font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+    body.dual-page:not([data-time="nuit"]) .dusk-mode-switch .mode-day-label, body.dual-page[data-time="nuit"] .dusk-mode-switch .mode-night-label { color: var(--dusk-accent); }
+    .dusk-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .dusk-switch-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--dusk-rule); border-radius: 20px; background: #d9cfb9; transition: background .25s ease; }
+    .dusk-switch-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fffaf0; box-shadow: 0 1px 4px rgba(0,0,0,.24); content: ""; transition: transform .25s ease, background .25s ease; }
+    .dusk-mode-switch input:checked + .dusk-switch-track { background: #5e527f; }
+    .dusk-mode-switch input:checked + .dusk-switch-track::before { transform: translateX(19px); background: #e5dcf5; }
+    .dusk-mode-switch input:focus-visible + .dusk-switch-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
+    body.dual-page[data-time="nuit"] .dusk-mode-switch { border-color: rgba(184,166,223,.55); background: #25253d; }
     .dusk-links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 23px; margin-top: 32px; }
     .dusk-primary { display: inline-flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--dusk-ink); color: var(--dusk-paper) !important; font-size: .88rem; font-weight: 750; text-decoration: none; transition: transform .2s ease, background .3s ease; }
     .dusk-primary:hover, .dusk-primary:focus-visible { transform: translateY(-2px); background: var(--dusk-accent); }
@@ -72,9 +76,7 @@
       .dusk-art::before { width: min(72vw, 430px); }
       .dusk-art-frame { width: min(82%, 410px); }
       .dusk-emblem { right: 12%; }
-      .dusk-mode-toggle { top: auto; right: 15px; bottom: 18px; width: 48px; transform: none; }
-      .dusk-mode-toggle:hover { transform: scale(1.05); }
-      .dusk-mode-toggle::after { right: 58px; }
+      .dusk-mode-switch { bottom: 14px; left: 14px; }
     }
     @media (max-width: 560px) {
       .dusk-shell { width: 90%; }
@@ -140,7 +142,12 @@
     <span>Un monde de cartes et de créatures.</span>
     <span>© DUSKCLAW</span>
   </footer>
-  <button class="dusk-mode-toggle" id="mode-toggle" type="button" aria-label="Activer le mode Nuit" aria-pressed="false" data-tooltip="Passer en mode Nuit" title="Passer en mode Nuit"><span aria-hidden="true">☾</span></button>
+  <label class="dusk-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
+    <span class="mode-day-label">Jour</span>
+    <input id="mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="dusk-switch-track" aria-hidden="true"></span>
+    <span class="mode-night-label">Nuit</span>
+  </label>
   <script>
     const dayNightContent = {
       jour: {
@@ -169,15 +176,12 @@
       document.getElementById("day-emblem").textContent = content.emblem;
       document.getElementById("art-caption").textContent = content.artCaption;
       const isNight = time === "nuit";
-      modeToggle.querySelector("span").textContent = isNight ? "☼" : "☾";
-      modeToggle.setAttribute("aria-label", isNight ? "Revenir au mode Jour" : "Activer le mode Nuit");
-      modeToggle.setAttribute("aria-pressed", String(isNight));
-      modeToggle.dataset.tooltip = isNight ? "Revenir au mode Jour" : "Passer en mode Nuit";
-      modeToggle.title = modeToggle.dataset.tooltip;
+      modeToggle.checked = isNight;
+      modeToggle.setAttribute("aria-checked", String(isNight));
       if (remember) localStorage.setItem("duskclaw-time", time);
     }
-    modeToggle.addEventListener("click", () => {
-      setTime(document.body.dataset.time === "jour" ? "nuit" : "jour", true);
+    modeToggle.addEventListener("change", () => {
+      setTime(modeToggle.checked ? "nuit" : "jour", true);
     });
     setTime(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
