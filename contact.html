@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1ead9">
+  <meta name="description" content="Contacte le projet Duskclaw par e-mail, sur Discord ou Instagram.">
+  <title>Contact — Duskclaw</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root { --contact-bg:#f1ead9; --contact-paper:#f8f3e8; --contact-ink:#252920; --contact-muted:#66695f; --contact-accent:#8a6a37; --contact-rule:rgba(60,58,47,.24); }
+    body { margin:0; background:var(--contact-bg); color:var(--contact-ink); transition:background .35s ease,color .35s ease; }
+    body[data-time="nuit"] { --contact-bg:#111724; --contact-paper:#1a2030; --contact-ink:#ece9e1; --contact-muted:#b8bdca; --contact-accent:#b8a6df; --contact-rule:rgba(229,225,243,.2); color-scheme:dark; }
+    .contact-shell { width:min(1180px,90%); margin-inline:auto; }
+    .contact-header { box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; gap:24px; width:min(1320px,90%); min-height:83px; margin-inline:auto; border-bottom:1px solid var(--contact-rule); }
+    .contact-brand { color:var(--contact-ink); font-size:1rem; font-weight:800; letter-spacing:.19em; text-decoration:none; }
+    .contact-brand span { color:var(--contact-accent); }
+    .contact-nav { display:flex; align-items:center; gap:clamp(14px,3vw,38px); }
+    .contact-nav a { color:var(--contact-muted); font-size:.88rem; text-decoration:none; }
+    .contact-nav a:hover,.contact-nav a:focus-visible { color:var(--contact-accent); }
+    .contact-nav .contact-rules { padding:10px 14px; border:1px solid var(--contact-rule); color:var(--contact-ink); }
+    .contact-nav .contact-support { padding:10px 14px; background:var(--contact-accent); color:#fff; font-weight:700; }
+    .contact-main { padding:64px 0 78px; }
+    .contact-eyebrow { color:var(--contact-accent); font-size:.72rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+    .contact-main h1 { margin:18px 0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(3rem,8vw,5.5rem); font-weight:400; letter-spacing:-.05em; line-height:1; }
+    .contact-lead { max-width:650px; color:var(--contact-muted); font-size:1.08rem; line-height:1.75; }
+    .contact-options { margin-top:45px; border-top:1px solid var(--contact-rule); }
+    .contact-option { display:grid; grid-template-columns:minmax(150px,.55fr) 1fr auto; align-items:center; gap:24px; padding:24px 0; border-bottom:1px solid var(--contact-rule); }
+    .contact-option h2 { margin:0; font-family:Georgia,"Times New Roman",serif; font-size:1.45rem; font-weight:400; }
+    .contact-option p { margin:0; color:var(--contact-muted); overflow-wrap:anywhere; }
+    .contact-option a { color:var(--contact-accent); font-weight:700; text-underline-offset:4px; }
+    .contact-footer { display:flex; justify-content:space-between; gap:16px; padding:22px 0 30px; border-top:1px solid var(--contact-rule); color:var(--contact-muted); font-size:.82rem; }
+    .contact-footer a { color:var(--contact-ink); text-decoration:none; }
+    .contact-mode { position:fixed; z-index:20; bottom:20px; left:20px; display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--contact-rule); background:var(--contact-paper); color:var(--contact-muted); font-size:.78rem; font-weight:700; cursor:pointer; box-shadow:0 5px 20px rgba(0,0,0,.15); }
+    .contact-mode input { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+    .contact-track { position:relative; width:40px; height:22px; border:1px solid var(--contact-rule); border-radius:20px; background:#d9cfb9; }
+    .contact-track::before { position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fffaf0; content:""; transition:transform .2s ease; }
+    .contact-mode input:checked + .contact-track { background:#5e527f; }
+    .contact-mode input:checked + .contact-track::before { transform:translateX(18px); background:#e5dcf5; }
+    .contact-mode input:focus-visible + .contact-track { outline:2px solid var(--contact-accent); outline-offset:3px; }
+    @media(max-width:760px) { .contact-header { flex-wrap:wrap; padding-block:17px; } .contact-nav { order:3; width:100%; justify-content:space-between; gap:10px; } .contact-nav a { font-size:.8rem; } .contact-main { padding-top:38px; } }
+    @media(max-width:600px) { .contact-option { grid-template-columns:1fr; gap:8px; padding:19px 0; } .contact-option a { width:max-content; } .contact-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .contact-footer { flex-direction:column; } }
+    @media(prefers-reduced-motion:reduce) { body,.contact-track::before { transition:none; } }
+  </style>
+</head>
+<body data-time="jour">
+  <header class="contact-header">
+    <a class="contact-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <nav class="contact-nav" aria-label="Navigation principale">
+      <a href="univers.html">Univers</a>
+      <a href="personnages.html">Cardex</a>
+      <a class="contact-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+      <a class="contact-support" href="soutenir.html">Soutenir</a>
+    </nav>
+  </header>
+
+  <main class="contact-main contact-shell">
+    <p class="contact-eyebrow">RESTONS EN CONTACT</p>
+    <h1>Parlons<br>de Duskclaw.</h1>
+    <p class="contact-lead">Une question sur le projet, envie de suivre son avancée ou de rejoindre les discussions ? Retrouve Duskclaw ici.</p>
+    <section class="contact-options" aria-label="Moyens de contacter Duskclaw">
+      <article class="contact-option">
+        <h2>E-mail</h2>
+        <p>Pour écrire directement au projet.</p>
+        <a href="mailto:ielo.reires@gmail.com">ielo.reires@gmail.com</a>
+      </article>
+      <article class="contact-option">
+        <h2>Discord</h2>
+        <p>Pour rejoindre la communauté et discuter du jeu.</p>
+        <a href="https://discord.gg/PxxnWHBsbY" target="_blank" rel="noopener noreferrer">Rejoindre le serveur <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="contact-option">
+        <h2>Instagram</h2>
+        <p>Pour découvrir les dessins et suivre le projet.</p>
+        <a href="https://www.instagram.com/ieloreires/?hl=fr" target="_blank" rel="noopener noreferrer">@ieloreires <span aria-hidden="true">↗</span></a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="contact-footer contact-shell">
+    <a href="index.html">Accueil</a>
+    <span>© DUSKCLAW</span>
+  </footer>
+  <label class="contact-mode" title="Basculer entre les ambiances Jour et Nuit">
+    <span>Jour</span>
+    <input id="contact-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="contact-track" aria-hidden="true"></span>
+    <span>Nuit</span>
+  </label>
+  <script>
+    const contactSwitch = document.getElementById("contact-mode-toggle");
+    function setContactTheme(night, save = false) {
+      document.body.dataset.time = night ? "nuit" : "jour";
+      contactSwitch.checked = night;
+      contactSwitch.setAttribute("aria-checked", String(night));
+      if (save) localStorage.setItem("duskclaw-time", night ? "nuit" : "jour");
+    }
+    contactSwitch.addEventListener("change", () => setContactTheme(contactSwitch.checked, true));
+    setContactTheme(localStorage.getItem("duskclaw-time") === "nuit");
+  </script>
+</body>
+</html>
