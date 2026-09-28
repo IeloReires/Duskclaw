@@ -93,7 +93,25 @@
       .dusk-footer { flex-direction: column; }
     }
     @media (prefers-reduced-motion: reduce) { .dual-page *, .dual-page *::before, .dual-page *::after { transition-duration: .01ms !important; } }
-  </style>
+      @media (max-width: 560px) {
+      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
+        position: static !important;
+        inset: auto !important;
+        width: max-content;
+        margin: 18px auto 24px;
+        padding: 7px 9px;
+        gap: 7px;
+        font-size: .7rem;
+        box-shadow: none;
+      }
+      .product-art {
+        width: min(84%, 340px);
+        min-height: 0;
+        aspect-ratio: 1.12 / 1;
+        margin-inline: auto;
+      }
+    }
+    </style>
 </head>
 <body class="dual-page" data-time="jour">
   <header class="dusk-header dusk-shell">
