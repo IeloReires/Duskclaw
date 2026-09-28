@@ -20,15 +20,20 @@
     .contact-nav a:hover,.contact-nav a:focus-visible { color:var(--contact-accent); }
     .contact-nav .contact-rules { padding:10px 14px; border:1px solid var(--contact-rule); color:var(--contact-ink); }
     .contact-nav .contact-support { padding:10px 14px; background:var(--contact-accent); color:#fff; font-weight:700; }
-    .contact-main { padding:64px 0 78px; }
+    .contact-main { padding:clamp(48px,8vw,86px) 0 78px; }
     .contact-eyebrow { color:var(--contact-accent); font-size:.72rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
-    .contact-main h1 { margin:18px 0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(3rem,8vw,5.5rem); font-weight:400; letter-spacing:-.05em; line-height:1; }
+    .contact-main h1 { margin:18px 0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(3rem,8vw,5.6rem); font-weight:400; letter-spacing:-.05em; line-height:.98; }
     .contact-lead { max-width:650px; color:var(--contact-muted); font-size:1.08rem; line-height:1.75; }
-    .contact-options { margin-top:45px; border-top:1px solid var(--contact-rule); }
-    .contact-option { display:grid; grid-template-columns:minmax(150px,.55fr) 1fr auto; align-items:center; gap:24px; padding:24px 0; border-bottom:1px solid var(--contact-rule); }
-    .contact-option h2 { margin:0; font-family:Georgia,"Times New Roman",serif; font-size:1.45rem; font-weight:400; }
-    .contact-option p { margin:0; color:var(--contact-muted); overflow-wrap:anywhere; }
-    .contact-option a { color:var(--contact-accent); font-weight:700; text-underline-offset:4px; }
+    .contact-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:52px; border-block:1px solid var(--contact-rule); }
+    .contact-option { display:flex; min-height:250px; flex-direction:column; align-items:flex-start; padding:27px clamp(16px,2.7vw,34px) 30px 0; }
+    .contact-option + .contact-option { padding-left:clamp(16px,2.7vw,34px); border-left:1px solid var(--contact-rule); }
+    .contact-number { color:var(--contact-accent); font-size:.72rem; font-weight:800; letter-spacing:.14em; }
+    .contact-option h2 { margin:28px 0 9px; font-family:Georgia,"Times New Roman",serif; font-size:1.6rem; font-weight:400; }
+    .contact-option p { margin:0 0 24px; color:var(--contact-muted); line-height:1.65; }
+    .contact-option .contact-action { display:inline-flex; align-items:center; justify-content:space-between; gap:22px; margin-top:auto; padding:12px 15px; border:1px solid var(--contact-rule); background:transparent; color:var(--contact-ink); font-size:.86rem; font-weight:750; text-decoration:none; transition:transform .2s ease,background .25s ease,border-color .25s ease,color .25s ease; }
+    .contact-action span { color:var(--contact-accent); transition:transform .2s ease; }
+    .contact-option .contact-action:hover,.contact-option .contact-action:focus-visible { transform:translateY(-2px); border-color:var(--contact-accent); background:var(--contact-accent); color:#fff; outline:none; }
+    .contact-option .contact-action:hover span,.contact-option .contact-action:focus-visible span { color:#fff; transform:translateX(3px); }
     .contact-footer { display:flex; justify-content:space-between; gap:16px; padding:22px 0 30px; border-top:1px solid var(--contact-rule); color:var(--contact-muted); font-size:.82rem; }
     .contact-footer a { color:var(--contact-ink); text-decoration:none; }
     .contact-mode { position:fixed; z-index:20; bottom:20px; left:20px; display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--contact-rule); background:var(--contact-paper); color:var(--contact-muted); font-size:.78rem; font-weight:700; cursor:pointer; box-shadow:0 5px 20px rgba(0,0,0,.15); }
@@ -39,8 +44,8 @@
     .contact-mode input:checked + .contact-track::before { transform:translateX(18px); background:#e5dcf5; }
     .contact-mode input:focus-visible + .contact-track { outline:2px solid var(--contact-accent); outline-offset:3px; }
     @media(max-width:760px) { .contact-header { flex-wrap:wrap; padding-block:17px; } .contact-nav { order:3; width:100%; justify-content:space-between; gap:10px; } .contact-nav a { font-size:.8rem; } .contact-main { padding-top:38px; } }
-    @media(max-width:600px) { .contact-option { grid-template-columns:1fr; gap:8px; padding:19px 0; } .contact-option a { width:max-content; } .contact-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .contact-footer { flex-direction:column; } }
-    @media(prefers-reduced-motion:reduce) { body,.contact-track::before { transition:none; } }
+    @media(max-width:620px) { .contact-options { grid-template-columns:1fr; } .contact-option,.contact-option + .contact-option { min-height:0; padding:22px 0; border-left:0; } .contact-option + .contact-option { border-top:1px solid var(--contact-rule); } .contact-option h2 { margin-top:14px; } .contact-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .contact-footer { flex-direction:column; } }
+    @media(prefers-reduced-motion:reduce) { body,.contact-track::before,.contact-option .contact-action,.contact-action span { transition:none; } }
   </style>
 </head>
 <body data-time="jour">
@@ -57,22 +62,25 @@
   <main class="contact-main contact-shell">
     <p class="contact-eyebrow">RESTONS EN CONTACT</p>
     <h1>Parlons<br>de Duskclaw.</h1>
-    <p class="contact-lead">Une question sur le projet, envie de suivre son avancée ou de rejoindre les discussions ? Retrouve Duskclaw ici.</p>
+    <p class="contact-lead">Une question sur le projet, envie de suivre son avancée ou de rejoindre les discussions ? Choisis le chemin qui te convient.</p>
     <section class="contact-options" aria-label="Moyens de contacter Duskclaw">
       <article class="contact-option">
+        <span class="contact-number">01 · MESSAGE</span>
         <h2>E-mail</h2>
         <p>Pour écrire directement au projet.</p>
-        <a href="mailto:ielo.reires@gmail.com">ielo.reires@gmail.com</a>
+        <a class="contact-action" href="mailto:ielo.reires@gmail.com">Écrire un e-mail <span aria-hidden="true">→</span></a>
       </article>
       <article class="contact-option">
+        <span class="contact-number">02 · COMMUNAUTÉ</span>
         <h2>Discord</h2>
-        <p>Pour rejoindre la communauté et discuter du jeu.</p>
-        <a href="https://discord.gg/PxxnWHBsbY" target="_blank" rel="noopener noreferrer">Rejoindre le serveur <span aria-hidden="true">↗</span></a>
+        <p>Rejoins le serveur pour discuter du jeu avec la communauté.</p>
+        <a class="contact-action" href="https://discord.gg/PxxnWHBsbY" target="_blank" rel="noopener noreferrer">Rejoindre Discord <span aria-hidden="true">↗</span></a>
       </article>
       <article class="contact-option">
+        <span class="contact-number">03 · ACTUALITÉS</span>
         <h2>Instagram</h2>
-        <p>Pour découvrir les dessins et suivre le projet.</p>
-        <a href="https://www.instagram.com/ieloreires/?hl=fr" target="_blank" rel="noopener noreferrer">@ieloreires <span aria-hidden="true">↗</span></a>
+        <p>Retrouve les dessins et suis l’avancement du projet.</p>
+        <a class="contact-action" href="https://www.instagram.com/ieloreires/?hl=fr" target="_blank" rel="noopener noreferrer">Voir Instagram <span aria-hidden="true">↗</span></a>
       </article>
     </section>
   </main>
