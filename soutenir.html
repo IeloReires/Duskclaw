@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1ead9">
+  <meta name="description" content="Soutenir la création de Duskclaw et découvrir les futurs jeux et boosters.">
+  <title>Soutenir Duskclaw — Jeux et boosters</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root { --page-bg: #f1ead9; --page-paper: #f8f3e8; --page-ink: #252920; --page-muted: #66695f; --page-accent: #8a6a37; --page-line: rgba(60,58,47,.24); }
+    body { margin: 0; background: var(--page-bg); color: var(--page-ink); transition: background .4s ease, color .4s ease; }
+    body[data-time="nuit"] { --page-bg: #111724; --page-paper: #1a2030; --page-ink: #ece9e1; --page-muted: #b8bdca; --page-accent: #b8a6df; --page-line: rgba(229,225,243,.2); color-scheme: dark; }
+    .support-shell { width: min(1320px, 90%); margin-inline: auto; }
+    .support-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--page-line); }
+    .support-brand { color: var(--page-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
+    .support-brand span { color: var(--page-accent); }
+    .support-nav { display: flex; align-items: center; gap: clamp(16px, 2.6vw, 34px); }
+    .support-nav a { color: var(--page-muted); font-size: .88rem; text-decoration: none; }
+    .support-nav a:hover, .support-nav a:focus-visible { color: var(--page-accent); }
+    .support-nav .support-nav-current { padding: 10px 14px; background: var(--page-accent); color: #fff; font-weight: 700; }
+    .support-hero { position: relative; isolation: isolate; padding: clamp(70px, 10vw, 128px) 0 76px; border-bottom: 1px solid var(--page-line); overflow: hidden; }
+    .support-hero::after { position: absolute; z-index: -1; top: 20px; right: 4%; width: min(38vw, 430px); aspect-ratio: 1; border: 1px solid var(--page-line); border-radius: 50%; box-shadow: 0 0 0 18px color-mix(in srgb, var(--page-accent) 5%, transparent), 0 0 0 58px color-mix(in srgb, var(--page-accent) 4%, transparent); content: ""; }
+    .support-eyebrow { margin: 0 0 18px; color: var(--page-accent); font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    .support-hero h1 { max-width: 850px; margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.3rem, 8vw, 7rem); font-weight: 400; letter-spacing: -.055em; line-height: .98; }
+    .support-hero h1 em { color: var(--page-accent); font-weight: 400; }
+    .support-lead { max-width: 650px; margin: 25px 0 0; color: var(--page-muted); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.8; }
+    .support-section { padding: 68px 0 78px; }
+    .support-section + .support-section { border-top: 1px solid var(--page-line); }
+    .section-heading { display: grid; grid-template-columns: minmax(0, .75fr) minmax(280px, 1fr); align-items: end; gap: 34px; margin-bottom: 30px; }
+    .section-heading h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.3rem, 5vw, 4rem); font-weight: 400; letter-spacing: -.04em; line-height: 1.05; }
+    .section-heading > p:last-child { max-width: 530px; margin: 0; color: var(--page-muted); line-height: 1.75; }
+    .offer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--page-line); }
+    .offer { min-height: 245px; padding: clamp(24px, 4vw, 46px); background: var(--page-paper); }
+    .offer + .offer { border-left: 1px solid var(--page-line); }
+    .offer-number { color: var(--page-accent); font: italic 1.1rem Georgia, "Times New Roman", serif; }
+    .offer h3 { margin: 28px 0 10px; font: 400 clamp(1.6rem, 3vw, 2.2rem) Georgia, "Times New Roman", serif; }
+    .offer p { max-width: 450px; margin: 0; color: var(--page-muted); line-height: 1.75; }
+    .coming-soon { display: inline-block; margin-top: 25px; padding: 9px 12px; border: 1px solid var(--page-line); color: var(--page-muted); font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .support-note { margin: 18px 0 0; color: var(--page-muted); font-size: .84rem; line-height: 1.65; }
+    .support-footer { display: flex; justify-content: space-between; gap: 18px; padding: 23px 0 30px; border-top: 1px solid var(--page-line); color: var(--page-muted); font-size: .8rem; }
+    .support-footer a { color: var(--page-ink); text-decoration: none; }
+    .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--page-line); background: var(--page-paper); color: var(--page-muted); font-family: inherit; font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
+    body[data-time="jour"] .global-mode-switch .mode-day, body[data-time="nuit"] .global-mode-switch .mode-night { color: var(--page-accent); }
+    .global-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .global-mode-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--page-line); border-radius: 20px; background: #d9cfb9; transition: background .25s ease; }
+    .global-mode-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fffaf0; box-shadow: 0 1px 4px rgba(0,0,0,.24); content: ""; transition: transform .25s ease, background .25s ease; }
+    body[data-time="nuit"] .global-mode-track { background: #5e527f; }
+    .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); background: #e5dcf5; }
+    .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--page-accent); outline-offset: 3px; }
+    @media (max-width: 760px) { .support-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 16px; } .support-nav { order: 3; width: 100%; justify-content: space-between; gap: 10px; } .support-nav a { font-size: .8rem; } .section-heading { grid-template-columns: 1fr; gap: 15px; } .offer-grid { grid-template-columns: 1fr; } .offer + .offer { border-top: 1px solid var(--page-line); border-left: 0; } .support-hero::after { top: 14px; right: -24%; width: 75vw; } }
+    @media (max-width: 560px) { .support-footer { flex-direction: column; } .global-mode-switch { bottom: 14px; left: 14px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body data-time="jour">
+  <header class="support-header">
+    <a class="support-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <nav class="support-nav" aria-label="Navigation principale">
+      <a href="univers.html">Univers</a>
+      <a href="personnages.html">Cardex</a>
+      <a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+      <a class="support-nav-current" href="soutenir.html" aria-current="page">Soutenir</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="support-hero support-shell">
+      <p class="support-eyebrow">LE VOYAGE SE CONSTRUIT ENSEMBLE</p>
+      <h1>Fais vivre<br>le monde de <em>Duskclaw.</em></h1>
+      <p class="support-lead">Le jeu grandit pas à pas : ses Furries, ses contrées et ses cartes prennent forme. Cette page accueillera bientôt les moyens de soutenir sa création et de commander les premiers jeux et boosters.</p>
+    </section>
+
+    <section class="support-section support-shell" aria-labelledby="don-title">
+      <div class="section-heading">
+        <div><p class="support-eyebrow">SOUTENIR LE PROJET</p><h2 id="don-title">Un coup de pouce<br>pour l’aventure.</h2></div>
+        <p>Les contributions aideront à faire avancer la création de Duskclaw : nouvelles illustrations, cartes, univers et matériel de jeu. Les modalités seront précisées lorsque cette option sera prête.</p>
+      </div>
+      <div class="offer-grid">
+        <article class="offer">
+          <span class="offer-number">01 · Contribution</span>
+          <h3>Soutenir la création</h3>
+          <p>Une façon de participer au développement du jeu et de ses prochaines étapes.</p>
+          <span class="coming-soon">Bientôt disponible</span>
+        </article>
+        <article class="offer">
+          <span class="offer-number">02 · Suivre l’aventure</span>
+          <h3>Rester au courant</h3>
+          <p>Les nouvelles informations sur les contributions et le lancement seront annoncées ici.</p>
+          <span class="coming-soon">Informations à venir</span>
+        </article>
+      </div>
+      <p class="support-note">Aucun paiement ni don n’est proposé sur cette page pour le moment.</p>
+    </section>
+
+    <section class="support-section support-shell" aria-labelledby="order-title">
+      <div class="section-heading">
+        <div><p class="support-eyebrow">JEUX &amp; BOOSTERS</p><h2 id="order-title">Les premières cartes<br>arriveront bientôt.</h2></div>
+        <p>Quand les produits seront prêts, tu pourras retrouver ici les détails des boîtes, des boosters, de leur contenu et de leur disponibilité.</p>
+      </div>
+      <div class="offer-grid">
+        <article class="offer">
+          <span class="offer-number">03 · Jeu</span>
+          <h3>Le jeu de base</h3>
+          <p>La boîte pour découvrir Duskclaw et commencer à jouer. Contenu et date de sortie à annoncer.</p>
+          <span class="coming-soon">Commande à venir</span>
+        </article>
+        <article class="offer">
+          <span class="offer-number">04 · Boosters</span>
+          <h3>De nouvelles cartes</h3>
+          <p>Des boosters pour agrandir ta collection et explorer de nouvelles possibilités de jeu.</p>
+          <span class="coming-soon">Commande à venir</span>
+        </article>
+      </div>
+      <p class="support-note">Les prix, les options de commande et les dates seront ajoutés lorsque les produits seront définis.</p>
+    </section>
+  </main>
+
+  <footer class="support-footer support-shell">
+    <a href="index.html">DUSKCLAW</a>
+    <span>Un monde de cartes et de créatures.</span>
+    <span>© DUSKCLAW</span>
+  </footer>
+
+  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
+    <span class="mode-day">Jour</span>
+    <input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="global-mode-track" aria-hidden="true"></span>
+    <span class="mode-night">Nuit</span>
+  </label>
+  <script>
+    const globalThemeSwitch = document.getElementById("global-mode-toggle");
+    function applySiteTheme(time, remember = false) {
+      document.body.dataset.time = time;
+      globalThemeSwitch.checked = time === "nuit";
+      globalThemeSwitch.setAttribute("aria-checked", String(time === "nuit"));
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.content = time === "nuit" ? "#111724" : "#f1ead9";
+      if (remember) localStorage.setItem("duskclaw-time", time);
+    }
+    globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
+    applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
+  </script>
+</body>
+</html>
+
