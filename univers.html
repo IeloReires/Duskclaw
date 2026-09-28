@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1ead9">
-  <meta name="description" content="Explore les zones et les plateaux de Duskclaw.">
+  <meta name="description" content="Découvre les zones et les plateaux de Duskclaw.">
   <title>Les zones — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
 
@@ -19,7 +19,6 @@
       margin: 0;
       background: var(--fond);
       color: var(--texte);
-      font-family: inherit;
       transition: background .4s ease, color .4s ease;
     }
 
@@ -90,7 +89,8 @@
 
     h1,
     .zone h2,
-    .fin h2 {
+    .fin h2,
+    .fenetre-zone h2 {
       font-family: Georgia, "Times New Roman", serif;
       font-weight: 400;
     }
@@ -129,12 +129,16 @@
       padding: 12px;
       border: 1px solid var(--trait);
       background: var(--papier);
-      transition: border-color .25s ease, transform .25s ease;
+      cursor: pointer;
+      transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
     }
 
-    .zone:hover {
+    .zone:hover,
+    .zone:focus-visible {
       transform: translateY(-3px);
       border-color: var(--accent);
+      box-shadow: 0 8px 25px rgba(35, 30, 20, .12);
+      outline: none;
     }
 
     .emplacement-image {
@@ -186,16 +190,12 @@
       line-height: 1.65;
     }
 
-    .emplacement-plateau {
-      display: grid;
-      min-height: 88px;
+    .invitation {
       margin-top: 17px;
-      padding: 12px;
-      place-items: center;
+      padding-top: 12px;
       border-top: 1px solid var(--trait);
-      color: var(--texte-doux);
+      color: var(--accent);
       font-size: .78rem;
-      text-align: center;
     }
 
     .fin {
@@ -224,6 +224,79 @@
       border-top: 1px solid var(--trait);
       color: var(--texte-doux);
       font-size: .8rem;
+    }
+
+    .fenetre-zone {
+      width: min(900px, 90vw);
+      max-height: 85vh;
+      padding: clamp(20px, 4vw, 38px);
+      overflow-y: auto;
+      border: 1px solid var(--trait);
+      background: var(--papier);
+      color: var(--texte);
+    }
+
+    .fenetre-zone::backdrop {
+      background: rgba(8, 10, 15, .72);
+      backdrop-filter: blur(4px);
+    }
+
+    .entete-fenetre {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .entete-fenetre h2 {
+      margin: 7px 0 12px;
+      font-size: clamp(2rem, 5vw, 3.3rem);
+    }
+
+    .fermer {
+      padding: 10px 14px;
+      border: 1px solid var(--trait);
+      background: transparent;
+      color: var(--texte);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .fermer:hover,
+    .fermer:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .description-fenetre {
+      color: var(--texte-doux);
+      line-height: 1.7;
+    }
+
+    .grille-fenetre {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .grand-emplacement {
+      display: grid;
+      min-height: 270px;
+      padding: 18px;
+      place-items: center;
+      border: 1px dashed var(--trait);
+      color: var(--texte-doux);
+      text-align: center;
+    }
+
+    .grand-emplacement strong {
+      display: block;
+      margin-top: 10px;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.4rem;
+      font-weight: 400;
     }
 
     .bouton-mode {
@@ -304,7 +377,8 @@
     }
 
     @media (max-width: 520px) {
-      .grille-zones {
+      .grille-zones,
+      .grille-fenetre {
         grid-template-columns: 1fr;
       }
 
@@ -315,14 +389,6 @@
       .bouton-mode {
         bottom: 14px;
         left: 14px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        transition-duration: .01ms !important;
       }
     }
   </style>
@@ -347,69 +413,70 @@
         Chaque carte de zone présente un lieu et la disposition des pièces sur
         le plateau. Une carte est tirée au début de la partie : le plateau choisi
         reste le même jusqu’à la fin, même lorsque le temps passe du Jour à la Nuit.
+        Clique sur une zone pour l’agrandir.
       </p>
     </section>
 
     <section class="zones conteneur" aria-label="Zones de Duskclaw">
       <div class="grille-zones">
-        <article class="zone">
-          <div class="emplacement-image" aria-label="Emplacement réservé à l’image de la zone 1">
+        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="emplacement-image">
             <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
           </div>
           <span class="numero-zone">Zone 01</span>
           <h2>Les Marches d’Auréval</h2>
           <p>Proposition : des collines ouvertes, des routes anciennes et des tours de veille.</p>
-          <div class="emplacement-plateau">Emplacement réservé à l’image de la disposition du plateau</div>
+          <div class="invitation">Cliquer pour agrandir →</div>
         </article>
 
-        <article class="zone">
-          <div class="emplacement-image" aria-label="Emplacement réservé à l’image de la zone 2">
+        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="emplacement-image">
             <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
           </div>
           <span class="numero-zone">Zone 02</span>
           <h2>Nom à définir</h2>
           <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="emplacement-plateau">Emplacement réservé à l’image de la disposition du plateau</div>
+          <div class="invitation">Cliquer pour agrandir →</div>
         </article>
 
-        <article class="zone">
-          <div class="emplacement-image" aria-label="Emplacement réservé à l’image de la zone 3">
+        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="emplacement-image">
             <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
           </div>
           <span class="numero-zone">Zone 03</span>
           <h2>Nom à définir</h2>
           <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="emplacement-plateau">Emplacement réservé à l’image de la disposition du plateau</div>
+          <div class="invitation">Cliquer pour agrandir →</div>
         </article>
 
-        <article class="zone">
-          <div class="emplacement-image" aria-label="Emplacement réservé à l’image de la zone 4">
+        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="emplacement-image">
             <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
           </div>
           <span class="numero-zone">Zone 04</span>
           <h2>Nom à définir</h2>
           <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="emplacement-plateau">Emplacement réservé à l’image de la disposition du plateau</div>
+          <div class="invitation">Cliquer pour agrandir →</div>
         </article>
 
-        <article class="zone">
-          <div class="emplacement-image" aria-label="Emplacement réservé à l’image de la zone 5">
+        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="emplacement-image">
             <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
           </div>
           <span class="numero-zone">Zone 05</span>
           <h2>Nom à définir</h2>
           <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="emplacement-plateau">Emplacement réservé à l’image de la disposition du plateau</div>
+          <div class="invitation">Cliquer pour agrandir →</div>
         </article>
 
-        <article class="zone">
-          <div class="emplacement-image" aria-label="Emplacement réservé à l’image de la zone 6">
+        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="emplacement-image">
             <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
           </div>
           <span class="numero-zone">Zone 06</span>
           <h2>Nom à définir</h2>
           <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="emplacement-plateau">Emplacement réservé à l’image de la disposition du plateau</div>
+          <div class="invitation">Cliquer pour agrandir →</div>
         </article>
       </div>
     </section>
@@ -418,11 +485,32 @@
       <p class="petit-titre">L’atlas s’agrandira</p>
       <h2>Il reste tant à découvrir.</h2>
       <p>
-        D’autres zones, d’autres paysages et d’autres histoires viendront
-        s’ajouter à l’atlas de Duskclaw au fil de leur création.
+        D’autres zones, paysages et histoires viendront s’ajouter à l’atlas
+        de Duskclaw au fil de leur création.
       </p>
     </section>
   </main>
+
+  <dialog class="fenetre-zone" id="fenetre-zone" aria-labelledby="titre-fenetre">
+    <div class="entete-fenetre">
+      <div>
+        <span class="petit-titre" id="numero-fenetre">Zone</span>
+        <h2 id="titre-fenetre">Nom de la zone</h2>
+      </div>
+      <button class="fermer" id="fermer-fenetre" type="button">Fermer ×</button>
+    </div>
+
+    <p class="description-fenetre" id="description-fenetre"></p>
+
+    <div class="grille-fenetre">
+      <div class="grand-emplacement">
+        <span>Emplacement réservé à la grande illustration<strong>Image de la zone</strong></span>
+      </div>
+      <div class="grand-emplacement">
+        <span>Emplacement réservé au plan<strong>Disposition du plateau</strong></span>
+      </div>
+    </div>
+  </dialog>
 
   <footer class="pied-de-page conteneur">
     <a class="logo" href="index.html">DUSK<span>CLAW</span></a>
@@ -456,6 +544,39 @@
     });
 
     setTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
+
+    const fenetre = document.getElementById("fenetre-zone");
+    const numeroFenetre = document.getElementById("numero-fenetre");
+    const titreFenetre = document.getElementById("titre-fenetre");
+    const descriptionFenetre = document.getElementById("description-fenetre");
+
+    function ouvrirZone(zone) {
+      numeroFenetre.textContent = zone.querySelector(".numero-zone").textContent;
+      titreFenetre.textContent = zone.querySelector("h2").textContent;
+      descriptionFenetre.textContent = zone.querySelector(".zone p").textContent;
+      fenetre.showModal();
+    }
+
+    document.querySelectorAll(".zone").forEach((zone) => {
+      zone.addEventListener("click", () => ouvrirZone(zone));
+
+      zone.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          ouvrirZone(zone);
+        }
+      });
+    });
+
+    document.getElementById("fermer-fenetre").addEventListener("click", () => {
+      fenetre.close();
+    });
+
+    fenetre.addEventListener("click", (event) => {
+      if (event.target === fenetre) {
+        fenetre.close();
+      }
+    });
   </script>
 </body>
 </html>
