@@ -17,12 +17,12 @@
     .portrait:hover,.portrait:focus-visible,.portrait.active{z-index:8;transform:translateY(-8px) scale(1.045);filter:brightness(1.12) saturate(1.12) drop-shadow(0 0 13px color-mix(in srgb,var(--type-strong) 75%,transparent)) drop-shadow(0 14px 18px rgba(16,17,25,.22));outline:none}
     .portrait-placeholder{display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--type-strong) 24%,transparent);border-radius:24px;background:linear-gradient(145deg,color-mix(in srgb,var(--type-light) 18%,var(--surface)),var(--surface));}
     .portrait-placeholder img{width:82%;height:82%;object-fit:contain;mix-blend-mode:multiply;opacity:.78}
-    .stage-switcher{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:10px auto 0}.stage-button{padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:.78rem;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease}.stage-button:hover,.stage-button:focus-visible{transform:translateY(-1px);border-color:var(--type-strong);color:var(--text);outline:none}.stage-button.is-active{border-color:var(--type-strong);background:color-mix(in srgb,var(--type-light) 45%,var(--surface));color:var(--text);box-shadow:0 0 14px color-mix(in srgb,var(--type-strong) 25%,transparent)}
+    .stage-switcher{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:24px auto 0}.stage-button{padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:.78rem;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease}.stage-button:hover,.stage-button:focus-visible{transform:translateY(-1px);border-color:var(--type-strong);color:var(--text);outline:none}.stage-button.is-active{border-color:var(--type-strong);background:color-mix(in srgb,var(--type-light) 45%,var(--surface));color:var(--text);box-shadow:0 0 14px color-mix(in srgb,var(--type-strong) 25%,transparent)}
     .family-info{padding:12px 0}.family-info h2{margin:0 0 8px;font-size:clamp(2rem,4vw,3.3rem)}.family-info .form-description{min-height:48px;color:var(--muted)}
     .stats-list{margin:28px 0 18px;border-top:1px solid var(--line)}.stats-list>div{display:flex;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid var(--line)}.stats-list dt{color:var(--muted)}.stats-list dd{margin:0;color:var(--text);text-align:right}
     .meter-row dd{display:grid;grid-template-columns:34px minmax(90px,1fr);align-items:center;gap:10px;width:min(58%,300px)}.meter-number{color:var(--text);font-variant-numeric:tabular-nums;font-weight:700}.stat-track{display:block;height:8px;overflow:hidden;border-radius:999px;background:color-mix(in srgb,var(--type-strong) 15%,transparent)}
     .stat-fill{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--type-light),var(--type-strong));box-shadow:0 0 10px color-mix(in srgb,var(--type-strong) 35%,transparent);transition:width 900ms cubic-bezier(.2,.75,.25,1)}
-    .stat-fill.is-max{background-image:repeating-linear-gradient(90deg,#ff3158 0 14.28%,#ff9f1c 14.28% 28.56%,#ffe347 28.56% 42.84%,#40d879 42.84% 57.12%,#26c5e8 57.12% 71.4%,#5278ff 71.4% 85.68%,#b94cff 85.68% 100%);background-size:200% 100%;background-position:200% 0;animation:rainbow-flow 3s linear infinite;box-shadow:0 0 14px rgba(111,110,255,.55)}
+    .stat-fill.is-max{background-image:linear-gradient(90deg,#f6c7d2 0%,#f8d2bd 16%,#f7e8bb 32%,#cce9d2 48%,#c8e4f5 64%,#d2d0f2 80%,#ebcde8 92%,#f6c7d2 100%);background-size:200% 100%;background-position:200% 0;animation:rainbow-flow 3s linear infinite;box-shadow:0 0 14px rgba(195,174,225,.48)}
     @keyframes rainbow-flow{from{background-position:200% 0}to{background-position:0 0}}
     @media(max-width:760px){.family-page{width:92%;min-height:auto;padding:20px 0 50px}.family-layout{grid-template-columns:1fr;gap:12px}.art-stage{height:56vh;min-height:370px;max-height:560px}.portrait{width:min(70%,55vh)}.portrait-base{left:-2%;bottom:0}.portrait-one{left:13%;bottom:8%}.portrait-two{left:28%;bottom:16%}.family-info{padding:12px 4px}.stats-list{margin-top:18px}.family-pager{margin-top:26px}}
     @media(prefers-reduced-motion:reduce){.portrait,.stat-fill{transition:none}.stat-fill.is-max{animation:none;background-position:50% 0}}
@@ -38,13 +38,14 @@
   <header class="site-header family-top"><a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><a href="personnages.html">← Retour au Cardex</a><a class="support-link" href="soutenir.html">Soutenir</a></header>
   <main class="family-page" data-type="vent">
     <div class="family-layout"><div class="family-art-column"><section class="art-stage" aria-label="Formes de Furry 29"><button class="portrait portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Furry 29, forme Base"><img src="portrait-neutre.svg" alt=""></button></section><nav class="stage-switcher" aria-label="Choisir le stade d’évolution"><button class="stage-button" type="button" data-index="0" aria-pressed="false">Base</button></nav></div>
-      <section class="family-info" aria-live="polite" aria-atomic="true"><h2 id="form-title">Furry 29 · Base</h2>
+      <section class="family-info" aria-live="polite" aria-atomic="true"><h2 id="form-title">Furry 29</h2>
         <dl class="stats-list"><div><dt>Type</dt><dd id="form-type">Vent</dd></div>
           <div class="meter-row"><dt>PV</dt><dd><span class="meter-number" data-value="pv">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="150" aria-valuenow="0"><span class="stat-fill" data-fill="pv"></span></span></dd></div>
           <div class="meter-row"><dt>VIT</dt><dd><span class="meter-number" data-value="vit">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span class="stat-fill" data-fill="vit"></span></span></dd></div>
           <div class="meter-row"><dt>ATK</dt><dd><span class="meter-number" data-value="atk">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0"><span class="stat-fill" data-fill="atk"></span></span></dd></div>
           <div class="meter-row"><dt>POR</dt><dd><span class="meter-number" data-value="por">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span class="stat-fill" data-fill="por"></span></span></dd></div>
-          <div><dt>Coût</dt><dd id="form-cost">—</dd></div><div><dt>Rareté</dt><dd id="form-rarity">—</dd></div></dl>
+          <div><dt>Coût</dt><dd id="form-cost">—</dd></div><div><dt>Rareté</dt><dd id="form-rarity">—</dd></div>
+          <div><dt>Talents</dt><dd id="form-talents">À définir</dd></div><div><dt>Réaction</dt><dd id="form-reaction">À définir</dd></div></dl>
       </section></div>
     <nav class="family-pager" aria-label="Parcourir les familles"><a class="family-page-arrow" href="famille-28.html" aria-label="Famille précédente">← <span>Famille 28</span></a><a class="family-page-arrow" href="famille-30.html" aria-label="Famille suivante"><span>Famille 30</span> →</a></nav>
   </main>
@@ -61,7 +62,7 @@
     function showForm(index){
       const f=forms[index]; if(!f)return;
       family.dataset.type=f.type;
-      document.getElementById('form-title').textContent=FAMILY_NAME+' · '+f.level;
+      document.getElementById('form-title').textContent=FAMILY_NAME;
       document.getElementById('form-type').textContent=f.type;
       document.getElementById('form-cost').textContent=f.cost ?? 'À définir';
       document.getElementById('form-rarity').textContent=f.rarity;
