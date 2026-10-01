@@ -3,6 +3,16 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#11121a"><meta name="description" content="Découvre Marin, famille de type Eau dans le Cardex Duskclaw.">
   <title>Marin — Cardex Duskclaw</title><link rel="stylesheet" href="style.css"><style>
+    .dusk-shell{width:min(1320px,90%);margin-inline:auto}
+    .dusk-header{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:24px;width:min(1320px,90%);height:83px;min-height:83px;margin-inline:auto;padding:0;border-bottom:1px solid var(--dusk-rule)}
+    .dusk-brand{color:var(--dusk-ink);font-size:1rem;font-weight:800;letter-spacing:.19em;text-decoration:none}
+    .dusk-brand span{color:var(--dusk-accent)}
+    .dusk-nav{display:flex;align-items:center;gap:clamp(18px,3vw,38px)}
+    .dusk-nav a{color:var(--dusk-muted);font-size:.88rem;text-decoration:none}
+    .dusk-nav a:hover,.dusk-nav a:focus-visible{color:var(--dusk-accent)}
+    .dusk-nav .dusk-rules{padding:10px 14px;border:1px solid var(--dusk-rule);color:var(--dusk-ink)}
+    .dusk-nav .dusk-support{padding:10px 14px;background:var(--dusk-accent);color:#fff!important;font-weight:700}
+    .dusk-nav .dusk-support:hover,.dusk-nav .dusk-support:focus-visible{filter:brightness(1.08)}
     .family-page{width:min(1400px,94%);min-height:calc(100vh - 82px);margin:auto;padding:30px 0 54px;display:flex;flex-direction:column}
     .family-top{display:flex;justify-content:space-between;align-items:center;gap:20px}
     .family-top a{color:var(--accent);font-weight:600}.family-top .support-link{padding:9px 13px;background:var(--accent);color:#fff;text-decoration:none}
@@ -24,7 +34,7 @@
     .stat-fill{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--type-light),var(--type-strong));box-shadow:0 0 10px color-mix(in srgb,var(--type-strong) 35%,transparent);transition:width 900ms cubic-bezier(.2,.75,.25,1)}
     .stat-fill.is-max{background-image:linear-gradient(90deg,#f6c7d2 0%,#f8d2bd 16%,#f7e8bb 32%,#cce9d2 48%,#c8e4f5 64%,#d2d0f2 80%,#ebcde8 92%,#f6c7d2 100%);background-size:200% 100%;background-position:200% 0;animation:rainbow-flow 3s linear infinite;box-shadow:0 0 14px rgba(195,174,225,.48)}
     @keyframes rainbow-flow{from{background-position:200% 0}to{background-position:0 0}}
-    @media(max-width:760px){.family-page{width:92%;min-height:auto;padding:20px 0 50px}.family-layout{grid-template-columns:1fr;gap:12px}.art-stage{height:56vh;min-height:370px;max-height:560px}.portrait{width:min(70%,55vh)}.portrait-base{left:-2%;bottom:0}.portrait-one{left:13%;bottom:8%}.portrait-two{left:28%;bottom:16%}.family-info{padding:12px 4px}.stats-list{margin-top:18px}.family-pager{margin-top:26px}}
+    @media(max-width:760px){.dusk-header{flex-wrap:wrap;height:auto;min-height:82px;padding-block:17px}.dusk-nav{order:3;width:100%;justify-content:space-between;gap:12px}.dusk-nav a{font-size:.82rem}.family-page{width:92%;min-height:auto;padding:20px 0 50px}.family-layout{grid-template-columns:1fr;gap:12px}.art-stage{height:56vh;min-height:370px;max-height:560px}.portrait{width:min(70%,55vh)}.portrait-base{left:-2%;bottom:0}.portrait-one{left:13%;bottom:8%}.portrait-two{left:28%;bottom:16%}.family-info{padding:12px 4px}.stats-list{margin-top:18px}.family-pager{margin-top:26px}}
     @media(prefers-reduced-motion:reduce){.portrait,.stat-fill{transition:none}.stat-fill.is-max{animation:none;background-position:50% 0}}
     .family-page[data-type="eau"]{--type-light:#a9e2ff;--type-strong:#2486c5;--type-glow:#68bdf0}.family-page[data-type="plante"]{--type-light:#d4eda0;--type-strong:#4c9346;--type-glow:#95ca61}.family-page[data-type="glace"]{--type-light:#ddd0ff;--type-strong:#795bbc;--type-glow:#ad96eb}.family-page[data-type="roche"]{--type-light:#f0d0a0;--type-strong:#95643c;--type-glow:#c28c50}.family-page[data-type="vent"]{--type-light:#e1e7ec;--type-strong:#768695;--type-glow:#aeb9c4}
     body:not(.dual-page)[data-time="jour"]{--dusk-bg:#f1ead9;--dusk-paper:#f8f3e8;--dusk-ink:#252920;--dusk-muted:#66695f;--dusk-accent:#8a6a37;--dusk-rule:rgba(60,58,47,.24);--bg:#f1ead9;--background:#f1ead9;--surface:#f8f3e8;--text:#252920;--muted:#66695f;--accent:#8a6a37;--line:rgba(60,58,47,.24);background:#f1ead9!important;color:#252920!important;color-scheme:light}
@@ -35,7 +45,7 @@
     @media(max-width:560px){.global-mode-switch{position:static;width:max-content;margin:18px auto 24px;padding:7px 9px;gap:7px;font-size:.7rem;box-shadow:none}}
 </style>
 </head><body data-time="jour">
-  <header class="site-header family-top"><a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><a href="personnages.html">← Retour au Cardex</a><a class="support-link" href="soutenir.html">Soutenir</a></header>
+  <header class="dusk-header dusk-shell"><a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><nav class="dusk-nav" aria-label="Navigation principale"><a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a class="dusk-support" href="soutenir.html">Soutenir</a></nav></header>
   <main class="family-page" data-type="eau">
     <div class="family-layout"><div class="family-art-column"><section class="art-stage" aria-label="Formes de Marin"><button class="portrait portrait-base" type="button" data-index="0" aria-label="Afficher les informations de Marin, forme Base"><img src="marin.png" alt=""></button>
         <button class="portrait portrait-one" type="button" data-index="1" aria-label="Afficher les informations de Marin, forme Niveau 1"><img src="marin-evolution-1.png" alt=""></button>
