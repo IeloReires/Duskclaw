@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr"><head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11121a"><meta name="description" content="Découvre Marin, famille de type Eau dans le Cardex Duskclaw.">
-  <title>Marin — Cardex Duskclaw</title><link rel="stylesheet" href="style.css"><style>
+  <meta name="theme-color" content="#11121a"><meta name="description" content="Découvre Famille 23, famille de type Vent dans le Cardex Duskclaw.">
+  <title>Famille 23 — Cardex Duskclaw</title><link rel="stylesheet" href="style.css"><style>
     .family-page{width:min(1400px,94%);min-height:calc(100vh - 82px);margin:auto;padding:38px 0 54px;display:flex;flex-direction:column}
     .family-top{display:flex;justify-content:space-between;align-items:center;gap:20px}
     .family-top a{color:var(--accent);font-weight:600}.family-top .support-link{padding:9px 13px;background:var(--accent);color:#fff;text-decoration:none}
@@ -34,13 +34,12 @@
 </style>
 </head><body data-time="jour">
   <header class="site-header family-top"><a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><a href="personnages.html">← Retour au Cardex</a><a class="support-link" href="soutenir.html">Soutenir</a></header>
-  <main class="family-page" data-type="eau">
-    <div class="family-heading"><p class="eyebrow">FAMILLE · TYPE EAU</p><h1>Marin<span>.</span></h1><p>Survole une forme pour afficher ses caractéristiques. Sur téléphone, touche son image.</p></div>
-    <div class="family-layout"><section class="art-stage" aria-label="Formes de Marin"><button class="portrait-base" type="button" data-index="0" aria-label="Afficher les informations de Marin, forme Base"><img src="marin.png" alt=""><span class="stage-label">BASE</span></button>
-        <button class="portrait-one" type="button" data-index="1" aria-label="Afficher les informations de Marin, forme Niveau 1"><img src="marin-evolution-1.png" alt=""><span class="stage-label">NIVEAU 1</span></button>
-        <button class="portrait-two" type="button" data-index="2" aria-label="Afficher les informations de Marin, forme Niveau 2"><img src="marin-evolution-2.png" alt=""><span class="stage-label">NIVEAU 2</span></button></section>
-      <section class="family-info" aria-live="polite" aria-atomic="true"><p class="eyebrow" id="form-kicker">FORME · TYPE EAU</p><h2 id="form-title">Marin · Base</h2><p class="form-description" id="form-description">Les caractéristiques s’affichent ici.</p>
-        <dl class="stats-list"><div><dt>Type</dt><dd id="form-type">Eau</dd></div>
+  <main class="family-page" data-type="vent">
+    <div class="family-heading"><p class="eyebrow">FAMILLE · TYPE VENT</p><h1>Famille 23<span>.</span></h1><p>Survole une forme pour afficher ses caractéristiques. Sur téléphone, touche son image.</p></div>
+    <div class="family-layout"><section class="art-stage" aria-label="Formes de Famille 23"><button class="portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Famille 23, forme Base"><span class="stage-label">BASE</span></button>
+        <button class="portrait-one portrait-placeholder" type="button" data-index="1" aria-label="Afficher les informations de Famille 23, forme Niveau 1"><span class="stage-label">NIVEAU 1</span></button></section>
+      <section class="family-info" aria-live="polite" aria-atomic="true"><p class="eyebrow" id="form-kicker">FORME · TYPE VENT</p><h2 id="form-title">Famille 23 · Base</h2><p class="form-description" id="form-description">Les caractéristiques s’affichent ici.</p>
+        <dl class="stats-list"><div><dt>Type</dt><dd id="form-type">Vent</dd></div>
           <div class="meter-row"><dt>PV</dt><dd><span class="meter-number" data-value="pv">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="150" aria-valuenow="0"><span class="stat-fill" data-fill="pv"></span></span></dd></div>
           <div class="meter-row"><dt>VIT</dt><dd><span class="meter-number" data-value="vit">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span class="stat-fill" data-fill="vit"></span></span></dd></div>
           <div class="meter-row"><dt>ATK</dt><dd><span class="meter-number" data-value="atk">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0"><span class="stat-fill" data-fill="atk"></span></span></dd></div>
@@ -49,10 +48,10 @@
         <p class="family-note">Les barres se remplissent à l’ouverture et chaque fois que tu sélectionnes une forme. Les informations inconnues seront complétées plus tard.</p>
       </section></div>
   </main>
-  <script>const TYPE_NAME="Eau";const FAMILY_NAME="Marin";</script>
+  <script>const TYPE_NAME="Vent";const FAMILY_NAME="Famille 23";</script>
 
   <script>
-    const forms = [{"letter": "a", "level": "Base", "pv": 50, "vit": 2, "atk": 20, "por": 1, "cost": 2, "profile": "Soigneur", "rarity": "Commun", "image": "marin.png", "type": "eau"}, {"letter": "b", "level": "Niveau 1", "pv": 80, "vit": 2, "atk": 20, "por": 1, "cost": 3, "profile": "Soigneur", "rarity": "Peu commun", "image": "marin-evolution-1.png", "type": "eau"}, {"letter": "c", "level": "Niveau 2", "pv": 110, "vit": 3, "atk": 30, "por": 1, "cost": 4, "profile": "Soigneur avancé", "rarity": "Rare", "image": "marin-evolution-2.png", "type": "eau"}];
+    const forms = [{"letter": "a", "level": "Base", "pv": 60, "vit": 2, "atk": 20, "por": 3, "cost": 2, "profile": "Contrôleur", "rarity": "Commun", "image": "", "type": "vent"}, {"letter": "b", "level": "Niveau 1", "pv": 90, "vit": 2, "atk": 30, "por": 3, "cost": 3, "profile": "Contrôleur", "rarity": "Peu commun", "image": "", "type": "vent"}];
     const labels = {pv:'Points de vie',vit:'Vitesse',atk:'Attaque',por:'Portée'};
     const maxima = {pv:150,vit:6,atk:60,por:5};
     const stage = document.querySelector('.art-stage');
