@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr"><head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11121a"><meta name="description" content="Découvre Famille 19, famille de type Plante dans le Cardex Duskclaw.">
-  <title>Famille 19 — Cardex Duskclaw</title><link rel="stylesheet" href="style.css"><style>
+  <meta name="theme-color" content="#11121a"><meta name="description" content="Découvre Famille 5, famille de type Roche dans le Cardex Duskclaw.">
+  <title>Famille 5 — Cardex Duskclaw</title><link rel="stylesheet" href="style.css"><style>
     .family-page{width:min(1400px,94%);min-height:calc(100vh - 82px);margin:auto;padding:38px 0 54px;display:flex;flex-direction:column}
     .family-top{display:flex;justify-content:space-between;align-items:center;gap:20px}
     .family-top a{color:var(--accent);font-weight:600}.family-top .support-link{padding:9px 13px;background:var(--accent);color:#fff;text-decoration:none}
@@ -36,12 +36,12 @@
 </style>
 </head><body data-time="jour">
   <header class="site-header family-top"><a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><a href="personnages.html">← Retour au Cardex</a><a class="support-link" href="soutenir.html">Soutenir</a></header>
-  <main class="family-page" data-type="plante">
-    <div class="family-heading"><p class="eyebrow">FAMILLE 19 · TYPE PLANTE</p><h1>Famille 19<span>.</span></h1><p>Survole une forme pour afficher ses caractéristiques. Sur téléphone, touche son image.</p></div>
-    <div class="family-layout"><section class="art-stage" aria-label="Formes de Famille 19"><button class="portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Famille 19, forme Base"><img src="portrait-neutre.svg" alt=""><span class="stage-label">BASE</span></button>
-        <button class="portrait-one portrait-placeholder" type="button" data-index="1" aria-label="Afficher les informations de Famille 19, forme Niveau 1"><img src="portrait-neutre.svg" alt=""><span class="stage-label">NIVEAU 1</span></button></section>
-      <section class="family-info" aria-live="polite" aria-atomic="true"><p class="eyebrow" id="form-kicker">FORME · TYPE PLANTE</p><h2 id="form-title">Famille 19 · Base</h2><p class="form-description" id="form-description">Les caractéristiques s’affichent ici.</p>
-        <dl class="stats-list"><div><dt>Type</dt><dd id="form-type">Plante</dd></div>
+  <main class="family-page" data-type="roche">
+    <div class="family-heading"><p class="eyebrow">FAMILLE 5 · TYPE ROCHE</p><h1>Famille 5<span>.</span></h1><p>Survole une forme pour afficher ses caractéristiques. Sur téléphone, touche son image.</p></div>
+    <div class="family-layout"><section class="art-stage" aria-label="Formes de Famille 5"><button class="portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Famille 5, forme Base"><img src="portrait-neutre.svg" alt=""><span class="stage-label">BASE</span></button>
+        <button class="portrait-one portrait-placeholder" type="button" data-index="1" aria-label="Afficher les informations de Famille 5, forme Niveau 1"><img src="portrait-neutre.svg" alt=""><span class="stage-label">NIVEAU 1</span></button></section>
+      <section class="family-info" aria-live="polite" aria-atomic="true"><p class="eyebrow" id="form-kicker">FORME · TYPE ROCHE</p><h2 id="form-title">Famille 5 · Base</h2><p class="form-description" id="form-description">Les caractéristiques s’affichent ici.</p>
+        <dl class="stats-list"><div><dt>Type</dt><dd id="form-type">Roche</dd></div>
           <div class="meter-row"><dt>PV</dt><dd><span class="meter-number" data-value="pv">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="150" aria-valuenow="0"><span class="stat-fill" data-fill="pv"></span></span></dd></div>
           <div class="meter-row"><dt>VIT</dt><dd><span class="meter-number" data-value="vit">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span class="stat-fill" data-fill="vit"></span></span></dd></div>
           <div class="meter-row"><dt>ATK</dt><dd><span class="meter-number" data-value="atk">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0"><span class="stat-fill" data-fill="atk"></span></span></dd></div>
@@ -50,10 +50,10 @@
         <p class="family-note">Les barres se remplissent à l’ouverture et chaque fois que tu sélectionnes une forme. Les informations inconnues seront complétées plus tard.</p>
       </section></div>
   </main>
-  <script>const TYPE_NAME="Plante";const FAMILY_NAME="Famille 19";</script>
+  <script>const TYPE_NAME="Roche";const FAMILY_NAME="Famille 5";</script>
 
   <script>
-    const forms = [{"letter": "a", "level": "Base", "pv": 40, "vit": 5, "atk": 20, "por": 3, "cost": 2, "rarity": "Commun", "image": "", "type": "plante"}, {"letter": "b", "level": "Niveau 1", "pv": 60, "vit": 6, "atk": 30, "por": 3, "cost": 3, "rarity": "Peu commun", "image": "", "type": "plante"}];
+    const forms = [{"letter": "a", "level": "Base", "pv": 40, "vit": 4, "atk": 20, "por": 2, "cost": 2, "rarity": "Commun", "image": "", "type": "roche"}, {"letter": "b", "level": "Niveau 1", "pv": 70, "vit": 5, "atk": 30, "por": 2, "cost": 3, "rarity": "Peu commun", "image": "", "type": "roche"}];
     const labels = {pv:'Points de vie',vit:'Vitesse',atk:'Attaque',por:'Portée'};
     const maxima = {pv:150,vit:6,atk:60,por:5};
     const stage = document.querySelector('.art-stage');
