@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr"><head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11121a"><meta name="description" content="Découvre Famille 19, famille de type Plante dans le Cardex Duskclaw.">
-  <title>Famille 19 — Cardex Duskclaw</title><link rel="stylesheet" href="style.css"><style>
-    .family-page{width:min(1400px,94%);min-height:calc(100vh - 82px);margin:auto;padding:38px 0 54px;display:flex;flex-direction:column}
+  <meta name="theme-color" content="#11121a"><meta name="description" content="Découvre Furry 19, famille de type Plante dans le Cardex Duskclaw.">
+  <title>Furry 19 — Cardex Duskclaw</title><link rel="stylesheet" href="style.css"><style>
+    .family-page{width:min(1400px,94%);min-height:calc(100vh - 82px);margin:auto;padding:30px 0 54px;display:flex;flex-direction:column}
     .family-top{display:flex;justify-content:space-between;align-items:center;gap:20px}
     .family-top a{color:var(--accent);font-weight:600}.family-top .support-link{padding:9px 13px;background:var(--accent);color:#fff;text-decoration:none}
-    .family-heading{margin:26px 0 18px}.family-heading h1{font-size:clamp(2.5rem,5vw,4.5rem)}.family-heading h1 span{color:var(--accent)}.family-heading p:last-child{color:var(--muted);margin:8px 0 0}
     .family-pager{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:20px 0 4px}.family-page-arrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;text-decoration:none;transition:transform .2s ease,color .2s ease}.family-page-arrow:hover,.family-page-arrow:focus-visible{transform:translateY(-2px);color:var(--text);outline:none}.family-page-arrow.is-disabled{opacity:.3}
-    .family-layout{flex:1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);align-items:center;gap:clamp(24px,5vw,76px)}
-    .art-stage{position:relative;width:100%;height:min(70vh,720px);min-height:490px;overflow:hidden}
-    .portrait{position:absolute;display:block;width:66%;height:82%;padding:0;border:0;background:transparent;color:var(--text);cursor:pointer;transition:transform .28s ease,filter .28s ease,opacity .28s ease}
-    .portrait img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+    .family-layout{flex:1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);align-items:center;gap:clamp(24px,5vw,76px)}.family-art-column{min-width:0}
+    .art-stage{position:relative;width:100%;height:min(70vh,720px);min-height:490px;overflow:visible}
+    .portrait{position:absolute;display:block;width:min(66%,70vh);height:auto;aspect-ratio:1/1;padding:0;border:0;background:transparent;color:var(--text);cursor:pointer;transition:transform .28s ease,filter .28s ease,opacity .28s ease}
+    .portrait img{display:block;width:100%;height:100%;aspect-ratio:1/1;object-fit:contain;mix-blend-mode:multiply}
     .portrait .stage-label{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);padding:4px 7px;border-radius:4px;background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--text);font:700 .68rem 'DM Sans',sans-serif;letter-spacing:.12em;white-space:nowrap}
     .portrait-base{left:0;bottom:0;z-index:1;transform:rotate(-5deg)}.portrait-one{left:16%;bottom:8%;z-index:2;transform:rotate(-1deg)}.portrait-two{left:31%;bottom:16%;z-index:3;transform:rotate(4deg)}
     .art-stage:hover .portrait:not(:hover),.art-stage:focus-within .portrait:not(:focus):not(.active),.art-stage.has-selection .portrait:not(.active){filter:brightness(.48) saturate(.7);opacity:.62}
     .portrait:hover,.portrait:focus-visible,.portrait.active{z-index:8;transform:translateY(-8px) scale(1.045);filter:brightness(1.12) saturate(1.12) drop-shadow(0 0 13px color-mix(in srgb,var(--type-strong) 75%,transparent)) drop-shadow(0 14px 18px rgba(16,17,25,.22));outline:none}
     .portrait-placeholder{display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--type-strong) 24%,transparent);border-radius:24px;background:linear-gradient(145deg,color-mix(in srgb,var(--type-light) 18%,var(--surface)),var(--surface));}
     .portrait-placeholder img{width:82%;height:82%;object-fit:contain;mix-blend-mode:multiply;opacity:.78}
+    .stage-switcher{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:10px auto 0}.stage-button{padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:.78rem;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease}.stage-button:hover,.stage-button:focus-visible{transform:translateY(-1px);border-color:var(--type-strong);color:var(--text);outline:none}.stage-button.is-active{border-color:var(--type-strong);background:color-mix(in srgb,var(--type-light) 45%,var(--surface));color:var(--text);box-shadow:0 0 14px color-mix(in srgb,var(--type-strong) 25%,transparent)}
     .family-info{padding:12px 0}.family-info h2{margin:0 0 8px;font-size:clamp(2rem,4vw,3.3rem)}.family-info .form-description{min-height:48px;color:var(--muted)}
     .stats-list{margin:28px 0 18px;border-top:1px solid var(--line)}.stats-list>div{display:flex;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid var(--line)}.stats-list dt{color:var(--muted)}.stats-list dd{margin:0;color:var(--text);text-align:right}
     .meter-row dd{display:grid;grid-template-columns:34px minmax(90px,1fr);align-items:center;gap:10px;width:min(58%,300px)}.meter-number{color:var(--text);font-variant-numeric:tabular-nums;font-weight:700}.stat-track{display:block;height:8px;overflow:hidden;border-radius:999px;background:color-mix(in srgb,var(--type-strong) 15%,transparent)}
     .stat-fill{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--type-light),var(--type-strong));box-shadow:0 0 10px color-mix(in srgb,var(--type-strong) 35%,transparent);transition:width 900ms cubic-bezier(.2,.75,.25,1)}
-    .stat-fill.is-max{background-size:200% 100%;animation:type-rainbow-flow 2.8s linear infinite;box-shadow:0 0 12px color-mix(in srgb,var(--type-strong) 68%,transparent)}
-    .family-page[data-type="eau"] .stat-fill.is-max{background-image:repeating-linear-gradient(90deg,#c7f0ff 0 20%,#76ccfa 20% 40%,#228acb 40% 60%,#54b9ed 60% 80%,#c7f0ff 80% 100%)}.family-page[data-type="plante"] .stat-fill.is-max{background-image:repeating-linear-gradient(90deg,#e0f3b8 0 20%,#a9d974 20% 40%,#4b9348 40% 60%,#80bd59 60% 80%,#e0f3b8 80% 100%)}.family-page[data-type="glace"] .stat-fill.is-max{background-image:repeating-linear-gradient(90deg,#ede5ff 0 20%,#c1a9f5 20% 40%,#795bbc 40% 60%,#a58be0 60% 80%,#ede5ff 80% 100%)}.family-page[data-type="roche"] .stat-fill.is-max{background-image:repeating-linear-gradient(90deg,#f3dfbe 0 20%,#d9ad70 20% 40%,#95643c 40% 60%,#bd8950 60% 80%,#f3dfbe 80% 100%)}.family-page[data-type="vent"] .stat-fill.is-max{background-image:repeating-linear-gradient(90deg,#f0f3f5 0 20%,#c2cdd5 20% 40%,#778694 40% 60%,#a8b4be 60% 80%,#f0f3f5 80% 100%)}
-    @keyframes type-rainbow-flow{from{background-position:0 0}to{background-position:200% 0}}
-    @media(max-width:760px){.family-page{width:92%;min-height:auto;padding:24px 0 50px}.family-layout{grid-template-columns:1fr;gap:12px}.art-stage{height:56vh;min-height:370px;max-height:560px}.portrait{width:70%;height:82%}.portrait-base{left:-2%;bottom:0}.portrait-one{left:13%;bottom:8%}.portrait-two{left:28%;bottom:16%}.family-info{padding:12px 4px}.stats-list{margin-top:18px}.family-pager{margin-top:15px}}
-    @media(prefers-reduced-motion:reduce){.portrait,.stat-fill{transition:none}.stat-fill.is-max{animation:none}}
+    .stat-fill.is-max{background-image:repeating-linear-gradient(90deg,#ff3158 0 14.28%,#ff9f1c 14.28% 28.56%,#ffe347 28.56% 42.84%,#40d879 42.84% 57.12%,#26c5e8 57.12% 71.4%,#5278ff 71.4% 85.68%,#b94cff 85.68% 100%);background-size:200% 100%;background-position:200% 0;animation:rainbow-flow 3s linear infinite;box-shadow:0 0 14px rgba(111,110,255,.55)}
+    @keyframes rainbow-flow{from{background-position:200% 0}to{background-position:0 0}}
+    @media(max-width:760px){.family-page{width:92%;min-height:auto;padding:20px 0 50px}.family-layout{grid-template-columns:1fr;gap:12px}.art-stage{height:56vh;min-height:370px;max-height:560px}.portrait{width:min(70%,55vh)}.portrait-base{left:-2%;bottom:0}.portrait-one{left:13%;bottom:8%}.portrait-two{left:28%;bottom:16%}.family-info{padding:12px 4px}.stats-list{margin-top:18px}.family-pager{margin-top:26px}}
+    @media(prefers-reduced-motion:reduce){.portrait,.stat-fill{transition:none}.stat-fill.is-max{animation:none;background-position:50% 0}}
     .family-page[data-type="eau"]{--type-light:#a9e2ff;--type-strong:#2486c5;--type-glow:#68bdf0}.family-page[data-type="plante"]{--type-light:#d4eda0;--type-strong:#4c9346;--type-glow:#95ca61}.family-page[data-type="glace"]{--type-light:#ddd0ff;--type-strong:#795bbc;--type-glow:#ad96eb}.family-page[data-type="roche"]{--type-light:#f0d0a0;--type-strong:#95643c;--type-glow:#c28c50}.family-page[data-type="vent"]{--type-light:#e1e7ec;--type-strong:#768695;--type-glow:#aeb9c4}
     body:not(.dual-page)[data-time="jour"]{--dusk-bg:#f1ead9;--dusk-paper:#f8f3e8;--dusk-ink:#252920;--dusk-muted:#66695f;--dusk-accent:#8a6a37;--dusk-rule:rgba(60,58,47,.24);--bg:#f1ead9;--background:#f1ead9;--surface:#f8f3e8;--text:#252920;--muted:#66695f;--accent:#8a6a37;--line:rgba(60,58,47,.24);background:#f1ead9!important;color:#252920!important;color-scheme:light}
     body:not(.dual-page)[data-time="nuit"]{--dusk-bg:#111724;--dusk-paper:#1a2030;--dusk-ink:#ece9e1;--dusk-muted:#b8bdca;--dusk-accent:#b8a6df;--dusk-rule:rgba(229,225,243,.2);--bg:#111724;--background:#111724;--surface:#1a2030;--text:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2);background:#111724!important;color:#ece9e1!important;color-scheme:dark}
@@ -38,20 +37,20 @@
 </head><body data-time="jour">
   <header class="site-header family-top"><a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><a href="personnages.html">← Retour au Cardex</a><a class="support-link" href="soutenir.html">Soutenir</a></header>
   <main class="family-page" data-type="plante">
-    <div class="family-heading"><p class="eyebrow">FAMILLE 19 · TYPE PLANTE</p><h1>Famille 19<span>.</span></h1><p>Survole une forme pour afficher ses caractéristiques. Sur téléphone, touche son image.</p><nav class="family-pager" aria-label="Parcourir les familles"><a class="family-page-arrow" href="famille-18.html" aria-label="Famille précédente">← <span>Famille 18</span></a><a class="family-page-arrow" href="famille-20.html" aria-label="Famille suivante"><span>Famille 20</span> →</a></nav></div>
-    <div class="family-layout"><section class="art-stage" aria-label="Formes de Famille 19"><button class="portrait portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Famille 19, forme Base"><img src="portrait-neutre.svg" alt=""><span class="stage-label">BASE</span></button>
-        <button class="portrait portrait-one portrait-placeholder" type="button" data-index="1" aria-label="Afficher les informations de Famille 19, forme Niveau 1"><img src="portrait-neutre.svg" alt=""><span class="stage-label">NIVEAU 1</span></button></section>
-      <section class="family-info" aria-live="polite" aria-atomic="true"><p class="eyebrow" id="form-kicker">FORME · TYPE PLANTE</p><h2 id="form-title">Famille 19 · Base</h2><p class="form-description" id="form-description">Les caractéristiques s’affichent ici.</p>
+    <div class="family-layout"><div class="family-art-column"><section class="art-stage" aria-label="Formes de Furry 19"><button class="portrait portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Furry 19, forme Base"><img src="portrait-neutre.svg" alt=""></button>
+        <button class="portrait portrait-one portrait-placeholder" type="button" data-index="1" aria-label="Afficher les informations de Furry 19, forme Niveau 1"><img src="portrait-neutre.svg" alt=""></button></section><nav class="stage-switcher" aria-label="Choisir le stade d’évolution"><button class="stage-button" type="button" data-index="0" aria-pressed="false">Base</button>
+        <button class="stage-button" type="button" data-index="1" aria-pressed="false">Niveau 1</button></nav></div>
+      <section class="family-info" aria-live="polite" aria-atomic="true"><h2 id="form-title">Furry 19 · Base</h2>
         <dl class="stats-list"><div><dt>Type</dt><dd id="form-type">Plante</dd></div>
           <div class="meter-row"><dt>PV</dt><dd><span class="meter-number" data-value="pv">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="150" aria-valuenow="0"><span class="stat-fill" data-fill="pv"></span></span></dd></div>
           <div class="meter-row"><dt>VIT</dt><dd><span class="meter-number" data-value="vit">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span class="stat-fill" data-fill="vit"></span></span></dd></div>
           <div class="meter-row"><dt>ATK</dt><dd><span class="meter-number" data-value="atk">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0"><span class="stat-fill" data-fill="atk"></span></span></dd></div>
           <div class="meter-row"><dt>POR</dt><dd><span class="meter-number" data-value="por">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span class="stat-fill" data-fill="por"></span></span></dd></div>
           <div><dt>Coût</dt><dd id="form-cost">—</dd></div><div><dt>Rareté</dt><dd id="form-rarity">—</dd></div></dl>
-        <p class="family-note">Les barres se remplissent à l’ouverture et chaque fois que tu sélectionnes une forme. Les informations inconnues seront complétées plus tard.</p>
       </section></div>
+    <nav class="family-pager" aria-label="Parcourir les familles"><a class="family-page-arrow" href="famille-18.html" aria-label="Famille précédente">← <span>Famille 18</span></a><a class="family-page-arrow" href="famille-20.html" aria-label="Famille suivante"><span>Famille 20</span> →</a></nav>
   </main>
-  <script>const TYPE_NAME="Plante";const FAMILY_NAME="Famille 19";</script>
+  <script>const TYPE_NAME="Plante";const FAMILY_NAME="Furry 19";</script>
 
   <script>
     const forms = [{"letter": "a", "level": "Base", "pv": 40, "vit": 5, "atk": 20, "por": 3, "cost": 2, "rarity": "Commun", "image": "", "type": "plante"}, {"letter": "b", "level": "Niveau 1", "pv": 60, "vit": 6, "atk": 30, "por": 3, "cost": 3, "rarity": "Peu commun", "image": "", "type": "plante"}];
@@ -60,12 +59,11 @@
     const stage = document.querySelector('.art-stage');
     const family = document.querySelector('.family-page');
     const portraits = document.querySelectorAll('.portrait');
+    const stageButtons = document.querySelectorAll('.stage-button');
     function showForm(index){
       const f=forms[index]; if(!f)return;
       family.dataset.type=f.type;
-      document.getElementById('form-kicker').textContent=(f.level==='Base'?'FURRY DE BASE':f.level==='À définir'?'FORME À VENIR':'ÉVOLUTION · '+f.level.toUpperCase())+' · TYPE '+f.type.toUpperCase();
       document.getElementById('form-title').textContent=FAMILY_NAME+' · '+f.level;
-      document.getElementById('form-description').textContent=f.pv===null?'Les statistiques de cette forme seront ajoutées plus tard.':'Statistiques de la forme '+f.level.toLowerCase()+'.';
       document.getElementById('form-type').textContent=f.type;
       document.getElementById('form-cost').textContent=f.cost ?? 'À définir';
       document.getElementById('form-rarity').textContent=f.rarity;
@@ -75,9 +73,12 @@
         fill.classList.toggle('is-max',value!==null&&value>=maxima[key]);
         fill.style.width='0%'; if(value!==null) requestAnimationFrame(()=>requestAnimationFrame(()=>{fill.style.width=Math.min(100,value/maxima[key]*100)+'%';}));
       });
-      portraits.forEach((p,i)=>p.classList.toggle('active',i===index)); stage.classList.add('has-selection');
+      portraits.forEach((p,i)=>{p.classList.toggle('active',i===index);p.setAttribute('aria-pressed',String(i===index));});
+      stageButtons.forEach((b,i)=>{b.classList.toggle('is-active',i===index);b.setAttribute('aria-pressed',String(i===index));});
+      stage.classList.add('has-selection');
     }
-    portraits.forEach((p,i)=>{const activate=()=>showForm(i);p.addEventListener('mouseenter',activate);p.addEventListener('focus',activate);p.addEventListener('click',activate);});
+    portraits.forEach((p,i)=>{const activate=()=>showForm(i);p.addEventListener('pointerenter',activate);p.addEventListener('focus',activate);p.addEventListener('click',activate);});
+    stageButtons.forEach((b,i)=>b.addEventListener('click',()=>showForm(i)));
     showForm(0);
   </script>
 
