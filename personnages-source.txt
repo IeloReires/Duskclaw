@@ -21,7 +21,7 @@
     .cardex-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 40px 0 28px; }
     .cardex-heading h1 { margin: 0; font-size: clamp(2.8rem, 6vw, 5rem); }
     .cardex-heading p { margin: 0 0 8px; color: var(--muted); }
-    .cardex-filters { display: grid; grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(130px, 1fr)) minmax(140px, 1fr) auto; align-items: end; gap: 12px; margin: 0 0 16px; }
+    .cardex-filters { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)) auto; align-items: end; gap: 12px; margin: 0 0 16px; }
     .cardex-control { display: grid; gap: 6px; color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .cardex-control input, .cardex-control select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; letter-spacing: normal; text-transform: none; }
     .cardex-control input::placeholder { color: var(--muted); opacity: .8; }
@@ -49,7 +49,7 @@
     @media (max-width: 1100px) {
       .cardex-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .cardex-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .cardex-control:first-child, .filter-reset { grid-column: 1 / -1; }
+      .filter-reset { grid-column: 1 / -1; }
     }
     @media (max-width: 680px) {
       .cardex-site-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
@@ -125,10 +125,6 @@
     </div>
     <form class="cardex-filters" id="cardex-filters">
       <label class="cardex-control">
-        Nom
-        <input id="name-filter" type="search" placeholder="Rechercher un Furry…" autocomplete="off">
-      </label>
-      <label class="cardex-control">
         Niveau
         <select id="level-filter">
           <option value="">Tous les niveaux</option>
@@ -166,6 +162,22 @@
           <option value="rare">Rare</option>
           <option value="epique">Épique</option>
           <option value="legendaire">Légendaire</option>
+        </select>
+      </label>
+      <label class="cardex-control">
+        Trier par statistique
+        <select id="stat-sort">
+          <option value="">Ordre du Cardex</option>
+          <option value="pv-asc">PV · du plus faible au plus fort</option>
+          <option value="pv-desc">PV · du plus fort au plus faible</option>
+          <option value="vit-asc">VIT · du plus faible au plus fort</option>
+          <option value="vit-desc">VIT · du plus fort au plus faible</option>
+          <option value="atk-asc">ATK · du plus faible au plus fort</option>
+          <option value="atk-desc">ATK · du plus fort au plus faible</option>
+          <option value="por-asc">POR · du plus faible au plus fort</option>
+          <option value="por-desc">POR · du plus fort au plus faible</option>
+          <option value="cost-asc">Coût · du plus faible au plus fort</option>
+          <option value="cost-desc">Coût · du plus fort au plus faible</option>
         </select>
       </label>
       <button class="filter-reset" id="reset-filters" type="button">Tout effacer</button>
@@ -354,7 +366,7 @@
       }
     });
     const cardexTypeLabels = {"eau":"Eau","plante":"Plante","glace":"Glace","roche":"Roche","vent":"Vent"};
-    const statTable = {"0": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "1": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "2": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "3": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "4": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "5": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "6": [{"level": "Base", "rarity": "Peu commun"}, {"level": "Niveau 1", "rarity": "Rare"}, null], "7": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "8": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "9": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "10": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "11": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "12": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "13": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "14": [{"level": "Base", "rarity": "Commun"}, null, null], "15": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "16": [{"level": "Base", "rarity": "Commun"}, null, null], "17": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "18": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "19": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "20": [{"level": "Base", "rarity": "Commun"}, null, null], "21": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "22": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "23": [{"level": "Base", "rarity": "Commun"}, null, null], "24": [{"level": "Base", "rarity": "Commun"}, null, null], "25": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "26": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "27": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "28": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "29": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "30": [{"level": "Base", "rarity": "Épique"}, null, null], "31": [{"level": "Base", "rarity": "Épique"}, null, null], "32": [{"level": "Base", "rarity": "Épique"}, null, null], "33": [{"level": "Base", "rarity": "Épique"}, null, null], "34": [{"level": "Base", "rarity": "Épique"}, null, null]};
+    const statTable = {"0": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 70, "vit": 3, "atk": 30, "por": 3, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 100, "vit": 4, "atk": 40, "por": 3, "cost": 3}}, null], "1": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 3, "atk": 20, "por": 1, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 70, "vit": 5, "atk": 30, "por": 1, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 100, "vit": 5, "atk": 40, "por": 2, "cost": 4}}], "2": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 70, "vit": 4, "atk": 30, "por": 3, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 100, "vit": 5, "atk": 40, "por": 3, "cost": 3}}, null], "3": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 2, "atk": 20, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 70, "vit": 3, "atk": 30, "por": 2, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 110, "vit": 4, "atk": 40, "por": 2, "cost": 4}}], "4": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 80, "vit": 2, "atk": 30, "por": 1, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 120, "vit": 2, "atk": 40, "por": 2, "cost": 3}}, null], "5": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 3, "atk": 20, "por": 3, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 70, "vit": 4, "atk": 30, "por": 3, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 110, "vit": 5, "atk": 40, "por": 4, "cost": 4}}], "6": [{"level": "Base", "rarity": "Peu commun", "stats": {"pv": 70, "vit": 2, "atk": 30, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Rare", "stats": {"pv": 110, "vit": 3, "atk": 40, "por": 2, "cost": 3}}, null], "7": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 50, "vit": 4, "atk": 20, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 5, "atk": 30, "por": 2, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 120, "vit": 5, "atk": 40, "por": 2, "cost": 4}}], "8": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 80, "vit": 4, "atk": 20, "por": 4, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 110, "vit": 5, "atk": 30, "por": 4, "cost": 3}}, null], "9": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 50, "vit": 1, "atk": 20, "por": 1, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 2, "atk": 30, "por": 1, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 130, "vit": 2, "atk": 40, "por": 2, "cost": 4}}], "10": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 80, "vit": 5, "atk": 20, "por": 4, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 110, "vit": 5, "atk": 30, "por": 4, "cost": 3}}, null], "11": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 50, "vit": 2, "atk": 20, "por": 3, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 3, "atk": 30, "por": 3, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 120, "vit": 4, "atk": 40, "por": 3, "cost": 4}}], "12": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 70, "vit": 4, "atk": 20, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 100, "vit": 5, "atk": 30, "por": 2, "cost": 3}}, null], "13": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 4, "atk": 20, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 70, "vit": 5, "atk": 30, "por": 2, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 100, "vit": 5, "atk": 40, "por": 3, "cost": 4}}], "14": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 70, "vit": 4, "atk": 20, "por": 2, "cost": 3}}, null, null], "15": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 2, "atk": 30, "por": 1, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 70, "vit": 3, "atk": 40, "por": 1, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 120, "vit": 3, "atk": 50, "por": 1, "cost": 4}}], "16": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 60, "vit": 5, "atk": 30, "por": 1, "cost": 3}}, null, null], "17": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 50, "vit": 3, "atk": 20, "por": 4, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 4, "atk": 30, "por": 4, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 120, "vit": 5, "atk": 40, "por": 4, "cost": 4}}], "18": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 80, "vit": 3, "atk": 30, "por": 3, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 120, "vit": 4, "atk": 40, "por": 3, "cost": 3}}, null], "19": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 4, "atk": 30, "por": 1, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 5, "atk": 40, "por": 1, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 120, "vit": 5, "atk": 50, "por": 1, "cost": 4}}], "20": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 60, "vit": 4, "atk": 20, "por": 3, "cost": 3}}, null, null], "21": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 50, "vit": 2, "atk": 20, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 3, "atk": 30, "por": 2, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 140, "vit": 3, "atk": 40, "por": 2, "cost": 4}}], "22": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 50, "vit": 4, "atk": 20, "por": 3, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 5, "atk": 30, "por": 3, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 130, "vit": 5, "atk": 40, "por": 4, "cost": 4}}], "23": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 80, "vit": 2, "atk": 30, "por": 2, "cost": 3}}, null, null], "24": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 90, "vit": 2, "atk": 30, "por": 1, "cost": 3}}, null, null], "25": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 80, "vit": 5, "atk": 30, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 120, "vit": 5, "atk": 40, "por": 3, "cost": 3}}, null], "26": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 90, "vit": 2, "atk": 40, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 130, "vit": 3, "atk": 50, "por": 2, "cost": 3}}, null], "27": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 4, "atk": 30, "por": 3, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 5, "atk": 40, "por": 3, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 120, "vit": 5, "atk": 50, "por": 4, "cost": 4}}], "28": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 3, "atk": 30, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 70, "vit": 4, "atk": 30, "por": 2, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 110, "vit": 4, "atk": 50, "por": 2, "cost": 4}}], "29": [{"level": "Base", "rarity": "Commun", "stats": {"pv": 40, "vit": 4, "atk": 30, "por": 2, "cost": 2}}, {"level": "Niveau 1", "rarity": "Peu commun", "stats": {"pv": 80, "vit": 5, "atk": 40, "por": 2, "cost": 3}}, {"level": "Niveau 2", "rarity": "Rare", "stats": {"pv": 120, "vit": 5, "atk": 50, "por": 2, "cost": 4}}], "30": [{"level": "Base", "rarity": "Épique", "stats": {"pv": 180, "vit": 2, "atk": 30, "por": 1, "cost": 4}}, null, null], "31": [{"level": "Base", "rarity": "Épique", "stats": {"pv": 120, "vit": 3, "atk": 80, "por": 3, "cost": 4}}, null, null], "32": [{"level": "Base", "rarity": "Épique", "stats": {"pv": 140, "vit": 3, "atk": 40, "por": 5, "cost": 4}}, null, null], "33": [{"level": "Base", "rarity": "Épique", "stats": {"pv": 120, "vit": 4, "atk": 50, "por": 3, "cost": 4}}, null, null], "34": [{"level": "Base", "rarity": "Épique", "stats": {"pv": 100, "vit": 6, "atk": 40, "por": 1, "cost": 4}}, null, null]};
     const familyRoutes = {"0": {"code": 0, "name": "Famille 1", "file": "famille-1.html"}, "1": {"code": 1, "name": "Marin", "file": "marin.html"}, "2": {"code": 2, "name": "Famille 3", "file": "famille-3.html"}, "3": {"code": 3, "name": "Famille 4", "file": "famille-4.html"}, "4": {"code": 4, "name": "Famille 5", "file": "famille-5.html"}, "5": {"code": 5, "name": "Famille 6", "file": "famille-6.html"}, "6": {"code": 6, "name": "Kael", "file": "kael.html"}, "7": {"code": 7, "name": "Famille 8", "file": "famille-8.html"}, "8": {"code": 8, "name": "Famille 9", "file": "famille-9.html"}, "9": {"code": 9, "name": "Caine", "file": "caine.html"}, "10": {"code": 10, "name": "Famille 11", "file": "famille-11.html"}, "11": {"code": 11, "name": "Famille 12", "file": "famille-12.html"}, "12": {"code": 12, "name": "Famille 13", "file": "famille-13.html"}, "13": {"code": 13, "name": "Famille 14", "file": "famille-14.html"}, "14": {"code": 14, "name": "Famille 15", "file": "famille-15.html"}, "15": {"code": 15, "name": "Famille 16", "file": "famille-16.html"}, "16": {"code": 16, "name": "Famille 17", "file": "famille-17.html"}, "17": {"code": 17, "name": "Famille 18", "file": "famille-18.html"}, "18": {"code": 18, "name": "Famille 19", "file": "famille-19.html"}, "19": {"code": 19, "name": "Famille 20", "file": "famille-20.html"}, "20": {"code": 20, "name": "Famille 21", "file": "famille-21.html"}, "21": {"code": 21, "name": "Famille 22", "file": "famille-22.html"}, "22": {"code": 22, "name": "Famille 23", "file": "famille-23.html"}, "23": {"code": 23, "name": "Famille 24", "file": "famille-24.html"}, "24": {"code": 24, "name": "Famille 25", "file": "famille-25.html"}, "25": {"code": 25, "name": "Famille 26", "file": "famille-26.html"}, "26": {"code": 26, "name": "Famille 27", "file": "famille-27.html"}, "27": {"code": 27, "name": "Famille 28", "file": "famille-28.html"}, "28": {"code": 28, "name": "Famille 29", "file": "famille-29.html"}, "29": {"code": 29, "name": "Famille 30", "file": "famille-30.html"}, "30": {"code": 30, "name": "Famille 31", "file": "famille-31.html"}, "31": {"code": 31, "name": "Famille 32", "file": "famille-32.html"}, "32": {"code": 32, "name": "Famille 33", "file": "famille-33.html"}, "33": {"code": 33, "name": "Famille 34", "file": "famille-34.html"}, "34": {"code": 34, "name": "Famille 35", "file": "famille-35.html"}};
     let familyOffset = 0;
     familyGroups.forEach(([size], groupIndex) => {
@@ -372,6 +384,7 @@
             furry.stage = record.level + " · " + cardexTypeLabels[furry.type];
             furry.rarityLabel = record.rarity;
             furry.rarity = ({"Commun":"commun","Peu commun":"peu-commun","Rare":"rare","Épique":"epique","Légendaire":"legendaire"})[record.rarity] || furry.rarity;
+            furry.stats = record.stats;
           }
         }
       });
@@ -401,6 +414,8 @@
         card.dataset.type = furry.type;
         card.dataset.family = furry.familyName.toLocaleLowerCase("fr");
         card.dataset.rarity = furry.rarity;
+        card.dataset.order = String(number);
+        Object.entries(furry.stats || {}).forEach(([key, value]) => { card.dataset["stat" + key[0].toUpperCase() + key.slice(1)] = String(value); });
         card.href = furry.family;
         card.setAttribute("aria-label", "Ouvrir la famille " + furry.name + " — " + furry.stage);
         const image = document.createElement("img");
@@ -424,6 +439,8 @@
         card.href = data.family || "famille-a-venir.html";
         card.className = "furry-entry furry-placeholder" + (data.rarity ? " rarity-" + data.rarity : "");
         card.dataset.rarity = data.rarity || "";
+        card.dataset.order = String(number);
+        Object.entries(furry && furry.stats || {}).forEach(([key, value]) => { card.dataset["stat" + key[0].toUpperCase() + key.slice(1)] = String(value); });
         card.dataset.name = (data.name || "").toLocaleLowerCase("fr");
         card.dataset.level = data.level || "";
         card.dataset.type = data.type || "";
@@ -444,37 +461,48 @@
         grid.append(card);
       }
     }
-    const nameFilter = document.getElementById("name-filter");
     const levelFilter = document.getElementById("level-filter");
     const typeFilter = document.getElementById("type-filter");
     const familyFilter = document.getElementById("family-filter");
     const rarityFilter = document.getElementById("rarity-filter");
+    const statSort = document.getElementById("stat-sort");
     const results = document.getElementById("cardex-results");
     const emptyMessage = document.getElementById("cardex-empty");
     function filterCardex() {
-      const query = nameFilter.value.trim().toLocaleLowerCase("fr");
       let visible = 0;
       grid.querySelectorAll(".furry-entry").forEach((card) => {
-        const matches = (!query || card.dataset.name.includes(query))
-          && (!levelFilter.value || card.dataset.level === levelFilter.value)
+        const matches = (!levelFilter.value || card.dataset.level === levelFilter.value)
           && (!typeFilter.value || card.dataset.type === typeFilter.value)
           && (!familyFilter.value || card.dataset.family === familyFilter.value)
           && (!rarityFilter.value || card.dataset.rarity === rarityFilter.value);
         card.hidden = !matches;
         if (matches) visible++;
       });
+      const [sortKey, direction] = statSort.value.split("-");
+      const cards = [...grid.querySelectorAll(".furry-entry")];
+      cards.sort((a, b) => {
+        if (!sortKey) return Number(a.dataset.order) - Number(b.dataset.order);
+        const dataKey = "stat" + sortKey[0].toUpperCase() + sortKey.slice(1);
+        const av = Number(a.dataset[dataKey]);
+        const bv = Number(b.dataset[dataKey]);
+        if (!Number.isFinite(av) && !Number.isFinite(bv)) return Number(a.dataset.order) - Number(b.dataset.order);
+        if (!Number.isFinite(av)) return 1;
+        if (!Number.isFinite(bv)) return -1;
+        return (direction === "desc" ? bv - av : av - bv) || Number(a.dataset.order) - Number(b.dataset.order);
+      });
+      cards.forEach((card) => grid.append(card));
       results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 75 fiches classées, 6 illustrées";
       emptyMessage.hidden = visible > 0;
     }
     document.getElementById("cardex-filters").addEventListener("submit", (event) => event.preventDefault());
-    [nameFilter, levelFilter, typeFilter, familyFilter, rarityFilter].forEach((filter) => {
+    [levelFilter, typeFilter, familyFilter, rarityFilter, statSort].forEach((filter) => {
       filter.addEventListener("input", filterCardex);
       filter.addEventListener("change", filterCardex);
     });
     document.getElementById("reset-filters").addEventListener("click", () => {
       document.getElementById("cardex-filters").reset();
       filterCardex();
-      nameFilter.focus();
+      levelFilter.focus();
     });
   </script>
   <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
