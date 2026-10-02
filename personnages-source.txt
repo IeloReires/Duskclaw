@@ -121,7 +121,7 @@
         <p class="eyebrow">LES FAMILLES DE DUSKCLAW</p>
         <h1>Cardex<span style="color:var(--accent)">.</span></h1>
       </div>
-      <p><strong>6</strong> formes illustrées sur 65</p>
+      <p><strong>6</strong> formes illustrées sur 75</p>
     </div>
     <form class="cardex-filters" id="cardex-filters">
       <label class="cardex-control">
@@ -170,23 +170,167 @@
       </label>
       <button class="filter-reset" id="reset-filters" type="button">Tout effacer</button>
     </form>
-    <p class="cardex-results" id="cardex-results" aria-live="polite">65 formes classées · 6 illustrées</p>
-    <section class="cardex-grid" id="cardex-grid" aria-label="Les 65 emplacements du Cardex"></section>
+    <p class="cardex-results" id="cardex-results" aria-live="polite">75 formes classées · 6 illustrées</p>
+    <section class="cardex-grid" id="cardex-grid" aria-label="Les 75 emplacements du Cardex"></section>
     <p class="cardex-empty" id="cardex-empty" hidden>Aucun Furry ne correspond à ces filtres.</p>
   </main>
   <script>
-    const furries = Array(65).fill(null);
+    const furries = Array(75).fill(null);
     const familyGroups = [
-      [2, "glace"], [3, "eau", "Marin"], [2, "vent"], [3, "plante"],
-      [2, "roche"], [3, "glace"], [2, "plante", "Kael"], [3, "eau"],
-      [2, "glace"], [3, "roche", "Caine"], [2, "vent"], [3, "plante"],
-      [2, "eau"], [3, "vent"], [2, "glace"], [3, "roche"], [1, "eau"],
-      [3, "glace"], [2, "plante"], [3, "eau"], [2, "vent"], [3, "roche"],
-      [3, "vent"], [2, "plante"], [1, "roche"],
-      [1, "plante", "", "epique"], [1, "glace", "", "epique"],
-      [1, "roche", "", "epique"], [1, "vent", "", "epique"],
-      [1, "eau", "", "epique"]
-    ];
+  [
+    2,
+    "glace"
+  ],
+  [
+    3,
+    "eau",
+    "Marin"
+  ],
+  [
+    2,
+    "vent"
+  ],
+  [
+    3,
+    "plante"
+  ],
+  [
+    2,
+    "roche"
+  ],
+  [
+    3,
+    "glace"
+  ],
+  [
+    2,
+    "plante",
+    "Kael"
+  ],
+  [
+    3,
+    "eau"
+  ],
+  [
+    2,
+    "glace"
+  ],
+  [
+    3,
+    "roche",
+    "Caine"
+  ],
+  [
+    2,
+    "vent"
+  ],
+  [
+    3,
+    "plante"
+  ],
+  [
+    2,
+    "eau"
+  ],
+  [
+    3,
+    "vent"
+  ],
+  [
+    1,
+    "glace"
+  ],
+  [
+    3,
+    "roche"
+  ],
+  [
+    1,
+    "eau"
+  ],
+  [
+    3,
+    "glace"
+  ],
+  [
+    2,
+    "plante"
+  ],
+  [
+    3,
+    "eau"
+  ],
+  [
+    1,
+    "vent"
+  ],
+  [
+    3,
+    "roche"
+  ],
+  [
+    3,
+    "vent"
+  ],
+  [
+    1,
+    "plante"
+  ],
+  [
+    1,
+    "roche"
+  ],
+  [
+    2,
+    "eau"
+  ],
+  [
+    2,
+    "roche"
+  ],
+  [
+    3,
+    "glace"
+  ],
+  [
+    3,
+    "plante"
+  ],
+  [
+    3,
+    "vent"
+  ],
+  [
+    1,
+    "plante",
+    "",
+    "epique"
+  ],
+  [
+    1,
+    "glace",
+    "",
+    "epique"
+  ],
+  [
+    1,
+    "roche",
+    "",
+    "epique"
+  ],
+  [
+    1,
+    "vent",
+    "",
+    "epique"
+  ],
+  [
+    1,
+    "eau",
+    "",
+    "epique"
+  ]
+];
     const levelNames = ["base", "niveau-1", "niveau-2"];
     const levelLabels = ["Base", "Niveau 1", "Niveau 2"];
     const rarityNames = ["commun", "peu-commun", "rare"];
@@ -210,8 +354,8 @@
       }
     });
     const cardexTypeLabels = {"eau":"Eau","plante":"Plante","glace":"Glace","roche":"Roche","vent":"Vent"};
-    const statTable = {"1": [null, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "2": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "4": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "6": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "7": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "8": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "9": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "10": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "11": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "12": [null, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "13": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "15": [{"level": "Base", "rarity": "Épique"}, null, null], "16": [{"level": "Base", "rarity": "Peu commun"}, {"level": "Niveau 1", "rarity": "Rare"}], "17": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "19": [{"level": "Base", "rarity": "Épique"}, null, null], "20": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "22": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "23": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "24": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "25": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "26": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "27": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "29": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "30": [{"level": "Base", "rarity": "Épique"}, null, null], "31": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "32": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "33": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "34": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "35": [{"level": "Base", "rarity": "Épique"}, null, null]};
-    const familyRoutes = {"0": {"code": 2, "name": "Famille 1", "file": "famille-1.html"}, "1": {"code": 7, "name": "Marin", "file": "marin.html"}, "2": {"code": 6, "name": "Famille 3", "file": "famille-3.html"}, "3": {"code": 4, "name": "Famille 4", "file": "famille-4.html"}, "4": {"code": 8, "name": "Famille 5", "file": "famille-5.html"}, "5": {"code": 9, "name": "Famille 6", "file": "famille-6.html"}, "6": {"code": 16, "name": "Kael", "file": "kael.html"}, "7": {"code": 10, "name": "Famille 8", "file": "famille-8.html"}, "8": {"code": 20, "name": "Famille 9", "file": "famille-9.html"}, "9": {"code": 17, "name": "Caine", "file": "caine.html"}, "10": {"code": 23, "name": "Famille 11", "file": "famille-11.html"}, "11": {"code": 11, "name": "Famille 12", "file": "famille-12.html"}, "12": {"code": 25, "name": "Famille 13", "file": "famille-13.html"}, "13": {"code": 13, "name": "Famille 14", "file": "famille-14.html"}, "14": {"code": 27, "name": "Famille 15", "file": "famille-15.html"}, "15": {"code": 22, "name": "Famille 16", "file": "famille-16.html"}, "16": {"code": 1, "name": "Famille 17", "file": "famille-17.html"}, "17": {"code": 24, "name": "Famille 18", "file": "famille-18.html"}, "18": {"code": 29, "name": "Famille 19", "file": "famille-19.html"}, "19": {"code": 26, "name": "Famille 20", "file": "famille-20.html"}, "20": {"code": 32, "name": "Famille 21", "file": "famille-21.html"}, "21": {"code": 31, "name": "Famille 22", "file": "famille-22.html"}, "22": {"code": 33, "name": "Famille 23", "file": "famille-23.html"}, "23": {"code": 34, "name": "Famille 24", "file": "famille-24.html"}, "24": {"code": 12, "name": "Famille 25", "file": "famille-25.html"}, "25": {"code": 15, "name": "Famille 26", "file": "famille-26.html"}, "26": {"code": 19, "name": "Famille 27", "file": "famille-27.html"}, "27": {"code": 30, "name": "Famille 28", "file": "famille-28.html"}, "28": {"code": 35, "name": "Famille 29", "file": "famille-29.html"}, "29": {"code": null, "name": "Famille 30", "file": "famille-30.html"}};
+    const statTable = {"0": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "1": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "2": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "3": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "4": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "5": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "6": [{"level": "Base", "rarity": "Peu commun"}, {"level": "Niveau 1", "rarity": "Rare"}, null], "7": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "8": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "9": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "10": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "11": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "12": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "13": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "14": [{"level": "Base", "rarity": "Commun"}, null, null], "15": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "16": [{"level": "Base", "rarity": "Commun"}, null, null], "17": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "18": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "19": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "20": [{"level": "Base", "rarity": "Commun"}, null, null], "21": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "22": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "23": [{"level": "Base", "rarity": "Commun"}, null, null], "24": [{"level": "Base", "rarity": "Commun"}, null, null], "25": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "26": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, null], "27": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "28": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "29": [{"level": "Base", "rarity": "Commun"}, {"level": "Niveau 1", "rarity": "Peu commun"}, {"level": "Niveau 2", "rarity": "Rare"}], "30": [{"level": "Base", "rarity": "Épique"}, null, null], "31": [{"level": "Base", "rarity": "Épique"}, null, null], "32": [{"level": "Base", "rarity": "Épique"}, null, null], "33": [{"level": "Base", "rarity": "Épique"}, null, null], "34": [{"level": "Base", "rarity": "Épique"}, null, null]};
+    const familyRoutes = {"0": {"code": 0, "name": "Famille 1", "file": "famille-1.html"}, "1": {"code": 1, "name": "Marin", "file": "marin.html"}, "2": {"code": 2, "name": "Famille 3", "file": "famille-3.html"}, "3": {"code": 3, "name": "Famille 4", "file": "famille-4.html"}, "4": {"code": 4, "name": "Famille 5", "file": "famille-5.html"}, "5": {"code": 5, "name": "Famille 6", "file": "famille-6.html"}, "6": {"code": 6, "name": "Kael", "file": "kael.html"}, "7": {"code": 7, "name": "Famille 8", "file": "famille-8.html"}, "8": {"code": 8, "name": "Famille 9", "file": "famille-9.html"}, "9": {"code": 9, "name": "Caine", "file": "caine.html"}, "10": {"code": 10, "name": "Famille 11", "file": "famille-11.html"}, "11": {"code": 11, "name": "Famille 12", "file": "famille-12.html"}, "12": {"code": 12, "name": "Famille 13", "file": "famille-13.html"}, "13": {"code": 13, "name": "Famille 14", "file": "famille-14.html"}, "14": {"code": 14, "name": "Famille 15", "file": "famille-15.html"}, "15": {"code": 15, "name": "Famille 16", "file": "famille-16.html"}, "16": {"code": 16, "name": "Famille 17", "file": "famille-17.html"}, "17": {"code": 17, "name": "Famille 18", "file": "famille-18.html"}, "18": {"code": 18, "name": "Famille 19", "file": "famille-19.html"}, "19": {"code": 19, "name": "Famille 20", "file": "famille-20.html"}, "20": {"code": 20, "name": "Famille 21", "file": "famille-21.html"}, "21": {"code": 21, "name": "Famille 22", "file": "famille-22.html"}, "22": {"code": 22, "name": "Famille 23", "file": "famille-23.html"}, "23": {"code": 23, "name": "Famille 24", "file": "famille-24.html"}, "24": {"code": 24, "name": "Famille 25", "file": "famille-25.html"}, "25": {"code": 25, "name": "Famille 26", "file": "famille-26.html"}, "26": {"code": 26, "name": "Famille 27", "file": "famille-27.html"}, "27": {"code": 27, "name": "Famille 28", "file": "famille-28.html"}, "28": {"code": 28, "name": "Famille 29", "file": "famille-29.html"}, "29": {"code": 29, "name": "Famille 30", "file": "famille-30.html"}, "30": {"code": 30, "name": "Famille 31", "file": "famille-31.html"}, "31": {"code": 31, "name": "Famille 32", "file": "famille-32.html"}, "32": {"code": 32, "name": "Famille 33", "file": "famille-33.html"}, "33": {"code": 33, "name": "Famille 34", "file": "famille-34.html"}, "34": {"code": 34, "name": "Famille 35", "file": "famille-35.html"}};
     let familyOffset = 0;
     familyGroups.forEach(([size], groupIndex) => {
       const route = familyRoutes[String(groupIndex)];
@@ -220,7 +364,7 @@
       block.forEach((furry, formIndex) => {
         furry.family = route.file;
         furry.familyName = route.name;
-        if (code && statTable[String(code)]) {
+        if (code !== null && statTable[String(code)]) {
           const record = statTable[String(code)][formIndex];
           if (record) {
             furry.levelLabel = record.level;
@@ -247,7 +391,7 @@
       if (image) furry.image = image;
     });
     const grid = document.getElementById("cardex-grid");
-    for (let number = 0; number < 65; number++) {
+    for (let number = 0; number < 75; number++) {
       const furry = furries[number];
       if (furry && furry.image) {
         const card = document.createElement("a");
@@ -288,7 +432,7 @@
         const typeLabel = data.type ? data.type.charAt(0).toLocaleUpperCase("fr") + data.type.slice(1) : "Type à définir";
         const summary = [data.levelLabel, typeLabel, data.rarityLabel].filter(Boolean).join(" · ");
         card.title = [data.familyName, summary].filter(Boolean).join(" — ");
-        card.setAttribute("aria-label", "Emplacement " + slotNumber + " sur 65 — " + card.title);
+        card.setAttribute("aria-label", "Emplacement " + slotNumber + " sur 75 — " + card.title);
         const mark = document.createElement("span");
         mark.className = "placeholder-mark";
         mark.setAttribute("aria-hidden", "true");
@@ -319,7 +463,7 @@
         card.hidden = !matches;
         if (matches) visible++;
       });
-      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 65 fiches classées, 6 illustrées";
+      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 75 fiches classées, 6 illustrées";
       emptyMessage.hidden = visible > 0;
     }
     document.getElementById("cardex-filters").addEventListener("submit", (event) => event.preventDefault());

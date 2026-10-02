@@ -47,14 +47,12 @@
 </head><body data-time="jour">
   <header class="dusk-header dusk-shell"><a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><nav class="dusk-nav" aria-label="Navigation principale"><a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a class="dusk-support" href="soutenir.html">Soutenir</a></nav></header>
   <main class="family-page" data-type="vent">
-    <div class="family-layout"><div class="family-art-column"><section class="art-stage" aria-label="Formes de Furry 21"><button class="portrait portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Furry 21, forme Base"><img src="portrait-neutre.svg" alt=""></button>
-        <button class="portrait portrait-one portrait-placeholder" type="button" data-index="1" aria-label="Afficher les informations de Furry 21, forme Niveau 1"><img src="portrait-neutre.svg" alt=""></button></section><nav class="stage-switcher" aria-label="Choisir le stade d’évolution"><button class="stage-button" type="button" data-index="0" aria-pressed="false">Base</button>
-        <button class="stage-button" type="button" data-index="1" aria-pressed="false">Niveau 1</button></nav></div>
+    <div class="family-layout"><div class="family-art-column"><section class="art-stage" aria-label="Formes de Furry 21"><button class="portrait portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Furry 21, forme Base"><img src="portrait-neutre.svg" alt=""></button></section><nav class="stage-switcher" aria-label="Choisir le stade d’évolution"><button class="stage-button" type="button" data-index="0" aria-pressed="false">Base</button></nav></div>
       <section class="family-info" aria-live="polite" aria-atomic="true"><h2 id="form-title">Furry 21</h2>
         <dl class="stats-list"><div><dt>Type</dt><dd id="form-type">Vent</dd></div>
-          <div class="meter-row"><dt>PV</dt><dd><span class="meter-number" data-value="pv">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="150" aria-valuenow="0"><span class="stat-fill" data-fill="pv"></span></span></dd></div>
+          <div class="meter-row"><dt>PV</dt><dd><span class="meter-number" data-value="pv">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="180" aria-valuenow="0"><span class="stat-fill" data-fill="pv"></span></span></dd></div>
           <div class="meter-row"><dt>VIT</dt><dd><span class="meter-number" data-value="vit">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span class="stat-fill" data-fill="vit"></span></span></dd></div>
-          <div class="meter-row"><dt>ATK</dt><dd><span class="meter-number" data-value="atk">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0"><span class="stat-fill" data-fill="atk"></span></span></dd></div>
+          <div class="meter-row"><dt>ATK</dt><dd><span class="meter-number" data-value="atk">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="80" aria-valuenow="0"><span class="stat-fill" data-fill="atk"></span></span></dd></div>
           <div class="meter-row"><dt>POR</dt><dd><span class="meter-number" data-value="por">—</span><span class="stat-track" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span class="stat-fill" data-fill="por"></span></span></dd></div>
           <div><dt>Coût</dt><dd id="form-cost">—</dd></div><div><dt>Rareté</dt><dd id="form-rarity">—</dd></div>
           <div><dt>Talents</dt><dd id="form-talents">À définir</dd></div><div><dt>Réaction</dt><dd id="form-reaction">À définir</dd></div></dl>
@@ -64,9 +62,9 @@
   <script>const TYPE_NAME="Vent";const FAMILY_NAME="Furry 21";</script>
 
   <script>
-    const forms = [{"letter": "a", "level": "Base", "pv": 40, "vit": 4, "atk": 30, "por": 1, "cost": 2, "rarity": "Commun", "image": "", "type": "vent"}, {"letter": "b", "level": "Niveau 1", "pv": 70, "vit": 5, "atk": 40, "por": 1, "cost": 3, "rarity": "Peu commun", "image": "", "type": "vent"}];
+    const forms = [{"letter": "a", "level": "Base", "pv": 60, "vit": 4, "atk": 20, "por": 3, "cost": 3, "rarity": "Commun", "image": "", "type": "vent"}];
     const labels = {pv:'Points de vie',vit:'Vitesse',atk:'Attaque',por:'Portée'};
-    const maxima = {pv:150,vit:6,atk:60,por:5};
+    const maxima = {pv:180,vit:6,atk:80,por:5};
     const stage = document.querySelector('.art-stage');
     const family = document.querySelector('.family-page');
     const portraits = document.querySelectorAll('.portrait');
