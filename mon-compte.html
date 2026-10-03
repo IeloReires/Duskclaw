@@ -20,6 +20,10 @@
     @media(max-width:760px){.profile-cover{min-height:190px;padding:18px}.profile-cover-inner{gap:13px;flex-wrap:wrap}.cover-avatar{width:82px;height:82px;flex-basis:82px}.cover-logout{margin-left:auto}.profile-tools{grid-template-columns:1fr}.featured-gallery,.badge-list{grid-template-columns:1fr 1fr}.showcase-card{min-height:135px}.profile-identity{flex-basis:calc(100% - 100px)}}
     @media(max-width:430px){.featured-gallery,.badge-list{grid-template-columns:1fr}.profile-cover-inner{align-items:center}.profile-identity{flex-basis:100%}.cover-logout{margin-left:0}}
     .field-input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field-input:focus{outline:2px solid var(--accent);outline-offset:2px}
+    .banner-settings .field{margin-bottom:0}.profile-cover[data-theme="astral"]{--cover-a:#222348;--cover-b:#765b9d}.profile-cover[data-theme="forest"]{--cover-a:#1d4338;--cover-b:#75824c}.profile-cover[data-theme="dusk"]{--cover-a:#56364d;--cover-b:#b46a68}.profile-cover[data-theme="sunrise"]{--cover-a:#a65a3c;--cover-b:#d1a05f}.profile-cover[data-theme="stars"]{--cover-a:#18273f;--cover-b:#42627a}.profile-cover[data-theme="type-water"]{--cover-a:#124c70;--cover-b:#50b9d2}.profile-cover[data-theme="type-plant"]{--cover-a:#244c38;--cover-b:#82b65b}.profile-cover[data-theme="type-wind"]{--cover-a:#495662;--cover-b:#a8c1c3}.profile-cover[data-theme="type-rock"]{--cover-a:#594235;--cover-b:#ad8053}.profile-cover[data-theme="type-ice"]{--cover-a:#46577b;--cover-b:#b2d6e8}
+    .showcase-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.showcase-card{min-width:0}.showcase-remove{position:absolute;z-index:2;top:8px;right:8px;display:grid;width:28px;height:28px;place-items:center;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(9,12,20,.76);color:white;font-size:1.15rem;cursor:pointer}.showcase-remove:hover{background:#9b4850}.add-card-button{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:9px 15px;border:1px dashed var(--accent);border-radius:10px;background:transparent;color:var(--accent);font:inherit;font-weight:750;cursor:pointer}.add-card-button span{display:grid;width:24px;height:24px;place-items:center;border-radius:50%;background:var(--accent);color:#171520;font-size:1.1rem}.add-card-button:disabled{opacity:.45;cursor:not-allowed}.card-dialog{width:min(760px,calc(100% - 28px));max-height:min(78vh,760px);padding:0;border:1px solid var(--line);border-radius:18px;background:var(--bg);color:var(--ink);box-shadow:0 24px 90px rgba(0,0,0,.52)}.card-dialog::backdrop{background:rgba(5,8,15,.76);backdrop-filter:blur(5px)}.dialog-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid var(--line);background:var(--bg)}.dialog-head h2{margin:0}.dialog-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;padding:20px 24px}.dialog-card{display:grid;gap:7px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);text-align:left;cursor:pointer}.dialog-card:hover,.dialog-card:focus-visible{border-color:var(--accent);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 25%,transparent);outline:0}.dialog-card small{color:var(--accent);font-weight:800;letter-spacing:.08em}.dialog-card span{color:var(--muted);font-size:.78rem}.badge-list{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}.future-badge{position:relative;min-height:122px;justify-items:center;align-content:center;gap:7px;padding:14px 10px;border:1px solid rgba(230,232,240,.1);background:#11141c;color:#717787;opacity:1;filter:grayscale(1);cursor:help;transition:filter .25s ease,transform .25s ease,border-color .25s ease,box-shadow .25s ease}.future-badge.is-earned{border-color:rgba(226,193,116,.7);background:linear-gradient(145deg,#51402b,#1b1d27 76%);color:#f0cb79;filter:none;box-shadow:0 0 23px rgba(221,174,81,.15)}.future-badge.is-earned strong{color:#f3d78f}.future-badge>span:first-child{font-size:1.7rem;filter:none}.future-badge:hover,.future-badge:focus-visible{z-index:5;transform:translateY(-3px);outline:0}.badge-tooltip{position:absolute;z-index:8;bottom:calc(100% + 9px);left:50%;width:min(240px,75vw);padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#0c1019;color:#e8e8ee;font-size:.76rem;font-weight:500;line-height:1.45;text-align:center;box-shadow:0 9px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transform:translate(-50%,5px);transition:opacity .15s ease,transform .15s ease}.future-badge:hover .badge-tooltip,.future-badge:focus-visible .badge-tooltip{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:760px){.showcase-gallery{grid-template-columns:1fr 1fr}.dialog-list{padding:15px;grid-template-columns:1fr 1fr}}
+    @media(max-width:430px){.showcase-gallery{grid-template-columns:1fr}.dialog-list{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -72,10 +76,11 @@
             <button class="button" type="submit">Enregistrer le pseudo</button>
             <p id="nickname-message" class="message" aria-live="polite"></p>
           </form>
-          <section class="banner-settings"><h3>Personnaliser la bannière</h3><label class="field" for="banner-theme">Ambiance<select id="banner-theme" class="field-input"><option value="night">Nuit profonde</option><option value="aurora">Aurore sauvage</option><option value="ember">Lueur d’ambre</option><option value="glacier">Brume glacée</option></select></label></section>
+          <section class="banner-settings"><h3>Personnaliser la bannière</h3><label class="field" for="banner-theme">Ambiance<select id="banner-theme" class="field-input"><optgroup label="Ambiances"><option value="night">Nuit profonde</option><option value="aurora">Aurore sauvage</option><option value="ember">Lueur d’ambre</option><option value="glacier">Brume glacée</option><option value="astral">Voie astrale</option><option value="forest">Forêt ancienne</option><option value="dusk">Crépuscule</option><option value="sunrise">Aube dorée</option><option value="stars">Ciel étoilé</option></optgroup><optgroup label="Bannières par type"><option value="type-water">Eau · Courants profonds</option><option value="type-plant">Plante · Sylve vivante</option><option value="type-wind">Vol · Ciel libre</option><option value="type-rock">Roche · Terre ancienne</option><option value="type-ice">Glace · Givre lunaire</option></optgroup></select></label></section>
         </div></div>
-        <section class="featured-panel"><div class="featured-actions"><div><h3>Mes cartes à l’honneur</h3><p class="small">Choisis jusqu’à trois cartes que tu possèdes pour les présenter sur ton profil.</p></div><span class="small" id="featured-count">0 / 3</span></div><div id="featured-picker" class="featured-picker"></div><div id="featured-gallery" class="featured-gallery"></div><button id="save-profile-style" class="button" type="button">Enregistrer la bannière et les cartes</button><p id="style-message" class="message" aria-live="polite"></p></section>
-        <section class="badges-panel"><h3>Mes futurs badges</h3><p class="small">Les badges arriveront avec les prochaines nouveautés de Duskclaw.</p><div class="badge-list"><div class="future-badge"><span>✦</span><strong>Explorateur</strong><small>À venir</small></div><div class="future-badge"><span>❖</span><strong>Collectionneur</strong><small>À venir</small></div><div class="future-badge"><span>☾</span><strong>Veilleur</strong><small>À venir</small></div></div></section>
+        <section class="featured-panel"><div class="featured-actions"><div><h3>Mes cartes à l’honneur</h3><p class="small">Présente jusqu’à trois cartes que tu possèdes.</p></div><span class="small" id="featured-count">0 / 3</span></div><div id="featured-gallery" class="showcase-gallery"></div><button id="add-featured-card" class="add-card-button" type="button"><span aria-hidden="true">+</span> Ajouter une carte</button><button id="save-profile-style" class="button" type="button">Enregistrer ma bannière et mes cartes</button><p id="style-message" class="message" aria-live="polite"></p></section>
+        <section class="badges-panel"><h3>Mes badges</h3><div id="badge-list" class="badge-list"></div></section>
+        <dialog class="card-dialog" id="featured-card-dialog" aria-labelledby="featured-dialog-title"><div class="dialog-head"><h2 id="featured-dialog-title">Choisir une carte</h2><button class="button secondary" id="close-featured-dialog" type="button" aria-label="Fermer">Fermer</button></div><div id="dialog-card-list" class="dialog-list"></div></dialog>
         <div class="profile-section-title">Paramètres du compte</div>
         <div class="profile-layout">
         <div class="profile-stack">
@@ -133,7 +138,7 @@
       const welcome = profile.nickname.trim() || currentUser?.email || "Duskclaw";
       document.getElementById("welcome-name").textContent = welcome;
       document.getElementById("nickname").value = profile.nickname || "";
-      const bannerTheme = ["night", "aurora", "ember", "glacier"].includes(profile.banner_theme) ? profile.banner_theme : "night";
+      const bannerTheme = ["night", "aurora", "ember", "glacier", "astral", "forest", "dusk", "sunrise", "stars", "type-water", "type-plant", "type-wind", "type-rock", "type-ice"].includes(profile.banner_theme) ? profile.banner_theme : "night";
       document.getElementById("banner-theme").value = bannerTheme;
       document.getElementById("profile-cover").dataset.theme = bannerTheme;
       const accountLink = document.getElementById("account-nav-link");
@@ -158,25 +163,22 @@
       preview.textContent = (profile.nickname.trim() || currentUser?.email || "D").charAt(0).toUpperCase();
     }
     function renderFeaturedCards() {
-      const picker = document.getElementById("featured-picker");
-      picker.replaceChildren();
-      if (!ownedCards.length) {
-        const note = document.createElement("p"); note.className = "small"; note.textContent = "Ajoute des cartes à ta collection pour pouvoir les présenter ici."; picker.append(note);
-      } else {
-        for (const card of ownedCards) {
-          const label = document.createElement("label"); label.className = "featured-choice";
-          const checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.value = String(card.id); checkbox.className = "featured-check"; checkbox.checked = featuredCardIds.includes(card.id);
-          const text = document.createElement("span"); text.textContent = card.label;
-          checkbox.addEventListener("change", () => {
-            const checked = [...document.querySelectorAll(".featured-check:checked")];
-            if (checked.length > 3) { checkbox.checked = false; message("style-message", "Tu peux mettre trois cartes au maximum en avant.", "error"); }
-            featuredCardIds = [...document.querySelectorAll(".featured-check:checked")].map(input => Number(input.value));
-            updateFeaturedGallery();
-          });
-          label.append(checkbox, text); picker.append(label);
-        }
-      }
+      renderCardChoices();
       updateFeaturedGallery();
+    }
+    function renderCardChoices() {
+      const list = document.getElementById("dialog-card-list"); list.replaceChildren();
+      const available = ownedCards.filter(card => !featuredCardIds.includes(Number(card.id)));
+      if (!available.length) { const note = document.createElement("p"); note.className = "small"; note.textContent = ownedCards.length ? "Toutes tes cartes possédées sont déjà mises à l’honneur." : "Ta collection est encore vide. Ajoute des cartes pour pouvoir les présenter ici."; list.append(note); return; }
+      for (const card of available) {
+        const button = document.createElement("button"); button.type = "button"; button.className = "dialog-card";
+        const number = document.createElement("small"); number.textContent = `CARTE #${String(card.id).padStart(2, "0")}`;
+        const name = document.createElement("strong"); name.textContent = card.label.split(" · ")[1] || card.label;
+        const details = document.createElement("span"); details.textContent = [card.level, card.type, card.rarity].filter(Boolean).join(" · ");
+        button.append(number, name, details);
+        button.addEventListener("click", () => { if (featuredCardIds.length >= 3) return; featuredCardIds = [...featuredCardIds, Number(card.id)]; updateFeaturedGallery(); renderCardChoices(); if (featuredCardIds.length >= 3) document.getElementById("featured-card-dialog").close(); });
+        list.append(button);
+      }
     }
     function updateFeaturedGallery() {
       const gallery = document.getElementById("featured-gallery");
@@ -188,9 +190,36 @@
         const number = document.createElement("small"); number.textContent = `CARTE #${String(card.id).padStart(2, "0")}`;
         const name = document.createElement("strong"); name.textContent = card.label.split(" · ")[1] || card.label;
         const details = document.createElement("span"); details.textContent = [card.level, card.type, card.rarity].filter(Boolean).join(" · ");
-        tile.append(number, name, details); gallery.append(tile);
+        const remove = document.createElement("button"); remove.type = "button"; remove.className = "showcase-remove"; remove.textContent = "×"; remove.setAttribute("aria-label", `Retirer ${card.label} des cartes à l’honneur`);
+        remove.addEventListener("click", () => { featuredCardIds = featuredCardIds.filter(id => id !== Number(card.id)); updateFeaturedGallery(); renderCardChoices(); });
+        tile.append(number, name, details, remove); gallery.append(tile);
       }
-      if (!selected.length) { const note = document.createElement("p"); note.className = "small"; note.textContent = "Tes cartes mises en avant apparaîtront ici."; gallery.append(note); }
+      if (!selected.length) { const note = document.createElement("p"); note.className = "small"; note.textContent = "Aucune carte présentée pour le moment."; gallery.append(note); }
+      document.getElementById("add-featured-card").disabled = selected.length >= 3 || ownedCards.length === 0;
+      renderBadges();
+    }
+    function renderBadges() {
+      const badges = [
+        { id: "first-card", icon: "✦", name: "Premier pas", goal: "Ajoute ta première carte à ta collection.", earned: ownedCards.length >= 1 },
+        { id: "ten-cards", icon: "▤", name: "Collectionneur", goal: "Possède 10 cartes différentes.", earned: ownedCards.length >= 10 },
+        { id: "twenty-five", icon: "⌑", name: "Archiviste", goal: "Possède 25 cartes différentes.", earned: ownedCards.length >= 25 },
+        { id: "fifty-cards", icon: "✧", name: "Grand archiviste", goal: "Possède 50 cartes différentes.", earned: ownedCards.length >= 50 },
+        { id: "all-types", icon: "◈", name: "Tous les horizons", goal: "Possède au moins une carte de chacun des cinq types.", earned: ["Eau", "Plante", "Vent", "Roche", "Glace"].every(type => ownedCards.some(card => card.type === type || (type === "Vent" && card.type === "Vol"))) },
+        { id: "epic", icon: "★", name: "Chasseur d’épiques", goal: "Ajoute une carte de rareté épique à ta collection.", earned: ownedCards.some(card => card.rarity === "Épique") },
+        { id: "rare-set", icon: "❖", name: "Œil du collectionneur", goal: "Possède au moins une carte commune, peu commune et rare.", earned: ["Commun", "Peu commun", "Rare"].every(rarity => ownedCards.some(card => card.rarity === rarity)) },
+        { id: "full-family", icon: "⟡", name: "Lignée réunie", goal: "Possède les formes Base, Niveau 1 et Niveau 2 d’une même famille.", earned: ownedCards.some(card => card.level === "Base" && ["Niveau 1", "Niv. 1"].some(level => ownedCards.some(other => other.family === card.family && other.level === level)) && ["Niveau 2", "Niv. 2"].some(level => ownedCards.some(other => other.family === card.family && other.level === level))) },
+        { id: "ten-families", icon: "⌘", name: "Voyageur", goal: "Possède des cartes de 10 familles différentes.", earned: new Set(ownedCards.map(card => card.family)).size >= 10 },
+        { id: "twenty-families", icon: "⚝", name: "Connaisseur des terres", goal: "Possède des cartes de 20 familles différentes.", earned: new Set(ownedCards.map(card => card.family)).size >= 20 }
+      ];
+      const list = document.getElementById("badge-list"); list.replaceChildren();
+      for (const badge of badges) {
+        const tile = document.createElement("article"); tile.className = `future-badge${badge.earned ? " is-earned" : ""}`; tile.tabIndex = 0;
+        const icon = document.createElement("span"); icon.setAttribute("aria-hidden", "true"); icon.textContent = badge.icon;
+        const name = document.createElement("strong"); name.textContent = badge.name;
+        const status = document.createElement("small"); status.textContent = badge.earned ? "Obtenu" : "Verrouillé";
+        const tooltip = document.createElement("span"); tooltip.className = "badge-tooltip"; tooltip.textContent = badge.earned ? `Badge obtenu · ${badge.goal}` : `Objectif · ${badge.goal}`;
+        tile.setAttribute("aria-label", `${badge.name} · ${status.textContent} · ${badge.goal}`); tile.append(icon, name, status, tooltip); list.append(tile);
+      }
     }
     async function loadFeaturedCards() {
       const response = await fetch("collection-cards.json", { cache: "no-store" });
@@ -202,7 +231,10 @@
       ownedCards = catalog.filter(card => ownedIds.has(Number(card.id)));
       featuredCardIds = (profile.featured_cards || []).map(Number).filter(id => ownedIds.has(id)).slice(0, 3);
       renderFeaturedCards();
+      renderBadges();
     }
+    document.getElementById("add-featured-card").addEventListener("click", () => { renderCardChoices(); document.getElementById("featured-card-dialog").showModal(); });
+    document.getElementById("close-featured-dialog").addEventListener("click", () => document.getElementById("featured-card-dialog").close());
     document.getElementById("avatar-file").addEventListener("change", event => {
       const file = event.target.files?.[0]; if (!file) return;
       if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { message("avatar-message", "Choisis une image JPG, PNG ou WebP.", "error"); event.target.value = ""; return; }
