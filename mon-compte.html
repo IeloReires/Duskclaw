@@ -14,13 +14,13 @@
     .brand{font-weight:800;letter-spacing:.19em;text-decoration:none}.brand span{color:var(--accent)}.nav{display:flex;align-items:center;gap:clamp(14px,3vw,36px)}.nav a{color:var(--muted);font-size:.88rem;text-decoration:none}.nav a:hover,.nav a:focus-visible,.nav .active{color:var(--accent)}.nav .rules,.nav .support-link{padding:9px 13px;border:1px solid var(--line);color:var(--ink)}.nav #account-nav-link{margin-left:auto}
     main{width:min(1000px,90%);margin:64px auto 90px}.eyebrow{color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{margin:8px 0 12px;font:400 clamp(2.8rem,7vw,5rem)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em}.lede{max-width:700px;color:var(--muted);line-height:1.8}
     .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:34px}.panel{padding:clamp(20px,4vw,30px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}h2{margin:0 0 20px;font:400 1.65rem Georgia,"Times New Roman",serif}.field{display:grid;gap:8px;margin:15px 0;color:var(--muted);font-size:.92rem}.field input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field input:focus{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:6px;padding:11px 17px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#171520;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}.button:hover{filter:brightness(1.08)}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.button:disabled{opacity:.6;cursor:wait}.text-button{display:block;margin-top:12px;padding:4px 0;border:0;background:none;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}.message{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#ffaaa8}.message.success{color:#9bd7b1}.small{color:var(--muted);font-size:.82rem}.hidden{display:none!important}
-    .account-dashboard{display:grid;gap:18px;margin-top:34px}.account-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.account-row h2{margin:0 0 5px}.account-row p{margin:0;color:var(--muted)}.account-section{position:relative;overflow:visible;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.section-trigger{display:flex;width:100%;align-items:center;justify-content:space-between;gap:18px;padding:23px 26px;border:0;background:transparent;color:var(--ink);text-align:left;font:inherit;cursor:pointer}.section-trigger strong{display:block;font:400 1.5rem Georgia,"Times New Roman",serif}.section-trigger small{display:block;margin-top:4px;color:var(--muted)}.section-trigger span:last-child{color:var(--accent);transition:transform .2s}.account-section[open] .section-trigger span:last-child{transform:rotate(180deg)}.section-content{padding:0 22px 22px}.profile-layout{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr);gap:22px}.profile-photo-panel{text-align:center}.avatar{display:grid;width:160px;aspect-ratio:1;place-items:center;overflow:hidden;margin:0 auto 17px;border:1px solid var(--line);border-radius:50%;background:radial-gradient(circle at 35% 25%,#34374e,#20263a 65%,#171d2b);color:var(--accent);font:400 4rem Georgia,serif}.avatar img{width:100%;height:100%;object-fit:cover}.nav-avatar{display:inline-grid;width:28px;height:28px;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;font-size:.78rem;font-weight:700;vertical-align:middle}.nav-avatar img{width:100%;height:100%;object-fit:cover}.profile-photo-panel input[type=file]{width:100%;margin-top:12px;color:var(--muted);font-size:.8rem}.crop-controls{margin:17px 0 5px;padding:13px;border:1px solid var(--line);border-radius:10px;text-align:left}.crop-controls label{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.85rem}.crop-controls input{width:100%;accent-color:var(--accent)}.profile-stack{display:grid;gap:22px}.collection-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.collection-panel p{margin:0;color:var(--muted)}.collection-panel h2{margin-bottom:8px}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
-    @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.auth-grid,.profile-layout{grid-template-columns:1fr}.footer{flex-direction:column}.avatar{width:140px}.section-trigger{padding:19px}.section-content{padding:0 14px 14px}}
-    .account-dashboard{gap:20px}.profile-cover{--cover-a:#202940;--cover-b:#705a8e;position:relative;display:flex;min-height:220px;align-items:flex-end;overflow:hidden;padding:26px;border:1px solid rgba(255,255,255,.18);border-radius:20px;background:linear-gradient(120deg,var(--cover-a),var(--cover-b));box-shadow:0 18px 42px rgba(0,0,0,.2);isolation:isolate}.profile-cover::before,.profile-cover::after{position:absolute;z-index:-1;border:1px solid rgba(255,255,255,.15);border-radius:50%;content:""}.profile-cover::before{width:310px;height:310px;top:-190px;right:8%}.profile-cover::after{width:420px;height:420px;top:-300px;right:-40px}.profile-cover[data-theme="night"]{--cover-a:#1b273b;--cover-b:#6d4d82}.profile-cover[data-theme="aurora"]{--cover-a:#24544e;--cover-b:#70885f}.profile-cover[data-theme="ember"]{--cover-a:#6b3d36;--cover-b:#b2784c}.profile-cover[data-theme="glacier"]{--cover-a:#34516b;--cover-b:#829bb7}.profile-cover-inner{display:flex;width:100%;align-items:flex-end;gap:18px}.cover-avatar{width:104px;height:104px;flex:0 0 104px;margin:0;border:3px solid rgba(255,255,255,.82);background:#182131;color:white;box-shadow:0 8px 26px rgba(0,0,0,.3)}.profile-identity{flex:1;min-width:0;padding-bottom:3px}.profile-identity h2{margin:0;color:#fff;font:500 clamp(1.6rem,4vw,2.4rem) Georgia,"Times New Roman",serif}.profile-identity p{margin:5px 0 0;color:rgba(255,255,255,.8);overflow-wrap:anywhere}.cover-kicker{margin:0 0 6px;color:rgba(255,255,255,.72);font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.cover-logout{flex:0 0 auto;border-color:rgba(255,255,255,.55)!important;background:rgba(15,18,28,.2)!important;color:#fff!important}.profile-tools{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr);gap:20px;margin:20px 0}.profile-photo-panel{align-self:start}.profile-settings{display:grid;gap:20px}.banner-settings h3,.featured-panel h3,.badges-panel h3{margin:0 0 12px;font:400 1.35rem Georgia,"Times New Roman",serif}.banner-settings .field{margin:10px 0}.featured-panel,.badges-panel,.banner-settings{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.featured-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.featured-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:10px;margin:16px 0}.featured-choice{display:flex;align-items:center;gap:10px;min-height:54px;padding:10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025);cursor:pointer}.featured-choice:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 20px color-mix(in srgb,var(--accent) 20%,transparent)}.featured-choice input{accent-color:var(--accent)}.featured-choice span{font-size:.82rem;line-height:1.35}.featured-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.showcase-card{position:relative;display:flex;min-height:150px;flex-direction:column;justify-content:space-between;overflow:hidden;padding:16px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:radial-gradient(circle at 85% 12%,rgba(184,166,223,.28),transparent 42%),linear-gradient(145deg,#262d42,#171d2a 75%);box-shadow:0 10px 24px rgba(0,0,0,.14)}.showcase-card::after{position:absolute;right:-22px;bottom:-42px;width:105px;height:105px;border:1px solid rgba(255,255,255,.12);border-radius:50%;content:""}.showcase-card small{color:var(--accent);font-weight:800;letter-spacing:.12em}.showcase-card strong{max-width:90%;font:400 1.15rem Georgia,"Times New Roman",serif}.showcase-card span{color:var(--muted);font-size:.75rem}.badge-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.future-badge{display:grid;justify-items:center;gap:6px;padding:16px 10px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;opacity:.72}.future-badge span:first-child{font-size:1.55rem;filter:grayscale(1)}.future-badge strong{color:var(--ink);font-size:.82rem}.future-badge small{font-size:.7rem}.profile-section-title{margin:24px 2px 8px;color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.account-row{display:none}.section-trigger{transition:background .2s ease}.account-section[open]>.section-trigger{border-radius:16px 16px 0 0;background:rgba(255,255,255,.025)}
-    @media(max-width:760px){.profile-cover{min-height:190px;padding:18px}.profile-cover-inner{gap:13px;flex-wrap:wrap}.cover-avatar{width:82px;height:82px;flex-basis:82px}.cover-logout{margin-left:auto}.profile-tools{grid-template-columns:1fr}.featured-gallery,.badge-list{grid-template-columns:1fr 1fr}.showcase-card{min-height:135px}.profile-identity{flex-basis:calc(100% - 100px)}}
-    @media(max-width:430px){.featured-gallery,.badge-list{grid-template-columns:1fr}.profile-cover-inner{align-items:center}.profile-identity{flex-basis:100%}.cover-logout{margin-left:0}}
+    .account-dashboard{display:grid;gap:20px;margin-top:34px}.avatar{display:grid;width:160px;aspect-ratio:1;place-items:center;overflow:hidden;margin:0 auto 17px;border:1px solid var(--line);border-radius:50%;background:radial-gradient(circle at 35% 25%,#34374e,#20263a 65%,#171d2b);color:var(--accent);font:400 4rem Georgia,serif}.avatar img{width:100%;height:100%;object-fit:cover}.nav-avatar{display:inline-grid;width:28px;height:28px;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;font-size:.78rem;font-weight:700;vertical-align:middle}.nav-avatar img{width:100%;height:100%;object-fit:cover}.collection-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.collection-panel p{margin:0;color:var(--muted)}.collection-panel h2{margin-bottom:8px}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
+    @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.auth-grid{grid-template-columns:1fr}.footer{flex-direction:column}.avatar{width:140px}}
+    .profile-cover{--cover-a:#202940;--cover-b:#705a8e;position:relative;display:flex;min-height:245px;align-items:flex-end;overflow:hidden;padding:clamp(20px,4vw,34px);border:1px solid rgba(255,255,255,.2);border-radius:22px;background:radial-gradient(ellipse at 82% 16%,color-mix(in srgb,var(--banner-color,#b895ff) 50%,transparent),transparent 62%),linear-gradient(120deg,var(--cover-a),var(--cover-b));box-shadow:0 18px 42px rgba(0,0,0,.2);isolation:isolate;transition:background .25s}.profile-cover[data-theme="moonlit"]{--cover-a:#192342;--cover-b:#392b5d}.profile-cover[data-theme="wildwood"]{--cover-a:#163b32;--cover-b:#35492f}.profile-cover[data-theme="tideglass"]{--cover-a:#123d58;--cover-b:#226c70}.profile-cover[data-theme="emberforge"]{--cover-a:#382629;--cover-b:#70402f}.profile-cover::before,.profile-cover::after{position:absolute;z-index:-1;border:1px solid rgba(255,255,255,.2);content:""}.profile-cover::before{width:310px;height:310px;top:-190px;right:8%;border-radius:50%}.profile-cover::after{width:420px;height:420px;top:-300px;right:-40px;border-radius:50%}.profile-cover[data-theme="moonlit"]::before{background:radial-gradient(circle at 65% 65%,#ffffff24 0 2px,transparent 3px),radial-gradient(circle at 28% 48%,#ffffff20 0 2px,transparent 3px);background-size:54px 49px}.profile-cover[data-theme="wildwood"]::before{border-radius:48% 52% 22% 78%;transform:rotate(35deg);background:repeating-linear-gradient(125deg,transparent 0 22px,#ffffff0d 23px 25px)}.profile-cover[data-theme="tideglass"]::before,.profile-cover[data-theme="tideglass"]::after{border-radius:48%;transform:rotate(-25deg) scaleX(1.6)}.profile-cover[data-theme="tideglass"]::before{background:repeating-linear-gradient(0deg,transparent 0 22px,#ffffff12 23px 25px)}.profile-cover[data-theme="emberforge"]::before{border-radius:20%;transform:rotate(35deg);background:repeating-linear-gradient(135deg,transparent 0 18px,#ffffff13 19px 21px)}.profile-cover-inner{display:flex;width:100%;align-items:flex-end;gap:18px}.avatar-edit-wrap,.name-edit-wrap{position:relative}.cover-avatar{width:104px;height:104px;flex:0 0 104px;margin:0;border:3px solid rgba(255,255,255,.86);background:#182131;color:white;box-shadow:0 8px 26px rgba(0,0,0,.3)}.edit-pencil{position:absolute;right:-5px;bottom:-5px;display:grid;width:34px;height:34px;place-items:center;border:1px solid rgba(255,255,255,.75);border-radius:50%;background:#151b29;color:white;font-size:1rem;cursor:pointer;box-shadow:0 3px 12px #0007}.profile-identity{flex:1;min-width:0;padding-bottom:3px}.profile-identity h2{margin:0;color:#fff;font:500 clamp(1.6rem,4vw,2.4rem) Georgia,"Times New Roman",serif}.name-edit-wrap{display:flex;align-items:center;gap:10px}.cover-kicker{margin:0 0 6px;color:rgba(255,255,255,.72);font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.banner-settings h3,.featured-panel h3,.badges-panel h3{margin:0 0 12px;font:400 1.35rem Georgia,"Times New Roman",serif}.featured-panel,.badges-panel,.banner-settings{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.ambience-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.ambience-choices button{display:grid;min-height:125px;align-content:center;gap:6px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);text-align:left;cursor:pointer;transition:.2s}.ambience-choices button[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 20px color-mix(in srgb,var(--banner-color,#b895ff) 24%,transparent)}.ambience-choices button>span{color:var(--banner-color,#b895ff);font-size:1.35rem}.ambience-choices button strong{font-size:.9rem}.ambience-choices button small{color:var(--muted);font-size:.75rem}.featured-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.featured-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.showcase-card{position:relative;display:flex;min-height:150px;flex-direction:column;justify-content:space-between;overflow:hidden;padding:16px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:radial-gradient(circle at 85% 12%,rgba(184,166,223,.28),transparent 42%),linear-gradient(145deg,#262d42,#171d2a 75%);box-shadow:0 10px 24px rgba(0,0,0,.14)}.showcase-card::after{position:absolute;right:-22px;bottom:-42px;width:105px;height:105px;border:1px solid rgba(255,255,255,.12);border-radius:50%;content:""}.showcase-card small{color:var(--accent);font-weight:800;letter-spacing:.12em}.showcase-card strong{max-width:90%;font:400 1.15rem Georgia,"Times New Roman",serif}.showcase-card span{color:var(--muted);font-size:.75rem}.badge-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.future-badge{display:grid;justify-items:center;gap:6px;padding:16px 10px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;opacity:.72}.future-badge span:first-child{font-size:1.55rem;filter:grayscale(1)}.future-badge strong{color:var(--ink);font-size:.82rem}.future-badge small{font-size:.7rem}.profile-savebar{display:flex;justify-content:flex-end;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;padding-top:24px;border-top:1px solid var(--line)}.profile-savebar .message{flex:1}.palette{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:12px}.palette button{width:36px;height:36px;border:2px solid rgba(255,255,255,.35);border-radius:50%;cursor:pointer}.palette button[aria-pressed="true"]{outline:2px solid white;outline-offset:3px}.color-input{width:50px!important;height:40px!important;padding:3px!important;border:1px solid var(--line);border-radius:10px;background:var(--paper)}.crop-controls{margin:12px auto 0;max-width:420px;padding:12px 16px;border:1px solid rgba(255,255,255,.28);border-radius:12px;background:#111724aa}.crop-controls label{display:flex;justify-content:space-between;gap:12px;color:white;font-size:.85rem}.crop-controls input{width:100%;accent-color:var(--accent)}
+    @media(max-width:760px){.profile-cover{min-height:190px;padding:18px}.profile-cover-inner{gap:13px;flex-wrap:wrap}.cover-avatar{width:82px;height:82px;flex-basis:82px}.featured-gallery,.badge-list{grid-template-columns:1fr 1fr}.ambience-choices{grid-template-columns:1fr 1fr}.showcase-card{min-height:135px}.profile-identity{flex:1 1 calc(100% - 100px)}}
+    @media(max-width:430px){.featured-gallery,.badge-list{grid-template-columns:1fr}.profile-cover-inner{align-items:center}.profile-identity{flex-basis:100%}}
     .field-input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field-input:focus{outline:2px solid var(--accent);outline-offset:2px}
-    .banner-settings .field{margin-bottom:0}.profile-cover[data-theme="astral"]{--cover-a:#222348;--cover-b:#765b9d}.profile-cover[data-theme="forest"]{--cover-a:#1d4338;--cover-b:#75824c}.profile-cover[data-theme="dusk"]{--cover-a:#56364d;--cover-b:#b46a68}.profile-cover[data-theme="sunrise"]{--cover-a:#a65a3c;--cover-b:#d1a05f}.profile-cover[data-theme="stars"]{--cover-a:#18273f;--cover-b:#42627a}.profile-cover[data-theme="type-water"]{--cover-a:#124c70;--cover-b:#50b9d2}.profile-cover[data-theme="type-plant"]{--cover-a:#244c38;--cover-b:#82b65b}.profile-cover[data-theme="type-wind"]{--cover-a:#495662;--cover-b:#a8c1c3}.profile-cover[data-theme="type-rock"]{--cover-a:#594235;--cover-b:#ad8053}.profile-cover[data-theme="type-ice"]{--cover-a:#46577b;--cover-b:#b2d6e8}
+    .banner-settings .field{margin-bottom:0}.name-input{width:min(360px,100%);padding:6px 10px;border:1px solid rgba(255,255,255,.45);border-radius:8px;background:#121827;color:white;font:inherit}.palette-label{margin:20px 0 0;color:var(--muted);font-size:.9rem}
     .showcase-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.showcase-card{min-width:0}.showcase-remove{position:absolute;z-index:2;top:8px;right:8px;display:grid;width:28px;height:28px;place-items:center;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(9,12,20,.76);color:white;font-size:1.15rem;cursor:pointer}.showcase-remove:hover{background:#9b4850}.add-card-button{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:9px 15px;border:1px dashed var(--accent);border-radius:10px;background:transparent;color:var(--accent);font:inherit;font-weight:750;cursor:pointer}.add-card-button span{display:grid;width:24px;height:24px;place-items:center;border-radius:50%;background:var(--accent);color:#171520;font-size:1.1rem}.add-card-button:disabled{opacity:.45;cursor:not-allowed}.card-dialog{width:min(760px,calc(100% - 28px));max-height:min(78vh,760px);padding:0;border:1px solid var(--line);border-radius:18px;background:var(--bg);color:var(--ink);box-shadow:0 24px 90px rgba(0,0,0,.52)}.card-dialog::backdrop{background:rgba(5,8,15,.76);backdrop-filter:blur(5px)}.dialog-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid var(--line);background:var(--bg)}.dialog-head h2{margin:0}.dialog-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;padding:20px 24px}.dialog-card{display:grid;gap:7px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);text-align:left;cursor:pointer}.dialog-card:hover,.dialog-card:focus-visible{border-color:var(--accent);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 25%,transparent);outline:0}.dialog-card small{color:var(--accent);font-weight:800;letter-spacing:.08em}.dialog-card span{color:var(--muted);font-size:.78rem}.badge-list{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}.future-badge{position:relative;min-height:122px;justify-items:center;align-content:center;gap:7px;padding:14px 10px;border:1px solid rgba(230,232,240,.1);background:#11141c;color:#717787;opacity:1;filter:grayscale(1);cursor:help;transition:filter .25s ease,transform .25s ease,border-color .25s ease,box-shadow .25s ease}.future-badge.is-earned{border-color:rgba(226,193,116,.7);background:linear-gradient(145deg,#51402b,#1b1d27 76%);color:#f0cb79;filter:none;box-shadow:0 0 23px rgba(221,174,81,.15)}.future-badge.is-earned strong{color:#f3d78f}.future-badge>span:first-child{font-size:1.7rem;filter:none}.future-badge:hover,.future-badge:focus-visible{z-index:5;transform:translateY(-3px);outline:0}.badge-tooltip{position:absolute;z-index:8;bottom:calc(100% + 9px);left:50%;width:min(240px,75vw);padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#0c1019;color:#e8e8ee;font-size:.76rem;font-weight:500;line-height:1.45;text-align:center;box-shadow:0 9px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transform:translate(-50%,5px);transition:opacity .15s ease,transform .15s ease}.future-badge:hover .badge-tooltip,.future-badge:focus-visible .badge-tooltip{opacity:1;transform:translate(-50%,0)}
     @media(max-width:760px){.showcase-gallery{grid-template-columns:1fr 1fr}.dialog-list{padding:15px;grid-template-columns:1fr 1fr}}
     @media(max-width:430px){.showcase-gallery{grid-template-columns:1fr}.dialog-list{grid-template-columns:1fr}}
@@ -30,13 +30,13 @@
   <header class="header shell">
     <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a>
+      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a href="parametres.html">Paramètres</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a>
     </nav>
   </header>
   <main>
     <p class="eyebrow">ESPACE PERSONNEL</p>
-    <h1>Mon compte<span style="color:var(--accent)">.</span></h1>
-    <p class="lede">Gère ton profil, tes identifiants et ta collection de cartes. Tes informations sont privées et liées à ton compte.</p>
+    <h1>Personnalisation<span style="color:var(--accent)">.</span></h1>
+    <p class="lede">Compose ton profil à ton image. Tes changements seront appliqués quand tu les enregistreras.</p>
     <div id="page-message" class="panel message hidden" role="status"></div>
     <section id="auth-panel" class="auth-grid hidden" aria-label="Connexion ou création de compte">
       <form id="login-form" class="panel">
@@ -55,52 +55,19 @@
         <p id="signup-message" class="message" aria-live="polite"></p>
       </form>
     </section>
-    <section id="account-panel" class="account-dashboard hidden" aria-label="Profil et collection">
-      <details class="account-section" id="profile-section">
-        <summary class="section-trigger"><span><strong>Mon profil</strong><small>Photo, pseudo et sécurité du compte</small></span><span aria-hidden="true">⌄</span></summary>
-        <div class="section-content">
-        <div class="profile-cover" id="profile-cover" data-theme="night"><div class="profile-cover-inner"><div class="avatar cover-avatar" id="avatar-preview" aria-label="Photo de profil">D</div><div class="profile-identity"><p class="cover-kicker">Profil Duskclaw</p><h2 id="welcome-name"></h2><p id="account-email"></p></div><button id="logout-button" class="button secondary cover-logout" type="button">Se déconnecter</button></div></div>
-        <div class="profile-tools"><section class="panel profile-photo-panel" aria-labelledby="photo-heading">
-          <h2 id="photo-heading">Ta photo</h2>
-          <label class="small" for="avatar-file">Choisis une photo (JPG, PNG ou WebP, 10 Mo maximum)</label>
-          <input id="avatar-file" type="file" accept="image/jpeg,image/png,image/webp">
-          <div class="crop-controls hidden" id="crop-controls"><label for="avatar-zoom"><span>Zoom de la photo</span><output id="zoom-value">1×</output></label><input id="avatar-zoom" type="range" min="1" max="2.5" step="0.05" value="1"><p class="small">Fais glisser le curseur pour ajuster le cadrage dans le cercle.</p></div>
-          <button id="save-avatar" class="button" type="button">Enregistrer la photo</button>
-          <p id="avatar-message" class="message" aria-live="polite"></p>
-        </section>
-        <div class="profile-settings">
-          <form id="nickname-form" class="panel">
-            <h2>Mon pseudo</h2>
-            <label class="field">Pseudo affiché<input id="nickname" name="nickname" type="text" minlength="2" maxlength="24" autocomplete="nickname" placeholder="Ton pseudo" required></label>
-            <p class="small">Tu pourras le modifier quand tu le souhaites.</p>
-            <button class="button" type="submit">Enregistrer le pseudo</button>
-            <p id="nickname-message" class="message" aria-live="polite"></p>
-          </form>
-          <section class="banner-settings"><h3>Personnaliser la bannière</h3><label class="field" for="banner-theme">Ambiance<select id="banner-theme" class="field-input"><optgroup label="Ambiances"><option value="night">Nuit profonde</option><option value="aurora">Aurore sauvage</option><option value="ember">Lueur d’ambre</option><option value="glacier">Brume glacée</option><option value="astral">Voie astrale</option><option value="forest">Forêt ancienne</option><option value="dusk">Crépuscule</option><option value="sunrise">Aube dorée</option><option value="stars">Ciel étoilé</option></optgroup><optgroup label="Bannières par type"><option value="type-water">Eau · Courants profonds</option><option value="type-plant">Plante · Sylve vivante</option><option value="type-wind">Vol · Ciel libre</option><option value="type-rock">Roche · Terre ancienne</option><option value="type-ice">Glace · Givre lunaire</option></optgroup></select></label></section>
-        </div></div>
-        <section class="featured-panel"><div class="featured-actions"><div><h3>Mes cartes à l’honneur</h3><p class="small">Présente jusqu’à trois cartes que tu possèdes.</p></div><span class="small" id="featured-count">0 / 3</span></div><div id="featured-gallery" class="showcase-gallery"></div><button id="add-featured-card" class="add-card-button" type="button"><span aria-hidden="true">+</span> Ajouter une carte</button><button id="save-profile-style" class="button" type="button">Enregistrer ma bannière et mes cartes</button><p id="style-message" class="message" aria-live="polite"></p></section>
-        <section class="badges-panel"><h3>Mes badges</h3><div id="badge-list" class="badge-list"></div></section>
-        <dialog class="card-dialog" id="featured-card-dialog" aria-labelledby="featured-dialog-title"><div class="dialog-head"><h2 id="featured-dialog-title">Choisir une carte</h2><button class="button secondary" id="close-featured-dialog" type="button" aria-label="Fermer">Fermer</button></div><div id="dialog-card-list" class="dialog-list"></div></dialog>
-        <div class="profile-section-title">Paramètres du compte</div>
-        <div class="profile-layout">
-        <div class="profile-stack">
-          <form id="password-form" class="panel">
-            <h2>Changer mon mot de passe</h2>
-            <label class="field">Mot de passe actuel<input name="current-password" type="password" autocomplete="current-password" required></label>
-            <label class="field">Nouveau mot de passe<input name="new-password" type="password" autocomplete="new-password" minlength="10" required></label>
-            <button class="button" type="submit">Mettre à jour le mot de passe</button>
-            <p id="password-message" class="message" aria-live="polite"></p>
-          </form>
-        </div>
-        </div></div></div>
-      </details>
-      <details class="account-section" id="collection-section">
-        <summary class="section-trigger"><span><strong>Ma collection</strong><small>Consulter et ajouter mes cartes</small></span><span aria-hidden="true">⌄</span></summary>
-        <div class="section-content"><section class="panel collection-panel">
-        <div><h2>Ma collection</h2><p>Consulte tes cartes et ajoute-en à ta collection.</p></div>
-        <a id="collection-link" class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a>
-      </section></div>
-      </details>
+    <section id="account-panel" class="account-dashboard hidden" aria-label="Personnalisation de profil">
+      <div class="profile-cover" id="profile-cover" data-theme="moonlit"><div class="profile-cover-inner">
+        <div class="avatar-edit-wrap"><button id="avatar-edit" class="avatar cover-avatar" type="button" aria-label="Changer la photo de profil">D</button><button class="edit-pencil" type="button" data-edit="avatar" aria-label="Modifier la photo">✎</button></div>
+        <div class="profile-identity"><p class="cover-kicker">Profil Duskclaw</p><div class="name-edit-wrap"><h2 id="welcome-name"></h2><button class="edit-pencil" type="button" data-edit="nickname" aria-label="Modifier le pseudo">✎</button></div><input id="nickname" class="name-input hidden" type="text" minlength="2" maxlength="24" autocomplete="nickname" aria-label="Pseudo" placeholder="Ton pseudo"></div>
+        <a class="button secondary cover-settings-link" href="parametres.html">Paramètres du profil ↗</a>
+      </div></div>
+      <input id="avatar-file" class="hidden" type="file" accept="image/jpeg,image/png,image/webp">
+      <div class="crop-controls hidden" id="crop-controls"><label for="avatar-zoom"><span>Zoom de la photo</span><output id="zoom-value">1×</output></label><input id="avatar-zoom" type="range" min="1" max="2.5" step="0.05" value="1"><p class="small">Ajuste le cadrage, puis enregistre toutes tes modifications en bas de page.</p></div>
+      <section class="banner-settings"><h3>Ambiance de la bannière</h3><div class="ambience-choices" role="group" aria-label="Choisir une ambiance"><button type="button" data-theme-choice="moonlit" aria-pressed="true"><span>☾</span><strong>Veillée lunaire</strong><small>Un ciel nocturne constellé</small></button><button type="button" data-theme-choice="wildwood" aria-pressed="false"><span>❧</span><strong>Forêt ancienne</strong><small>Des formes végétales profondes</small></button><button type="button" data-theme-choice="tideglass" aria-pressed="false"><span>≈</span><strong>Marées de verre</strong><small>Des vagues douces et lumineuses</small></button><button type="button" data-theme-choice="emberforge" aria-pressed="false"><span>✧</span><strong>Forge crépusculaire</strong><small>Des éclats chauds sur la pierre</small></button></div><p class="palette-label">Palette de couleur</p><div class="palette" role="group" aria-label="Couleur de la bannière"><button type="button" data-color="#b895ff" style="background:#b895ff" aria-label="Violet" aria-pressed="true"></button><button type="button" data-color="#62bfd1" style="background:#62bfd1" aria-label="Bleu lagon" aria-pressed="false"></button><button type="button" data-color="#91bd6d" style="background:#91bd6d" aria-label="Vert feuille" aria-pressed="false"></button><button type="button" data-color="#e2a25a" style="background:#e2a25a" aria-label="Ambre" aria-pressed="false"></button><button type="button" data-color="#df8bab" style="background:#df8bab" aria-label="Rose" aria-pressed="false"></button><button type="button" data-color="#7fa7e7" style="background:#7fa7e7" aria-label="Bleu ciel" aria-pressed="false"></button><label class="small" for="banner-color-picker">Couleur libre</label><input id="banner-color-picker" class="color-input" type="color" value="#b895ff" aria-label="Choisir une couleur personnalisée"></div></section>
+      <section class="featured-panel"><div class="featured-actions"><div><h3>Mes cartes à l’honneur</h3><p class="small">Présente jusqu’à trois cartes que tu possèdes.</p></div><span class="small" id="featured-count">0 / 3</span></div><div id="featured-gallery" class="showcase-gallery"></div><button id="add-featured-card" class="add-card-button" type="button"><span aria-hidden="true">+</span> Ajouter une carte</button></section>
+      <section class="badges-panel"><h3>Mes badges</h3><div id="badge-list" class="badge-list"></div></section>
+      <dialog class="card-dialog" id="featured-card-dialog" aria-labelledby="featured-dialog-title"><div class="dialog-head"><h2 id="featured-dialog-title">Choisir une carte</h2><button class="button secondary" id="close-featured-dialog" type="button" aria-label="Fermer">Fermer</button></div><div id="dialog-card-list" class="dialog-list"></div></dialog>
+      <div class="profile-savebar"><p id="style-message" class="message" aria-live="polite"></p><button id="save-profile-style" class="button" type="button">Enregistrer les modifications</button></div>
     </section>
   </main>
   <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
@@ -114,9 +81,10 @@
     const authPanel = document.getElementById("auth-panel");
     const accountPanel = document.getElementById("account-panel");
     let currentUser = null;
-    let profile = { nickname: "", avatar_path: null, banner_theme: "night", featured_cards: [] };
+    let profile = { nickname: "", avatar_path: null, banner_theme: "moonlit", banner_color: "#b895ff", featured_cards: [] };
     let selectedAvatarImage = null;
     let profileRenderVersion = 0;
+    let loadedProfileUserId = null;
     let ownedCards = [];
     let featuredCardIds = [];
     function message(id, text, kind = "") { const el = document.getElementById(id); el.textContent = text; el.className = "message" + (kind ? " " + kind : ""); }
@@ -126,9 +94,9 @@
       currentUser = user || null;
       authPanel.classList.toggle("hidden", !!user);
       accountPanel.classList.toggle("hidden", !user);
-      if (!user) { const accountLink = document.getElementById("account-nav-link"); accountLink.replaceChildren(document.createTextNode("Mon compte")); }
-      if (user) {
-        document.getElementById("account-email").textContent = user.email || "Compte connecté";
+      if (!user) { loadedProfileUserId = null; const accountLink = document.getElementById("account-nav-link"); accountLink.replaceChildren(document.createTextNode("Mon compte")); }
+      if (user && loadedProfileUserId !== user.id) {
+        loadedProfileUserId = user.id;
         loadProfile();
       }
     }
@@ -137,10 +105,16 @@
       const renderVersion = ++profileRenderVersion;
       const welcome = profile.nickname.trim() || currentUser?.email || "Duskclaw";
       document.getElementById("welcome-name").textContent = welcome;
-      document.getElementById("nickname").value = profile.nickname || "";
-      const bannerTheme = ["night", "aurora", "ember", "glacier", "astral", "forest", "dusk", "sunrise", "stars", "type-water", "type-plant", "type-wind", "type-rock", "type-ice"].includes(profile.banner_theme) ? profile.banner_theme : "night";
-      document.getElementById("banner-theme").value = bannerTheme;
+      const bannerTheme = ["moonlit", "wildwood", "tideglass", "emberforge"].includes(profile.banner_theme) ? profile.banner_theme : "moonlit";
+      profile.banner_theme = bannerTheme;
       document.getElementById("profile-cover").dataset.theme = bannerTheme;
+      const bannerColor = /^#[0-9a-f]{6}$/i.test(profile.banner_color || "") ? profile.banner_color : "#b895ff";
+      profile.banner_color = bannerColor;
+      accountPanel.style.setProperty("--banner-color", bannerColor);
+      document.getElementById("profile-cover").style.setProperty("--banner-color", bannerColor);
+      document.getElementById("banner-color-picker").value = bannerColor;
+      document.querySelectorAll("[data-theme-choice]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.themeChoice === bannerTheme)));
+      document.querySelectorAll(".palette [data-color]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.color.toLowerCase() === bannerColor.toLowerCase())));
       const accountLink = document.getElementById("account-nav-link");
       const navAvatar = document.createElement("span"); navAvatar.className = "nav-avatar";
       navAvatar.textContent = welcome.charAt(0).toUpperCase();
@@ -152,7 +126,7 @@
       if (userForRender !== currentUser || renderVersion !== profileRenderVersion) return;
       accountLink.replaceChildren(navAvatar, document.createTextNode(profile.nickname.trim() || "Mon compte"));
       accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "12px";
-      const preview = document.getElementById("avatar-preview");
+      const preview = document.getElementById("avatar-edit");
       preview.replaceChildren();
       if (selectedAvatarImage) { const local = new Image(); local.alt = "Aperçu du cadrage de la photo"; local.src = selectedAvatarImage.src; local.style.transform = `scale(${document.getElementById("avatar-zoom").value})`; preview.append(local); return; }
       if (profile.avatar_path && currentUser) {
@@ -235,17 +209,24 @@
     }
     document.getElementById("add-featured-card").addEventListener("click", () => { renderCardChoices(); document.getElementById("featured-card-dialog").showModal(); });
     document.getElementById("close-featured-dialog").addEventListener("click", () => document.getElementById("featured-card-dialog").close());
+    document.getElementById("avatar-edit").addEventListener("click", () => document.getElementById("avatar-file").click());
+    document.querySelector('[data-edit="avatar"]').addEventListener("click", () => document.getElementById("avatar-file").click());
+    document.querySelector('[data-edit="nickname"]').addEventListener("click", () => { const input = document.getElementById("nickname"); input.classList.toggle("hidden"); if (!input.classList.contains("hidden")) { input.value = profile.nickname || ""; input.focus(); input.select(); } });
+    document.getElementById("nickname").addEventListener("input", event => { profile.nickname = event.target.value; document.getElementById("welcome-name").textContent = event.target.value.trim() || currentUser?.email || "Duskclaw"; });
+    document.querySelectorAll("[data-theme-choice]").forEach(button => button.addEventListener("click", () => { profile.banner_theme = button.dataset.themeChoice; renderProfile(); }));
+    document.querySelectorAll(".palette [data-color]").forEach(button => button.addEventListener("click", () => { profile.banner_color = button.dataset.color; renderProfile(); }));
+    document.getElementById("banner-color-picker").addEventListener("input", event => { profile.banner_color = event.target.value; renderProfile(); });
     document.getElementById("avatar-file").addEventListener("change", event => {
       const file = event.target.files?.[0]; if (!file) return;
-      if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { message("avatar-message", "Choisis une image JPG, PNG ou WebP.", "error"); event.target.value = ""; return; }
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { message("style-message", "Choisis une image JPG, PNG ou WebP.", "error"); event.target.value = ""; return; }
       selectedAvatarImage = new Image(); selectedAvatarImage.onload = () => { document.getElementById("crop-controls").classList.remove("hidden"); renderProfile(); }; selectedAvatarImage.src = URL.createObjectURL(file);
     });
     document.getElementById("avatar-zoom").addEventListener("input", event => { document.getElementById("zoom-value").value = `${Number(event.target.value).toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}×`; renderProfile(); });
     async function loadProfile() {
       if (!currentUser) return;
-      const { data, error } = await client.from("user_profiles").select("nickname,avatar_path,banner_theme,featured_cards").eq("user_id", currentUser.id).maybeSingle();
-      if (error) { pageMessage("La table de profil n’est pas encore configurée. Exécute le fichier SQL fourni dans Supabase, puis recharge cette page."); profile = { nickname: "", avatar_path: null, banner_theme: "night", featured_cards: [] }; }
-      else { pageMessage(""); profile = data || { nickname: "", avatar_path: null, banner_theme: "night", featured_cards: [] }; }
+      const { data, error } = await client.from("user_profiles").select("nickname,avatar_path,banner_theme,banner_color,featured_cards").eq("user_id", currentUser.id).maybeSingle();
+      if (error) { pageMessage("Le profil n’a pas pu être chargé. Vérifie la mise à jour du fichier SQL dans Supabase, puis recharge cette page."); profile = { nickname: "", avatar_path: null, banner_theme: "moonlit", banner_color: "#b895ff", featured_cards: [] }; }
+      else { pageMessage(""); profile = { nickname: "", avatar_path: null, banner_theme: "moonlit", banner_color: "#b895ff", featured_cards: [], ...(data || {}) }; }
       renderProfile();
       try { await loadFeaturedCards(); } catch { message("style-message", "Impossible de charger tes cartes. Vérifie ta collection puis recharge la page.", "error"); }
     }
@@ -277,55 +258,30 @@
       const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo: SITE_URL + "collection.html" });
       message("login-message", error ? error.message : "Si un compte correspond à cette adresse, un lien de réinitialisation vient d’être envoyé.", error ? "error" : "success");
     });
-    document.getElementById("nickname-form").addEventListener("submit", async event => {
-      event.preventDefault(); if (!currentUser) return;
-      const nickname = document.getElementById("nickname").value.trim();
-      if (nickname.length < 2 || nickname.length > 24) { message("nickname-message", "Le pseudo doit contenir de 2 à 24 caractères.", "error"); return; }
-      const { error } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname, avatar_path: profile.avatar_path, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
-      if (error) message("nickname-message", "Impossible d’enregistrer le pseudo. Vérifie la configuration du profil.", "error");
-      else { profile.nickname = nickname; renderProfile(); message("nickname-message", "Pseudo enregistré.", "success"); }
-    });
-    document.getElementById("banner-theme").addEventListener("change", event => { document.getElementById("profile-cover").dataset.theme = event.target.value; });
     document.getElementById("save-profile-style").addEventListener("click", async () => {
       if (!currentUser) return;
-      const banner_theme = document.getElementById("banner-theme").value;
-      const featured_cards = [...document.querySelectorAll(".featured-check:checked")].map(input => Number(input.value)).slice(0, 3);
-      message("style-message", "Enregistrement du profil…");
-      const { error } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname: profile.nickname || "", avatar_path: profile.avatar_path, banner_theme, featured_cards, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
-      if (error) message("style-message", "Impossible d’enregistrer les personnalisations. Vérifie que la mise à jour SQL a été exécutée.", "error");
-      else { profile.banner_theme = banner_theme; profile.featured_cards = featured_cards; message("style-message", "Bannière et cartes mises en avant enregistrées.", "success"); }
-    });
-    document.getElementById("save-avatar").addEventListener("click", async () => {
-      if (!currentUser) return;
-      const input = document.getElementById("avatar-file"); const file = input.files?.[0];
-      if (!file) { message("avatar-message", "Choisis d’abord une photo.", "error"); return; }
-      if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 10 * 1024 * 1024) { message("avatar-message", "Utilise une image JPG, PNG ou WebP de 10 Mo maximum.", "error"); return; }
-      message("avatar-message", "Envoi de la photo…");
-      let uploadBlob = file; let uploadType = file.type; let ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
-      if (selectedAvatarImage) { const zoom = Number(document.getElementById("avatar-zoom").value); const side = Math.min(selectedAvatarImage.naturalWidth, selectedAvatarImage.naturalHeight) / zoom; const sx = (selectedAvatarImage.naturalWidth - side) / 2; const sy = (selectedAvatarImage.naturalHeight - side) / 2; const canvas = document.createElement("canvas"); canvas.width = canvas.height = 512; canvas.getContext("2d").drawImage(selectedAvatarImage, sx, sy, side, side, 0, 0, 512, 512); uploadBlob = await new Promise(resolve => canvas.toBlob(resolve, "image/jpeg", .9)); uploadType = "image/jpeg"; ext = "jpg"; }
-      const path = `${currentUser.id}/avatar-${Date.now()}.${ext}`;
-      const { error: uploadError } = await client.storage.from("user-avatars").upload(path, uploadBlob, { contentType: uploadType, upsert: false });
-      if (uploadError) { message("avatar-message", "Impossible d’envoyer la photo. Vérifie le stockage des avatars dans Supabase.", "error"); return; }
-      const previousPath = profile.avatar_path;
-      const { error: saveError } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname: profile.nickname, avatar_path: path, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
-      if (saveError) { await client.storage.from("user-avatars").remove([path]); message("avatar-message", "La photo a été envoyée mais le profil n’a pas pu être mis à jour. Vérifie la configuration SQL.", "error"); return; }
-      profile.avatar_path = path; selectedAvatarImage = null; document.getElementById("crop-controls").classList.add("hidden"); document.getElementById("avatar-zoom").value = "1"; renderProfile(); message("avatar-message", "Photo de profil enregistrée.", "success"); input.value = "";
-      if (previousPath) await client.storage.from("user-avatars").remove([previousPath]);
-    });
-    document.getElementById("password-form").addEventListener("submit", async event => {
-      event.preventDefault(); if (!currentUser) return;
-      const form = new FormData(event.currentTarget); const currentPassword = form.get("current-password"); const newPassword = form.get("new-password");
-      if (newPassword.length < 10) { message("password-message", "Le nouveau mot de passe doit contenir au moins 10 caractères.", "error"); return; }
-      message("password-message", "Vérification du mot de passe actuel…");
-      const { error: reauthError } = await client.auth.signInWithPassword({ email: currentUser.email, password: currentPassword });
-      if (reauthError) { message("password-message", "Le mot de passe actuel ne correspond pas.", "error"); return; }
-      const { error } = await client.auth.updateUser({ password: newPassword });
-      if (error) message("password-message", error.message, "error");
-      else { event.currentTarget.reset(); message("password-message", "Mot de passe mis à jour.", "success"); }
-    });
-    document.getElementById("logout-button").addEventListener("click", async () => {
-      const { error } = await client.auth.signOut();
-      if (error) pageMessage(error.message); else { renderUser(null); authPanel.classList.remove("hidden"); window.scrollTo({ top: 0, behavior: "smooth" }); }
+      const nickname = profile.nickname.trim();
+      if (nickname.length < 2 || nickname.length > 24) { message("style-message", "Le pseudo doit contenir de 2 à 24 caractères.", "error"); document.getElementById("nickname").classList.remove("hidden"); document.getElementById("nickname").focus(); return; }
+      const saveButton = document.getElementById("save-profile-style"); saveButton.disabled = true; message("style-message", "Enregistrement de tes modifications…");
+      let newAvatarPath = profile.avatar_path; const input = document.getElementById("avatar-file"); const file = input.files?.[0];
+      try {
+        if (file) {
+          if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 10 * 1024 * 1024) throw new Error("Choisis une image JPG, PNG ou WebP de 10 Mo maximum.");
+          let blob = file; let type = file.type; let ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
+          if (selectedAvatarImage) { const zoom = Number(document.getElementById("avatar-zoom").value); const side = Math.min(selectedAvatarImage.naturalWidth, selectedAvatarImage.naturalHeight) / zoom; const sx = (selectedAvatarImage.naturalWidth - side) / 2; const sy = (selectedAvatarImage.naturalHeight - side) / 2; const canvas = document.createElement("canvas"); canvas.width = canvas.height = 512; canvas.getContext("2d").drawImage(selectedAvatarImage, sx, sy, side, side, 0, 0, 512, 512); blob = await new Promise((resolve, reject) => canvas.toBlob(result => result ? resolve(result) : reject(new Error("La photo n’a pas pu être préparée.")), "image/jpeg", .9)); type = "image/jpeg"; ext = "jpg"; }
+          newAvatarPath = `${currentUser.id}/avatar-${Date.now()}.${ext}`;
+          const { error: uploadError } = await client.storage.from("user-avatars").upload(newAvatarPath, blob, { contentType: type, upsert: false });
+          if (uploadError) throw new Error("Impossible d’envoyer la photo. Vérifie le stockage des avatars dans Supabase.");
+        }
+        const featured_cards = featuredCardIds.slice(0, 3);
+        const { error } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname, avatar_path: newAvatarPath, banner_theme: profile.banner_theme, banner_color: profile.banner_color, featured_cards, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
+        if (error) { if (file && newAvatarPath) await client.storage.from("user-avatars").remove([newAvatarPath]); throw new Error("Impossible d’enregistrer. Vérifie que la mise à jour SQL de la bannière a été exécutée dans Supabase."); }
+        const previousPath = profile.avatar_path; profile = { ...profile, nickname, avatar_path: newAvatarPath, featured_cards };
+        if (previousPath && file && previousPath !== newAvatarPath) await client.storage.from("user-avatars").remove([previousPath]);
+        input.value = ""; selectedAvatarImage = null; document.getElementById("crop-controls").classList.add("hidden"); document.getElementById("avatar-zoom").value = "1"; document.getElementById("nickname").classList.add("hidden");
+        await renderProfile(); message("style-message", "Tes modifications ont été enregistrées.", "success");
+      } catch (error) { message("style-message", error.message || "Une erreur est survenue pendant l’enregistrement.", "error"); }
+      finally { saveButton.disabled = false; }
     });
   </script>
 </body>

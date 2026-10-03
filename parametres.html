@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111724">
+  <meta name="description" content="Paramètres du compte Duskclaw.">
+  <title>Paramètres du profil — Duskclaw</title>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <style>
+    :root{color-scheme:dark;--bg:#111724;--paper:#1a2030;--ink:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2)}
+    *{box-sizing:border-box}body{min-height:100vh;margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit}.shell{width:min(1320px,90%);margin-inline:auto}.header{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:83px;border-bottom:1px solid var(--line)}.brand{font-weight:800;letter-spacing:.19em;text-decoration:none}.brand span{color:var(--accent)}.nav{display:flex;align-items:center;gap:clamp(14px,3vw,36px)}.nav a{color:var(--muted);font-size:.88rem;text-decoration:none}.nav a:hover,.nav a:focus-visible,.nav .active{color:var(--accent)}.nav .rules,.nav .support-link{padding:9px 13px;border:1px solid var(--line);color:var(--ink)}.nav #account-nav-link{margin-left:auto}.nav-avatar{display:inline-grid;width:28px;height:28px;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;font-size:.78rem;font-weight:700;vertical-align:middle}.nav-avatar img{width:100%;height:100%;object-fit:cover}main{width:min(850px,90%);margin:64px auto 90px}.eyebrow{color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{margin:8px 0 12px;font:400 clamp(2.8rem,7vw,5rem)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em}.lede{max-width:700px;color:var(--muted);line-height:1.8}.panel{margin-top:24px;padding:clamp(20px,4vw,32px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}.panel h2{margin:0 0 18px;font:400 1.65rem Georgia,"Times New Roman",serif}.account-email{display:block;padding:13px 15px;border:1px solid var(--line);border-radius:9px;background:#111724;overflow-wrap:anywhere}.field{display:grid;gap:8px;margin:15px 0;color:var(--muted);font-size:.92rem}.field input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field input:focus{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin:6px 8px 0 0;padding:11px 17px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#171520;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.button:disabled{opacity:.6;cursor:wait}.message{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#ffaaa8}.message.success{color:#9bd7b1}.hidden{display:none!important}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
+    @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.footer{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="header shell">
+    <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <nav class="nav" aria-label="Navigation principale"><a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a class="active" href="parametres.html">Paramètres</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a></nav>
+  </header>
+  <main>
+    <p class="eyebrow">ESPACE PERSONNEL</p><h1>Paramètres<span style="color:var(--accent)">.</span></h1>
+    <p class="lede">Adresse e-mail et sécurité de ton compte.</p>
+    <div id="page-message" class="panel message hidden" role="status"></div>
+    <section id="settings-panel" class="hidden" aria-label="Paramètres du compte">
+      <section class="panel"><h2>Adresse e-mail</h2><span id="account-email" class="account-email"></span><p class="lede">Cette adresse sert à te connecter et à récupérer ton compte.</p></section>
+      <form id="password-form" class="panel"><h2>Changer le mot de passe</h2><label class="field">Mot de passe actuel<input name="current-password" type="password" autocomplete="current-password" required></label><label class="field">Nouveau mot de passe<input name="new-password" type="password" autocomplete="new-password" minlength="10" required></label><label class="field">Confirmer le nouveau mot de passe<input name="confirm-password" type="password" autocomplete="new-password" minlength="10" required></label><button class="button" type="submit">Mettre à jour le mot de passe</button><p id="password-message" class="message" aria-live="polite"></p></form>
+      <section class="panel"><h2>Session</h2><p class="lede">Déconnecte-toi de ce compte sur cet appareil.</p><button id="logout-button" class="button secondary" type="button">Se déconnecter</button></section>
+      <a class="button secondary" href="mon-compte.html">← Retour à la personnalisation</a>
+    </section>
+  </main>
+  <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
+  <script>
+    const SUPABASE_URL = "https://bqqbciifmfbsjurkulfo.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior";
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    const panel = document.getElementById("settings-panel");
+    let activeUser = null;
+    function showMessage(text) { const el = document.getElementById("page-message"); el.textContent = text; el.classList.toggle("hidden", !text); }
+    function setUser(user) {
+      activeUser = user || null;
+      if (!user) { location.replace("mon-compte.html"); return; }
+      panel.classList.remove("hidden"); document.getElementById("account-email").textContent = user.email || "Adresse indisponible";
+      const accountLink = document.getElementById("account-nav-link");
+      client.from("user_profiles").select("nickname,avatar_path").eq("user_id", user.id).maybeSingle().then(async ({data}) => {
+        if (activeUser !== user) return;
+        const name = data?.nickname?.trim() || "Mon compte"; const avatar = document.createElement("span"); avatar.className = "nav-avatar"; avatar.textContent = name.charAt(0).toUpperCase();
+        if (data?.avatar_path) { const {data: signed} = await client.storage.from("user-avatars").createSignedUrl(data.avatar_path, 3600); if (signed?.signedUrl && activeUser === user) { const img = new Image(); img.src = signed.signedUrl; img.alt = ""; avatar.replaceChildren(img); } }
+        if (activeUser === user) { accountLink.replaceChildren(avatar, document.createTextNode(name)); accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "12px"; }
+      });
+    }
+    client.auth.onAuthStateChange((_event, session) => { if (session?.user) setUser(session.user); });
+    client.auth.getSession().then(({data,error}) => { if (error) showMessage("Impossible de vérifier la connexion. Recharge cette page."); else if (data.session?.user) setUser(data.session.user); else location.replace("mon-compte.html"); });
+    document.getElementById("password-form").addEventListener("submit", async event => {
+      event.preventDefault(); if (!activeUser) return;
+      const form = new FormData(event.currentTarget); const currentPassword = String(form.get("current-password")); const newPassword = String(form.get("new-password")); const confirmPassword = String(form.get("confirm-password"));
+      const status = document.getElementById("password-message");
+      if (newPassword.length < 10) { status.className = "message error"; status.textContent = "Le nouveau mot de passe doit contenir au moins 10 caractères."; return; }
+      if (newPassword !== confirmPassword) { status.className = "message error"; status.textContent = "Les deux nouveaux mots de passe ne correspondent pas."; return; }
+      status.className = "message"; status.textContent = "Vérification du mot de passe actuel…";
+      const {error: reauthError} = await client.auth.signInWithPassword({email:activeUser.email,password:currentPassword});
+      if (reauthError) { status.className = "message error"; status.textContent = "Le mot de passe actuel ne correspond pas."; return; }
+      const {error} = await client.auth.updateUser({password:newPassword});
+      if (error) { status.className = "message error"; status.textContent = error.message; }
+      else { event.currentTarget.reset(); status.className = "message success"; status.textContent = "Mot de passe mis à jour."; }
+    });
+    document.getElementById("logout-button").addEventListener("click", async () => { const {error} = await client.auth.signOut(); if (error) showMessage(error.message); else location.replace("mon-compte.html"); });
+  </script>
+</body>
+</html>
