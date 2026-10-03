@@ -7,6 +7,7 @@
   <meta name="description" content="Gère ta collection personnelle de cartes Duskclaw.">
   <title>Ma collection — Duskclaw</title>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <style>
     :root{--ink:var(--text,#ece9e1);--muted-ink:var(--muted,#b8bdca);--paper:var(--surface,#1a2030);--accent-ink:var(--accent,#b8a6df);--line-ink:var(--line,rgba(229,225,243,.2))}
     body[data-time="nuit"]{--background:#111724;--surface:#1a2030;--text:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2);--ink:#ece9e1;--muted-ink:#b8bdca;--paper:#1a2030;--accent-ink:#b8a6df;--line-ink:rgba(229,225,243,.2);color-scheme:dark}
@@ -20,7 +21,7 @@
     .notice{margin:26px 0;padding:14px 17px;border:1px solid var(--line-ink);border-left:3px solid var(--accent-ink);border-radius:8px;background:var(--paper);color:var(--muted-ink);line-height:1.55}.notice[hidden]{display:none}
     .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:32px}.panel{padding:clamp(20px,3vw,32px);border:1px solid var(--line-ink);border-radius:16px;background:var(--paper)}.panel h2{margin:0 0 20px;font-size:1.5rem}.field{display:grid;gap:7px;margin:15px 0;color:var(--muted-ink);font-size:.9rem}.field input,.field select{box-sizing:border-box;width:100%;min-height:48px;padding:11px 13px;border:1px solid var(--line-ink);border-radius:8px;background:var(--background,#111724);color:var(--ink);font:inherit}.field input:focus,.field select:focus{outline:2px solid var(--accent-ink);outline-offset:2px}
     .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 17px;border:1px solid var(--accent-ink);border-radius:8px;background:var(--accent-ink);color:#171520;font:inherit;font-weight:700;font-size:.92rem;text-decoration:none;cursor:pointer}.button:hover{filter:brightness(1.08)}.button:disabled{opacity:.55;cursor:not-allowed}.button-secondary{background:transparent;color:var(--ink);border-color:var(--line-ink)}.button-danger{border-color:#a65e61;background:transparent;color:#f0b2b3}.text-button{padding:8px 0;border:0;background:none;color:var(--accent-ink);font:inherit;text-decoration:underline;cursor:pointer}.form-message{min-height:1.5em;margin:12px 0 0;color:var(--muted-ink);font-size:.9rem;line-height:1.5}.form-message.error{color:#ffaaa8}.form-message.success{color:#9bd7b1}.small-note{color:var(--muted-ink);font-size:.82rem;line-height:1.55}
-    .account-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 20px;border:1px solid var(--line-ink);border-radius:12px;background:var(--paper)}.account-bar p{margin:3px 0;color:var(--muted-ink)}.collection-layout{display:grid;grid-template-columns:minmax(270px,.75fr) minmax(0,1.25fr);gap:22px;margin-top:22px}.collection-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}.collection-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;border:1px solid var(--line-ink);border-radius:10px;background:var(--paper)}.collection-item strong{display:block}.collection-item small{display:block;margin-top:3px;color:var(--muted-ink)}.quantity{display:flex;align-items:center;gap:9px}.quantity span{color:var(--accent-ink);font-weight:800}.empty-state{padding:28px 16px;border:1px dashed var(--line-ink);border-radius:12px;color:var(--muted-ink);text-align:center}.collection-count{color:var(--muted-ink);font-size:.9rem}.hidden{display:none!important}
+    .account-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 20px;border:1px solid var(--line-ink);border-radius:12px;background:var(--paper)}.account-bar p{margin:3px 0;color:var(--muted-ink)}.collection-layout{display:grid;grid-template-columns:minmax(270px,.75fr) minmax(0,1.25fr);gap:22px;margin-top:22px}.collection-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}.collection-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;border:1px solid var(--line-ink);border-radius:10px;background:var(--paper)}.collection-item strong{display:block}.collection-item small{display:block;margin-top:3px;color:var(--muted-ink)}.quantity{display:flex;align-items:center;gap:9px}.quantity span{color:var(--accent-ink);font-weight:800}.empty-state{padding:28px 16px;border:1px dashed var(--line-ink);border-radius:12px;color:var(--muted-ink);text-align:center}.collection-count{color:var(--muted-ink);font-size:.9rem}.scanner-panel{margin-top:22px}.scan-video{display:block;width:min(100%,560px);aspect-ratio:4/3;margin-top:16px;border-radius:12px;background:#080a10;object-fit:cover}.scan-actions{display:flex;flex-wrap:wrap;gap:12px}.scan-hint{max-width:680px;color:var(--muted-ink);line-height:1.6}.hidden{display:none!important}
     .dusk-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;width:min(1320px,90%);margin:60px auto 0;padding:30px 0;border-top:1px solid var(--line-ink);color:var(--muted-ink)}.dusk-footer a{color:var(--accent-ink)}
     .global-mode-switch{position:fixed;z-index:30;bottom:22px;left:22px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--line-ink);border-radius:999px;background:var(--paper);color:var(--muted-ink);font-size:.76rem;font-weight:700;box-shadow:0 5px 22px rgba(18,21,29,.2);cursor:pointer}.global-mode-switch input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.global-mode-track{position:relative;width:40px;height:22px;border:1px solid var(--line-ink);border-radius:20px;background:#d9cfb9;transition:background .25s ease}.global-mode-track::before{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fffaf0;box-shadow:0 1px 4px rgba(0,0,0,.24);content:"";transition:transform .25s ease}.global-mode-switch input:checked+.global-mode-track{background:#5e527f}.global-mode-switch input:checked+.global-mode-track::before{transform:translateX(18px);background:#e5dcf5}.global-mode-switch input:focus-visible+.global-mode-track{outline:2px solid var(--accent-ink);outline-offset:3px}
     @media(max-width:760px){.dusk-header{flex-wrap:wrap;height:auto;min-height:82px;padding-block:17px}.dusk-nav{order:3;width:100%;justify-content:space-between;gap:10px}.dusk-nav a{font-size:.78rem}.page{width:92%;margin-top:38px}.auth-grid,.collection-layout{grid-template-columns:1fr}.account-bar{align-items:flex-start;flex-direction:column}.dusk-footer{align-items:flex-start;flex-direction:column}.global-mode-switch{position:static;width:max-content;margin:20px auto 24px;box-shadow:none}}
@@ -40,6 +41,14 @@
     <p class="lede">Garde la trace des cartes que tu possèdes et de leur quantité. Ta collection est privée et liée à ton compte.</p>
     <div id="setup-warning" class="notice" role="status">La connexion sécurisée n’est pas encore configurée. Le responsable du site doit relier cette page au service de comptes avant son ouverture aux visiteurs.</div>
     <div id="global-message" class="notice" role="status" hidden></div>
+    <section class="panel scanner-panel" aria-labelledby="scanner-title">
+      <h2 id="scanner-title">Ajouter une carte avec la caméra</h2>
+      <p class="scan-hint">Sur ton téléphone, autorise l’accès à la caméra puis scanne le QR code unique de la carte. Chaque scan ajoute un exemplaire. Les cartes doivent porter leur QR Duskclaw pour être reconnues.</p>
+      <div class="scan-actions"><button id="start-camera" class="button" type="button">Ouvrir la caméra</button><button id="stop-camera" class="button button-secondary hidden" type="button">Arrêter la caméra</button></div>
+      <video id="scan-video" class="scan-video hidden" playsinline muted aria-label="Aperçu de la caméra pour scanner une carte"></video>
+      <canvas id="scan-canvas" class="hidden"></canvas>
+      <p id="scan-message" class="form-message" role="status" aria-live="polite">Le scanner attend l’activation de la caméra.</p>
+    </section>
     <section id="auth-panel" class="auth-grid" aria-label="Connexion ou création de compte">
       <form id="login-form" class="panel">
         <h2>Se connecter</h2>
@@ -131,7 +140,47 @@
       document.getElementById('reset-form').addEventListener('submit',async event=>{event.preventDefault();const password=new FormData(event.currentTarget).get('password');if(password.length<10){say('reset-message','Utilise au moins 10 caractères.','error');return;}const {error}=await backend.auth.updateUser({password});say('reset-message',error?friendlyError(error):'Mot de passe mis à jour.','success');if(!error)setTimeout(()=>location.reload(),900);});
       document.getElementById('logout-button').addEventListener('click',async()=>{const {error}=await backend.auth.signOut();if(error)globalSay(friendlyError(error));else{currentUser=null;setSignedIn(null);globalSay('Tu es déconnecté.');}});
       document.getElementById('add-card-form').addEventListener('submit',async event=>{event.preventDefault();const id=Number(select.value),quantity=Number(document.getElementById('card-quantity').value);if(!id||quantity<1||quantity>99)return;say('collection-message','Enregistrement…');const {error}=await backend.from('user_collection').upsert({user_id:currentUser.id,card_number:id,quantity},{onConflict:'user_id,card_number'});say('collection-message',error?friendlyError(error):'Carte ajoutée à ta collection.','success');if(!error){event.currentTarget.reset();document.getElementById('card-quantity').value=1;await refreshCollection();}});
-      document.getElementById('clear-collection').addEventListener('click',async()=>{if(!confirm('Retirer toutes les cartes de ta collection ? Cette action est définitive.'))return;const {error}=await backend.from('user_collection').delete().eq('user_id',currentUser.id);if(error)globalSay(friendlyError(error));else{globalSay('Ta collection est vide.');await refreshCollection();}});
+      document.getElementById('clear-collection').addEventListener('click',async()=>{if(!confirm('Retirer toutes les cartes de ta collection ? Cette action est définitive.'))return;const {error}=await backend.from('user_collection').delete().eq('user_id',currentUser.id);if(error)globalSay(friendlyError(error));else{globalSay('Ta collection est vide.');await refreshCollection();}});
+const scanVideo=document.getElementById('scan-video');
+      const scanCanvas=document.getElementById('scan-canvas');
+      const scanContext=scanCanvas.getContext('2d',{willReadFrequently:true});
+      const scanMessage=document.getElementById('scan-message');
+      const startCamera=document.getElementById('start-camera');
+      const stopCameraButton=document.getElementById('stop-camera');
+      let cameraStream=null,scanTimer=null,scanBusy=false,lastRejectedCode='',lastRejectedAt=0;
+      function stopScanner(){if(scanTimer){clearTimeout(scanTimer);scanTimer=null;}if(cameraStream){cameraStream.getTracks().forEach(track=>track.stop());cameraStream=null;}scanVideo.pause();scanVideo.srcObject=null;scanVideo.classList.add('hidden');startCamera.classList.remove('hidden');stopCameraButton.classList.add('hidden');}
+      async function addScannedCard(card){
+        stopScanner();scanBusy=true;scanMessage.textContent=`Carte reconnue : ${card.label}. Ajout en cours…`;
+        const {data:existing,error:readError}=await backend.from('user_collection').select('quantity').eq('user_id',currentUser.id).eq('card_number',card.id).maybeSingle();
+        if(readError){scanMessage.textContent='La carte est reconnue, mais la collection n’a pas pu être lue.';scanBusy=false;return;}
+        const quantity=(existing?.quantity||0)+1;
+        if(quantity>99){scanMessage.textContent='Tu as déjà atteint la limite de 99 exemplaires pour cette carte.';scanBusy=false;return;}
+        const {error}=await backend.from('user_collection').upsert({user_id:currentUser.id,card_number:card.id,quantity},{onConflict:'user_id,card_number'});
+        if(error)scanMessage.textContent='La carte a été reconnue, mais son ajout a échoué. Réessaie.';
+        else{scanMessage.textContent=`${card.label} ajoutée à ta collection · quantité : ${quantity}.`;await refreshCollection();}
+        scanBusy=false;
+      }
+      function scanFrame(){
+        if(!cameraStream||scanBusy)return;
+        if(scanVideo.readyState>=2&&scanVideo.videoWidth){
+          scanCanvas.width=scanVideo.videoWidth;scanCanvas.height=scanVideo.videoHeight;scanContext.drawImage(scanVideo,0,0,scanCanvas.width,scanCanvas.height);
+          if(window.jsQR){const pixels=scanContext.getImageData(0,0,scanCanvas.width,scanCanvas.height);const decoded=window.jsQR(pixels.data,pixels.width,pixels.height,{inversionAttempts:'dontInvert'});
+            if(decoded){const match=/^DUSKCLAW:CARD:(\d{3})$/.exec(decoded.data.trim());const card=match?CARDS.find(item=>item.id===Number(match[1])):null;
+              if(card){addScannedCard(card);return;}
+              const now=Date.now();if(decoded.data!==lastRejectedCode||now-lastRejectedAt>2000){scanMessage.textContent='Ce QR code ne correspond pas à une carte Duskclaw reconnue.';lastRejectedCode=decoded.data;lastRejectedAt=now;}
+            }
+          }
+        }
+        scanTimer=setTimeout(()=>requestAnimationFrame(scanFrame),140);
+      }
+      startCamera.addEventListener('click',async()=>{
+        if(!navigator.mediaDevices?.getUserMedia){scanMessage.textContent='La caméra n’est pas disponible dans ce navigateur. Ouvre le site en HTTPS sur ton téléphone.';return;}
+        if(!window.jsQR){scanMessage.textContent='Le scanner ne s’est pas chargé. Vérifie ta connexion puis recharge la page.';return;}
+        try{cameraStream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'}}});scanVideo.srcObject=cameraStream;scanVideo.classList.remove('hidden');startCamera.classList.add('hidden');stopCameraButton.classList.remove('hidden');await scanVideo.play();scanMessage.textContent='Pointe la caméra vers le QR code d’une carte Duskclaw.';scanFrame();}
+        catch(error){stopScanner();scanMessage.textContent=error?.name==='NotAllowedError'?'Autorise la caméra dans les réglages du navigateur puis réessaie.':'Impossible d’ouvrir la caméra. Vérifie les permissions de ton téléphone.';}
+      });
+      stopCameraButton.addEventListener('click',()=>{stopScanner();scanMessage.textContent='Caméra arrêtée.';});
+      window.addEventListener('pagehide',stopScanner);
     }
   </script>
 </body>

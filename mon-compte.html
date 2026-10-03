@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111724">
-  <meta name="description" content="Connecte-toi à ton compte Duskclaw pour retrouver ta collection personnelle.">
+  <meta name="description" content="Gère ton compte Duskclaw et retrouve ta collection personnelle.">
   <title>Mon compte — Duskclaw</title>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <style>
@@ -12,9 +12,10 @@
     *{box-sizing:border-box}body{min-height:100vh;margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
     a{color:inherit}.shell{width:min(1320px,90%);margin-inline:auto}.header{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:83px;border-bottom:1px solid var(--line)}
     .brand{font-weight:800;letter-spacing:.19em;text-decoration:none}.brand span{color:var(--accent)}.nav{display:flex;align-items:center;gap:clamp(14px,3vw,36px)}.nav a{color:var(--muted);font-size:.88rem;text-decoration:none}.nav a:hover,.nav a:focus-visible,.nav .active{color:var(--accent)}.nav .rules{padding:9px 13px;border:1px solid var(--line);color:var(--ink)}
-    main{width:min(1000px,90%);margin:70px auto 90px}.eyebrow{color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{margin:8px 0 12px;font:400 clamp(2.8rem,7vw,5rem)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em}.lede{max-width:680px;color:var(--muted);line-height:1.8}
-    .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:34px}.panel{padding:clamp(20px,4vw,32px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}h2{margin:0 0 20px;font:400 1.65rem Georgia,"Times New Roman",serif}.field{display:grid;gap:8px;margin:15px 0;color:var(--muted);font-size:.92rem}.field input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field input:focus{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:6px;padding:11px 17px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#171520;font:inherit;font-weight:750;cursor:pointer}.button:hover{filter:brightness(1.08)}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.button:disabled{opacity:.6;cursor:wait}.text-button{display:block;margin-top:12px;padding:4px 0;border:0;background:none;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}.message{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#ffaaa8}.message.success{color:#9bd7b1}.small{color:var(--muted);font-size:.82rem}.hidden{display:none!important}.account-panel{margin-top:34px}.account-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
-    @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:42px}.auth-grid{grid-template-columns:1fr}.footer{flex-direction:column}}
+    main{width:min(1000px,90%);margin:64px auto 90px}.eyebrow{color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{margin:8px 0 12px;font:400 clamp(2.8rem,7vw,5rem)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em}.lede{max-width:700px;color:var(--muted);line-height:1.8}
+    .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:34px}.panel{padding:clamp(20px,4vw,30px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}h2{margin:0 0 20px;font:400 1.65rem Georgia,"Times New Roman",serif}.field{display:grid;gap:8px;margin:15px 0;color:var(--muted);font-size:.92rem}.field input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field input:focus{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:6px;padding:11px 17px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#171520;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}.button:hover{filter:brightness(1.08)}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.button:disabled{opacity:.6;cursor:wait}.text-button{display:block;margin-top:12px;padding:4px 0;border:0;background:none;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}.message{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#ffaaa8}.message.success{color:#9bd7b1}.small{color:var(--muted);font-size:.82rem}.hidden{display:none!important}
+    .account-dashboard{display:grid;gap:22px;margin-top:34px}.account-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.account-row h2{margin:0 0 5px}.account-row p{margin:0;color:var(--muted)}.profile-layout{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr);gap:22px}.profile-photo-panel{text-align:center}.avatar{display:grid;width:160px;aspect-ratio:1;place-items:center;overflow:hidden;margin:0 auto 17px;border:1px solid var(--line);border-radius:50%;background:radial-gradient(circle at 35% 25%,#34374e,#20263a 65%,#171d2b);color:var(--accent);font:400 4rem Georgia,serif}.avatar img{width:100%;height:100%;object-fit:cover}.profile-photo-panel input[type=file]{width:100%;margin-top:12px;color:var(--muted);font-size:.8rem}.profile-stack{display:grid;gap:22px}.collection-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.collection-panel p{margin:0;color:var(--muted)}.collection-panel h2{margin-bottom:8px}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
+    @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.auth-grid,.profile-layout{grid-template-columns:1fr}.footer{flex-direction:column}.avatar{width:140px}}
   </style>
 </head>
 <body>
@@ -27,9 +28,9 @@
   <main>
     <p class="eyebrow">ESPACE PERSONNEL</p>
     <h1>Mon compte<span style="color:var(--accent)">.</span></h1>
-    <p class="lede">Connecte-toi ou crée un compte pour retrouver ta collection de cartes. Chaque collection reste privée et liée au compte qui l’a créée.</p>
-    <div id="page-message" class="panel message" role="status" hidden></div>
-    <section id="auth-panel" class="auth-grid" aria-label="Connexion ou création de compte">
+    <p class="lede">Gère ton profil, tes identifiants et ta collection de cartes. Tes informations sont privées et liées à ton compte.</p>
+    <div id="page-message" class="panel message hidden" role="status"></div>
+    <section id="auth-panel" class="auth-grid hidden" aria-label="Connexion ou création de compte">
       <form id="login-form" class="panel">
         <h2>Se connecter</h2>
         <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
@@ -41,15 +42,43 @@
       <form id="signup-form" class="panel">
         <h2>Créer un compte</h2>
         <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
-        <label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="10" required><span class="small">10 caractères minimum, avec majuscules, minuscules, chiffres et symboles.</span></label>
+        <label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="10" required><span class="small">10 caractères minimum. Supabase vérifiera aussi les critères de sécurité définis sur le site.</span></label>
         <button class="button" type="submit">Créer mon compte <span aria-hidden="true">→</span></button>
         <p id="signup-message" class="message" aria-live="polite"></p>
       </form>
     </section>
-    <section id="account-panel" class="panel account-panel hidden" aria-label="Mon compte connecté">
-      <div class="account-row"><div><h2>Tu es connecté·e</h2><p class="small">Compte : <strong id="account-email"></strong></p></div><button id="logout-button" class="button secondary" type="button">Se déconnecter</button></div>
-      <p>Ta collection personnelle est prête à être consultée.</p>
-      <a id="collection-link" class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a>
+    <section id="account-panel" class="account-dashboard hidden" aria-label="Profil et collection">
+      <div class="panel account-row"><div><h2>Bienvenue, <span id="welcome-name"></span></h2><p>Connecté avec <strong id="account-email"></strong></p></div><button id="logout-button" class="button secondary" type="button">Se déconnecter</button></div>
+      <div class="profile-layout">
+        <section class="panel profile-photo-panel" aria-labelledby="photo-heading">
+          <h2 id="photo-heading">Photo de profil</h2>
+          <div class="avatar" id="avatar-preview" aria-label="Aperçu de la photo de profil">D</div>
+          <label class="small" for="avatar-file">Choisis une photo (JPG, PNG ou WebP, 2 Mo maximum)</label>
+          <input id="avatar-file" type="file" accept="image/jpeg,image/png,image/webp">
+          <button id="save-avatar" class="button" type="button">Enregistrer la photo</button>
+          <p id="avatar-message" class="message" aria-live="polite"></p>
+        </section>
+        <div class="profile-stack">
+          <form id="nickname-form" class="panel">
+            <h2>Mon pseudo</h2>
+            <label class="field">Pseudo affiché<input id="nickname" name="nickname" type="text" minlength="2" maxlength="24" autocomplete="nickname" placeholder="Ton pseudo" required></label>
+            <p class="small">Tu pourras le modifier quand tu le souhaites.</p>
+            <button class="button" type="submit">Enregistrer le pseudo</button>
+            <p id="nickname-message" class="message" aria-live="polite"></p>
+          </form>
+          <form id="password-form" class="panel">
+            <h2>Changer mon mot de passe</h2>
+            <label class="field">Mot de passe actuel<input name="current-password" type="password" autocomplete="current-password" required></label>
+            <label class="field">Nouveau mot de passe<input name="new-password" type="password" autocomplete="new-password" minlength="10" required></label>
+            <button class="button" type="submit">Mettre à jour le mot de passe</button>
+            <p id="password-message" class="message" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+      <section class="panel collection-panel">
+        <div><h2>Ma collection</h2><p>Consulte tes cartes et ajoute-en à ta collection.</p></div>
+        <a id="collection-link" class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a>
+      </section>
     </section>
   </main>
   <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
@@ -62,18 +91,47 @@
     const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
     const authPanel = document.getElementById("auth-panel");
     const accountPanel = document.getElementById("account-panel");
+    let currentUser = null;
+    let profile = { nickname: "", avatar_path: null };
     function message(id, text, kind = "") { const el = document.getElementById(id); el.textContent = text; el.className = "message" + (kind ? " " + kind : ""); }
+    function pageMessage(text) { const el = document.getElementById("page-message"); el.textContent = text; el.classList.toggle("hidden", !text); }
+    function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); }
     function renderUser(user) {
+      currentUser = user || null;
       authPanel.classList.toggle("hidden", !!user);
       accountPanel.classList.toggle("hidden", !user);
-      if (user) document.getElementById("account-email").textContent = user.email || "Compte connecté";
+      if (user) {
+        document.getElementById("account-email").textContent = user.email || "Compte connecté";
+        loadProfile();
+      }
     }
-    function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); }
+    async function renderProfile() {
+      const userForRender = currentUser;
+      const welcome = profile.nickname.trim() || currentUser?.email || "Duskclaw";
+      document.getElementById("welcome-name").textContent = welcome;
+      document.getElementById("nickname").value = profile.nickname || "";
+      const preview = document.getElementById("avatar-preview");
+      preview.replaceChildren();
+      if (profile.avatar_path && currentUser) {
+        const { data, error } = await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path, 3600);
+        if (userForRender !== currentUser) return;
+        if (!error && data?.signedUrl) { const image = new Image(); image.alt = "Photo de profil"; image.src = data.signedUrl; preview.append(image); return; }
+      }
+      preview.textContent = (profile.nickname.trim() || currentUser?.email || "D").charAt(0).toUpperCase();
+    }
+    async function loadProfile() {
+      if (!currentUser) return;
+      const { data, error } = await client.from("user_profiles").select("nickname,avatar_path").eq("user_id", currentUser.id).maybeSingle();
+      if (error) { pageMessage("La table de profil n’est pas encore configurée. Exécute le fichier SQL fourni dans Supabase, puis recharge cette page."); profile = { nickname: "", avatar_path: null }; }
+      else { pageMessage(""); profile = data || { nickname: "", avatar_path: null }; }
+      renderProfile();
+    }
     client.auth.onAuthStateChange((_event, session) => { renderUser(session?.user || null); if (session?.user) afterLogin(); });
     client.auth.getSession().then(({ data, error }) => {
-      if (error) { document.getElementById("page-message").hidden = false; document.getElementById("page-message").textContent = "Impossible de vérifier la connexion. Recharge la page."; return; }
+      if (error) { pageMessage("Impossible de vérifier la connexion. Recharge la page."); authPanel.classList.remove("hidden"); return; }
       renderUser(data.session?.user || null);
       if (data.session?.user) afterLogin();
+      else authPanel.classList.remove("hidden");
     });
     document.getElementById("login-form").addEventListener("submit", async event => {
       event.preventDefault(); const form = new FormData(event.currentTarget); message("login-message", "Connexion…");
@@ -86,7 +144,7 @@
       message("signup-message", "Création du compte…");
       const { data, error } = await client.auth.signUp({ email: form.get("email"), password, options: { emailRedirectTo: SITE_URL + "collection.html" } });
       if (error) message("signup-message", error.message, "error");
-      else if (data.session) { message("signup-message", "Compte créé. Redirection vers ta collection…", "success"); afterLogin(); }
+      else if (data.session) { message("signup-message", "Compte créé.", "success"); afterLogin(); }
       else message("signup-message", "Compte créé. Consulte ta boîte mail pour confirmer ton adresse, puis connecte-toi.", "success");
     });
     document.getElementById("forgot-password").addEventListener("click", async () => {
@@ -96,10 +154,44 @@
       const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo: SITE_URL + "collection.html" });
       message("login-message", error ? error.message : "Si un compte correspond à cette adresse, un lien de réinitialisation vient d’être envoyé.", error ? "error" : "success");
     });
+    document.getElementById("nickname-form").addEventListener("submit", async event => {
+      event.preventDefault(); if (!currentUser) return;
+      const nickname = document.getElementById("nickname").value.trim();
+      if (nickname.length < 2 || nickname.length > 24) { message("nickname-message", "Le pseudo doit contenir de 2 à 24 caractères.", "error"); return; }
+      const { error } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname, avatar_path: profile.avatar_path, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
+      if (error) message("nickname-message", "Impossible d’enregistrer le pseudo. Vérifie la configuration du profil.", "error");
+      else { profile.nickname = nickname; renderProfile(); message("nickname-message", "Pseudo enregistré.", "success"); }
+    });
+    document.getElementById("save-avatar").addEventListener("click", async () => {
+      if (!currentUser) return;
+      const input = document.getElementById("avatar-file"); const file = input.files?.[0];
+      if (!file) { message("avatar-message", "Choisis d’abord une photo.", "error"); return; }
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 2 * 1024 * 1024) { message("avatar-message", "Utilise une image JPG, PNG ou WebP de 2 Mo maximum.", "error"); return; }
+      message("avatar-message", "Envoi de la photo…");
+      const ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
+      const path = `${currentUser.id}/avatar-${Date.now()}.${ext}`;
+      const { error: uploadError } = await client.storage.from("user-avatars").upload(path, file, { contentType: file.type, upsert: false });
+      if (uploadError) { message("avatar-message", "Impossible d’envoyer la photo. Vérifie le stockage des avatars dans Supabase.", "error"); return; }
+      const previousPath = profile.avatar_path;
+      const { error: saveError } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname: profile.nickname, avatar_path: path, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
+      if (saveError) { await client.storage.from("user-avatars").remove([path]); message("avatar-message", "La photo a été envoyée mais le profil n’a pas pu être mis à jour. Vérifie la configuration SQL.", "error"); return; }
+      profile.avatar_path = path; renderProfile(); message("avatar-message", "Photo de profil enregistrée.", "success"); input.value = "";
+      if (previousPath) await client.storage.from("user-avatars").remove([previousPath]);
+    });
+    document.getElementById("password-form").addEventListener("submit", async event => {
+      event.preventDefault(); if (!currentUser) return;
+      const form = new FormData(event.currentTarget); const currentPassword = form.get("current-password"); const newPassword = form.get("new-password");
+      if (newPassword.length < 10) { message("password-message", "Le nouveau mot de passe doit contenir au moins 10 caractères.", "error"); return; }
+      message("password-message", "Vérification du mot de passe actuel…");
+      const { error: reauthError } = await client.auth.signInWithPassword({ email: currentUser.email, password: currentPassword });
+      if (reauthError) { message("password-message", "Le mot de passe actuel ne correspond pas.", "error"); return; }
+      const { error } = await client.auth.updateUser({ password: newPassword });
+      if (error) message("password-message", error.message, "error");
+      else { event.currentTarget.reset(); message("password-message", "Mot de passe mis à jour.", "success"); }
+    });
     document.getElementById("logout-button").addEventListener("click", async () => {
       const { error } = await client.auth.signOut();
-      if (error) document.getElementById("page-message").textContent = error.message;
-      else { renderUser(null); message("login-message", "Tu es déconnecté·e.", "success"); }
+      if (error) pageMessage(error.message); else { renderUser(null); authPanel.classList.remove("hidden"); window.scrollTo({ top: 0, behavior: "smooth" }); }
     });
   </script>
 </body>
