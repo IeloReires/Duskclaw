@@ -41,7 +41,7 @@
       <form id="signup-form" class="panel">
         <h2>Créer un compte</h2>
         <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
-        <label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="12" required><span class="small">12 caractères minimum, avec majuscules, minuscules, chiffres et symboles.</span></label>
+        <label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="10" required><span class="small">10 caractères minimum, avec majuscules, minuscules, chiffres et symboles.</span></label>
         <button class="button" type="submit">Créer mon compte <span aria-hidden="true">→</span></button>
         <p id="signup-message" class="message" aria-live="polite"></p>
       </form>
@@ -82,7 +82,7 @@
     });
     document.getElementById("signup-form").addEventListener("submit", async event => {
       event.preventDefault(); const form = new FormData(event.currentTarget); const password = form.get("password");
-      if (password.length < 12) { message("signup-message", "Choisis au moins 12 caractères.", "error"); return; }
+      if (password.length < 10) { message("signup-message", "Choisis au moins 10 caractères.", "error"); return; }
       message("signup-message", "Création du compte…");
       const { data, error } = await client.auth.signUp({ email: form.get("email"), password, options: { emailRedirectTo: SITE_URL + "collection.html" } });
       if (error) message("signup-message", error.message, "error");
