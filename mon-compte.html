@@ -38,9 +38,24 @@
     .profile-cover[data-theme="ice"]::before{background:linear-gradient(30deg,transparent 46%,#e4f4ff6d 47% 50%,transparent 51%),linear-gradient(90deg,transparent 46%,#e4f4ff58 47% 50%,transparent 51%),linear-gradient(150deg,transparent 46%,#e4f4ff6d 47% 50%,transparent 51%);background-size:58px 58px}.profile-cover[data-theme="ice"]::after{border-width:2px;box-shadow:0 0 30px #c9edff42}
     .profile-cover[data-theme="rock"]::before{background:repeating-linear-gradient(168deg,transparent 0 17px,#f5d9ba70 18px 21px,transparent 22px 45px),linear-gradient(38deg,transparent 47%,#f5d9ba65 48% 51%,transparent 52%)}.profile-cover[data-theme="rock"]::after{border-width:2px;box-shadow:inset 0 0 30px #c6946745,0 0 25px #c6946740}
     .profile-cover[data-theme="wind"]::before{background:repeating-radial-gradient(ellipse at 70% 45%,transparent 0 19px,#ecf7ff69 20px 23px,transparent 24px 46px)}.profile-cover[data-theme="wind"]::after{border-top:3px solid #ecf7ff80;box-shadow:0 -16px 0 -13px #ecf7ff60,0 -32px 0 -29px #ecf7ff45}
+      :root{color-scheme:light dark}
+    body[data-time="nuit"]{--bg:#111724;--paper:#1a2030;--ink:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2);color-scheme:dark}
+    body[data-time="jour"]{--bg:#f1ead9;--paper:#f8f3e8;--ink:#252920;--muted:#66695f;--accent:#8a6a37;--line:rgba(60,58,47,.24);color-scheme:light}
+    body[data-time="jour"] .field input,body[data-time="jour"] .field-input,body[data-time="jour"] .account-email{background:#fffdf7;color:var(--ink)}
+    .global-mode-switch{position:fixed;z-index:30;bottom:22px;left:22px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--muted);font-size:.76rem;font-weight:700;box-shadow:0 5px 22px rgba(18,21,29,.2);cursor:pointer}
+    .global-mode-switch input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+    .global-mode-track{position:relative;width:40px;height:22px;border:1px solid var(--line);border-radius:20px;background:#d9cfb9;transition:background .25s ease}
+    .global-mode-track::before{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fffaf0;box-shadow:0 1px 4px rgba(0,0,0,.24);content:"";transition:transform .25s ease}
+    .global-mode-switch input:checked+.global-mode-track{background:#5e527f}
+    .global-mode-switch input:checked+.global-mode-track::before{transform:translateX(18px);background:#e5dcf5}
+    .global-mode-switch input:focus-visible+.global-mode-track{outline:2px solid var(--accent);outline-offset:3px}
+    @media(max-width:760px){.global-mode-switch{position:static;width:max-content;margin:20px auto 24px;box-shadow:none}}
+    .profile-cover::before,.profile-cover::after{display:none!important}
+    .profile-cover{background:radial-gradient(ellipse at 82% 16%,color-mix(in srgb,var(--banner-color,#b895ff) 30%,transparent),transparent 62%),linear-gradient(120deg,var(--cover-a),var(--cover-b))}
+
   </style>
 </head>
-<body>
+<body data-time="nuit">
   <header class="header shell">
     <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="nav" aria-label="Navigation principale">
@@ -49,7 +64,7 @@
   </header>
   <main>
     <p class="eyebrow">ESPACE PERSONNEL</p>
-    <h1>Personnalisation<span style="color:var(--accent)">.</span></h1>
+    <h1>Profil<span style="color:var(--accent)">.</span></h1>
     <p class="lede">Compose ton profil à ton image. Tes changements seront appliqués quand tu les enregistreras.</p>
     <div id="page-message" class="panel message hidden" role="status"></div>
     <section id="auth-panel" class="auth-grid hidden" aria-label="Connexion ou création de compte">
@@ -69,9 +84,9 @@
         <p id="signup-message" class="message" aria-live="polite"></p>
       </form>
     </section>
-    <section id="account-panel" class="account-dashboard hidden" aria-label="Personnalisation de profil">
+    <section id="account-panel" class="account-dashboard hidden" aria-label="Profil">
       <details class="account-section" open>
-        <summary class="section-trigger"><span><strong>Personnalisation de profil</strong><small>Photo, pseudo, bannière, cartes et badges</small></span><span class="section-arrow" aria-hidden="true">⌄</span></summary>
+        <summary class="section-trigger"><span><strong>Profil</strong><small>Photo, pseudo, bannière, cartes et badges</small></span><span class="section-arrow" aria-hidden="true">⌄</span></summary>
         <div class="section-content">
       <div class="profile-cover" id="profile-cover" data-theme="water"><div class="profile-cover-inner">
         <div class="avatar-edit-wrap"><button id="avatar-edit" class="avatar cover-avatar" type="button" aria-label="Changer la photo de profil">D</button><button class="edit-pencil" type="button" data-edit="avatar" aria-label="Modifier la photo">✎</button></div>
@@ -79,7 +94,7 @@
       </div></div>
       <input id="avatar-file" class="hidden" type="file" accept="image/jpeg,image/png,image/webp">
       <div class="crop-controls hidden" id="crop-controls"><label for="avatar-zoom"><span>Zoom de la photo</span><output id="zoom-value">1×</output></label><input id="avatar-zoom" type="range" min="1" max="2.5" step="0.05" value="1"><p class="small">Ajuste le cadrage, puis enregistre toutes tes modifications en bas de page.</p></div>
-      <section class="banner-settings"><h3>Motif de la bannière</h3><div class="ambience-choices" role="group" aria-label="Choisir un motif"><button type="button" data-theme-choice="water" aria-pressed="true"><span>≈</span><strong>Eau</strong><small>Courants et vagues fluides</small></button><button type="button" data-theme-choice="plant" aria-pressed="false"><span>❧</span><strong>Plante</strong><small>Feuilles et nervures</small></button><button type="button" data-theme-choice="ice" aria-pressed="false"><span>✧</span><strong>Glace</strong><small>Cristaux et facettes</small></button><button type="button" data-theme-choice="rock" aria-pressed="false"><span>⌁</span><strong>Roche</strong><small>Strates et fissures minérales</small></button><button type="button" data-theme-choice="wind" aria-pressed="false"><span>〰</span><strong>Vent</strong><small>Tourbillons et souffles</small></button></div><p class="palette-label">Palette de couleur</p><div class="palette" role="group" aria-label="Couleur de la bannière"><button type="button" data-color="#62bfd1" style="background:#62bfd1" aria-label="Bleu lagon" aria-pressed="true"></button><button type="button" data-color="#91bd6d" style="background:#91bd6d" aria-label="Vert feuille" aria-pressed="false"></button><button type="button" data-color="#b895ff" style="background:#b895ff" aria-label="Violet" aria-pressed="false"></button><button type="button" data-color="#c69467" style="background:#c69467" aria-label="Brun pierre" aria-pressed="false"></button><button type="button" data-color="#9eb9d5" style="background:#9eb9d5" aria-label="Bleu vent" aria-pressed="false"></button><button type="button" data-color="#df8bab" style="background:#df8bab" aria-label="Rose" aria-pressed="false"></button><label class="small" for="banner-color-picker">Couleur libre</label><input id="banner-color-picker" class="color-input" type="color" value="#62bfd1" aria-label="Choisir une couleur personnalisée"></div></section>
+      <section class="banner-settings"><h3>Ambiance de la bannière</h3><div class="ambience-choices" role="group" aria-label="Choisir une ambiance"><button type="button" data-theme-choice="water" aria-pressed="true"><span>≈</span><strong>Eau</strong></button><button type="button" data-theme-choice="plant" aria-pressed="false"><span>❧</span><strong>Plante</strong></button><button type="button" data-theme-choice="ice" aria-pressed="false"><span>✧</span><strong>Glace</strong></button><button type="button" data-theme-choice="rock" aria-pressed="false"><span>⌁</span><strong>Roche</strong></button><button type="button" data-theme-choice="wind" aria-pressed="false"><span>〰</span><strong>Vent</strong></button></div><p class="palette-label">Palette de couleur</p><div class="palette" role="group" aria-label="Couleur de la bannière"><button type="button" data-color="#62bfd1" style="background:#62bfd1" aria-label="Bleu lagon" aria-pressed="true"></button><button type="button" data-color="#91bd6d" style="background:#91bd6d" aria-label="Vert feuille" aria-pressed="false"></button><button type="button" data-color="#b895ff" style="background:#b895ff" aria-label="Violet" aria-pressed="false"></button><button type="button" data-color="#c69467" style="background:#c69467" aria-label="Brun pierre" aria-pressed="false"></button><button type="button" data-color="#9eb9d5" style="background:#9eb9d5" aria-label="Bleu vent" aria-pressed="false"></button><button type="button" data-color="#df8bab" style="background:#df8bab" aria-label="Rose" aria-pressed="false"></button><label class="small" for="banner-color-picker">Couleur libre</label><input id="banner-color-picker" class="color-input" type="color" value="#62bfd1" aria-label="Choisir une couleur personnalisée"></div></section>
       <section class="featured-panel"><div class="featured-actions"><div><h3>Mes cartes à l’honneur</h3><p class="small">Présente jusqu’à trois cartes que tu possèdes.</p></div><span class="small" id="featured-count">0 / 3</span></div><div id="featured-gallery" class="showcase-gallery"></div><button id="add-featured-card" class="add-card-button" type="button"><span aria-hidden="true">+</span> Ajouter une carte</button></section>
       <section class="badges-panel"><h3>Mes badges</h3><div id="badge-list" class="badge-list"></div></section>
       <dialog class="card-dialog" id="featured-card-dialog" aria-labelledby="featured-dialog-title"><div class="dialog-head"><h2 id="featured-dialog-title">Choisir une carte</h2><button class="button secondary" id="close-featured-dialog" type="button" aria-label="Fermer">Fermer</button></div><div id="dialog-card-list" class="dialog-list"></div></dialog>
@@ -90,6 +105,21 @@
       <section class="account-shortcut"><div><h2>Paramètres</h2><p>Adresse e-mail, mot de passe et déconnexion.</p></div><a class="button" href="parametres.html">Ouvrir les paramètres <span aria-hidden="true">→</span></a></section>
     </section>
   </main>
+  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit"><span class="mode-day">Jour</span><input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="true"><span class="global-mode-track" aria-hidden="true"></span><span class="mode-night">Nuit</span></label>
+  <script>
+    (() => {
+      const toggle = document.getElementById("global-mode-toggle");
+      const saved = localStorage.getItem("duskclaw-time");
+      document.body.dataset.time = saved === "jour" ? "jour" : "nuit";
+      toggle.checked = document.body.dataset.time === "nuit";
+      toggle.setAttribute("aria-checked", String(toggle.checked));
+      toggle.addEventListener("change", () => {
+        document.body.dataset.time = toggle.checked ? "nuit" : "jour";
+        toggle.setAttribute("aria-checked", String(toggle.checked));
+        localStorage.setItem("duskclaw-time", toggle.checked ? "nuit" : "jour");
+      });
+    })();
+  </script>
   <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
   <script>
     const SUPABASE_URL = "https://bqqbciifmfbsjurkulfo.supabase.co";

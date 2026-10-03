@@ -11,9 +11,21 @@
     :root{color-scheme:dark;--bg:#111724;--paper:#1a2030;--ink:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2)}
     *{box-sizing:border-box}body{min-height:100vh;margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit}.shell{width:min(1320px,90%);margin-inline:auto}.header{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:83px;border-bottom:1px solid var(--line)}.brand{font-weight:800;letter-spacing:.19em;text-decoration:none}.brand span{color:var(--accent)}.nav{display:flex;align-items:center;gap:clamp(14px,3vw,36px)}.nav a{color:var(--muted);font-size:.88rem;text-decoration:none}.nav a:hover,.nav a:focus-visible,.nav .active{color:var(--accent)}.nav .rules,.nav .support-link{padding:9px 13px;border:1px solid var(--line);color:var(--ink)}.nav #account-nav-link{margin-left:auto}.nav-avatar{display:inline-grid;width:28px;height:28px;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;font-size:.78rem;font-weight:700;vertical-align:middle}.nav-avatar img{width:100%;height:100%;object-fit:cover}main{width:min(850px,90%);margin:64px auto 90px}.eyebrow{color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{margin:8px 0 12px;font:400 clamp(2.8rem,7vw,5rem)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em}.lede{max-width:700px;color:var(--muted);line-height:1.8}.panel{margin-top:24px;padding:clamp(20px,4vw,32px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}.panel h2{margin:0 0 18px;font:400 1.65rem Georgia,"Times New Roman",serif}.account-email{display:block;padding:13px 15px;border:1px solid var(--line);border-radius:9px;background:#111724;overflow-wrap:anywhere}.field{display:grid;gap:8px;margin:15px 0;color:var(--muted);font-size:.92rem}.field input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field input:focus{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin:6px 8px 0 0;padding:11px 17px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#171520;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.button:disabled{opacity:.6;cursor:wait}.message{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#ffaaa8}.message.success{color:#9bd7b1}.hidden{display:none!important}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
     @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.footer{flex-direction:column}}
+      :root{color-scheme:light dark}
+    body[data-time="nuit"]{--bg:#111724;--paper:#1a2030;--ink:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2);color-scheme:dark}
+    body[data-time="jour"]{--bg:#f1ead9;--paper:#f8f3e8;--ink:#252920;--muted:#66695f;--accent:#8a6a37;--line:rgba(60,58,47,.24);color-scheme:light}
+    body[data-time="jour"] .field input,body[data-time="jour"] .field-input,body[data-time="jour"] .account-email{background:#fffdf7;color:var(--ink)}
+    .global-mode-switch{position:fixed;z-index:30;bottom:22px;left:22px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--muted);font-size:.76rem;font-weight:700;box-shadow:0 5px 22px rgba(18,21,29,.2);cursor:pointer}
+    .global-mode-switch input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+    .global-mode-track{position:relative;width:40px;height:22px;border:1px solid var(--line);border-radius:20px;background:#d9cfb9;transition:background .25s ease}
+    .global-mode-track::before{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fffaf0;box-shadow:0 1px 4px rgba(0,0,0,.24);content:"";transition:transform .25s ease}
+    .global-mode-switch input:checked+.global-mode-track{background:#5e527f}
+    .global-mode-switch input:checked+.global-mode-track::before{transform:translateX(18px);background:#e5dcf5}
+    .global-mode-switch input:focus-visible+.global-mode-track{outline:2px solid var(--accent);outline-offset:3px}
+    @media(max-width:760px){.global-mode-switch{position:static;width:max-content;margin:20px auto 24px;box-shadow:none}}
   </style>
 </head>
-<body>
+<body data-time="nuit">
   <header class="header shell">
     <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="nav" aria-label="Navigation principale"><a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a></nav>
@@ -26,9 +38,24 @@
       <section class="panel"><h2>Adresse e-mail</h2><span id="account-email" class="account-email"></span><p class="lede">Cette adresse sert à te connecter et à récupérer ton compte.</p></section>
       <form id="password-form" class="panel"><h2>Changer le mot de passe</h2><label class="field">Mot de passe actuel<input name="current-password" type="password" autocomplete="current-password" required></label><label class="field">Nouveau mot de passe<input name="new-password" type="password" autocomplete="new-password" minlength="10" required></label><label class="field">Confirmer le nouveau mot de passe<input name="confirm-password" type="password" autocomplete="new-password" minlength="10" required></label><button class="button" type="submit">Mettre à jour le mot de passe</button><p id="password-message" class="message" aria-live="polite"></p></form>
       <section class="panel"><h2>Session</h2><p class="lede">Déconnecte-toi de ce compte sur cet appareil.</p><button id="logout-button" class="button secondary" type="button">Se déconnecter</button></section>
-      <a class="button secondary" href="mon-compte.html">← Retour à la personnalisation</a>
+      <a class="button secondary" href="mon-compte.html">← Retour au profil</a>
     </section>
   </main>
+  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit"><span class="mode-day">Jour</span><input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="true"><span class="global-mode-track" aria-hidden="true"></span><span class="mode-night">Nuit</span></label>
+  <script>
+    (() => {
+      const toggle = document.getElementById("global-mode-toggle");
+      const saved = localStorage.getItem("duskclaw-time");
+      document.body.dataset.time = saved === "jour" ? "jour" : "nuit";
+      toggle.checked = document.body.dataset.time === "nuit";
+      toggle.setAttribute("aria-checked", String(toggle.checked));
+      toggle.addEventListener("change", () => {
+        document.body.dataset.time = toggle.checked ? "nuit" : "jour";
+        toggle.setAttribute("aria-checked", String(toggle.checked));
+        localStorage.setItem("duskclaw-time", toggle.checked ? "nuit" : "jour");
+      });
+    })();
+  </script>
   <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
   <script>
     const SUPABASE_URL = "https://bqqbciifmfbsjurkulfo.supabase.co";
