@@ -1,4 +1,4 @@
-/* Duskclaw — bandeau et pied de page partagés */
+/* Duskclaw — style partagé du bandeau, du pied de page et du mode Jour/Nuit */
 .site-shell-header,.site-shell-footer{box-sizing:border-box;width:min(1320px,92%);margin-inline:auto;color:var(--ink,#eee9df);font-family:inherit}
 .site-shell-header{position:relative;z-index:15;min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:28px;padding:12px 0;border-bottom:1px solid var(--line-ink,rgba(229,225,243,.2))}
 .site-shell-brand{flex:0 0 auto;color:var(--ink,#eee9df);font-size:1.05rem;font-weight:850;letter-spacing:.19em;text-decoration:none;white-space:nowrap}
@@ -8,15 +8,14 @@
 .site-shell-nav a:hover,.site-shell-nav a:focus-visible{color:var(--ink,#f5f1e9)}
 .site-shell-nav .site-shell-rules{padding:10px 14px;border:1px solid var(--line-ink,rgba(229,225,243,.28));border-radius:999px;color:var(--ink,#eee9df)}
 .site-shell-nav .site-shell-rules:hover,.site-shell-nav .site-shell-rules:focus-visible{border-color:var(--accent-ink,#b8a6df);transform:translateY(-1px)}
-.site-shell-nav .site-shell-support{padding:10px 16px;border:1px solid var(--accent-ink,#d4a75c);border-radius:999px;background:var(--accent-ink,#d4a75c);color:#17151a;font-weight:800;box-shadow:0 5px 18px color-mix(in srgb,var(--accent-ink,#d4a75c) 25%,transparent)}
-.site-shell-nav .site-shell-support:hover,.site-shell-nav .site-shell-support:focus-visible{filter:brightness(1.08);transform:translateY(-1px)}
+.site-shell-header .site-shell-nav>a.site-shell-support{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:10px 16px;border:1px solid #d4a75c;border-radius:999px;background:#d4a75c;color:#17151a;font-size:.86rem;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 5px 18px rgba(212,167,92,.25)}
+.site-shell-header .site-shell-nav>a.site-shell-support:hover,.site-shell-header .site-shell-nav>a.site-shell-support:focus-visible{border-color:#e1b86f;background:#e1b86f;color:#17151a;transform:translateY(-1px)}
 .site-shell-nav .site-shell-account{display:inline-flex;align-items:center;gap:10px;color:var(--ink,#eee9df);font-weight:700}
 .site-shell-nav .site-shell-moderation.hidden{display:none}
 .site-shell-footer{min-height:82px;margin-top:58px;margin-bottom:0;padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--line-ink,rgba(229,225,243,.2));font-size:.88rem}
 .site-shell-contact{display:inline-flex;align-items:center;gap:12px;padding:10px 15px;border:1px solid var(--line-ink,rgba(229,225,243,.28));border-radius:999px;color:var(--ink,#eee9df);font-weight:700;text-decoration:none;transition:background .18s ease,border-color .18s ease,transform .18s ease}
-.site-shell-contact:hover,.site-shell-contact:focus-visible{border-color:var(--accent-ink,#b8a6df);background:color-mix(in srgb,var(--accent-ink,#b8a6df) 13%,transparent);transform:translateY(-1px)}
+.site-shell-contact:hover,.site-shell-contact:focus-visible{border-color:var(--accent-ink,#b8a6df);background:rgba(184,166,223,.13);transform:translateY(-1px)}
 .site-shell-handle{color:var(--muted-ink,#b8bdca);font-weight:700;letter-spacing:.04em}
-/* Le contrôle reste discret, fixé en bas à gauche sur ordinateur et téléphone. */
 .global-mode-switch,.dusk-mode-switch,.bouton-mode,.faq-mode,.contact-mode,.site-shell-mode{position:fixed!important;z-index:50!important;bottom:18px!important;left:18px!important;right:auto!important;margin:0!important}
 .site-shell-mode{display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--line-ink,rgba(229,225,243,.28));border-radius:999px;background:var(--paper,#20232d);color:var(--muted-ink,#b8bdca);font-size:.76rem;font-weight:700;box-shadow:0 5px 20px rgba(0,0,0,.2);cursor:pointer}
 .site-shell-mode input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
@@ -25,6 +24,6 @@
 .site-shell-mode input:checked+.site-shell-mode-track{background:#625481}
 .site-shell-mode input:checked+.site-shell-mode-track:before{transform:translateX(18px);background:#eee6ff}
 .site-shell-mode input:focus-visible+.site-shell-mode-track{outline:2px solid var(--accent-ink,#b8a6df);outline-offset:3px}
-@media(max-width:800px){.site-shell-header{align-items:flex-start;flex-wrap:wrap;min-height:0;padding:16px 0;gap:14px}.site-shell-brand{padding-top:7px}.site-shell-nav{width:100%;justify-content:flex-start;flex-wrap:wrap;gap:8px 14px}.site-shell-nav a{font-size:.8rem}.site-shell-nav .site-shell-rules,.site-shell-nav .site-shell-support{padding:8px 11px}.site-shell-footer{margin-top:40px}}
-@media(max-width:520px){.site-shell-header,.site-shell-footer{width:92%}.site-shell-nav{gap:8px;justify-content:flex-start}.site-shell-nav a{font-size:.76rem}.site-shell-nav .site-shell-rules,.site-shell-nav .site-shell-support{padding:7px 9px}.site-shell-footer{min-height:68px;margin-top:34px;padding:16px 0}.global-mode-switch,.dusk-mode-switch,.bouton-mode,.faq-mode,.contact-mode,.site-shell-mode{bottom:12px!important;left:12px!important}.site-shell-mode{padding:8px 10px}}
+@media(max-width:800px){.site-shell-header{align-items:flex-start;flex-wrap:wrap;min-height:0;padding:16px 0;gap:14px}.site-shell-brand{padding-top:7px}.site-shell-nav{width:100%;justify-content:flex-start;flex-wrap:wrap;gap:8px 14px}.site-shell-nav a{font-size:.8rem}.site-shell-nav .site-shell-rules{padding:8px 11px}.site-shell-header .site-shell-nav>a.site-shell-support{padding:8px 11px;font-size:.8rem}.site-shell-footer{margin-top:40px}}
+@media(max-width:520px){.site-shell-header,.site-shell-footer{width:92%}.site-shell-nav{gap:8px;justify-content:flex-start}.site-shell-nav a{font-size:.76rem}.site-shell-nav .site-shell-rules{padding:7px 9px}.site-shell-header .site-shell-nav>a.site-shell-support{padding:7px 9px;font-size:.76rem}.site-shell-footer{min-height:68px;margin-top:34px;padding:16px 0}.global-mode-switch,.dusk-mode-switch,.bouton-mode,.faq-mode,.contact-mode,.site-shell-mode{bottom:12px!important;left:12px!important}.site-shell-mode{padding:8px 10px}}
 @media(prefers-reduced-motion:reduce){.site-shell-header *,.site-shell-footer *,.site-shell-mode *{transition:none!important}}
