@@ -3,138 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11121a">
-  <meta name="description" content="Gère ta collection personnelle de cartes Duskclaw.">
-  <title>Ma collection — Duskclaw</title>
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <meta name="theme-color" content="#f1ead9">
+  <meta name="description" content="Découvre Duskclaw, un monde de Furries, de cartes et de contrées mystérieuses, entre le Jour et la Nuit.">
+  <title>Duskclaw — Entre le Jour et la Nuit</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    :root{--ink:var(--text,#ece9e1);--muted-ink:var(--muted,#b8bdca);--paper:var(--surface,#1a2030);--accent-ink:var(--accent,#b8a6df);--line-ink:var(--line,rgba(229,225,243,.2))}
-    body[data-time="nuit"]{--background:#111724;--surface:#1a2030;--text:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2);--ink:#ece9e1;--muted-ink:#b8bdca;--paper:#1a2030;--accent-ink:#b8a6df;--line-ink:rgba(229,225,243,.2);color-scheme:dark}
-    body[data-time="jour"]{--background:#f1ead9;--surface:#f8f3e8;--text:#252920;--muted:#66695f;--accent:#8a6a37;--line:rgba(60,58,47,.24);--ink:#252920;--muted-ink:#66695f;--paper:#f8f3e8;--accent-ink:#8a6a37;--line-ink:rgba(60,58,47,.24);color-scheme:light}
-    body{min-height:100vh;background:var(--background,#111724);color:var(--ink)}
-    .dusk-shell{width:min(1320px,90%);margin-inline:auto}
-    .dusk-header{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:24px;width:min(1320px,90%);height:83px;min-height:83px;margin-inline:auto;padding:0;border-bottom:1px solid var(--line-ink)}
-    .dusk-brand{color:var(--ink);font-size:1rem;font-weight:800;letter-spacing:.19em;text-decoration:none}.dusk-brand span{color:var(--accent-ink)}
-    .dusk-nav{display:flex;align-items:center;gap:clamp(18px,3vw,38px)}.dusk-nav a{color:var(--muted-ink);font-size:.88rem;text-decoration:none}.dusk-nav a:hover,.dusk-nav a:focus-visible{color:var(--accent-ink)}.dusk-nav .dusk-rules{padding:10px 14px;border:1px solid var(--line-ink);color:var(--ink)}.dusk-nav .dusk-support{padding:10px 14px;background:var(--accent-ink);color:#15141b;font-weight:700}
-    .page{width:min(1120px,90%);margin:clamp(42px,8vh,90px) auto 100px}.eyebrow{color:var(--accent-ink);font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.page h1{margin:.35em 0;font-size:clamp(2.6rem,6vw,4.7rem);line-height:1.04}.lede{max-width:680px;color:var(--muted-ink);font-size:1.08rem;line-height:1.7}
-    .notice{margin:26px 0;padding:14px 17px;border:1px solid var(--line-ink);border-left:3px solid var(--accent-ink);border-radius:8px;background:var(--paper);color:var(--muted-ink);line-height:1.55}.notice[hidden]{display:none}
-    .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:32px}.panel{padding:clamp(20px,3vw,32px);border:1px solid var(--line-ink);border-radius:16px;background:var(--paper)}.panel h2{margin:0 0 20px;font-size:1.5rem}.field{display:grid;gap:7px;margin:15px 0;color:var(--muted-ink);font-size:.9rem}.field input,.field select{box-sizing:border-box;width:100%;min-height:48px;padding:11px 13px;border:1px solid var(--line-ink);border-radius:8px;background:var(--background,#111724);color:var(--ink);font:inherit}.field input:focus,.field select:focus{outline:2px solid var(--accent-ink);outline-offset:2px}
-    .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 17px;border:1px solid var(--accent-ink);border-radius:8px;background:var(--accent-ink);color:#171520;font:inherit;font-weight:700;font-size:.92rem;text-decoration:none;cursor:pointer}.button:hover{filter:brightness(1.08)}.button:disabled{opacity:.55;cursor:not-allowed}.button-secondary{background:transparent;color:var(--ink);border-color:var(--line-ink)}.button-danger{border-color:#a65e61;background:transparent;color:#f0b2b3}.text-button{padding:8px 0;border:0;background:none;color:var(--accent-ink);font:inherit;text-decoration:underline;cursor:pointer}.form-message{min-height:1.5em;margin:12px 0 0;color:var(--muted-ink);font-size:.9rem;line-height:1.5}.form-message.error{color:#ffaaa8}.form-message.success{color:#9bd7b1}.small-note{color:var(--muted-ink);font-size:.82rem;line-height:1.55}
-    .account-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 20px;border:1px solid var(--line-ink);border-radius:12px;background:var(--paper)}.account-bar p{margin:3px 0;color:var(--muted-ink)}.collection-layout{display:grid;grid-template-columns:minmax(270px,.75fr) minmax(0,1.25fr);gap:22px;margin-top:22px}.collection-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}.collection-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;border:1px solid var(--line-ink);border-radius:10px;background:var(--paper)}.collection-item strong{display:block}.collection-item small{display:block;margin-top:3px;color:var(--muted-ink)}.quantity{display:flex;align-items:center;gap:9px}.quantity span{color:var(--accent-ink);font-weight:800}.empty-state{padding:28px 16px;border:1px dashed var(--line-ink);border-radius:12px;color:var(--muted-ink);text-align:center}.collection-count{color:var(--muted-ink);font-size:.9rem}.hidden{display:none!important}
-    .dusk-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;width:min(1320px,90%);margin:60px auto 0;padding:30px 0;border-top:1px solid var(--line-ink);color:var(--muted-ink)}.dusk-footer a{color:var(--accent-ink)}
-    .global-mode-switch{position:fixed;z-index:30;bottom:22px;left:22px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--line-ink);border-radius:999px;background:var(--paper);color:var(--muted-ink);font-size:.76rem;font-weight:700;box-shadow:0 5px 22px rgba(18,21,29,.2);cursor:pointer}.global-mode-switch input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.global-mode-track{position:relative;width:40px;height:22px;border:1px solid var(--line-ink);border-radius:20px;background:#d9cfb9;transition:background .25s ease}.global-mode-track::before{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fffaf0;box-shadow:0 1px 4px rgba(0,0,0,.24);content:"";transition:transform .25s ease}.global-mode-switch input:checked+.global-mode-track{background:#5e527f}.global-mode-switch input:checked+.global-mode-track::before{transform:translateX(18px);background:#e5dcf5}.global-mode-switch input:focus-visible+.global-mode-track{outline:2px solid var(--accent-ink);outline-offset:3px}
-    @media(max-width:760px){.dusk-header{flex-wrap:wrap;height:auto;min-height:82px;padding-block:17px}.dusk-nav{order:3;width:100%;justify-content:space-between;gap:10px}.dusk-nav a{font-size:.78rem}.page{width:92%;margin-top:38px}.auth-grid,.collection-layout{grid-template-columns:1fr}.account-bar{align-items:flex-start;flex-direction:column}.dusk-footer{align-items:flex-start;flex-direction:column}.global-mode-switch{position:static;width:max-content;margin:20px auto 24px;box-shadow:none}}
+    :root { --dusk-bg: #f1ead9; --dusk-paper: #f8f3e8; --dusk-ink: #252920; --dusk-muted: #66695f; --dusk-accent: #8a6a37; --dusk-rule: rgba(60,58,47,.24); }
+    body.dual-page { margin: 0; background: var(--dusk-bg); color: var(--dusk-ink); transition: background .45s ease, color .45s ease; }
+    .dual-page a { color: inherit; }
+    .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
+    .dusk-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--dusk-rule); }
+    .dusk-brand { color: var(--dusk-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
+    .dusk-brand span { color: var(--dusk-accent); }
+    .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
+    .dusk-nav a { color: var(--dusk-muted); font-size: .88rem; text-decoration: none; }
+    .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--dusk-accent); }
+    .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); }
+    .dusk-nav .dusk-support { padding: 10px 14px; background: var(--dusk-accent); color: #fff !important; font-weight: 700; }
+    .dusk-nav .dusk-support:hover, .dusk-nav .dusk-support:focus-visible { filter: brightness(1.08); }
+    .dusk-main { position: relative; overflow: hidden; }
+    .dusk-hero { position: relative; display: grid; grid-template-columns: 1fr .92fr; align-items: center; gap: clamp(45px, 8vw, 110px); min-height: min(720px, calc(100svh - 83px)); padding-block: 64px 78px; isolation: isolate; }
+    .dusk-hero::before { position: absolute; z-index: -2; inset: 0 -5.6vw; background: radial-gradient(ellipse at 76% 46%, rgba(183,151,97,.14), transparent 39%), linear-gradient(112deg, var(--dusk-bg), var(--dusk-paper) 63%, #e7dfcd); content: ""; transition: background .45s ease; }
+    .dusk-copy { max-width: 610px; }
+    .dusk-kicker { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--dusk-accent); font-size: .7rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    .dusk-kicker::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+    .dusk-title { margin: 23px 0 21px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.4rem, 7vw, 7rem); font-weight: 400; letter-spacing: -.065em; line-height: .94; }
+    .dusk-title em { color: var(--dusk-accent); font-weight: 400; }
+    .dusk-description { max-width: 500px; margin: 0; color: var(--dusk-muted); font-size: clamp(1rem, 1.4vw, 1.12rem); line-height: 1.8; }
+    .dusk-mode-switch { position: fixed; z-index: 20; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--dusk-rule); background: var(--dusk-paper); color: var(--dusk-muted); font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+    body.dual-page:not([data-time="nuit"]) .dusk-mode-switch .mode-day-label, body.dual-page[data-time="nuit"] .dusk-mode-switch .mode-night-label { color: var(--dusk-accent); }
+    .dusk-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .dusk-switch-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--dusk-rule); border-radius: 20px; background: #d9cfb9; transition: background .25s ease; }
+    .dusk-switch-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fffaf0; box-shadow: 0 1px 4px rgba(0,0,0,.24); content: ""; transition: transform .25s ease, background .25s ease; }
+    .dusk-mode-switch input:checked + .dusk-switch-track { background: #5e527f; }
+    .dusk-mode-switch input:checked + .dusk-switch-track::before { transform: translateX(19px); background: #e5dcf5; }
+    .dusk-mode-switch input:focus-visible + .dusk-switch-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
+    body.dual-page[data-time="nuit"] .dusk-mode-switch { border-color: rgba(184,166,223,.55); background: #25253d; }
+    .dusk-links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 23px; margin-top: 32px; }
+    .dusk-primary { display: inline-flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--dusk-ink); color: var(--dusk-paper) !important; font-size: .88rem; font-weight: 750; text-decoration: none; transition: transform .2s ease, background .3s ease; }
+    .dusk-primary:hover, .dusk-primary:focus-visible { transform: translateY(-2px); background: var(--dusk-accent); }
+    .dusk-secondary { color: var(--dusk-ink) !important; font-size: .9rem; text-decoration-color: var(--dusk-rule); text-underline-offset: 5px; }
+    .dusk-art { position: relative; display: grid; place-items: center; min-height: 520px; }
+    .dusk-art::before { position: absolute; width: min(42vw, 540px); aspect-ratio: 1; border: 1px solid rgba(138,106,55,.37); border-radius: 50%; box-shadow: 0 0 0 13px rgba(138,106,55,.05), 0 0 0 45px rgba(138,106,55,.035); content: ""; }
+    .dusk-emblem { position: absolute; top: 2%; right: 9%; display: grid; width: 88px; aspect-ratio: 1; place-items: center; border: 1px solid rgba(138,106,55,.44); border-radius: 50%; background: var(--dusk-paper); color: var(--dusk-accent); font-size: 2.25rem; box-shadow: 0 8px 32px rgba(48,42,31,.12); transition: transform .45s ease, background .45s ease, color .45s ease; }
+    .dusk-art-frame { position: relative; width: min(100%, 530px); padding: 12px; border: 1px solid rgba(138,106,55,.52); background: var(--dusk-paper); box-shadow: 0 24px 58px rgba(48,42,31,.2); transform: rotate(1deg); transition: background .45s ease, border-color .45s ease; }
+    .dusk-art-frame::before { position: absolute; z-index: 1; inset: 6px; border: 1px solid rgba(87,76,56,.24); content: ""; pointer-events: none; }
+    .dusk-art-frame img { display: block; width: 100%; max-height: 570px; object-fit: contain; }
+    .dusk-art-caption { position: absolute; right: 0; bottom: -36px; color: var(--dusk-muted); font-family: Georgia, "Times New Roman", serif; font-size: .83rem; font-style: italic; }
+    .dusk-divider { display: flex; align-items: center; gap: 18px; color: var(--dusk-accent); font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem; }
+    .dusk-divider::before, .dusk-divider::after { height: 1px; flex: 1; background: var(--dusk-rule); content: ""; }
+    .dusk-lore { padding: 24px 0 74px; }
+    .dusk-lore-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-block: 1px solid var(--dusk-rule); }
+    .dusk-lore article { padding: 34px clamp(20px, 4vw, 56px); }
+    .dusk-lore article + article { border-left: 1px solid var(--dusk-rule); }
+    .dusk-lore h2 { margin: 0 0 10px; font-family: Georgia, "Times New Roman", serif; font-size: 2rem; font-weight: 400; }
+    .dusk-lore p { max-width: 500px; margin: 0; color: var(--dusk-muted); line-height: 1.7; }
+    .dusk-footer { display: flex; justify-content: space-between; gap: 18px; padding-block: 23px 30px; border-top: 1px solid var(--dusk-rule); color: var(--dusk-muted); font-size: .8rem; }
+    .dusk-footer a { color: var(--dusk-ink); text-decoration: none; }
+    body.dual-page[data-time="nuit"] { --dusk-bg: #111724; --dusk-paper: #1a2030; --dusk-ink: #ece9e1; --dusk-muted: #b8bdca; --dusk-accent: #b8a6df; --dusk-rule: rgba(229,225,243,.2); }
+    body.dual-page[data-time="nuit"] .dusk-hero::before { background: radial-gradient(ellipse at 76% 46%, rgba(124,109,183,.22), transparent 40%), radial-gradient(ellipse at 32% 85%, rgba(50,77,103,.18), transparent 45%), linear-gradient(112deg, #111724, #1a2030 63%, #20233a); }
+    body.dual-page[data-time="nuit"] .dusk-mode-toggle { background: #25253d; color: #d6c5f2; border-color: rgba(184,166,223,.6); }
+    body.dual-page[data-time="nuit"] .dusk-primary { background: #d5c9ee; color: #19172a !important; }
+    body.dual-page[data-time="nuit"] .dusk-primary:hover, body.dual-page[data-time="nuit"] .dusk-primary:focus-visible { background: #eadff4; }
+    body.dual-page[data-time="nuit"] .dusk-art::before { border-color: rgba(184,166,223,.4); box-shadow: 0 0 0 13px rgba(184,166,223,.06), 0 0 0 45px rgba(184,166,223,.035); }
+    body.dual-page[data-time="nuit"] .dusk-emblem { background: #25253d; color: #d6c5f2; border-color: rgba(184,166,223,.55); transform: rotate(-16deg); }
+    body.dual-page[data-time="nuit"] .dusk-art-frame { border-color: rgba(184,166,223,.6); box-shadow: 0 24px 58px rgba(0,0,0,.35), 0 0 30px rgba(141,121,194,.15); }
+    @media (max-width: 800px) {
+      .dusk-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
+      .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
+      .dusk-nav a { font-size: .82rem; }
+      .dusk-hero { grid-template-columns: 1fr; gap: 35px; min-height: 0; padding-block: 58px 62px; }
+      .dusk-copy { max-width: 680px; }
+      .dusk-art { min-height: 420px; }
+      .dusk-art::before { width: min(82vw, 470px); }
+      .dusk-art-frame { width: min(90%, 470px); }
+      .dusk-emblem { right: 12%; }
+      .dusk-mode-switch { bottom: 14px; left: 14px; }
+    }
+    @media (max-width: 560px) {
+      .dusk-shell { width: 90%; }
+      .dusk-title { font-size: clamp(3.2rem, 14vw, 5rem); }
+      .dusk-links { align-items: flex-start; flex-direction: column; }
+      .dusk-art { min-height: 350px; }
+      .dusk-art-frame { width: 90%; }
+      .dusk-emblem { top: 0; right: 4%; width: 65px; font-size: 1.7rem; }
+      .dusk-lore-grid { grid-template-columns: 1fr; }
+      .dusk-lore article { padding: 25px 4%; }
+      .dusk-lore article + article { border-top: 1px solid var(--dusk-rule); border-left: 0; }
+      .dusk-footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { .dual-page *, .dual-page *::before, .dual-page *::after { transition-duration: .01ms !important; } }
+    @media (max-width: 560px) {
+      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
+        position: static !important;
+        inset: auto !important;
+        width: max-content;
+        margin: 18px auto 24px;
+        padding: 7px 9px;
+        gap: 7px;
+        font-size: .7rem;
+        box-shadow: none;
+      }
+      .product-art {
+        width: min(84%, 340px);
+        min-height: 0;
+        aspect-ratio: 1.12 / 1;
+        margin-inline: auto;
+      }
+    }
+    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--dusk-rule, var(--line, rgba(60,58,47,.24))); color:var(--dusk-ink, var(--text, #252920)) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
+    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--dusk-accent, var(--accent, #8a6a37)); background:var(--dusk-accent, var(--accent, #8a6a37)); color:#fff !important; outline:none; }
   </style>
 </head>
-<body data-time="nuit">
+<body class="dual-page" data-time="jour">
   <header class="dusk-header dusk-shell">
-    <a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <a class="dusk-brand" href="#accueil" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="dusk-nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a>
-      <a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a class="dusk-support" href="soutenir.html">Soutenir</a>
+      <a href="univers.html">Univers</a>
+      <a href="personnages.html">Cardex</a>
+      <a href="collection.html">Ma collection</a>
+      <a href="faq.html">FAQ</a>
+      <a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+      <a class="dusk-support" href="soutenir.html">Soutenir</a>
     </nav>
   </header>
-  <main class="page">
-    <p class="eyebrow">TON CARDEX PERSONNEL</p>
-    <h1>Ma collection<span style="color:var(--accent-ink)">.</span></h1>
-    <p class="lede">Garde la trace des cartes que tu possèdes et de leur quantité. Ta collection est privée et liée à ton compte.</p>
-    <div id="setup-warning" class="notice" role="status">La connexion sécurisée n’est pas encore configurée. Le responsable du site doit relier cette page au service de comptes avant son ouverture aux visiteurs.</div>
-    <div id="global-message" class="notice" role="status" hidden></div>
-    <section id="auth-panel" class="auth-grid" aria-label="Connexion ou création de compte">
-      <form id="login-form" class="panel">
-        <h2>Se connecter</h2>
-        <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
-        <label class="field">Mot de passe<input name="password" type="password" autocomplete="current-password" required></label>
-        <button class="button" type="submit">Connexion <span aria-hidden="true">→</span></button>
-        <button id="forgot-password" class="text-button" type="button">Mot de passe oublié ?</button>
-        <p id="login-message" class="form-message" aria-live="polite"></p>
-      </form>
-      <form id="signup-form" class="panel">
-        <h2>Créer un compte</h2>
-        <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
-        <label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="12" required><span class="small-note">Choisis au moins 12 caractères, avec des majuscules, minuscules, chiffres et symboles.</span></label>
-        <button class="button" type="submit">Créer mon compte <span aria-hidden="true">→</span></button>
-        <p id="signup-message" class="form-message" aria-live="polite"></p>
-      </form>
-      <form id="reset-form" class="panel hidden">
-        <h2>Choisir un nouveau mot de passe</h2>
-        <label class="field">Nouveau mot de passe<input name="password" type="password" autocomplete="new-password" minlength="12" required></label>
-        <button class="button" type="submit">Enregistrer le mot de passe</button>
-        <p id="reset-message" class="form-message" aria-live="polite"></p>
-      </form>
+
+  <main class="dusk-main" id="accueil">
+    <section class="dusk-hero dusk-shell" aria-labelledby="hero-title">
+      <div class="dusk-copy">
+        <p class="dusk-kicker" id="time-kicker">Le royaume du Jour</p>
+        <h1 class="dusk-title" id="hero-title">Les routes<br>s’ouvrent à <em>l’aube.</em></h1>
+        <p class="dusk-description" id="hero-description">Sous la lumière dorée, les voyageurs quittent les remparts et s’aventurent vers des terres encore inconnues. Le premier pas t’appartient.</p>
+        <div class="dusk-links">
+          <a class="dusk-primary" href="personnages.html">Entrer dans le Cardex <span aria-hidden="true">→</span></a>
+          <a class="dusk-secondary" href="regles.html">Découvrir les règles</a>
+        </div>
+      </div>
+      <div class="dusk-art">
+        <span class="dusk-emblem" id="day-emblem" aria-hidden="true">☼</span>
+        <div class="dusk-art-frame">
+          <img src="duskclaw-hero.png" alt="Illustration au trait de trois personnages de Duskclaw">
+        </div>
+        <span class="dusk-art-caption" id="art-caption">Chroniques du royaume · Première veille</span>
+      </div>
     </section>
-    <section id="account-panel" class="hidden" aria-label="Ma collection de cartes">
-      <div class="account-bar"><div><strong>Connecté avec <span id="account-email"></span></strong><p>Seul ce compte peut consulter et modifier cette collection.</p></div><button id="logout-button" class="button button-secondary" type="button">Se déconnecter</button></div>
-      <div class="collection-layout">
-        <form id="add-card-form" class="panel">
-          <h2>Ajouter une carte</h2>
-          <label class="field">Carte<select id="card-choice" required><option value="">Choisir une carte…</option></select></label>
-          <label class="field">Quantité<input id="card-quantity" type="number" min="1" max="99" value="1" required></label>
-          <button class="button" type="submit">Ajouter à ma collection <span aria-hidden="true">+</span></button>
-          <p id="collection-message" class="form-message" aria-live="polite"></p>
-          <p class="small-note">Si la carte est déjà dans ta collection, la quantité est mise à jour.</p>
-          <button id="clear-collection" class="button button-danger" type="button">Vider ma collection</button>
-        </form>
-        <div class="panel"><h2>Mes cartes</h2><p id="collection-count" class="collection-count"></p><ul id="collection-list" class="collection-list"></ul><p id="collection-empty" class="empty-state hidden">Ta collection est encore vide. Ajoute ta première carte.</p></div>
+
+    <div class="dusk-divider dusk-shell" aria-hidden="true">Un monde, deux veilles</div>
+    <section class="dusk-lore dusk-shell" id="monde" aria-label="Le cycle de Duskclaw">
+      <div class="dusk-lore-grid">
+        <article>
+          <h2>☼ Le Jour</h2>
+          <p>Les chemins se dévoilent, les couleurs s’éveillent. C’est l’heure de partir à la rencontre des Furries et de découvrir les terres au grand jour.</p>
+        </article>
+        <article>
+          <h2>☾ La Nuit</h2>
+          <p>Les ombres s’étendent et les étoiles prennent le relais. Le monde devient plus secret, et chaque voyage réserve une surprise.</p>
+        </article>
       </div>
     </section>
   </main>
-  <footer class="dusk-footer"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
-  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit"><span class="mode-day">Jour</span><input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="true"><span class="global-mode-track" aria-hidden="true"></span><span class="mode-night">Nuit</span></label>
+
+  <footer class="dusk-footer dusk-shell">
+    <a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a>
+    <span>Un monde de cartes et de créatures.</span>
+    <span>© DUSKCLAW</span>
+  </footer>
+  <label class="dusk-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
+    <span class="mode-day-label">Jour</span>
+    <input id="mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
+    <span class="dusk-switch-track" aria-hidden="true"></span>
+    <span class="mode-night-label">Nuit</span>
+  </label>
   <script>
-    const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-    const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
-    const SUPABASE_URL = "https://bqqbciifmfbsjurkulfo.supabase.co";
-    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior";
-    const CARDS = [{"id": 1, "label": "#01 · Famille 1 · Base · Glace", "family": 1, "type": "Glace", "level": "Base", "rarity": "Commun"}, {"id": 2, "label": "#02 · Famille 1 · Niveau 1 · Glace", "family": 1, "type": "Glace", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 3, "label": "#03 · Marin · Base · Eau", "family": 2, "type": "Eau", "level": "Base", "rarity": "Commun"}, {"id": 4, "label": "#04 · Marin · Niveau 1 · Eau", "family": 2, "type": "Eau", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 5, "label": "#05 · Marin · Niveau 2 · Eau", "family": 2, "type": "Eau", "level": "Niveau 2", "rarity": "Rare"}, {"id": 6, "label": "#06 · Famille 3 · Base · Vent", "family": 3, "type": "Vent", "level": "Base", "rarity": "Commun"}, {"id": 7, "label": "#07 · Famille 3 · Niveau 1 · Vent", "family": 3, "type": "Vent", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 8, "label": "#08 · Famille 4 · Base · Plante", "family": 4, "type": "Plante", "level": "Base", "rarity": "Commun"}, {"id": 9, "label": "#09 · Famille 4 · Niveau 1 · Plante", "family": 4, "type": "Plante", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 10, "label": "#10 · Famille 4 · Niveau 2 · Plante", "family": 4, "type": "Plante", "level": "Niveau 2", "rarity": "Rare"}, {"id": 11, "label": "#11 · Famille 5 · Base · Roche", "family": 5, "type": "Roche", "level": "Base", "rarity": "Commun"}, {"id": 12, "label": "#12 · Famille 5 · Niveau 1 · Roche", "family": 5, "type": "Roche", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 13, "label": "#13 · Famille 6 · Base · Glace", "family": 6, "type": "Glace", "level": "Base", "rarity": "Commun"}, {"id": 14, "label": "#14 · Famille 6 · Niveau 1 · Glace", "family": 6, "type": "Glace", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 15, "label": "#15 · Famille 6 · Niveau 2 · Glace", "family": 6, "type": "Glace", "level": "Niveau 2", "rarity": "Rare"}, {"id": 16, "label": "#16 · Kael · Base · Plante", "family": 7, "type": "Plante", "level": "Base", "rarity": "Peu commun"}, {"id": 17, "label": "#17 · Kael · Niveau 1 · Plante", "family": 7, "type": "Plante", "level": "Niveau 1", "rarity": "Rare"}, {"id": 18, "label": "#18 · Famille 8 · Base · Eau", "family": 8, "type": "Eau", "level": "Base", "rarity": "Commun"}, {"id": 19, "label": "#19 · Famille 8 · Niveau 1 · Eau", "family": 8, "type": "Eau", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 20, "label": "#20 · Famille 8 · Niveau 2 · Eau", "family": 8, "type": "Eau", "level": "Niveau 2", "rarity": "Rare"}, {"id": 21, "label": "#21 · Famille 9 · Base · Glace", "family": 9, "type": "Glace", "level": "Base", "rarity": "Commun"}, {"id": 22, "label": "#22 · Famille 9 · Niveau 1 · Glace", "family": 9, "type": "Glace", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 23, "label": "#23 · Caine · Base · Roche", "family": 10, "type": "Roche", "level": "Base", "rarity": "Commun"}, {"id": 24, "label": "#24 · Caine · Niveau 1 · Roche", "family": 10, "type": "Roche", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 25, "label": "#25 · Caine · Niveau 2 · Roche", "family": 10, "type": "Roche", "level": "Niveau 2", "rarity": "Rare"}, {"id": 26, "label": "#26 · Famille 11 · Base · Vent", "family": 11, "type": "Vent", "level": "Base", "rarity": "Commun"}, {"id": 27, "label": "#27 · Famille 11 · Niveau 1 · Vent", "family": 11, "type": "Vent", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 28, "label": "#28 · Famille 12 · Base · Plante", "family": 12, "type": "Plante", "level": "Base", "rarity": "Commun"}, {"id": 29, "label": "#29 · Famille 12 · Niveau 1 · Plante", "family": 12, "type": "Plante", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 30, "label": "#30 · Famille 12 · Niveau 2 · Plante", "family": 12, "type": "Plante", "level": "Niveau 2", "rarity": "Rare"}, {"id": 31, "label": "#31 · Famille 13 · Base · Eau", "family": 13, "type": "Eau", "level": "Base", "rarity": "Commun"}, {"id": 32, "label": "#32 · Famille 13 · Niveau 1 · Eau", "family": 13, "type": "Eau", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 33, "label": "#33 · Famille 14 · Base · Vent", "family": 14, "type": "Vent", "level": "Base", "rarity": "Commun"}, {"id": 34, "label": "#34 · Famille 14 · Niveau 1 · Vent", "family": 14, "type": "Vent", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 35, "label": "#35 · Famille 14 · Niveau 2 · Vent", "family": 14, "type": "Vent", "level": "Niveau 2", "rarity": "Rare"}, {"id": 36, "label": "#36 · Famille 15 · Base · Glace", "family": 15, "type": "Glace", "level": "Base", "rarity": "Commun"}, {"id": 37, "label": "#37 · Famille 16 · Base · Roche", "family": 16, "type": "Roche", "level": "Base", "rarity": "Commun"}, {"id": 38, "label": "#38 · Famille 16 · Niveau 1 · Roche", "family": 16, "type": "Roche", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 39, "label": "#39 · Famille 16 · Niveau 2 · Roche", "family": 16, "type": "Roche", "level": "Niveau 2", "rarity": "Rare"}, {"id": 40, "label": "#40 · Famille 17 · Base · Eau", "family": 17, "type": "Eau", "level": "Base", "rarity": "Commun"}, {"id": 41, "label": "#41 · Famille 18 · Base · Glace", "family": 18, "type": "Glace", "level": "Base", "rarity": "Commun"}, {"id": 42, "label": "#42 · Famille 18 · Niveau 1 · Glace", "family": 18, "type": "Glace", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 43, "label": "#43 · Famille 18 · Niveau 2 · Glace", "family": 18, "type": "Glace", "level": "Niveau 2", "rarity": "Rare"}, {"id": 44, "label": "#44 · Famille 19 · Base · Plante", "family": 19, "type": "Plante", "level": "Base", "rarity": "Commun"}, {"id": 45, "label": "#45 · Famille 19 · Niveau 1 · Plante", "family": 19, "type": "Plante", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 46, "label": "#46 · Famille 20 · Base · Eau", "family": 20, "type": "Eau", "level": "Base", "rarity": "Commun"}, {"id": 47, "label": "#47 · Famille 20 · Niveau 1 · Eau", "family": 20, "type": "Eau", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 48, "label": "#48 · Famille 20 · Niveau 2 · Eau", "family": 20, "type": "Eau", "level": "Niveau 2", "rarity": "Rare"}, {"id": 49, "label": "#49 · Famille 21 · Base · Vent", "family": 21, "type": "Vent", "level": "Base", "rarity": "Commun"}, {"id": 50, "label": "#50 · Famille 22 · Base · Roche", "family": 22, "type": "Roche", "level": "Base", "rarity": "Commun"}, {"id": 51, "label": "#51 · Famille 22 · Niveau 1 · Roche", "family": 22, "type": "Roche", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 52, "label": "#52 · Famille 22 · Niveau 2 · Roche", "family": 22, "type": "Roche", "level": "Niveau 2", "rarity": "Rare"}, {"id": 53, "label": "#53 · Famille 23 · Base · Vent", "family": 23, "type": "Vent", "level": "Base", "rarity": "Commun"}, {"id": 54, "label": "#54 · Famille 23 · Niveau 1 · Vent", "family": 23, "type": "Vent", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 55, "label": "#55 · Famille 23 · Niveau 2 · Vent", "family": 23, "type": "Vent", "level": "Niveau 2", "rarity": "Rare"}, {"id": 56, "label": "#56 · Famille 24 · Base · Plante", "family": 24, "type": "Plante", "level": "Base", "rarity": "Commun"}, {"id": 57, "label": "#57 · Famille 25 · Base · Roche", "family": 25, "type": "Roche", "level": "Base", "rarity": "Commun"}, {"id": 58, "label": "#58 · Famille 26 · Base · Eau", "family": 26, "type": "Eau", "level": "Base", "rarity": "Commun"}, {"id": 59, "label": "#59 · Famille 26 · Niveau 1 · Eau", "family": 26, "type": "Eau", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 60, "label": "#60 · Famille 27 · Base · Roche", "family": 27, "type": "Roche", "level": "Base", "rarity": "Commun"}, {"id": 61, "label": "#61 · Famille 27 · Niveau 1 · Roche", "family": 27, "type": "Roche", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 62, "label": "#62 · Famille 28 · Base · Glace", "family": 28, "type": "Glace", "level": "Base", "rarity": "Commun"}, {"id": 63, "label": "#63 · Famille 28 · Niveau 1 · Glace", "family": 28, "type": "Glace", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 64, "label": "#64 · Famille 28 · Niveau 2 · Glace", "family": 28, "type": "Glace", "level": "Niveau 2", "rarity": "Rare"}, {"id": 65, "label": "#65 · Famille 29 · Base · Plante", "family": 29, "type": "Plante", "level": "Base", "rarity": "Commun"}, {"id": 66, "label": "#66 · Famille 29 · Niveau 1 · Plante", "family": 29, "type": "Plante", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 67, "label": "#67 · Famille 29 · Niveau 2 · Plante", "family": 29, "type": "Plante", "level": "Niveau 2", "rarity": "Rare"}, {"id": 68, "label": "#68 · Famille 30 · Base · Vent", "family": 30, "type": "Vent", "level": "Base", "rarity": "Commun"}, {"id": 69, "label": "#69 · Famille 30 · Niveau 1 · Vent", "family": 30, "type": "Vent", "level": "Niveau 1", "rarity": "Peu commun"}, {"id": 70, "label": "#70 · Famille 30 · Niveau 2 · Vent", "family": 30, "type": "Vent", "level": "Niveau 2", "rarity": "Rare"}, {"id": 71, "label": "#71 · Famille 31 · Base · Plante", "family": 31, "type": "Plante", "level": "Base", "rarity": "Épique"}, {"id": 72, "label": "#72 · Famille 32 · Base · Glace", "family": 32, "type": "Glace", "level": "Base", "rarity": "Épique"}, {"id": 73, "label": "#73 · Famille 33 · Base · Roche", "family": 33, "type": "Roche", "level": "Base", "rarity": "Épique"}, {"id": 74, "label": "#74 · Famille 34 · Base · Vent", "family": 34, "type": "Vent", "level": "Base", "rarity": "Épique"}, {"id": 75, "label": "#75 · Famille 35 · Base · Eau", "family": 35, "type": "Eau", "level": "Base", "rarity": "Épique"}];
-    const setupWarning=document.getElementById('setup-warning');
-    const authPanel=document.getElementById('auth-panel');
-    const accountPanel=document.getElementById('account-panel');
-    const globalMessage=document.getElementById('global-message');
-    function say(id,text,kind=''){const el=document.getElementById(id);if(el){el.textContent=text;el.className='form-message'+(kind?' '+kind:'');}}
-    function globalSay(text){globalMessage.hidden=!text;globalMessage.textContent=text;}
-    function friendlyError(error){return error?.message||'Une erreur est survenue. Vérifie ta connexion puis réessaie.';}
-    function setSignedIn(user){authPanel.classList.toggle('hidden',!!user);accountPanel.classList.toggle('hidden',!user);if(user)document.getElementById('account-email').textContent=user.email||'Compte connecté';}
-    const select=document.getElementById('card-choice');
-    CARDS.forEach(card=>{const option=document.createElement('option');option.value=card.id;option.textContent=card.label+' · '+card.rarity;select.append(option);});
-    const dayNight=document.getElementById('global-mode-toggle');
-    const savedTheme=localStorage.getItem('duskclaw-time');
-    document.body.dataset.time=savedTheme==='jour'?'jour':'nuit';dayNight.checked=document.body.dataset.time==='nuit';dayNight.setAttribute('aria-checked',String(dayNight.checked));
-    dayNight.addEventListener('change',()=>{document.body.dataset.time=dayNight.checked?'nuit':'jour';dayNight.setAttribute('aria-checked',String(dayNight.checked));localStorage.setItem('duskclaw-time',dayNight.checked?'nuit':'jour');});
-    const isConfigured=SUPABASE_URL.startsWith('https://')&&!SUPABASE_URL.includes('YOUR_')&&SUPABASE_PUBLISHABLE_KEY.length>20&&!SUPABASE_PUBLISHABLE_KEY.includes('YOUR_');
-    if(!isConfigured||!window.supabase){setupWarning.hidden=false;document.querySelectorAll('#auth-panel input,#auth-panel button').forEach(el=>el.disabled=true);}
-    else{
-      setupWarning.hidden=true;
-      const backend=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-      let currentUser=null;
-      async function refreshCollection(){
-        if(!currentUser)return;
-        const list=document.getElementById('collection-list');list.replaceChildren();
-        const {data,error}=await backend.from('user_collection').select('card_number,quantity').eq('user_id',currentUser.id).order('card_number');
-        if(error){globalSay('Impossible de charger ta collection. Vérifie que les règles de confidentialité de la base ont bien été installées.');return;}
-        const byId=new Map(CARDS.map(card=>[card.id,card]));
-        document.getElementById('collection-count').textContent=`${data.length} carte${data.length>1?'s':''} différente${data.length>1?'s':''} · ${data.reduce((sum,row)=>sum+row.quantity,0)} exemplaire${data.reduce((sum,row)=>sum+row.quantity,0)>1?'s':''}`;
-        document.getElementById('collection-empty').classList.toggle('hidden',data.length>0);
-        data.forEach(row=>{
-          const card=byId.get(row.card_number);if(!card)return;
-          const li=document.createElement('li');li.className='collection-item';
-          const detail=document.createElement('span');const title=document.createElement('strong');title.textContent=card.label;const meta=document.createElement('small');meta.textContent=`${card.type} · ${card.rarity}`;detail.append(title,meta);
-          const controls=document.createElement('span');controls.className='quantity';const count=document.createElement('span');count.textContent='×'+row.quantity;
-          const remove=document.createElement('button');remove.type='button';remove.className='button button-secondary';remove.textContent='Retirer';remove.setAttribute('aria-label','Retirer '+card.label+' de la collection');remove.addEventListener('click',()=>removeCard(card.id));controls.append(count,remove);li.append(detail,controls);list.append(li);
-        });
+    const dayNightContent = {
+      jour: {
+        kicker: "Le royaume du Jour",
+        title: "Les routes<br>s’ouvrent à <em>l’aube.</em>",
+        description: "Sous la lumière dorée, les voyageurs quittent les remparts et s’aventurent vers des terres encore inconnues. Le premier pas t’appartient.",
+        emblem: "☼",
+        artCaption: "Chroniques du royaume · Première veille"
+      },
+      nuit: {
+        kicker: "Le royaume de la Nuit",
+        title: "Les secrets<br>veillent sous <em>la lune.</em>",
+        description: "Quand le dernier rayon disparaît, les étoiles éclairent d’autres chemins. Avance avec prudence : la Nuit révèle autant qu’elle dissimule.",
+        emblem: "☾",
+        artCaption: "Chroniques du royaume · Veille nocturne"
       }
-      async function removeCard(id){const {error}=await backend.from('user_collection').delete().eq('user_id',currentUser.id).eq('card_number',id);if(error)globalSay(friendlyError(error));else{globalSay('Carte retirée de ta collection.');await refreshCollection();}}
-      async function syncSession(){const {data,error}=await backend.auth.getUser();if(error){setSignedIn(null);return;}currentUser=data.user;setSignedIn(currentUser);if(currentUser)await refreshCollection();}
-      backend.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setSignedIn(currentUser);if(currentUser)setTimeout(()=>refreshCollection(),0);if(event==='PASSWORD_RECOVERY'){authPanel.classList.remove('hidden');document.getElementById('login-form').classList.add('hidden');document.getElementById('signup-form').classList.add('hidden');document.getElementById('reset-form').classList.remove('hidden');}});
-      syncSession();
-      document.getElementById('login-form').addEventListener('submit',async event=>{event.preventDefault();const form=new FormData(event.currentTarget);say('login-message','Connexion…');const {error}=await backend.auth.signInWithPassword({email:form.get('email'),password:form.get('password')});say('login-message',error?friendlyError(error):'Connexion réussie.','success');});
-      document.getElementById('signup-form').addEventListener('submit',async event=>{event.preventDefault();const form=new FormData(event.currentTarget);const password=form.get('password');if(password.length<12){say('signup-message','Utilise au moins 12 caractères.','error');return;}say('signup-message','Création du compte…');const {data,error}=await backend.auth.signUp({email:form.get('email'),password,options:{emailRedirectTo:location.href.split('#')[0]}});if(error){say('signup-message',friendlyError(error),'error');return;}say('signup-message',data.session?'Compte créé. Tu es connecté.':'Compte créé. Consulte ta boîte mail pour confirmer ton adresse avant de te connecter.','success');});
-      document.getElementById('forgot-password').addEventListener('click',async()=>{const email=document.querySelector('#login-form [name="email"]').value.trim();if(!email){say('login-message','Entre ton adresse e-mail pour recevoir le lien de réinitialisation.','error');return;}say('login-message','Envoi du lien…');const {error}=await backend.auth.resetPasswordForEmail(email,{redirectTo:location.href.split('#')[0]});say('login-message',error?friendlyError(error):'Si un compte correspond à cette adresse, un lien de réinitialisation vient d’être envoyé.','success');});
-      document.getElementById('reset-form').addEventListener('submit',async event=>{event.preventDefault();const password=new FormData(event.currentTarget).get('password');if(password.length<12){say('reset-message','Utilise au moins 12 caractères.','error');return;}const {error}=await backend.auth.updateUser({password});say('reset-message',error?friendlyError(error):'Mot de passe mis à jour.','success');if(!error)setTimeout(()=>location.reload(),900);});
-      document.getElementById('logout-button').addEventListener('click',async()=>{const {error}=await backend.auth.signOut();if(error)globalSay(friendlyError(error));else{currentUser=null;setSignedIn(null);globalSay('Tu es déconnecté.');}});
-      document.getElementById('add-card-form').addEventListener('submit',async event=>{event.preventDefault();const id=Number(select.value),quantity=Number(document.getElementById('card-quantity').value);if(!id||quantity<1||quantity>99)return;say('collection-message','Enregistrement…');const {error}=await backend.from('user_collection').upsert({user_id:currentUser.id,card_number:id,quantity},{onConflict:'user_id,card_number'});say('collection-message',error?friendlyError(error):'Carte ajoutée à ta collection.','success');if(!error){event.currentTarget.reset();document.getElementById('card-quantity').value=1;await refreshCollection();}});
-      document.getElementById('clear-collection').addEventListener('click',async()=>{if(!confirm('Retirer toutes les cartes de ta collection ? Cette action est définitive.'))return;const {error}=await backend.from('user_collection').delete().eq('user_id',currentUser.id);if(error)globalSay(friendlyError(error));else{globalSay('Ta collection est vide.');await refreshCollection();}});
+    };
+    const modeToggle = document.getElementById("mode-toggle");
+    function setTime(time, remember = false) {
+      const content = dayNightContent[time];
+      document.body.dataset.time = time;
+      document.querySelector('meta[name="theme-color"]').content = time === "jour" ? "#f1ead9" : "#111724";
+      document.getElementById("time-kicker").textContent = content.kicker;
+      document.getElementById("hero-title").innerHTML = content.title;
+      document.getElementById("hero-description").textContent = content.description;
+      document.getElementById("day-emblem").textContent = content.emblem;
+      document.getElementById("art-caption").textContent = content.artCaption;
+      const isNight = time === "nuit";
+      modeToggle.checked = isNight;
+      modeToggle.setAttribute("aria-checked", String(isNight));
+      if (remember) localStorage.setItem("duskclaw-time", time);
     }
+    modeToggle.addEventListener("change", () => {
+      setTime(modeToggle.checked ? "nuit" : "jour", true);
+    });
+    setTime(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
 </body>
 </html>
