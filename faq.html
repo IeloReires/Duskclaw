@@ -59,13 +59,18 @@
 <body id="top" data-time="jour">
   <header class="site-shell-header">
   <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-  <nav class="site-shell-nav" aria-label="Navigation principale">
+  <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="site-shell-actions">
+    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a>
+  </div>
+  <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert>
     <a href="personnages.html">Cardex</a>
     <a href="univers.html">Univers</a>
     <a href="faq.html">FAQ</a>
-    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
-    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
-    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+    <a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
   </nav>
 </header>
 
@@ -131,8 +136,10 @@
   </script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="account-nav.js"></script>
+<script src="site-shell.js"></script>
 </body>
 </html>
+
 
 
 

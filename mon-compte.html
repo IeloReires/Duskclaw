@@ -59,14 +59,16 @@
 <body data-time="nuit">
   <header class="site-shell-header">
   <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-  <nav class="site-shell-nav" aria-label="Navigation principale">
-    <a href="personnages.html">Cardex</a>
-    <a href="univers.html">Univers</a>
-    <a href="faq.html">FAQ</a>
-    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+  <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="site-shell-actions">
     <a class="site-shell-support" href="soutenir.html">Soutenir</a>
     <a id="moderation-nav-link" class="site-shell-moderation hidden" href="moderation.html">Modération</a>
-    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a>
+  </div>
+  <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert>
+    <a href="personnages.html">Cardex</a><a href="univers.html">Univers</a><a href="faq.html">FAQ</a><a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
   </nav>
 </header>
   <main>
@@ -201,7 +203,7 @@
       document.querySelectorAll("[data-theme-choice]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.themeChoice === bannerTheme)));
       document.querySelectorAll(".palette [data-color]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.color.toLowerCase() === bannerColor.toLowerCase())));
       const accountLink = document.getElementById("account-nav-link");
-      const navAvatar = document.createElement("span"); navAvatar.className = "nav-avatar";
+      const navAvatar = document.createElement("span"); navAvatar.className = "site-shell-avatar";
       navAvatar.textContent = welcome.charAt(0).toUpperCase();
       if (profile.avatar_path && currentUser) {
         const { data: navData } = await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path, 3600);
@@ -209,8 +211,8 @@
         if (navData?.signedUrl) { const navImg = new Image(); navImg.src = navData.signedUrl; navImg.alt = ""; navAvatar.replaceChildren(navImg); }
       }
       if (userForRender !== currentUser || renderVersion !== profileRenderVersion) return;
-      accountLink.replaceChildren(navAvatar, document.createTextNode(profile.nickname.trim() || "Mon compte"));
-      accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "12px";
+      accountLink.replaceChildren(navAvatar); accountLink.setAttribute("aria-label", `Profil de ${profile.nickname.trim() || "Mon compte"}`); accountLink.setAttribute("title", profile.nickname.trim() || "Mon compte");
+      accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "0";
       const preview = document.getElementById("avatar-edit");
       preview.replaceChildren();
       if (selectedAvatarImage) { const local = new Image(); local.alt = "Aperçu du cadrage de la photo"; local.src = selectedAvatarImage.src; local.style.transform = `scale(${document.getElementById("avatar-zoom").value})`; preview.append(local); return; }
@@ -376,7 +378,10 @@
       finally { saveButton.disabled = false; }
     });
   </script>
+<script src="site-shell.js"></script>
 </body>
 </html>
+
+
 
 
