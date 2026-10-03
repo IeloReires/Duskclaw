@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111724">
+  <meta name="description" content="Retrouve tes amis Duskclaw, accepte leurs invitations et découvre leurs cartes à l’honneur.">
+  <title>Mes amis — Duskclaw</title>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="site-shell.css">
+  <style>
+    :root{color-scheme:dark;--bg:#111724;--paper:#1a2030;--paper-soft:#20283a;--ink:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.17);--green:#9bd7b1;--gold:#d4b36d}
+    body[data-time="jour"]{color-scheme:light;--bg:#f1ead9;--paper:#f8f3e8;--paper-soft:#eee7d9;--ink:#252920;--muted:#686b63;--accent:#8a6a37;--line:rgba(60,58,47,.2);--green:#467b53;--gold:#a97927}
+    *{box-sizing:border-box}.hidden{display:none!important}body{min-height:100vh;margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;transition:background .25s,color .25s}a{color:inherit}.friends-page{width:min(1120px,90%);margin:58px auto 92px}.eyebrow{margin:0;color:var(--accent);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1,h2,h3,p{margin-top:0}h1{margin:8px 0 12px;font:400 clamp(2.8rem,6vw,4.8rem)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.045em}.lede{max-width:710px;color:var(--muted);line-height:1.8}.friends-layout{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:22px;margin-top:34px}.panel{padding:clamp(20px,3vw,30px);border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:0 14px 36px rgba(0,0,0,.08)}.panel h2{margin-bottom:14px;font:400 1.7rem Georgia,"Times New Roman",serif}.field{display:flex;gap:10px;margin-top:18px}.field input{min-width:0;flex:1;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit}.field input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:9px 14px;border:1px solid var(--accent);border-radius:9px;background:var(--accent);color:var(--bg);font:inherit;font-weight:750;text-decoration:none;cursor:pointer;transition:transform .16s,filter .16s}.button:hover{transform:translateY(-1px);filter:brightness(1.08)}.button:disabled{opacity:.6;cursor:wait;transform:none}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.message{min-height:1.4em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#e88787}.message.success{color:var(--green)}.helper{margin:10px 0 0;color:var(--muted);font-size:.84rem}.results,.requests-list,.friends-list{display:grid;gap:10px;margin-top:18px}.person-row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--paper-soft) 58%,transparent)}.avatar{display:grid;width:42px;height:42px;flex:0 0 42px;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;background:var(--bg);color:var(--accent);font-weight:800}.avatar img{width:100%;height:100%;object-fit:cover}.person-name{min-width:0;flex:1;font-weight:750;overflow-wrap:anywhere}.row-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px}.row-actions .button{min-height:36px;padding:6px 10px;font-size:.82rem}.list-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:30px}.list-heading h2{margin:0}.count{color:var(--muted);font-size:.82rem}.empty{padding:20px 10px;color:var(--muted);text-align:center}.friend-open{padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.friend-open:hover .person-name,.friend-open:focus-visible .person-name{color:var(--accent);text-decoration:underline;text-underline-offset:4px}.profile-view{margin-top:24px;padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:18px;background:var(--paper);animation:profile-in .25s ease both}.profile-top{position:relative;display:flex;min-height:190px;align-items:flex-end;gap:16px;overflow:hidden;padding:24px;border:1px solid var(--line);border-radius:15px;background:radial-gradient(ellipse at 80% 15%,color-mix(in srgb,var(--friend-color,#b895ff) 46%,transparent),transparent 60%),linear-gradient(125deg,#202940,#57486f)}.profile-top[data-theme="plant"]{background:radial-gradient(ellipse at 80% 15%,color-mix(in srgb,var(--friend-color,#91bd6d) 46%,transparent),transparent 60%),linear-gradient(125deg,#18352f,#536341)}.profile-top[data-theme="ice"]{background:radial-gradient(ellipse at 80% 15%,color-mix(in srgb,var(--friend-color,#b895ff) 46%,transparent),transparent 60%),linear-gradient(125deg,#263653,#627c9a)}.profile-top[data-theme="rock"]{background:radial-gradient(ellipse at 80% 15%,color-mix(in srgb,var(--friend-color,#c69467) 46%,transparent),transparent 60%),linear-gradient(125deg,#3a3028,#75614b)}.profile-top[data-theme="wind"]{background:radial-gradient(ellipse at 80% 15%,color-mix(in srgb,var(--friend-color,#9eb9d5) 46%,transparent),transparent 60%),linear-gradient(125deg,#27323a,#64717a)}.profile-avatar{width:76px;height:76px;flex-basis:76px;border:2px solid rgba(255,255,255,.7);background:rgba(12,16,25,.45);color:#fff;font-size:1.55rem}.profile-name{margin:0;color:white;font:400 clamp(1.8rem,4vw,2.5rem)/1.15 Georgia,"Times New Roman",serif}.profile-subtitle{margin:4px 0 0;color:rgba(255,255,255,.78);font-size:.83rem}.profile-block{margin-top:28px}.profile-block h3{margin-bottom:12px;font:400 1.4rem Georgia,"Times New Roman",serif}.featured-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.featured-card{position:relative;display:flex;min-height:142px;flex-direction:column;justify-content:space-between;gap:12px;overflow:hidden;padding:17px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-radius:13px;background:radial-gradient(ellipse at 100% 0,color-mix(in srgb,var(--accent) 15%,transparent),transparent 58%),var(--paper-soft)}.featured-card::after{position:absolute;right:-19px;bottom:-29px;width:90px;height:90px;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:50%;box-shadow:0 0 0 10px color-mix(in srgb,var(--accent) 5%,transparent);content:""}.card-number{color:var(--accent);font-size:.72rem;font-weight:850;letter-spacing:.12em}.card-title{font-weight:780;line-height:1.35}.card-detail{color:var(--muted);font-size:.78rem}.badges{display:flex;flex-wrap:wrap;gap:9px}.badge{display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid color-mix(in srgb,var(--gold) 38%,var(--line));border-radius:999px;background:color-mix(in srgb,var(--gold) 10%,var(--paper));font-size:.85rem}.badge-icon{color:var(--gold);font-size:1rem}.close-profile{float:right}.site-shell-mode{font-family:inherit}@keyframes profile-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:800px){.friends-page{margin-top:38px}.friends-layout{grid-template-columns:1fr}.featured-cards{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
+    @media(max-width:480px){.friends-page{width:92%}.field{flex-direction:column}.field .button{width:100%}.person-row{align-items:flex-start;flex-wrap:wrap}.person-row>.avatar{margin-right:2px}.person-name{padding-top:8px}.row-actions{width:100%;justify-content:flex-start}.profile-top{min-height:160px;padding:17px}.profile-avatar{width:60px;height:60px;flex-basis:60px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body data-time="nuit">
+  <header class="site-shell-header">
+    <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation"><span></span><span></span><span></span></button>
+    <div class="site-shell-actions"><a class="site-shell-support" href="soutenir.html">Soutenir</a><a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a></div>
+    <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert>
+      <a href="personnages.html">Cardex</a><a href="univers.html">Univers</a><a href="faq.html">FAQ</a><a href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a href="amis.html" aria-current="page">Amis</a>
+    </nav>
+  </header>
+  <main class="friends-page">
+    <p class="eyebrow">La guilde Duskclaw</p>
+    <h1>Mes amis<span style="color:var(--accent)">.</span></h1>
+    <p class="lede">Retrouve les autres joueurs avec leur pseudo. Une invitation doit être acceptée avant que vous puissiez consulter vos profils partagés.</p>
+    <div id="signed-out" class="panel hidden" aria-live="polite"><h2>Connecte-toi pour retrouver tes amis</h2><p class="helper">La liste d’amis est liée à ton compte Duskclaw.</p><a class="button" href="mon-compte.html">Aller à Mon compte <span aria-hidden="true">→</span></a></div>
+    <div id="friends-app" class="hidden">
+      <div class="friends-layout">
+        <section class="panel" aria-labelledby="search-title">
+          <p class="eyebrow">Faire une rencontre</p><h2 id="search-title">Ajouter un ami</h2>
+          <p class="helper">Saisis au moins deux lettres du pseudo. Choisis le bon compte, puis attends son acceptation.</p>
+          <form id="search-form" class="field"><input id="search-input" name="nickname" type="search" minlength="2" maxlength="30" autocomplete="off" placeholder="Rechercher un pseudo" aria-label="Rechercher un joueur par pseudo" required><button class="button" type="submit">Rechercher</button></form>
+          <p id="search-message" class="message" aria-live="polite"></p><div id="search-results" class="results"></div>
+        </section>
+        <section class="panel" aria-labelledby="requests-title">
+          <div class="list-heading" style="margin-top:0"><h2 id="requests-title">Invitations</h2><span id="request-count" class="count">0</span></div>
+          <div id="requests-list" class="requests-list"></div>
+          <div class="list-heading"><h2 id="friends-title">Mes amis</h2><span id="friend-count" class="count">0</span></div>
+          <div id="friends-list" class="friends-list"></div>
+        </section>
+      </div>
+      <section id="friend-profile" class="profile-view hidden" aria-live="polite"></section>
+    </div>
+    <p id="page-message" class="message" role="status"></p>
+  </main>
+  <footer class="site-shell-footer"><a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a><span class="site-shell-handle">@Duskclaw</span></footer>
+  <label class="site-shell-mode" title="Basculer entre les ambiances Jour et Nuit"><span>Jour</span><input id="site-shell-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit"><span class="site-shell-mode-track" aria-hidden="true"></span><span>Nuit</span></label>
+  <script>
+    (() => {
+      const SUPABASE_URL = "https://bqqbciifmfbsjurkulfo.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior";
+      const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const $ = (id) => document.getElementById(id);
+      let currentUser = null;
+      let directory = [];
+      let catalog = [];
+      const badgeData = {
+        "first-card":["✦","Premier pas"],"ten-cards":["▤","Collectionneur"],"twenty-five":["⌑","Archiviste"],"fifty-cards":["✧","Grand archiviste"],"all-types":["◈","Tous les horizons"],epic:["★","Chasseur d’épiques"],"rare-set":["❖","Œil du collectionneur"],"full-family":["⟡","Lignée réunie"],"ten-families":["⌘","Voyageur"],"twenty-families":["⚝","Connaisseur des terres"],
+        founder:["✦","Fondateur"],pioneer:["✨","Pionnier"],ally:["🤝","Allié"],artist:["🎨","Artiste"],playtester:["🛡️","Testeur"],community:["🐾","Esprit de communauté"]
+      };
+      const errorText = "La fonctionnalité Amis n’est pas encore activée sur Supabase. Exécute le fichier amis-securite.sql, puis recharge la page.";
+      function setMessage(target, text, kind="") { const node=$(target); node.textContent=text; node.className=`message${kind?` ${kind}`:""}`; }
+      function makeAvatar(name, imageUrl="", extra="") { const avatar=document.createElement("span");avatar.className=`avatar${extra?` ${extra}`:""}`;avatar.textContent=(name||"J").trim().charAt(0).toUpperCase()||"J";if(imageUrl){const image=new Image();image.alt="";image.src=imageUrl;avatar.replaceChildren(image);}return avatar; }
+      function pairFilter(personId) { const a=currentUser.id<personId?currentUser.id:personId;const b=a===currentUser.id?personId:currentUser.id;return [a,b]; }
+      function rowFor(person, actions) { const row=document.createElement("article");row.className="person-row";row.append(makeAvatar(person.nickname));const name=document.createElement("strong");name.className="person-name";name.textContent=person.nickname||"Joueur Duskclaw";row.append(name);const group=document.createElement("div");group.className="row-actions";for(const item of actions)group.append(item);row.append(group);return row; }
+      function actionButton(label, handler, secondary=false) { const button=document.createElement("button");button.type="button";button.className=`button${secondary?" secondary":""}`;button.textContent=label;button.addEventListener("click",handler);return button; }
+      async function refreshDirectory() { const {data,error}=await client.rpc("friends_directory");if(error)throw error;directory=data||[];renderDirectory(); }
+      function renderDirectory() {
+        const requests=$("requests-list"), friends=$("friends-list");requests.replaceChildren();friends.replaceChildren();
+        const incoming=directory.filter(item=>item.direction==="received"), outgoing=directory.filter(item=>item.direction==="sent"), accepted=directory.filter(item=>item.relationship==="friend");
+        $("request-count").textContent=String(incoming.length+outgoing.length);$("friend-count").textContent=String(accepted.length);
+        for(const person of incoming){const [low,high]=pairFilter(person.user_id);const accept=actionButton("Accepter",async()=>{accept.disabled=true;const {error}=await client.from("friendships").update({status:"accepted"}).eq("user_low",low).eq("user_high",high);if(error){accept.disabled=false;setMessage("page-message",errorText,"error");return;}await refreshDirectory();});const decline=actionButton("Refuser",async()=>{decline.disabled=true;const {error}=await client.from("friendships").delete().eq("user_low",low).eq("user_high",high);if(error){decline.disabled=false;setMessage("page-message",errorText,"error");return;}await refreshDirectory();},true);requests.append(rowFor(person,[accept,decline]));}
+        for(const person of outgoing){const [low,high]=pairFilter(person.user_id);const cancel=actionButton("Annuler",async()=>{const {error}=await client.from("friendships").delete().eq("user_low",low).eq("user_high",high);if(error){setMessage("page-message",errorText,"error");return;}await refreshDirectory();},true);requests.append(rowFor(person,[cancel]));}
+        if(!incoming.length&&!outgoing.length){const note=document.createElement("p");note.className="empty";note.textContent="Aucune invitation pour le moment.";requests.append(note);}
+        for(const person of accepted){const open=actionButton("Voir le profil →",()=>loadFriendProfile(person));open.classList.add("secondary");const remove=actionButton("Retirer",async()=>{const [low,high]=pairFilter(person.user_id);if(!confirm(`Retirer ${person.nickname} de tes amis ?`))return;const {error}=await client.from("friendships").delete().eq("user_low",low).eq("user_high",high);if(error){setMessage("page-message",errorText,"error");return;}$("friend-profile").classList.add("hidden");await refreshDirectory();},true);friends.append(rowFor(person,[open,remove]));}
+        if(!accepted.length){const note=document.createElement("p");note.className="empty";note.textContent="Ta liste d’amis est encore vide.";friends.append(note);}
+      }
+      async function loadFriendProfile(person) {
+        const section=$("friend-profile");section.classList.remove("hidden");section.replaceChildren();section.scrollIntoView({behavior:"smooth",block:"start"});
+        const loading=document.createElement("p");loading.className="empty";loading.textContent="Ouverture du profil…";section.append(loading);
+        try {
+          const [{data:profile,error:profileError},{data:badges,error:badgeError}]=await Promise.all([
+            client.from("user_profiles").select("user_id,nickname,avatar_path,banner_theme,banner_color,featured_cards").eq("user_id",person.user_id).maybeSingle(),
+            client.rpc("friends_profile_badges",{target_user_id:person.user_id})
+          ]);
+          if(profileError)throw profileError;if(badgeError)throw badgeError;
+          if(!profile)throw new Error("Ce profil n’est plus disponible.");
+          if(!catalog.length){const response=await fetch("collection-cards.json");if(response.ok)catalog=await response.json();}
+          let avatarUrl="";if(profile.avatar_path){const {data}=await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path,1800);avatarUrl=data?.signedUrl||"";}
+          const theme=["water","plant","ice","rock","wind"].includes(profile.banner_theme)?profile.banner_theme:"water";
+          const cover=document.createElement("div");cover.className="profile-top";cover.dataset.theme=theme;cover.style.setProperty("--friend-color",/^#[0-9a-f]{6}$/i.test(profile.banner_color||"")?profile.banner_color:"#b895ff");
+          cover.append(makeAvatar(profile.nickname,avatarUrl,"profile-avatar"));const identity=document.createElement("div");const name=document.createElement("h2");name.className="profile-name";name.textContent=profile.nickname||person.nickname;const subtitle=document.createElement("p");subtitle.className="profile-subtitle";subtitle.textContent="Membre de la communauté Duskclaw";identity.append(name,subtitle);cover.append(identity);
+          const close=actionButton("Fermer",()=>section.classList.add("hidden"),true);close.classList.add("close-profile");
+          const cardSection=document.createElement("section");cardSection.className="profile-block";const cardHeading=document.createElement("h3");cardHeading.textContent="Cartes à l’honneur";cardSection.append(cardHeading);
+          const cardGrid=document.createElement("div");cardGrid.className="featured-cards";const ids=Array.isArray(profile.featured_cards)?profile.featured_cards.map(Number).slice(0,3):[];
+          for(const id of ids){const card=catalog.find(item=>Number(item.id)===id);if(!card)continue;const tile=document.createElement("article");tile.className="featured-card";const number=document.createElement("span");number.className="card-number";number.textContent=`CARTE #${String(id).padStart(2,"0")}`;const title=document.createElement("strong");title.className="card-title";title.textContent=card.label.split(" · ").slice(1,3).join(" · ")||card.label;const detail=document.createElement("span");detail.className="card-detail";detail.textContent=[card.level,card.type,card.rarity].filter(Boolean).join(" · ");tile.append(number,title,detail);cardGrid.append(tile);}
+          if(!cardGrid.childElementCount){const note=document.createElement("p");note.className="empty";note.textContent="Aucune carte n’est mise à l’honneur pour le moment.";cardGrid.append(note);}cardSection.append(cardGrid);
+          const badgeSection=document.createElement("section");badgeSection.className="profile-block";const badgeHeading=document.createElement("h3");badgeHeading.textContent="Badges";badgeSection.append(badgeHeading);const badgeList=document.createElement("div");badgeList.className="badges";
+          for(const badgeKey of badges||[]){const definition=badgeData[badgeKey];if(!definition)continue;const pill=document.createElement("span");pill.className="badge";const icon=document.createElement("span");icon.className="badge-icon";icon.setAttribute("aria-hidden","true");icon.textContent=definition[0];const label=document.createElement("strong");label.textContent=definition[1];pill.append(icon,label);badgeList.append(pill);}
+          if(!badgeList.childElementCount){const note=document.createElement("p");note.className="empty";note.textContent="Aucun badge attribué pour le moment.";badgeList.append(note);}badgeSection.append(badgeList);
+          section.replaceChildren(close,cover,cardSection,badgeSection);
+        } catch(error) { section.replaceChildren();const note=document.createElement("p");note.className="message error";note.textContent=error.message||"Impossible d’ouvrir ce profil. Vérifie la configuration des profils partagés dans Supabase.";section.append(note); }
+      }
+      $("search-form").addEventListener("submit",async event=>{
+        event.preventDefault();
+        const term=$("search-input").value.trim();
+        $("search-results").replaceChildren();
+        if(term.length<2){setMessage("search-message","Entre au moins deux lettres du pseudo.","error");return;}
+        const button=event.submitter;button.disabled=true;setMessage("search-message","Recherche en cours…");
+        try{await runSearch(term);}finally{button.disabled=false;}
+      });
+      async function runSearch(term){
+        try{
+          const {data,error}=await client.rpc("search_friend_users",{search_text:term});if(error)throw error;
+          const results=data||[];const list=$("search-results");list.replaceChildren();
+          setMessage("search-message",results.length?`${results.length} joueur${results.length>1?"s":""} trouvé${results.length>1?"s":""}.`:"Aucun joueur trouvé avec ce pseudo.",results.length?"success":"");
+          for(const person of results){
+            const send=actionButton("Inviter",async()=>{
+              send.disabled=true;const [user_low,user_high]=pairFilter(person.user_id);
+              const {error:insertError}=await client.from("friendships").insert({user_low,user_high,requested_by:currentUser.id,status:"pending"});
+              if(insertError){send.disabled=false;setMessage("search-message",insertError.code==="23505"?"Une invitation existe déjà.":errorText,"error");return;}
+              setMessage("search-message",`Invitation envoyée à ${person.nickname}.`,"success");await refreshDirectory();await runSearch(term);
+            });
+            list.append(rowFor(person,[send]));
+          }
+        }catch{setMessage("search-message",errorText,"error");}
+      }
+      async function start(){const {data:{session}}=await client.auth.getSession();currentUser=session?.user||null;if(!currentUser){$("signed-out").classList.remove("hidden");return;}$("friends-app").classList.remove("hidden");try{await refreshDirectory();}catch{setMessage("page-message",errorText,"error");}}
+      client.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;if(currentUser){$("signed-out").classList.add("hidden");$("friends-app").classList.remove("hidden");refreshDirectory().catch(()=>setMessage("page-message",errorText,"error"));}else{ $("friends-app").classList.add("hidden");$("signed-out").classList.remove("hidden"); }});
+      start().catch(()=>setMessage("page-message",errorText,"error"));
+    })();
+  </script>
+  <script src="account-nav.js"></script>
+  <script src="site-shell.js"></script>
+</body>
+</html>
