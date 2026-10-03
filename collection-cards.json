@@ -1,0 +1,602 @@
+[
+  {
+    "id": 1,
+    "label": "#01 · Famille 1 · Base · Glace",
+    "family": 1,
+    "type": "Glace",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 2,
+    "label": "#02 · Famille 1 · Niveau 1 · Glace",
+    "family": 1,
+    "type": "Glace",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 3,
+    "label": "#03 · Marin · Base · Eau",
+    "family": 2,
+    "type": "Eau",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 4,
+    "label": "#04 · Marin · Niveau 1 · Eau",
+    "family": 2,
+    "type": "Eau",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 5,
+    "label": "#05 · Marin · Niveau 2 · Eau",
+    "family": 2,
+    "type": "Eau",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 6,
+    "label": "#06 · Famille 3 · Base · Vent",
+    "family": 3,
+    "type": "Vent",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 7,
+    "label": "#07 · Famille 3 · Niveau 1 · Vent",
+    "family": 3,
+    "type": "Vent",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 8,
+    "label": "#08 · Famille 4 · Base · Plante",
+    "family": 4,
+    "type": "Plante",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 9,
+    "label": "#09 · Famille 4 · Niveau 1 · Plante",
+    "family": 4,
+    "type": "Plante",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 10,
+    "label": "#10 · Famille 4 · Niveau 2 · Plante",
+    "family": 4,
+    "type": "Plante",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 11,
+    "label": "#11 · Famille 5 · Base · Roche",
+    "family": 5,
+    "type": "Roche",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 12,
+    "label": "#12 · Famille 5 · Niveau 1 · Roche",
+    "family": 5,
+    "type": "Roche",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 13,
+    "label": "#13 · Famille 6 · Base · Glace",
+    "family": 6,
+    "type": "Glace",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 14,
+    "label": "#14 · Famille 6 · Niveau 1 · Glace",
+    "family": 6,
+    "type": "Glace",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 15,
+    "label": "#15 · Famille 6 · Niveau 2 · Glace",
+    "family": 6,
+    "type": "Glace",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 16,
+    "label": "#16 · Kael · Base · Plante",
+    "family": 7,
+    "type": "Plante",
+    "level": "Base",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 17,
+    "label": "#17 · Kael · Niveau 1 · Plante",
+    "family": 7,
+    "type": "Plante",
+    "level": "Niveau 1",
+    "rarity": "Rare"
+  },
+  {
+    "id": 18,
+    "label": "#18 · Famille 8 · Base · Eau",
+    "family": 8,
+    "type": "Eau",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 19,
+    "label": "#19 · Famille 8 · Niveau 1 · Eau",
+    "family": 8,
+    "type": "Eau",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 20,
+    "label": "#20 · Famille 8 · Niveau 2 · Eau",
+    "family": 8,
+    "type": "Eau",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 21,
+    "label": "#21 · Famille 9 · Base · Glace",
+    "family": 9,
+    "type": "Glace",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 22,
+    "label": "#22 · Famille 9 · Niveau 1 · Glace",
+    "family": 9,
+    "type": "Glace",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 23,
+    "label": "#23 · Caine · Base · Roche",
+    "family": 10,
+    "type": "Roche",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 24,
+    "label": "#24 · Caine · Niveau 1 · Roche",
+    "family": 10,
+    "type": "Roche",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 25,
+    "label": "#25 · Caine · Niveau 2 · Roche",
+    "family": 10,
+    "type": "Roche",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 26,
+    "label": "#26 · Famille 11 · Base · Vent",
+    "family": 11,
+    "type": "Vent",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 27,
+    "label": "#27 · Famille 11 · Niveau 1 · Vent",
+    "family": 11,
+    "type": "Vent",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 28,
+    "label": "#28 · Famille 12 · Base · Plante",
+    "family": 12,
+    "type": "Plante",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 29,
+    "label": "#29 · Famille 12 · Niveau 1 · Plante",
+    "family": 12,
+    "type": "Plante",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 30,
+    "label": "#30 · Famille 12 · Niveau 2 · Plante",
+    "family": 12,
+    "type": "Plante",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 31,
+    "label": "#31 · Famille 13 · Base · Eau",
+    "family": 13,
+    "type": "Eau",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 32,
+    "label": "#32 · Famille 13 · Niveau 1 · Eau",
+    "family": 13,
+    "type": "Eau",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 33,
+    "label": "#33 · Famille 14 · Base · Vent",
+    "family": 14,
+    "type": "Vent",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 34,
+    "label": "#34 · Famille 14 · Niveau 1 · Vent",
+    "family": 14,
+    "type": "Vent",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 35,
+    "label": "#35 · Famille 14 · Niveau 2 · Vent",
+    "family": 14,
+    "type": "Vent",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 36,
+    "label": "#36 · Famille 15 · Base · Glace",
+    "family": 15,
+    "type": "Glace",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 37,
+    "label": "#37 · Famille 16 · Base · Roche",
+    "family": 16,
+    "type": "Roche",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 38,
+    "label": "#38 · Famille 16 · Niveau 1 · Roche",
+    "family": 16,
+    "type": "Roche",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 39,
+    "label": "#39 · Famille 16 · Niveau 2 · Roche",
+    "family": 16,
+    "type": "Roche",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 40,
+    "label": "#40 · Famille 17 · Base · Eau",
+    "family": 17,
+    "type": "Eau",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 41,
+    "label": "#41 · Famille 18 · Base · Glace",
+    "family": 18,
+    "type": "Glace",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 42,
+    "label": "#42 · Famille 18 · Niveau 1 · Glace",
+    "family": 18,
+    "type": "Glace",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 43,
+    "label": "#43 · Famille 18 · Niveau 2 · Glace",
+    "family": 18,
+    "type": "Glace",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 44,
+    "label": "#44 · Famille 19 · Base · Plante",
+    "family": 19,
+    "type": "Plante",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 45,
+    "label": "#45 · Famille 19 · Niveau 1 · Plante",
+    "family": 19,
+    "type": "Plante",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 46,
+    "label": "#46 · Famille 20 · Base · Eau",
+    "family": 20,
+    "type": "Eau",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 47,
+    "label": "#47 · Famille 20 · Niveau 1 · Eau",
+    "family": 20,
+    "type": "Eau",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 48,
+    "label": "#48 · Famille 20 · Niveau 2 · Eau",
+    "family": 20,
+    "type": "Eau",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 49,
+    "label": "#49 · Famille 21 · Base · Vent",
+    "family": 21,
+    "type": "Vent",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 50,
+    "label": "#50 · Famille 22 · Base · Roche",
+    "family": 22,
+    "type": "Roche",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 51,
+    "label": "#51 · Famille 22 · Niveau 1 · Roche",
+    "family": 22,
+    "type": "Roche",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 52,
+    "label": "#52 · Famille 22 · Niveau 2 · Roche",
+    "family": 22,
+    "type": "Roche",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 53,
+    "label": "#53 · Famille 23 · Base · Vent",
+    "family": 23,
+    "type": "Vent",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 54,
+    "label": "#54 · Famille 23 · Niveau 1 · Vent",
+    "family": 23,
+    "type": "Vent",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 55,
+    "label": "#55 · Famille 23 · Niveau 2 · Vent",
+    "family": 23,
+    "type": "Vent",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 56,
+    "label": "#56 · Famille 24 · Base · Plante",
+    "family": 24,
+    "type": "Plante",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 57,
+    "label": "#57 · Famille 25 · Base · Roche",
+    "family": 25,
+    "type": "Roche",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 58,
+    "label": "#58 · Famille 26 · Base · Eau",
+    "family": 26,
+    "type": "Eau",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 59,
+    "label": "#59 · Famille 26 · Niveau 1 · Eau",
+    "family": 26,
+    "type": "Eau",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 60,
+    "label": "#60 · Famille 27 · Base · Roche",
+    "family": 27,
+    "type": "Roche",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 61,
+    "label": "#61 · Famille 27 · Niveau 1 · Roche",
+    "family": 27,
+    "type": "Roche",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 62,
+    "label": "#62 · Famille 28 · Base · Glace",
+    "family": 28,
+    "type": "Glace",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 63,
+    "label": "#63 · Famille 28 · Niveau 1 · Glace",
+    "family": 28,
+    "type": "Glace",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 64,
+    "label": "#64 · Famille 28 · Niveau 2 · Glace",
+    "family": 28,
+    "type": "Glace",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 65,
+    "label": "#65 · Famille 29 · Base · Plante",
+    "family": 29,
+    "type": "Plante",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 66,
+    "label": "#66 · Famille 29 · Niveau 1 · Plante",
+    "family": 29,
+    "type": "Plante",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 67,
+    "label": "#67 · Famille 29 · Niveau 2 · Plante",
+    "family": 29,
+    "type": "Plante",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 68,
+    "label": "#68 · Famille 30 · Base · Vent",
+    "family": 30,
+    "type": "Vent",
+    "level": "Base",
+    "rarity": "Commun"
+  },
+  {
+    "id": 69,
+    "label": "#69 · Famille 30 · Niveau 1 · Vent",
+    "family": 30,
+    "type": "Vent",
+    "level": "Niveau 1",
+    "rarity": "Peu commun"
+  },
+  {
+    "id": 70,
+    "label": "#70 · Famille 30 · Niveau 2 · Vent",
+    "family": 30,
+    "type": "Vent",
+    "level": "Niveau 2",
+    "rarity": "Rare"
+  },
+  {
+    "id": 71,
+    "label": "#71 · Famille 31 · Base · Plante",
+    "family": 31,
+    "type": "Plante",
+    "level": "Base",
+    "rarity": "Épique"
+  },
+  {
+    "id": 72,
+    "label": "#72 · Famille 32 · Base · Glace",
+    "family": 32,
+    "type": "Glace",
+    "level": "Base",
+    "rarity": "Épique"
+  },
+  {
+    "id": 73,
+    "label": "#73 · Famille 33 · Base · Roche",
+    "family": 33,
+    "type": "Roche",
+    "level": "Base",
+    "rarity": "Épique"
+  },
+  {
+    "id": 74,
+    "label": "#74 · Famille 34 · Base · Vent",
+    "family": 34,
+    "type": "Vent",
+    "level": "Base",
+    "rarity": "Épique"
+  },
+  {
+    "id": 75,
+    "label": "#75 · Famille 35 · Base · Eau",
+    "family": 35,
+    "type": "Eau",
+    "level": "Base",
+    "rarity": "Épique"
+  }
+]
