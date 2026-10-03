@@ -101,6 +101,7 @@
     let currentUser = null;
     let profile = { nickname: "", avatar_path: null };
     let selectedAvatarImage = null;
+    let profileRenderVersion = 0;
     function message(id, text, kind = "") { const el = document.getElementById(id); el.textContent = text; el.className = "message" + (kind ? " " + kind : ""); }
     function pageMessage(text) { const el = document.getElementById("page-message"); el.textContent = text; el.classList.toggle("hidden", !text); }
     function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); }
@@ -116,26 +117,27 @@
     }
     async function renderProfile() {
       const userForRender = currentUser;
+      const renderVersion = ++profileRenderVersion;
       const welcome = profile.nickname.trim() || currentUser?.email || "Duskclaw";
       document.getElementById("welcome-name").textContent = welcome;
       document.getElementById("nickname").value = profile.nickname || "";
       const accountLink = document.getElementById("account-nav-link");
-      accountLink.replaceChildren();
       const navAvatar = document.createElement("span"); navAvatar.className = "nav-avatar";
       navAvatar.textContent = welcome.charAt(0).toUpperCase();
       if (profile.avatar_path && currentUser) {
         const { data: navData } = await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path, 3600);
-        if (userForRender !== currentUser) return;
+        if (userForRender !== currentUser || renderVersion !== profileRenderVersion) return;
         if (navData?.signedUrl) { const navImg = new Image(); navImg.src = navData.signedUrl; navImg.alt = ""; navAvatar.replaceChildren(navImg); }
       }
-      accountLink.append(navAvatar, document.createTextNode(profile.nickname.trim() || "Mon compte"));
-      accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "8px";
+      if (userForRender !== currentUser || renderVersion !== profileRenderVersion) return;
+      accountLink.replaceChildren(navAvatar, document.createTextNode(profile.nickname.trim() || "Mon compte"));
+      accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "12px";
       const preview = document.getElementById("avatar-preview");
       preview.replaceChildren();
       if (selectedAvatarImage) { const local = new Image(); local.alt = "Aperçu du cadrage de la photo"; local.src = selectedAvatarImage.src; local.style.transform = `scale(${document.getElementById("avatar-zoom").value})`; preview.append(local); return; }
       if (profile.avatar_path && currentUser) {
         const { data, error } = await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path, 3600);
-        if (userForRender !== currentUser) return;
+        if (userForRender !== currentUser || renderVersion !== profileRenderVersion) return;
         if (!error && data?.signedUrl) { const image = new Image(); image.alt = "Photo de profil"; image.src = data.signedUrl; preview.append(image); return; }
       }
       preview.textContent = (profile.nickname.trim() || currentUser?.email || "D").charAt(0).toUpperCase();
@@ -146,7 +148,6 @@
       selectedAvatarImage = new Image(); selectedAvatarImage.onload = () => { document.getElementById("crop-controls").classList.remove("hidden"); renderProfile(); }; selectedAvatarImage.src = URL.createObjectURL(file);
     });
     document.getElementById("avatar-zoom").addEventListener("input", event => { document.getElementById("zoom-value").value = `${Number(event.target.value).toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}×`; renderProfile(); });
-    for (const sectionId of ["profile-section", "collection-section"]) { const section = document.getElementById(sectionId); section.addEventListener("pointerenter", () => { if (matchMedia("(hover: hover)").matches) section.open = true; }); section.addEventListener("pointerleave", () => { if (matchMedia("(hover: hover)").matches) section.open = false; }); }
     async function loadProfile() {
       if (!currentUser) return;
       const { data, error } = await client.from("user_profiles").select("nickname,avatar_path").eq("user_id", currentUser.id).maybeSingle();

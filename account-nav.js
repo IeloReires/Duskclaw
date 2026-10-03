@@ -17,7 +17,7 @@
     const avatar = document.createElement("span");
     avatar.setAttribute("aria-hidden", "true");
     Object.assign(avatar.style, {
-      display: "inline-grid", width: "28px", height: "28px", placeItems: "center",
+      display: "inline-grid", flex: "0 0 28px", width: "28px", height: "28px", placeItems: "center",
       overflow: "hidden", borderRadius: "50%", border: "1px solid currentColor",
       fontSize: ".78rem", fontWeight: "700", verticalAlign: "middle"
     });
@@ -36,6 +36,7 @@
     }
 
     link.replaceChildren(avatar, document.createTextNode(name));
+    Object.assign(link.style, { display: "inline-flex", alignItems: "center", gap: "12px" });
     link.setAttribute("aria-label", `Compte de ${name}`);
   }).catch(() => {});
 })();
