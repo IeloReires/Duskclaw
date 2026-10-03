@@ -32,13 +32,19 @@
     .profile-cover[data-theme="rock"]::before{width:520px;height:310px;top:-150px;right:-20px;border:0;border-radius:0;background:repeating-linear-gradient(168deg,transparent 0 22px,#f5d9ba26 23px 25px,transparent 26px 55px),linear-gradient(38deg,transparent 48%,#f5d9ba20 49% 50%,transparent 51%);transform:rotate(-4deg)}.profile-cover[data-theme="rock"]::after{width:240px;height:170px;top:15px;right:18%;border-color:#f5d9ba35;border-radius:32% 58% 24% 49%;transform:rotate(18deg)}
     .profile-cover[data-theme="wind"]::before{width:500px;height:350px;top:-115px;right:-10px;border:0;border-radius:0;background:repeating-radial-gradient(ellipse at 70% 45%,transparent 0 24px,#ecf7ff24 25px 27px,transparent 28px 54px);transform:rotate(-18deg)}.profile-cover[data-theme="wind"]::after{width:330px;height:115px;top:26px;right:7%;border:0;border-top:2px solid #ecf7ff35;border-radius:50%;transform:rotate(-15deg)}
     .ambience-choices{grid-template-columns:repeat(5,minmax(0,1fr))}@media(max-width:900px){.ambience-choices{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:760px){.ambience-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.section-content,.account-section:first-child[open]>.section-content{padding:14px}}
+    .name-edit-wrap{display:flex;width:max-content;max-width:100%;align-items:center;gap:7px}.name-edit-wrap .edit-pencil{position:static;flex:0 0 28px;width:28px;height:28px;box-shadow:none;font-size:.88rem}.account-shortcut{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.account-shortcut h2{margin:0 0 5px;font:400 1.35rem Georgia,"Times New Roman",serif}.account-shortcut p{margin:0;color:var(--muted)}.profile-cover::before,.profile-cover::after{opacity:.95;filter:drop-shadow(0 0 12px #ffffff18)}
+    .profile-cover[data-theme="water"]::before{background:repeating-linear-gradient(165deg,transparent 0 14px,#d4faff62 15px 18px,transparent 19px 37px),repeating-linear-gradient(174deg,transparent 0 35px,#62bfd14d 36px 39px,transparent 40px 69px);background-size:100% 100%,100% 100%}.profile-cover[data-theme="water"]::after{border-top:3px solid #e4fcff90;box-shadow:0 -16px 0 -13px #d4faff70,0 -32px 0 -29px #d4faff55}
+    .profile-cover[data-theme="plant"]::before{background:radial-gradient(ellipse 18px 38px at 50% 50%,#dfffcf88 0 42%,transparent 48%) 0 0/58px 82px,linear-gradient(80deg,transparent 47%,#e5ffd075 48% 51%,transparent 52%) 0 0/58px 82px}.profile-cover[data-theme="plant"]::after{border-width:2px;border-color:#dcffc966;box-shadow:0 0 34px #91bd6d40}
+    .profile-cover[data-theme="ice"]::before{background:linear-gradient(30deg,transparent 46%,#e4f4ff6d 47% 50%,transparent 51%),linear-gradient(90deg,transparent 46%,#e4f4ff58 47% 50%,transparent 51%),linear-gradient(150deg,transparent 46%,#e4f4ff6d 47% 50%,transparent 51%);background-size:58px 58px}.profile-cover[data-theme="ice"]::after{border-width:2px;box-shadow:0 0 30px #c9edff42}
+    .profile-cover[data-theme="rock"]::before{background:repeating-linear-gradient(168deg,transparent 0 17px,#f5d9ba70 18px 21px,transparent 22px 45px),linear-gradient(38deg,transparent 47%,#f5d9ba65 48% 51%,transparent 52%)}.profile-cover[data-theme="rock"]::after{border-width:2px;box-shadow:inset 0 0 30px #c6946745,0 0 25px #c6946740}
+    .profile-cover[data-theme="wind"]::before{background:repeating-radial-gradient(ellipse at 70% 45%,transparent 0 19px,#ecf7ff69 20px 23px,transparent 24px 46px)}.profile-cover[data-theme="wind"]::after{border-top:3px solid #ecf7ff80;box-shadow:0 -16px 0 -13px #ecf7ff60,0 -32px 0 -29px #ecf7ff45}
   </style>
 </head>
 <body>
   <header class="header shell">
     <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a href="parametres.html">Paramètres</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a>
+      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a>
     </nav>
   </header>
   <main>
@@ -69,8 +75,7 @@
         <div class="section-content">
       <div class="profile-cover" id="profile-cover" data-theme="water"><div class="profile-cover-inner">
         <div class="avatar-edit-wrap"><button id="avatar-edit" class="avatar cover-avatar" type="button" aria-label="Changer la photo de profil">D</button><button class="edit-pencil" type="button" data-edit="avatar" aria-label="Modifier la photo">✎</button></div>
-        <div class="profile-identity"><p class="cover-kicker">Profil Duskclaw</p><div class="name-edit-wrap"><h2 id="welcome-name"></h2><button class="edit-pencil" type="button" data-edit="nickname" aria-label="Modifier le pseudo">✎</button></div><input id="nickname" class="name-input hidden" type="text" minlength="2" maxlength="24" autocomplete="nickname" aria-label="Pseudo" placeholder="Ton pseudo"></div>
-        <a class="button secondary cover-settings-link" href="parametres.html">Paramètres du profil ↗</a>
+        <div class="profile-identity"><p class="cover-kicker">Profil Duskclaw</p><div class="name-edit-wrap"><h2 id="welcome-name"></h2><button class="edit-pencil" type="button" data-edit="nickname" aria-label="Modifier le pseudo">✎</button></div><input id="nickname" class="name-input hidden" type="text" minlength="2" maxlength="15" autocomplete="nickname" aria-label="Pseudo (15 caractères maximum)" placeholder="Ton pseudo"></div>
       </div></div>
       <input id="avatar-file" class="hidden" type="file" accept="image/jpeg,image/png,image/webp">
       <div class="crop-controls hidden" id="crop-controls"><label for="avatar-zoom"><span>Zoom de la photo</span><output id="zoom-value">1×</output></label><input id="avatar-zoom" type="range" min="1" max="2.5" step="0.05" value="1"><p class="small">Ajuste le cadrage, puis enregistre toutes tes modifications en bas de page.</p></div>
@@ -81,8 +86,8 @@
       <div class="profile-savebar"><p id="style-message" class="message" aria-live="polite"></p><button id="save-profile-style" class="button" type="button">Enregistrer les modifications</button></div>
         </div>
       </details>
-      <details class="account-section"><summary class="section-trigger"><span><strong>Collection des cartes</strong><small>Voir ta collection et ajouter des cartes</small></span><span class="section-arrow" aria-hidden="true">⌄</span></summary><div class="section-content"><section class="panel collection-panel"><div><h2>Ma collection</h2><p>Retrouve les cartes que tu as ajoutées à ton compte.</p></div><a class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a></section></div></details>
-      <details class="account-section"><summary class="section-trigger"><span><strong>Paramètres</strong><small>Adresse e-mail, mot de passe et déconnexion</small></span><span class="section-arrow" aria-hidden="true">⌄</span></summary><div class="section-content"><section class="panel collection-panel"><div><h2>Paramètres du compte</h2><p>Gère tes informations de connexion et la sécurité de ton compte.</p></div><a class="button" href="parametres.html">Ouvrir les paramètres <span aria-hidden="true">→</span></a></section></div></details>
+      <section class="account-shortcut"><div><h2>Collection des cartes</h2><p>Retrouve les cartes que tu as ajoutées à ton compte.</p></div><a class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a></section>
+      <section class="account-shortcut"><div><h2>Paramètres</h2><p>Adresse e-mail, mot de passe et déconnexion.</p></div><a class="button" href="parametres.html">Ouvrir les paramètres <span aria-hidden="true">→</span></a></section>
     </section>
   </main>
   <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
@@ -104,6 +109,14 @@
     let featuredCardIds = [];
     function message(id, text, kind = "") { const el = document.getElementById(id); el.textContent = text; el.className = "message" + (kind ? " " + kind : ""); }
     function pageMessage(text) { const el = document.getElementById("page-message"); el.textContent = text; el.classList.toggle("hidden", !text); }
+    function nicknameHasProfanity(value) {
+      const normalized = value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[013457@$!]/g, char => ({"0":"o","1":"i","3":"e","4":"a","5":"s","7":"t","@":"a","$":"s","!":"i"}[char]));
+      const words = normalized.split(/[^a-z0-9]+/).filter(Boolean);
+      const compact = normalized.replace(/[^a-z0-9]/g, "");
+      const banned = ["connard","connasse","connerie","encule","enculer","putain","merde","salope","salop","batard","bite","couille","branleur","branleuse","foutre","chier","tagueule"];
+      const exactOnly = new Set(["con","conne","cons","pute","putes","nique","niquer","pd","pede","fdp"]);
+      return words.some(word => exactOnly.has(word) || banned.some(term => word.includes(term))) || exactOnly.has(compact) || banned.some(term => compact.includes(term.replace(/\s/g, "")));
+    }
     function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); }
     function renderUser(user) {
       currentUser = user || null;
@@ -276,7 +289,8 @@
     document.getElementById("save-profile-style").addEventListener("click", async () => {
       if (!currentUser) return;
       const nickname = profile.nickname.trim();
-      if (nickname.length < 2 || nickname.length > 24) { message("style-message", "Le pseudo doit contenir de 2 à 24 caractères.", "error"); document.getElementById("nickname").classList.remove("hidden"); document.getElementById("nickname").focus(); return; }
+      if (nickname.length < 2 || nickname.length > 15) { message("style-message", "Le pseudo doit contenir de 2 à 15 caractères.", "error"); document.getElementById("nickname").classList.remove("hidden"); document.getElementById("nickname").focus(); return; }
+      if (nicknameHasProfanity(nickname)) { message("style-message", "Ce pseudo contient un mot inapproprié. Choisis un autre pseudo.", "error"); document.getElementById("nickname").classList.remove("hidden"); document.getElementById("nickname").focus(); return; }
       const saveButton = document.getElementById("save-profile-style"); saveButton.disabled = true; message("style-message", "Enregistrement de tes modifications…");
       let newAvatarPath = profile.avatar_path; const input = document.getElementById("avatar-file"); const file = input.files?.[0];
       try {
