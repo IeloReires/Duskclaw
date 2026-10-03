@@ -59,7 +59,7 @@
   <header class="header shell">
     <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a>
+      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a id="moderation-nav-link" class="hidden" href="moderation.html">Modération</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a>
     </nav>
   </header>
   <main>
@@ -137,6 +137,15 @@
     let loadedProfileUserId = null;
     let ownedCards = [];
     let featuredCardIds = [];
+    let moderatorBadgeKeys = [];
+    const MODERATOR_BADGES = {
+      founder: { icon: "✦", name: "Fondateur" },
+      pioneer: { icon: "✨", name: "Pionnier" },
+      ally: { icon: "🤝", name: "Allié" },
+      artist: { icon: "🎨", name: "Artiste" },
+      playtester: { icon: "🛡️", name: "Testeur" },
+      community: { icon: "🐾", name: "Esprit de communauté" }
+    };
     function message(id, text, kind = "") { const el = document.getElementById(id); el.textContent = text; el.className = "message" + (kind ? " " + kind : ""); }
     function pageMessage(text) { const el = document.getElementById("page-message"); el.textContent = text; el.classList.toggle("hidden", !text); }
     function nicknameHasProfanity(value) {
@@ -150,6 +159,7 @@
     function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); }
     function renderUser(user) {
       currentUser = user || null;
+      updateModerationLink(user);
       authPanel.classList.toggle("hidden", !!user);
       accountPanel.classList.toggle("hidden", !user);
       if (!user) { loadedProfileUserId = null; const accountLink = document.getElementById("account-nav-link"); accountLink.replaceChildren(document.createTextNode("Mon compte")); }
@@ -157,6 +167,13 @@
         loadedProfileUserId = user.id;
         loadProfile();
       }
+    }
+    async function updateModerationLink(user) {
+      const link = document.getElementById("moderation-nav-link");
+      link.classList.add("hidden");
+      if (!user) return;
+      const { data } = await client.rpc("is_site_moderator");
+      if (currentUser?.id === user.id && data === true) link.classList.remove("hidden");
     }
     async function renderProfile() {
       const userForRender = currentUser;
@@ -243,6 +260,10 @@
         { id: "ten-families", icon: "⌘", name: "Voyageur", goal: "Possède des cartes de 10 familles différentes.", earned: new Set(ownedCards.map(card => card.family)).size >= 10 },
         { id: "twenty-families", icon: "⚝", name: "Connaisseur des terres", goal: "Possède des cartes de 20 familles différentes.", earned: new Set(ownedCards.map(card => card.family)).size >= 20 }
       ];
+      for (const key of moderatorBadgeKeys) {
+        const badge = MODERATOR_BADGES[key];
+        if (badge) badges.push({ id: "moderator-" + key, icon: badge.icon, name: badge.name, goal: "Badge offert par l’équipe de modération.", earned: true });
+      }
       const list = document.getElementById("badge-list"); list.replaceChildren();
       for (const badge of badges) {
         const tile = document.createElement("article"); tile.className = `future-badge${badge.earned ? " is-earned" : ""}`; tile.tabIndex = 0;
@@ -261,6 +282,8 @@
       if (error) throw error;
       const ownedIds = new Set((data || []).map(row => Number(row.card_number)));
       ownedCards = catalog.filter(card => ownedIds.has(Number(card.id)));
+      const { data: awarded } = await client.from("user_badges").select("badge_key").eq("user_id", currentUser.id);
+      moderatorBadgeKeys = (awarded || []).map(row => row.badge_key);
       featuredCardIds = (profile.featured_cards || []).map(Number).filter(id => ownedIds.has(id)).slice(0, 3);
       renderFeaturedCards();
       renderBadges();
