@@ -14,15 +14,15 @@
     .brand{font-weight:800;letter-spacing:.19em;text-decoration:none}.brand span{color:var(--accent)}.nav{display:flex;align-items:center;gap:clamp(14px,3vw,36px)}.nav a{color:var(--muted);font-size:.88rem;text-decoration:none}.nav a:hover,.nav a:focus-visible,.nav .active{color:var(--accent)}.nav .rules{padding:9px 13px;border:1px solid var(--line);color:var(--ink)}
     main{width:min(1000px,90%);margin:64px auto 90px}.eyebrow{color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{margin:8px 0 12px;font:400 clamp(2.8rem,7vw,5rem)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em}.lede{max-width:700px;color:var(--muted);line-height:1.8}
     .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:34px}.panel{padding:clamp(20px,4vw,30px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}h2{margin:0 0 20px;font:400 1.65rem Georgia,"Times New Roman",serif}.field{display:grid;gap:8px;margin:15px 0;color:var(--muted);font-size:.92rem}.field input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field input:focus{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:6px;padding:11px 17px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#171520;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}.button:hover{filter:brightness(1.08)}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.button:disabled{opacity:.6;cursor:wait}.text-button{display:block;margin-top:12px;padding:4px 0;border:0;background:none;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}.message{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#ffaaa8}.message.success{color:#9bd7b1}.small{color:var(--muted);font-size:.82rem}.hidden{display:none!important}
-    .account-dashboard{display:grid;gap:22px;margin-top:34px}.account-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.account-row h2{margin:0 0 5px}.account-row p{margin:0;color:var(--muted)}.profile-layout{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr);gap:22px}.profile-photo-panel{text-align:center}.avatar{display:grid;width:160px;aspect-ratio:1;place-items:center;overflow:hidden;margin:0 auto 17px;border:1px solid var(--line);border-radius:50%;background:radial-gradient(circle at 35% 25%,#34374e,#20263a 65%,#171d2b);color:var(--accent);font:400 4rem Georgia,serif}.avatar img{width:100%;height:100%;object-fit:cover}.profile-photo-panel input[type=file]{width:100%;margin-top:12px;color:var(--muted);font-size:.8rem}.profile-stack{display:grid;gap:22px}.collection-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.collection-panel p{margin:0;color:var(--muted)}.collection-panel h2{margin-bottom:8px}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
-    @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.auth-grid,.profile-layout{grid-template-columns:1fr}.footer{flex-direction:column}.avatar{width:140px}}
+    .account-dashboard{display:grid;gap:18px;margin-top:34px}.account-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.account-row h2{margin:0 0 5px}.account-row p{margin:0;color:var(--muted)}.account-section{position:relative;overflow:visible;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.section-trigger{display:flex;width:100%;align-items:center;justify-content:space-between;gap:18px;padding:23px 26px;border:0;background:transparent;color:var(--ink);text-align:left;font:inherit;cursor:pointer}.section-trigger strong{display:block;font:400 1.5rem Georgia,"Times New Roman",serif}.section-trigger small{display:block;margin-top:4px;color:var(--muted)}.section-trigger span:last-child{color:var(--accent);transition:transform .2s}.account-section[open] .section-trigger span:last-child{transform:rotate(180deg)}.section-content{padding:0 22px 22px}.profile-layout{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr);gap:22px}.profile-photo-panel{text-align:center}.avatar{display:grid;width:160px;aspect-ratio:1;place-items:center;overflow:hidden;margin:0 auto 17px;border:1px solid var(--line);border-radius:50%;background:radial-gradient(circle at 35% 25%,#34374e,#20263a 65%,#171d2b);color:var(--accent);font:400 4rem Georgia,serif}.avatar img{width:100%;height:100%;object-fit:cover}.nav-avatar{display:inline-grid;width:28px;height:28px;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;font-size:.78rem;font-weight:700;vertical-align:middle}.nav-avatar img{width:100%;height:100%;object-fit:cover}.profile-photo-panel input[type=file]{width:100%;margin-top:12px;color:var(--muted);font-size:.8rem}.crop-controls{margin:17px 0 5px;padding:13px;border:1px solid var(--line);border-radius:10px;text-align:left}.crop-controls label{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.85rem}.crop-controls input{width:100%;accent-color:var(--accent)}.profile-stack{display:grid;gap:22px}.collection-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.collection-panel p{margin:0;color:var(--muted)}.collection-panel h2{margin-bottom:8px}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
+    @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.auth-grid,.profile-layout{grid-template-columns:1fr}.footer{flex-direction:column}.avatar{width:140px}.section-trigger{padding:19px}.section-content{padding:0 14px 14px}}
   </style>
 </head>
 <body>
   <header class="header shell">
     <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a href="soutenir.html">Soutenir</a>
+      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a href="soutenir.html">Soutenir</a>
     </nav>
   </header>
   <main>
@@ -49,12 +49,15 @@
     </section>
     <section id="account-panel" class="account-dashboard hidden" aria-label="Profil et collection">
       <div class="panel account-row"><div><h2>Bienvenue, <span id="welcome-name"></span></h2><p>Connecté avec <strong id="account-email"></strong></p></div><button id="logout-button" class="button secondary" type="button">Se déconnecter</button></div>
-      <div class="profile-layout">
+      <details class="account-section" id="profile-section">
+        <summary class="section-trigger"><span><strong>Mon profil</strong><small>Photo, pseudo et sécurité du compte</small></span><span aria-hidden="true">⌄</span></summary>
+        <div class="section-content"><div class="profile-layout">
         <section class="panel profile-photo-panel" aria-labelledby="photo-heading">
           <h2 id="photo-heading">Photo de profil</h2>
           <div class="avatar" id="avatar-preview" aria-label="Aperçu de la photo de profil">D</div>
           <label class="small" for="avatar-file">Choisis une photo (JPG, PNG ou WebP, 10 Mo maximum)</label>
           <input id="avatar-file" type="file" accept="image/jpeg,image/png,image/webp">
+          <div class="crop-controls hidden" id="crop-controls"><label for="avatar-zoom"><span>Zoom de la photo</span><output id="zoom-value">1×</output></label><input id="avatar-zoom" type="range" min="1" max="2.5" step="0.05" value="1"><p class="small">Fais glisser le curseur pour ajuster le cadrage dans le cercle.</p></div>
           <button id="save-avatar" class="button" type="button">Enregistrer la photo</button>
           <p id="avatar-message" class="message" aria-live="polite"></p>
         </section>
@@ -74,11 +77,15 @@
             <p id="password-message" class="message" aria-live="polite"></p>
           </form>
         </div>
-      </div>
-      <section class="panel collection-panel">
+        </div></div>
+      </details>
+      <details class="account-section" id="collection-section">
+        <summary class="section-trigger"><span><strong>Ma collection</strong><small>Consulter et ajouter mes cartes</small></span><span aria-hidden="true">⌄</span></summary>
+        <div class="section-content"><section class="panel collection-panel">
         <div><h2>Ma collection</h2><p>Consulte tes cartes et ajoute-en à ta collection.</p></div>
         <a id="collection-link" class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a>
-      </section>
+      </section></div>
+      </details>
     </section>
   </main>
   <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
@@ -93,6 +100,7 @@
     const accountPanel = document.getElementById("account-panel");
     let currentUser = null;
     let profile = { nickname: "", avatar_path: null };
+    let selectedAvatarImage = null;
     function message(id, text, kind = "") { const el = document.getElementById(id); el.textContent = text; el.className = "message" + (kind ? " " + kind : ""); }
     function pageMessage(text) { const el = document.getElementById("page-message"); el.textContent = text; el.classList.toggle("hidden", !text); }
     function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); }
@@ -100,6 +108,7 @@
       currentUser = user || null;
       authPanel.classList.toggle("hidden", !!user);
       accountPanel.classList.toggle("hidden", !user);
+      if (!user) { const accountLink = document.getElementById("account-nav-link"); accountLink.replaceChildren(document.createTextNode("Mon compte")); }
       if (user) {
         document.getElementById("account-email").textContent = user.email || "Compte connecté";
         loadProfile();
@@ -110,8 +119,20 @@
       const welcome = profile.nickname.trim() || currentUser?.email || "Duskclaw";
       document.getElementById("welcome-name").textContent = welcome;
       document.getElementById("nickname").value = profile.nickname || "";
+      const accountLink = document.getElementById("account-nav-link");
+      accountLink.replaceChildren();
+      const navAvatar = document.createElement("span"); navAvatar.className = "nav-avatar";
+      navAvatar.textContent = welcome.charAt(0).toUpperCase();
+      if (profile.avatar_path && currentUser) {
+        const { data: navData } = await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path, 3600);
+        if (userForRender !== currentUser) return;
+        if (navData?.signedUrl) { const navImg = new Image(); navImg.src = navData.signedUrl; navImg.alt = ""; navAvatar.replaceChildren(navImg); }
+      }
+      accountLink.append(navAvatar, document.createTextNode(profile.nickname.trim() || "Mon compte"));
+      accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "8px";
       const preview = document.getElementById("avatar-preview");
       preview.replaceChildren();
+      if (selectedAvatarImage) { const local = new Image(); local.alt = "Aperçu du cadrage de la photo"; local.src = selectedAvatarImage.src; local.style.transform = `scale(${document.getElementById("avatar-zoom").value})`; preview.append(local); return; }
       if (profile.avatar_path && currentUser) {
         const { data, error } = await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path, 3600);
         if (userForRender !== currentUser) return;
@@ -119,6 +140,13 @@
       }
       preview.textContent = (profile.nickname.trim() || currentUser?.email || "D").charAt(0).toUpperCase();
     }
+    document.getElementById("avatar-file").addEventListener("change", event => {
+      const file = event.target.files?.[0]; if (!file) return;
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { message("avatar-message", "Choisis une image JPG, PNG ou WebP.", "error"); event.target.value = ""; return; }
+      selectedAvatarImage = new Image(); selectedAvatarImage.onload = () => { document.getElementById("crop-controls").classList.remove("hidden"); renderProfile(); }; selectedAvatarImage.src = URL.createObjectURL(file);
+    });
+    document.getElementById("avatar-zoom").addEventListener("input", event => { document.getElementById("zoom-value").value = `${Number(event.target.value).toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}×`; renderProfile(); });
+    for (const sectionId of ["profile-section", "collection-section"]) { const section = document.getElementById(sectionId); section.addEventListener("pointerenter", () => { if (matchMedia("(hover: hover)").matches) section.open = true; }); section.addEventListener("pointerleave", () => { if (matchMedia("(hover: hover)").matches) section.open = false; }); }
     async function loadProfile() {
       if (!currentUser) return;
       const { data, error } = await client.from("user_profiles").select("nickname,avatar_path").eq("user_id", currentUser.id).maybeSingle();
@@ -168,14 +196,15 @@
       if (!file) { message("avatar-message", "Choisis d’abord une photo.", "error"); return; }
       if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 10 * 1024 * 1024) { message("avatar-message", "Utilise une image JPG, PNG ou WebP de 10 Mo maximum.", "error"); return; }
       message("avatar-message", "Envoi de la photo…");
-      const ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
+      let uploadBlob = file; let uploadType = file.type; let ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
+      if (selectedAvatarImage) { const zoom = Number(document.getElementById("avatar-zoom").value); const side = Math.min(selectedAvatarImage.naturalWidth, selectedAvatarImage.naturalHeight) / zoom; const sx = (selectedAvatarImage.naturalWidth - side) / 2; const sy = (selectedAvatarImage.naturalHeight - side) / 2; const canvas = document.createElement("canvas"); canvas.width = canvas.height = 512; canvas.getContext("2d").drawImage(selectedAvatarImage, sx, sy, side, side, 0, 0, 512, 512); uploadBlob = await new Promise(resolve => canvas.toBlob(resolve, "image/jpeg", .9)); uploadType = "image/jpeg"; ext = "jpg"; }
       const path = `${currentUser.id}/avatar-${Date.now()}.${ext}`;
-      const { error: uploadError } = await client.storage.from("user-avatars").upload(path, file, { contentType: file.type, upsert: false });
+      const { error: uploadError } = await client.storage.from("user-avatars").upload(path, uploadBlob, { contentType: uploadType, upsert: false });
       if (uploadError) { message("avatar-message", "Impossible d’envoyer la photo. Vérifie le stockage des avatars dans Supabase.", "error"); return; }
       const previousPath = profile.avatar_path;
       const { error: saveError } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname: profile.nickname, avatar_path: path, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
       if (saveError) { await client.storage.from("user-avatars").remove([path]); message("avatar-message", "La photo a été envoyée mais le profil n’a pas pu être mis à jour. Vérifie la configuration SQL.", "error"); return; }
-      profile.avatar_path = path; renderProfile(); message("avatar-message", "Photo de profil enregistrée.", "success"); input.value = "";
+      profile.avatar_path = path; selectedAvatarImage = null; document.getElementById("crop-controls").classList.add("hidden"); document.getElementById("avatar-zoom").value = "1"; renderProfile(); message("avatar-message", "Photo de profil enregistrée.", "success"); input.value = "";
       if (previousPath) await client.storage.from("user-avatars").remove([previousPath]);
     });
     document.getElementById("password-form").addEventListener("submit", async event => {

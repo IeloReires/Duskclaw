@@ -31,7 +31,7 @@
   <header class="dusk-header dusk-shell">
     <a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <nav class="dusk-nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="mon-compte.html">Mon compte</a><a href="faq.html">FAQ</a>
+      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a><a href="faq.html">FAQ</a>
       <a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a class="dusk-support" href="soutenir.html">Soutenir</a>
     </nav>
   </header>
@@ -183,5 +183,6 @@ const scanVideo=document.getElementById('scan-video');
       window.addEventListener('pagehide',stopScanner);
     }
   </script>
+  <script src="account-nav.js"></script>
 </body>
 </html>
