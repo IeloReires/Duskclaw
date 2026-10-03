@@ -44,8 +44,19 @@
     body:not(.dual-page)[data-time="jour"] .global-mode-switch .mode-day,body:not(.dual-page)[data-time="nuit"] .global-mode-switch .mode-night{color:var(--dusk-accent)}
     @media(max-width:560px){.global-mode-switch{position:static;width:max-content;margin:18px auto 24px;padding:7px 9px;gap:7px;font-size:.7rem;box-shadow:none}}
 </style>
+  <link rel="stylesheet" href="site-shell.css">
 </head><body data-time="jour">
-  <header class="dusk-header dusk-shell"><a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a><nav class="dusk-nav" aria-label="Navigation principale"><a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="dusk-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a class="dusk-support" href="soutenir.html">Soutenir</a></nav></header>
+  <header class="site-shell-header">
+  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+  <nav class="site-shell-nav" aria-label="Navigation principale">
+    <a href="personnages.html">Cardex</a>
+    <a href="univers.html">Univers</a>
+    <a href="faq.html">FAQ</a>
+    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+  </nav>
+</header>
   <main class="family-page" data-type="vent">
     <div class="family-layout"><div class="family-art-column"><section class="art-stage" aria-label="Formes de Furry 23"><button class="portrait portrait-base portrait-placeholder" type="button" data-index="0" aria-label="Afficher les informations de Furry 23, forme Base"><img src="portrait-neutre.svg" alt=""></button>
         <button class="portrait portrait-one portrait-placeholder" type="button" data-index="1" aria-label="Afficher les informations de Furry 23, forme Niveau 1"><img src="portrait-neutre.svg" alt=""></button>
@@ -97,5 +108,11 @@
 
   <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit"><span class="mode-day">Jour</span><input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="global-mode-track" aria-hidden="true"></span><span class="mode-night">Nuit</span></label>
   <script>const globalThemeSwitch=document.getElementById('global-mode-toggle');function applySiteTheme(time,save=false){document.body.dataset.time=time;globalThemeSwitch.checked=time==='nuit';globalThemeSwitch.setAttribute('aria-checked',String(time==='nuit'));const themeColor=document.querySelector('meta[name="theme-color"]');if(themeColor)themeColor.content=time==='nuit'?'#11121a':'#f1ead9';if(save)localStorage.setItem('duskclaw-time',time);}globalThemeSwitch.addEventListener('change',()=>applySiteTheme(globalThemeSwitch.checked?'nuit':'jour',true));applySiteTheme(localStorage.getItem('duskclaw-time')==='nuit'?'nuit':'jour');</script>
-  <footer class="dusk-footer"><a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
+  <footer class="site-shell-footer">
+  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
+  <span class="site-shell-handle">@Duskclaw</span>
+</footer>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="account-nav.js"></script>
 </body></html>
+

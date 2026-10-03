@@ -47,17 +47,20 @@
     @media(max-width:620px) { .contact-options { grid-template-columns:1fr; } .contact-option,.contact-option + .contact-option { min-height:0; padding:22px 0; border-left:0; } .contact-option + .contact-option { border-top:1px solid var(--contact-rule); } .contact-option h2 { margin-top:14px; } .contact-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .contact-footer { flex-direction:column; } }
     @media(prefers-reduced-motion:reduce) { body,.contact-track::before,.contact-option .contact-action,.contact-action span { transition:none; } }
   </style>
+  <link rel="stylesheet" href="site-shell.css">
 </head>
 <body data-time="jour">
-  <header class="contact-header">
-    <a class="contact-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-    <nav class="contact-nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a>
-      <a href="personnages.html">Cardex</a>
-      <a class="contact-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
-      <a class="contact-support" href="soutenir.html">Soutenir</a>
-    </nav>
-  </header>
+  <header class="site-shell-header">
+  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+  <nav class="site-shell-nav" aria-label="Navigation principale">
+    <a href="personnages.html">Cardex</a>
+    <a href="univers.html">Univers</a>
+    <a href="faq.html">FAQ</a>
+    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+  </nav>
+</header>
 
   <main class="contact-main contact-shell">
     <p class="contact-eyebrow">RESTONS EN CONTACT</p>
@@ -85,10 +88,10 @@
     </section>
   </main>
 
-  <footer class="contact-footer contact-shell">
-    <a href="index.html">Accueil</a>
-    <span>© DUSKCLAW</span>
-  </footer>
+  <footer class="site-shell-footer">
+  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
+  <span class="site-shell-handle">@Duskclaw</span>
+</footer>
   <label class="contact-mode" title="Basculer entre les ambiances Jour et Nuit">
     <span>Jour</span>
     <input id="contact-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
@@ -106,5 +109,9 @@
     contactSwitch.addEventListener("change", () => setContactTheme(contactSwitch.checked, true));
     setContactTheme(localStorage.getItem("duskclaw-time") === "nuit");
   </script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="account-nav.js"></script>
 </body>
 </html>
+
+

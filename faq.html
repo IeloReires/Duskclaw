@@ -54,17 +54,20 @@
     @media(max-width:560px) { .faq-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .faq-footer { flex-direction:column; } .dusk-footer { align-items:flex-start; flex-direction:column; } }
     @media(prefers-reduced-motion:reduce) { body { transition:none; } .faq-track::before { transition:none; } }
   </style>
+  <link rel="stylesheet" href="site-shell.css">
 </head>
 <body id="top" data-time="jour">
-  <header class="faq-header">
-    <a class="faq-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-    <nav class="faq-nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a>
-      <a href="personnages.html">Cardex</a>
-      <a class="faq-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
-      <a class="faq-support" href="soutenir.html">Soutenir</a>
-    </nav>
-  </header>
+  <header class="site-shell-header">
+  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+  <nav class="site-shell-nav" aria-label="Navigation principale">
+    <a href="personnages.html">Cardex</a>
+    <a href="univers.html">Univers</a>
+    <a href="faq.html">FAQ</a>
+    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+  </nav>
+</header>
 
   <main class="faq-main faq-shell">
     <p class="faq-eyebrow">AIDE AUX JOUEURS</p>
@@ -105,11 +108,10 @@
     <div class="faq-cta">Besoin d’un détail de jeu ou d’une règle complète&nbsp;?<br><a href="regles.html">Consulter le guide complet des règles <span aria-hidden="true">→</span></a></div>
   </main>
 
-  <footer class="dusk-footer">
-    <a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a>
-    <span>Un monde de cartes et de créatures.</span>
-    <span>© DUSKCLAW</span>
-  </footer>
+  <footer class="site-shell-footer">
+  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
+  <span class="site-shell-handle">@Duskclaw</span>
+</footer>
   <label class="faq-mode" title="Basculer entre les ambiances Jour et Nuit">
     <span>Jour</span>
     <input id="faq-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
@@ -127,6 +129,10 @@
     faqSwitch.addEventListener("change", () => setFaqTheme(faqSwitch.checked, true));
     setFaqTheme(localStorage.getItem("duskclaw-time") === "nuit");
   </script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="account-nav.js"></script>
 </body>
 </html>
+
+
 

@@ -98,16 +98,20 @@
       }
     }
     </style>
+  <link rel="stylesheet" href="site-shell.css">
 </head>
 <body id="top" data-time="jour">
-  <header class="dusk-header dusk-shell">
-    <a class="dusk-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-    <nav class="dusk-nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a>
-      <a href="personnages.html">Cardex</a>
-      <a class="dusk-support" href="soutenir.html">Soutenir</a>
-    </nav>
-  </header>
+  <header class="site-shell-header">
+  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+  <nav class="site-shell-nav" aria-label="Navigation principale">
+    <a href="personnages.html">Cardex</a>
+    <a href="univers.html">Univers</a>
+    <a href="faq.html">FAQ</a>
+    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+  </nav>
+</header>
   <main class="rules-page">
     <section class="rules-hero">
       <p class="eyebrow">GUIDE DU JOUEUR</p>
@@ -1567,11 +1571,10 @@ Nuit : 🌱</code></pre>
     </article>
     <div class="rules-footer"><a class="text-link" href="index.html">Retour à l’accueil ↑</a></div>
   </main>
-  <footer class="dusk-footer dusk-shell">
-    <a class="contact-footer-button" href="contact.html">Contact <span aria-hidden="true">→</span></a>
-    <span>Un monde de cartes et de créatures.</span>
-    <span>© DUSKCLAW</span>
-  </footer>
+  <footer class="site-shell-footer">
+  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
+  <span class="site-shell-handle">@Duskclaw</span>
+</footer>
   <a class="back-to-top" href="#top" aria-label="Remonter en haut de la page"><span aria-hidden="true">↑</span></a>
   <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
     <span class="mode-day">Jour</span>
@@ -1592,7 +1595,11 @@ Nuit : 🌱</code></pre>
     globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
     applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="account-nav.js"></script>
 </body>
 </html>
+
+
 
 

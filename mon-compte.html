@@ -54,14 +54,21 @@
     .profile-cover{background:radial-gradient(ellipse at 82% 16%,color-mix(in srgb,var(--banner-color,#b895ff) 30%,transparent),transparent 62%),linear-gradient(120deg,var(--cover-a),var(--cover-b))}
 
   </style>
+  <link rel="stylesheet" href="site-shell.css">
 </head>
 <body data-time="nuit">
-  <header class="header shell">
-    <a class="brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="univers.html">Univers</a><a href="personnages.html">Cardex</a><a href="faq.html">FAQ</a><a class="rules" href="regles.html">Les règles ↗</a><a class="support-link" href="soutenir.html">Soutenir</a><a id="moderation-nav-link" class="hidden" href="moderation.html">Modération</a><a id="account-nav-link" href="mon-compte.html">Mon compte</a>
-    </nav>
-  </header>
+  <header class="site-shell-header">
+  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+  <nav class="site-shell-nav" aria-label="Navigation principale">
+    <a href="personnages.html">Cardex</a>
+    <a href="univers.html">Univers</a>
+    <a href="faq.html">FAQ</a>
+    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
+    <a id="moderation-nav-link" class="site-shell-moderation hidden" href="moderation.html">Modération</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+  </nav>
+</header>
   <main>
     <p class="eyebrow">ESPACE PERSONNEL</p>
     <h1>Profil<span style="color:var(--accent)">.</span></h1>
@@ -120,7 +127,10 @@
       });
     })();
   </script>
-  <footer class="footer shell"><a href="contact.html">Contact</a><span>Un monde de cartes et de créatures.</span><span>© DUSKCLAW</span></footer>
+  <footer class="site-shell-footer">
+  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
+  <span class="site-shell-handle">@Duskclaw</span>
+</footer>
   <script>
     const SUPABASE_URL = "https://bqqbciifmfbsjurkulfo.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior";
@@ -368,3 +378,5 @@
   </script>
 </body>
 </html>
+
+

@@ -9,9 +9,20 @@
   <style>
     :root{color-scheme:dark;--bg:#111724;--paper:#1a2030;--ink:#ece9e1;--muted:#b8bdca;--accent:#b8a6df;--line:rgba(229,225,243,.2)}*{box-sizing:border-box}body{min-height:100vh;margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,sans-serif}.shell{width:min(900px,90%);margin:0 auto}.header{padding:24px 0;border-bottom:1px solid var(--line)}.header a{color:var(--accent)}main{padding:55px 0 90px}h1{font:400 clamp(2.4rem,7vw,4.5rem)/1.05 Georgia,serif}.muted{color:var(--muted)}.panel{padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}label{display:block;margin-bottom:9px;color:var(--muted)}select,button{min-height:46px;padding:10px 14px;border:1px solid var(--line);border-radius:8px;font:inherit}select{width:100%;background:var(--bg);color:var(--ink)}button{margin-top:18px;background:var(--accent);color:#171520;font-weight:700;cursor:pointer}#qr-wrap{display:grid;width:260px;min-height:260px;place-items:center;margin:26px auto 18px;padding:18px;border-radius:12px;background:white}#qr-wrap img,#qr-wrap canvas{max-width:100%;height:auto}.token{text-align:center;font-family:ui-monospace,monospace}.hint{font-size:.86rem;color:var(--muted)}
   </style>
+  <link rel="stylesheet" href="site-shell.css">
 </head>
 <body>
-  <header class="header shell"><a href="index.html">← Retour à Duskclaw</a></header>
+  <header class="site-shell-header">
+  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+  <nav class="site-shell-nav" aria-label="Navigation principale">
+    <a href="personnages.html">Cardex</a>
+    <a href="univers.html">Univers</a>
+    <a href="faq.html">FAQ</a>
+    <a class="site-shell-rules" href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
+    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
+    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a>
+  </nav>
+</header>
   <main class="shell">
     <p class="muted">OUTIL DE PRÉPARATION DES CARTES</p>
     <h1>QR codes Duskclaw</h1>
@@ -38,5 +49,15 @@
     document.getElementById('download-qr').addEventListener('click',()=>{const canvas=qrWrap.querySelector('canvas');if(!canvas){qrMessage.textContent='Le QR code n’est pas prêt. Recharge la page puis réessaie.';return;}const link=document.createElement('a');link.href=canvas.toDataURL('image/png');link.download=`duskclaw-carte-${String(select.value).padStart(3,'0')}-qr.png`;link.click();});
     renderQr();
   </script>
+<footer class="site-shell-footer">
+  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
+  <span class="site-shell-handle">@Duskclaw</span>
+</footer>
+<label class="site-shell-mode" title="Basculer entre les ambiances Jour et Nuit"><span>Jour</span><input id="site-shell-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="site-shell-mode-track" aria-hidden="true"></span><span>Nuit</span></label>
+<script src="site-shell.js"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="account-nav.js"></script>
 </body>
 </html>
+
+
