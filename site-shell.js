@@ -28,16 +28,19 @@
     });
   }
 
-  // Incoming friend requests badge, shared by every page using the site shell.
+  // Account notifications shared by every page using the site shell.
   const accountLink = document.getElementById("account-nav-link");
   const actions = accountLink?.closest(".site-shell-actions");
   if (accountLink && actions) {
-    const bell = document.createElement("a");
+    const wrap = document.createElement("div");
+    wrap.className = "site-shell-notification-wrap";
+    const bell = document.createElement("button");
+    bell.type = "button";
     bell.className = "site-shell-notifications";
-    bell.href = "amis.html#requests-list";
-    bell.setAttribute("aria-label", "Notifications des demandes d’amis");
-    bell.title = "Demandes d’amis";
-    bell.hidden = false;
+    bell.setAttribute("aria-label", "Ouvrir les notifications");
+    bell.setAttribute("aria-expanded", "false");
+    bell.setAttribute("aria-haspopup", "dialog");
+    bell.title = "Notifications";
     const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     icon.setAttribute("viewBox", "0 0 24 24");
     icon.setAttribute("aria-hidden", "true");
@@ -54,41 +57,145 @@
     count.setAttribute("aria-live", "polite");
     count.hidden = true;
     bell.append(icon, count);
-    actions.insertBefore(bell, accountLink);
 
+    const panel = document.createElement("section");
+    panel.className = "site-shell-notification-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-label", "Notifications");
+    panel.hidden = true;
+    const heading = document.createElement("div");
+    heading.className = "site-shell-notification-heading";
+    const title = document.createElement("strong");
+    title.textContent = "Notifications";
+    const markAll = document.createElement("button");
+    markAll.type = "button";
+    markAll.className = "site-shell-notification-read-all";
+    markAll.textContent = "Tout marquer comme lu";
+    heading.append(title, markAll);
+    const list = document.createElement("div");
+    list.className = "site-shell-notification-list";
+    list.setAttribute("aria-live", "polite");
+    panel.append(heading, list);
+    wrap.append(bell, panel);
+    actions.insertBefore(wrap, accountLink);
+
+    const showMessage = text => {
+      list.replaceChildren();
+      const empty = document.createElement("p");
+      empty.className = "site-shell-notification-empty";
+      empty.textContent = text;
+      list.append(empty);
+    };
+    const notificationLink = row => {
+      if (row.kind === "friend_request") return "amis.html#requests-list";
+      if (row.kind === "friend_accepted") return "amis.html";
+      if (row.kind === "badge_awarded") return "mon-compte.html";
+      if (row.kind === "trade_offer") return "collection.html";
+      return "amis.html";
+    };
+    const formatDate = value => {
+      const date = new Date(value);
+      return Number.isNaN(date.valueOf()) ? "" : new Intl.DateTimeFormat("fr-FR", { dateStyle: "short", timeStyle: "short" }).format(date);
+    };
+    let supabaseClient = null;
+    let currentUserId = null;
+    let rows = [];
+    let realtimeChannel = null;
+    const updateCount = () => {
+      const unread = rows.filter(row => !row.read_at).length;
+      count.textContent = unread > 99 ? "99+" : String(unread);
+      count.hidden = unread === 0;
+      bell.setAttribute("aria-label", unread ? "Ouvrir les notifications, " + unread + " non lue" + (unread > 1 ? "s" : "") : "Ouvrir les notifications");
+    };
+    const renderRows = () => {
+      list.replaceChildren();
+      if (!currentUserId) { showMessage("Connecte-toi pour consulter tes notifications."); return; }
+      if (!rows.length) { showMessage("Tu n’as pas encore de notification."); return; }
+      for (const row of rows) {
+        const item = document.createElement("a");
+        item.className = "site-shell-notification-item" + (row.read_at ? " is-read" : " is-unread");
+        item.href = notificationLink(row);
+        item.dataset.notificationId = String(row.id);
+        item.href = notificationLink(row);
+        const dot = document.createElement("span");
+        dot.className = "site-shell-notification-dot";
+        dot.setAttribute("aria-hidden", "true");
+        const content = document.createElement("span");
+        content.className = "site-shell-notification-copy";
+        const itemTitle = document.createElement("strong");
+        itemTitle.textContent = row.title || "Notification";
+        const message = document.createElement("span");
+        message.textContent = row.message || "";
+        const date = document.createElement("small");
+        date.textContent = formatDate(row.created_at);
+        content.append(itemTitle, message, date);
+        item.append(dot, content);
+        item.addEventListener("click", async event => {
+          if (!row.read_at && supabaseClient) {
+            event.preventDefault();
+            const { error } = await supabaseClient.from("user_notifications").update({ read_at: new Date().toISOString() }).eq("id", row.id);
+            if (!error) { row.read_at = new Date().toISOString(); updateCount(); item.classList.remove("is-unread"); item.classList.add("is-read"); }
+            window.location.href = notificationLink(row);
+          }
+        });
+        list.append(item);
+      }
+    };
+    const loadNotifications = async () => {
+      if (!supabaseClient || !currentUserId) return;
+      const { data, error } = await supabaseClient.from("user_notifications")
+        .select("id,kind,title,message,href,created_at,read_at")
+        .eq("recipient_id", currentUserId).order("created_at", { ascending: false }).limit(30);
+      if (error) { showMessage("Les notifications n’ont pas pu être chargées."); return; }
+      rows = data || [];
+      updateCount();
+      renderRows();
+    };
+    bell.addEventListener("click", async () => {
+      const opening = panel.hidden;
+      panel.hidden = !opening;
+      bell.setAttribute("aria-expanded", String(opening));
+      if (opening) {
+        if (!supabaseClient) showMessage("Le service de notifications n’est pas disponible.");
+        else if (!currentUserId) showMessage("Connecte-toi pour consulter tes notifications.");
+        else await loadNotifications();
+      }
+    });
+    markAll.addEventListener("click", async () => {
+      if (!supabaseClient || !currentUserId) return;
+      const now = new Date().toISOString();
+      const { error } = await supabaseClient.from("user_notifications").update({ read_at: now }).eq("recipient_id", currentUserId).is("read_at", null);
+      if (!error) { rows.forEach(row => { if (!row.read_at) row.read_at = now; }); updateCount(); renderRows(); }
+    });
+    document.addEventListener("pointerdown", event => {
+      if (!wrap.contains(event.target)) { panel.hidden = true; bell.setAttribute("aria-expanded", "false"); }
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !panel.hidden) { panel.hidden = true; bell.setAttribute("aria-expanded", "false"); bell.focus(); }
+    });
     if (window.supabase?.createClient) {
-      const client = window.supabase.createClient(
+      supabaseClient = window.supabase.createClient(
         "https://bqqbciifmfbsjurkulfo.supabase.co",
         "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior"
       );
-      let checking = false;
-    const updateNotifications = async user => {
-      bell.hidden = false;
-      if (!user) { count.hidden = true; return; }
-      if (checking) return;
-      checking = true;
-      try {
-        const { data, error } = await client.rpc("friends_directory");
-        if (error) throw error;
-        const incoming = (data || []).filter(item => item.direction === "received").length;
-        count.textContent = incoming > 99 ? "99+" : String(incoming);
-        count.hidden = incoming === 0;
-        bell.setAttribute("aria-label", incoming
-          ? incoming + " demande" + (incoming > 1 ? "s" : "") + " d’amitié en attente"
-          : "Aucune demande d’ami en attente");
-        bell.title = incoming ? incoming + " demande" + (incoming > 1 ? "s" : "") + " d’ami" : "Demandes d’amis";
-      } catch {
-        count.hidden = true;
-        bell.setAttribute("aria-label", "Voir les demandes d’amis");
-      } finally {
-        checking = false;
-      }
-    };
-    client.auth.getSession().then(({ data }) => updateNotifications(data.session?.user || null)).catch(() => {});
-    client.auth.onAuthStateChange((_event, session) => updateNotifications(session?.user || null));
-      window.setInterval(() => {
-        if (!document.hidden) client.auth.getSession().then(({ data }) => updateNotifications(data.session?.user || null)).catch(() => {});
-      }, 60000);
+      supabaseClient.auth.getSession().then(({ data }) => {
+        currentUserId = data.session?.user?.id || null;
+        if (currentUserId) loadNotifications();
+      }).catch(() => {});
+      supabaseClient.auth.onAuthStateChange((_event, session) => {
+        currentUserId = session?.user?.id || null;
+        rows = [];
+        if (currentUserId) loadNotifications(); else { updateCount(); if (!panel.hidden) renderRows(); }
+      });
+      const subscribe = () => {
+        if (!currentUserId) return;
+        if (realtimeChannel) supabaseClient.removeChannel(realtimeChannel);
+        realtimeChannel = supabaseClient.channel("site-notifications-" + currentUserId)
+          .on("postgres_changes", { event: "*", schema: "public", table: "user_notifications", filter: "recipient_id=eq." + currentUserId }, loadNotifications)
+          .subscribe();
+      };
+      supabaseClient.auth.onAuthStateChange((_event, session) => { if (session?.user?.id) subscribe(); else if (realtimeChannel) { supabaseClient.removeChannel(realtimeChannel); realtimeChannel = null; } });
+      window.setInterval(() => { if (!document.hidden && currentUserId) loadNotifications(); }, 60000);
     }
   }
 
