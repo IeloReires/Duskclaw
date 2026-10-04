@@ -22,7 +22,7 @@
     .badge-awards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.badge-award{display:flex;align-items:center;gap:12px;min-width:0;padding:12px;border:1px solid var(--line);border-radius:13px;background:color-mix(in srgb,var(--bg) 55%,var(--paper))}.badge-medal{--metal-1:#c98545;--metal-2:#75401e;position:relative;display:grid;width:58px;height:66px;flex:0 0 58px;place-items:center;clip-path:polygon(50% 0,91% 17%,86% 72%,50% 100%,14% 72%,9% 17%);background:linear-gradient(135deg,var(--metal-1),var(--metal-2) 46%,var(--metal-1) 67%,#4a2d1d);filter:drop-shadow(0 4px 5px #0006)}.badge-medal::before{position:absolute;inset:4px;clip-path:inherit;border:1px solid #fff9;background:linear-gradient(145deg,#ffffff42,transparent 48%,#0003)}.badge-medal span{position:relative;color:#fff8e8;font-size:1.5rem;text-shadow:0 2px 3px #342012}.badge-award[data-rarity="bronze"] .badge-medal{--metal-1:#e0a36b;--metal-2:#73401f}.badge-award[data-rarity="silver"] .badge-medal{--metal-1:#f0f2f2;--metal-2:#747c88}.badge-award[data-rarity="gold"] .badge-medal{--metal-1:#fff0a0;--metal-2:#a96a18}.badge-award[data-rarity="platinum"] .badge-medal{--metal-1:#dddcff;--metal-2:#6867a2}.badge-award-copy{display:grid;gap:2px;min-width:0;flex:1}.badge-award-copy strong{overflow-wrap:anywhere}.badge-award-copy small{color:var(--muted);font-size:.76rem;text-transform:capitalize}.badge-award .button{min-height:34px;padding:6px 9px;font-size:.78rem}.badge-award .button:disabled{opacity:.55}.badge-choice-note{width:100%;margin:0;color:var(--muted);font-size:.82rem}
     @media(max-width:760px){.header{flex-wrap:wrap;padding-block:16px}.nav{order:3;width:100%;justify-content:space-between;gap:8px}.nav a{font-size:.76rem}.layout{grid-template-columns:1fr}.user-list{max-height:40vh}.details-grid{grid-template-columns:1fr 1fr}.global-mode-switch{position:static;width:max-content;margin:20px auto 24px;box-shadow:none}.footer{flex-direction:column}}
   </style>
-  <link rel="stylesheet" href="site-shell.css?v=20261004-2215">
+  <link rel="stylesheet" href="site-shell.css?v=20261005-contrast1">
 </head>
 <body data-time="nuit">
   <header class="site-shell-header">
@@ -82,7 +82,7 @@
     (async()=>{const {data,error}=await client.auth.getSession();if(error||!data.session?.user){location.replace('mon-compte.html');return}const {data:isMod,error:roleError}=await client.rpc('is_site_moderator');if(roleError||isMod!==true){say('Accès réservé au compte modérateur.',true);return}try{await loadUsers()}catch(e){say(e.message,true)}})();
   </script>
 <script src="account-nav.js?v=20261004-2215"></script>
-<script src="site-shell.js?v=20261004-2215"></script>
+<script src="site-shell.js?v=20261005-contrast1"></script>
 </body>
 </html>
 

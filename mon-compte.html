@@ -67,8 +67,17 @@
     @media(max-width:760px){.banner-control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.banner-sliders{grid-template-columns:1fr}}
     .badge-emblem{--metal-a:#d19a61;--metal-b:#73411e;position:relative;display:grid!important;width:48px;height:56px;place-items:center;overflow:hidden;clip-path:polygon(50% 0,91% 17%,86% 72%,50% 100%,14% 72%,9% 17%);background:linear-gradient(135deg,var(--metal-a),var(--metal-b) 45%,var(--metal-a) 68%,#422c1e);filter:drop-shadow(0 3px 5px #0007);font-style:normal}.badge-emblem::before{position:absolute;inset:4px;clip-path:polygon(50% 0,91% 17%,86% 72%,50% 100%,14% 72%,9% 17%);border:1px solid #ffffffa8;background:linear-gradient(145deg,#ffffff44,transparent 48%,#0003);content:""}.badge-emblem>span{position:relative;color:#fff8e8;font-size:1.25rem;text-shadow:0 2px 3px #342012;filter:none!important}.future-badge[data-rarity="bronze"] .badge-emblem{--metal-a:#e0a36b;--metal-b:#73401f}.future-badge[data-rarity="silver"] .badge-emblem{--metal-a:#f0f2f2;--metal-b:#747c88}.future-badge[data-rarity="gold"] .badge-emblem{--metal-a:#fff0a0;--metal-b:#a96a18}.future-badge[data-rarity="platinum"] .badge-emblem{--metal-a:#dddcff;--metal-b:#6867a2}.future-badge.moderator-badge{border-style:solid}.future-badge.moderator-badge[data-rarity="bronze"]{border-color:#ad7546}.future-badge.moderator-badge[data-rarity="silver"]{border-color:#aeb7c2}.future-badge.moderator-badge[data-rarity="gold"]{border-color:#d7ae55}.future-badge.moderator-badge[data-rarity="platinum"]{border-color:#a5a7ed}
 
+    /* Day mode badge contrast */
+    body[data-time="jour"] .field input,body[data-time="jour"] .field-input,body[data-time="jour"] .name-input{background:#fffdf7;color:#252920;border-color:rgba(60,58,47,.28)}
+    body[data-time="jour"] .future-badge{border-color:#c6bdad;background:#eee8dc;color:#57584f}
+    body[data-time="jour"] .future-badge strong{color:#30332d}
+    body[data-time="jour"] .future-badge.is-earned{border-color:color-mix(in srgb,var(--badge-metal,#a97927) 62%,#8c806d);background:linear-gradient(145deg,color-mix(in srgb,var(--badge-metal,#a97927) 19%,#fffdf7),#eee8dc 78%);color:#342d21;box-shadow:0 5px 18px color-mix(in srgb,var(--badge-metal,#a97927) 15%,transparent)}
+    body[data-time="jour"] .future-badge.is-earned strong{color:#2c281f}
+    body[data-time="jour"] .future-badge[data-rarity="bronze"]{--badge-metal:#a96232}body[data-time="jour"] .future-badge[data-rarity="silver"]{--badge-metal:#727d89}body[data-time="jour"] .future-badge[data-rarity="gold"]{--badge-metal:#98701e}body[data-time="jour"] .future-badge[data-rarity="platinum"]{--badge-metal:#6665a0}
+    body[data-time="jour"] .badge-tooltip{border-color:#c5bdad;background:#fffdf7;color:#292c27;box-shadow:0 9px 30px rgba(54,47,33,.22)}
+    body[data-time="jour"] .showcase-card span{color:#e0e3ee}
   </style>
-  <link rel="stylesheet" href="site-shell.css?v=20261004-2215">
+  <link rel="stylesheet" href="site-shell.css?v=20261005-contrast1">
 </head>
 <body data-time="nuit">
   <header class="site-shell-header">
@@ -419,7 +428,7 @@
       finally { saveButton.disabled = false; }
     });
   </script>
-<script src="site-shell.js?v=20261004-2215"></script>
+<script src="site-shell.js?v=20261005-contrast1"></script>
 </body>
 </html>
 
