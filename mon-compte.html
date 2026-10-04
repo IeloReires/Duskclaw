@@ -16,7 +16,9 @@
     .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:34px}.panel{padding:clamp(20px,4vw,30px);border:1px solid var(--line);border-radius:16px;background:var(--paper)}h2{margin:0 0 20px;font:400 1.65rem Georgia,"Times New Roman",serif}.field{display:grid;gap:8px;margin:15px 0;color:var(--muted);font-size:.92rem}.field input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field input:focus{outline:2px solid var(--accent);outline-offset:2px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:6px;padding:11px 17px;border:1px solid var(--accent);border-radius:8px;background:var(--accent);color:#171520;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}.button:hover{filter:brightness(1.08)}.button.secondary{border-color:var(--line);background:transparent;color:var(--ink)}.button:disabled{opacity:.6;cursor:wait}.text-button{display:block;margin-top:12px;padding:4px 0;border:0;background:none;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}.message{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.9rem}.message.error{color:#ffaaa8}.message.success{color:#9bd7b1}.small{color:var(--muted);font-size:.82rem}.hidden{display:none!important}
     .account-dashboard{display:grid;gap:20px;margin-top:34px}.avatar{display:grid;width:160px;aspect-ratio:1;place-items:center;overflow:hidden;margin:0 auto 17px;border:1px solid var(--line);border-radius:50%;background:radial-gradient(circle at 35% 25%,#34374e,#20263a 65%,#171d2b);color:var(--accent);font:400 4rem Georgia,serif}.avatar img{width:100%;height:100%;object-fit:cover}.nav-avatar{display:inline-grid;width:28px;height:28px;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;font-size:.78rem;font-weight:700;vertical-align:middle}.nav-avatar img{width:100%;height:100%;object-fit:cover}.collection-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.collection-panel p{margin:0;color:var(--muted)}.collection-panel h2{margin-bottom:8px}.footer{display:flex;justify-content:space-between;gap:18px;padding:25px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}.footer a{color:var(--accent)}
     @media(max-width:760px){.header{flex-wrap:wrap;padding-block:17px}.nav{order:3;width:100%;justify-content:space-between;gap:10px}.nav a{font-size:.78rem}main{margin-top:40px}.auth-grid{grid-template-columns:1fr}.footer{flex-direction:column}.avatar{width:140px}}
-    .profile-cover{--cover-a:#202940;--cover-b:#705a8e;position:relative;display:flex;min-height:245px;align-items:flex-end;overflow:hidden;padding:clamp(20px,4vw,34px);border:1px solid rgba(255,255,255,.2);border-radius:22px;background:radial-gradient(ellipse at 82% 16%,color-mix(in srgb,var(--banner-color,#b895ff) 50%,transparent),transparent 62%),linear-gradient(120deg,var(--cover-a),var(--cover-b));box-shadow:0 18px 42px rgba(0,0,0,.2);isolation:isolate;transition:background .25s}.profile-cover[data-theme="moonlit"]{--cover-a:#192342;--cover-b:#392b5d}.profile-cover[data-theme="wildwood"]{--cover-a:#163b32;--cover-b:#35492f}.profile-cover[data-theme="tideglass"]{--cover-a:#123d58;--cover-b:#226c70}.profile-cover[data-theme="emberforge"]{--cover-a:#382629;--cover-b:#70402f}.profile-cover::before,.profile-cover::after{position:absolute;z-index:-1;border:1px solid rgba(255,255,255,.2);content:""}.profile-cover::before{width:310px;height:310px;top:-190px;right:8%;border-radius:50%}.profile-cover::after{width:420px;height:420px;top:-300px;right:-40px;border-radius:50%}.profile-cover[data-theme="moonlit"]::before{background:radial-gradient(circle at 65% 65%,#ffffff24 0 2px,transparent 3px),radial-gradient(circle at 28% 48%,#ffffff20 0 2px,transparent 3px);background-size:54px 49px}.profile-cover[data-theme="wildwood"]::before{border-radius:48% 52% 22% 78%;transform:rotate(35deg);background:repeating-linear-gradient(125deg,transparent 0 22px,#ffffff0d 23px 25px)}.profile-cover[data-theme="tideglass"]::before,.profile-cover[data-theme="tideglass"]::after{border-radius:48%;transform:rotate(-25deg) scaleX(1.6)}.profile-cover[data-theme="tideglass"]::before{background:repeating-linear-gradient(0deg,transparent 0 22px,#ffffff12 23px 25px)}.profile-cover[data-theme="emberforge"]::before{border-radius:20%;transform:rotate(35deg);background:repeating-linear-gradient(135deg,transparent 0 18px,#ffffff13 19px 21px)}.profile-cover-inner{display:flex;width:100%;align-items:flex-end;gap:18px}.avatar-edit-wrap,.name-edit-wrap{position:relative}.cover-avatar{width:104px;height:104px;flex:0 0 104px;margin:0;border:3px solid rgba(255,255,255,.86);background:#182131;color:white;box-shadow:0 8px 26px rgba(0,0,0,.3)}.edit-pencil{position:absolute;right:-5px;bottom:-5px;display:grid;width:34px;height:34px;place-items:center;border:1px solid rgba(255,255,255,.75);border-radius:50%;background:#151b29;color:white;font-size:1rem;cursor:pointer;box-shadow:0 3px 12px #0007}.profile-identity{flex:1;min-width:0;padding-bottom:3px}.profile-identity h2{margin:0;color:#fff;font:500 clamp(1.6rem,4vw,2.4rem) Georgia,"Times New Roman",serif}.name-edit-wrap{display:flex;align-items:center;gap:10px}.cover-kicker{margin:0 0 6px;color:rgba(255,255,255,.72);font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.banner-settings h3,.featured-panel h3,.badges-panel h3{margin:0 0 12px;font:400 1.35rem Georgia,"Times New Roman",serif}.featured-panel,.badges-panel,.banner-settings{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.ambience-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.ambience-choices button{display:grid;min-height:125px;align-content:center;gap:6px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);text-align:left;cursor:pointer;transition:.2s}.ambience-choices button[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 20px color-mix(in srgb,var(--banner-color,#b895ff) 24%,transparent)}.ambience-choices button>span{color:var(--banner-color,#b895ff);font-size:1.35rem}.ambience-choices button strong{font-size:.9rem}.ambience-choices button small{color:var(--muted);font-size:.75rem}.featured-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.featured-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.showcase-card{position:relative;display:flex;min-height:150px;flex-direction:column;justify-content:space-between;overflow:hidden;padding:16px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:radial-gradient(circle at 85% 12%,rgba(184,166,223,.28),transparent 42%),linear-gradient(145deg,#262d42,#171d2a 75%);box-shadow:0 10px 24px rgba(0,0,0,.14)}.showcase-card::after{position:absolute;right:-22px;bottom:-42px;width:105px;height:105px;border:1px solid rgba(255,255,255,.12);border-radius:50%;content:""}.showcase-card small{color:var(--accent);font-weight:800;letter-spacing:.12em}.showcase-card strong{max-width:90%;font:400 1.15rem Georgia,"Times New Roman",serif}.showcase-card span{color:var(--muted);font-size:.75rem}.badge-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.future-badge{display:grid;justify-items:center;gap:6px;padding:16px 10px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;opacity:.72}.future-badge span:first-child{font-size:1.55rem;filter:grayscale(1)}.future-badge strong{color:var(--ink);font-size:.82rem}.future-badge small{font-size:.7rem}.profile-savebar{display:flex;justify-content:flex-end;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;padding-top:24px;border-top:1px solid var(--line)}.profile-savebar .message{flex:1}.palette{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:12px}.palette button{width:36px;height:36px;border:2px solid rgba(255,255,255,.35);border-radius:50%;cursor:pointer}.palette button[aria-pressed="true"]{outline:2px solid white;outline-offset:3px}.color-input{width:50px!important;height:40px!important;padding:3px!important;border:1px solid var(--line);border-radius:10px;background:var(--paper)}.crop-controls{margin:12px auto 0;max-width:420px;padding:12px 16px;border:1px solid rgba(255,255,255,.28);border-radius:12px;background:#111724aa}.crop-controls label{display:flex;justify-content:space-between;gap:12px;color:white;font-size:.85rem}.crop-controls input{width:100%;accent-color:var(--accent)}
+    .profile-cover{--cover-a:#202940;--cover-b:#705a8e;position:relative;display:flex;min-height:245px;align-items:flex-end;overflow:hidden;padding:clamp(20px,4vw,34px);border:1px solid rgba(255,255,255,.2);border-radius:22px;background:radial-gradient(ellipse at 82% 16%,color-mix(in srgb,var(--banner-color,#b895ff) 50%,transparent),transparent 62%),linear-gradient(120deg,var(--cover-a),var(--cover-b));box-shadow:0 18px 42px rgba(0,0,0,.2);isolation:isolate;transition:background .25s}.profile-cover[data-theme="moonlit"]{--cover-a:#192342;--cover-b:#392b5d}.profile-cover[data-theme="wildwood"]{--cover-a:#163b32;--cover-b:#35492f}.profile-cover[data-theme="tideglass"]{--cover-a:#123d58;--cover-b:#226c70}.profile-cover[data-theme="emberforge"]{--cover-a:#382629;--cover-b:#70402f}.profile-cover::before,.profile-cover::after{position:absolute;z-index:-1;border:1px solid rgba(255,255,255,.2);content:""}.profile-cover::before{width:310px;height:310px;top:-190px;right:8%;border-radius:50%}.profile-cover::after{width:420px;height:420px;top:-300px;right:-40px;border-radius:50%}.profile-cover[data-theme="moonlit"]::before{background:radial-gradient(circle at 65% 65%,#ffffff24 0 2px,transparent 3px),radial-gradient(circle at 28% 48%,#ffffff20 0 2px,transparent 3px);background-size:54px 49px}.profile-cover[data-theme="wildwood"]::before{border-radius:48% 52% 22% 78%;transform:rotate(35deg);background:repeating-linear-gradient(125deg,transparent 0 22px,#ffffff0d 23px 25px)}.profile-cover[data-theme="tideglass"]::before,.profile-cover[data-theme="tideglass"]::after{border-radius:48%;transform:rotate(-25deg) scaleX(1.6)}.profile-cover[data-theme="tideglass"]::before{background:repeating-linear-gradient(0deg,transparent 0 22px,#ffffff12 23px 25px)}.profile-cover[data-theme="emberforge"]::before{border-radius:20%;transform:rotate(35deg);background:repeating-linear-gradient(135deg,transparent 0 18px,#ffffff13 19px 21px)}.profile-cover-inner{display:flex;width:100%;align-items:flex-end;gap:18px}.avatar-edit-wrap,.name-edit-wrap{position:relative}.cover-avatar{width:104px;height:104px;flex:0 0 104px;margin:0;border:3px solid rgba(255,255,255,.86);background:#182131;color:white;box-shadow:0 8px 26px rgba(0,0,0,.3)}.edit-pencil{position:absolute;right:-5px;bottom:-5px;display:grid;width:34px;height:34px;place-items:center;border:1px solid rgba(255,255,255,.75);border-radius:50%;background:#151b29;color:white;font-size:1rem;cursor:pointer;box-shadow:0 3px 12px #0007}.profile-identity{flex:1;min-width:0;padding-bottom:3px}.profile-identity h2{margin:0;color:#fff;font:500 clamp(1.6rem,4vw,2.4rem) Georgia,"Times New Roman",serif}.name-edit-wrap{display:flex;align-items:center;gap:10px}.cover-kicker{margin:0 0 6px;color:rgba(255,255,255,.72);font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.banner-settings h3,.featured-panel h3,.badges-panel h3{margin:0 0 12px;font:400 1.35rem Georgia,"Times New Roman",serif}.featured-panel,.badges-panel,.banner-settings{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.ambience-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.ambience-choices button{display:grid;min-height:125px;align-content:center;gap:6px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);text-align:left;cursor:pointer;transition:.2s}.ambience-choices button[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 20px color-mix(in srgb,var(--banner-color,#b895ff) 24%,transparent)}.ambience-choices button>span{color:var(--banner-color,#b895ff);font-size:1.35rem}.ambience-choices button strong{font-size:.9rem}.ambience-choices button small{color:var(--muted);font-size:.75rem}.featured-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.featured-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.showcase-card{position:relative;display:flex;min-height:150px;flex-direction:column;justify-content:space-between;overflow:hidden;padding:16px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:radial-gradient(circle at 85% 12%,rgba(184,166,223,.28),transparent 42%),linear-gradient(145deg,#262d42,#171d2a 75%);box-shadow:0 10px 24px rgba(0,0,0,.14)}.showcase-card::after{position:absolute;right:-22px;bottom:-42px;width:105px;height:105px;border:1px solid rgba(255,255,255,.12);border-radius:50%;content:""}.showcase-card small{color:var(--accent);font-weight:800;letter-spacing:.12em}.showcase-card strong{max-width:90%;font:400 1.15rem Georgia,"Times New Roman",serif}.showcase-card span{color:var(--muted);font-size:.75rem}.badge-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.future-badge{display:grid;justify-items:center;gap:6px;padding:16px 10px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;opacity:.72}.future-badge span:first-child{font-size:1.55rem;filter:grayscale(1)}.future-badge strong{color:var(--ink);font-size:.82rem}.future-badge small{font-size:.7rem}.profile-savebar{display:flex;justify-content:flex-end;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;padding-top:24px;border-top:1px solid var(--line)}.profile-savebar .message{flex:1}.palette{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:12px}.palette button{width:36px;height:36px;border:2px solid rgba(255,255,255,.35);border-radius:50%;cursor:pointer}.palette button[aria-pressed="true"]{outline:2px solid white;outline-offset:3px}.color-input{width:50px!important;height:40px!important;padding:3px!important;border:1px solid var(--line);border-radius:10px;background:var(--paper)}.crop-controls{display:grid;gap:14px;margin:12px auto 0;max-width:460px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}.crop-controls label{display:flex;justify-content:space-between;gap:12px;color:var(--ink);font-size:.88rem}.crop-controls input{width:100%;accent-color:var(--accent)}
+    .crop-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.crop-heading strong{font-size:.95rem}.crop-heading span{color:var(--muted);font-size:.78rem}.crop-viewport{position:relative;width:min(100%,360px);aspect-ratio:1;margin-inline:auto;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#10141c;touch-action:none;cursor:grab;user-select:none}.crop-viewport:active{cursor:grabbing}.crop-viewport canvas{display:block;width:100%;height:100%;object-fit:contain}.crop-mask{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle,transparent 0 49%,rgba(0,0,0,.58) 50% 100%)}.crop-mask::after{position:absolute;inset:1%;border:3px solid rgba(255,255,255,.96);border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 16px rgba(255,255,255,.16);content:""}.crop-tools{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:16px}.crop-tools label{display:grid;grid-template-columns:auto auto;align-items:center;gap:0 12px}.crop-tools label input{grid-column:1/-1}.crop-tools output{color:var(--muted);font-variant-numeric:tabular-nums}.crop-reset{min-height:38px;padding:7px 11px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink);font:inherit;font-size:.82rem;cursor:pointer}.crop-reset:hover{border-color:var(--accent)}
+    body[data-time="jour"] .crop-viewport{background:#d8d2c8}body[data-time="jour"] .crop-mask{background:radial-gradient(circle,transparent 0 49%,rgba(35,31,27,.48) 50% 100%)}
     @media(max-width:760px){.profile-cover{min-height:190px;padding:18px}.profile-cover-inner{gap:13px;flex-wrap:wrap}.cover-avatar{width:82px;height:82px;flex-basis:82px}.featured-gallery,.badge-list{grid-template-columns:1fr 1fr}.ambience-choices{grid-template-columns:1fr 1fr}.showcase-card{min-height:135px}.profile-identity{flex:1 1 calc(100% - 100px)}}
     @media(max-width:430px){.featured-gallery,.badge-list{grid-template-columns:1fr}.profile-cover-inner{align-items:center}.profile-identity{flex-basis:100%}}
     .field-input{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#111724;color:var(--ink);font:inherit}.field-input:focus{outline:2px solid var(--accent);outline-offset:2px}
@@ -126,7 +128,14 @@
         <div class="profile-identity"><p class="cover-kicker">Profil Duskclaw</p><div class="name-edit-wrap"><h2 id="welcome-name"></h2><button class="edit-pencil" type="button" data-edit="nickname" aria-label="Modifier le pseudo">✎</button></div><input id="nickname" class="name-input hidden" type="text" minlength="2" maxlength="15" autocomplete="nickname" aria-label="Pseudo (15 caractères maximum)" placeholder="Ton pseudo"></div>
       </div></div>
       <input id="avatar-file" class="hidden" type="file" accept="image/jpeg,image/png,image/webp">
-      <div class="crop-controls hidden" id="crop-controls"><label for="avatar-zoom"><span>Zoom de la photo</span><output id="zoom-value">1×</output></label><input id="avatar-zoom" type="range" min="1" max="2.5" step="0.05" value="1"><p class="small">Ajuste le cadrage, puis enregistre toutes tes modifications en bas de page.</p></div>
+      <div class="crop-controls hidden" id="crop-controls">
+        <div class="crop-heading"><strong>Ajuster la photo</strong><span>Fais glisser l’image pour la déplacer</span></div>
+        <div class="crop-viewport" id="avatar-crop-viewport" tabindex="0" role="application" aria-label="Recadrage circulaire de la photo. Fais glisser l’image ou utilise les flèches du clavier.">
+          <canvas id="avatar-crop-canvas" width="360" height="360" aria-label="Aperçu du cadrage"></canvas><span class="crop-mask" aria-hidden="true"></span>
+        </div>
+        <div class="crop-tools"><button class="crop-reset" id="avatar-crop-reset" type="button">Recentrer</button><label for="avatar-zoom"><span>Zoom</span><output id="zoom-value">1×</output><input id="avatar-zoom" type="range" min="1" max="3.5" step="0.05" value="1"></label></div>
+        <p class="small">Le cadrage affiché sera celui enregistré comme photo de profil.</p>
+      </div>
       <section class="banner-settings" aria-labelledby="banner-settings-title"><h3 id="banner-settings-title">Crée ta bannière</h3><p class="small">Compose-la avec des ambiances, des couleurs et des réglages visuels. Aucune photo personnelle ne peut être ajoutée en bannière.</p>
         <p class="palette-label">Ambiance</p><div class="ambience-choices" role="group" aria-label="Choisir une ambiance"><button type="button" data-theme-choice="water" aria-pressed="true"><span>≈</span><strong>Rivages</strong></button><button type="button" data-theme-choice="plant" aria-pressed="false"><span>❧</span><strong>Forêt</strong></button><button type="button" data-theme-choice="ice" aria-pressed="false"><span>✧</span><strong>Givre</strong></button><button type="button" data-theme-choice="rock" aria-pressed="false"><span>⌁</span><strong>Montagne</strong></button><button type="button" data-theme-choice="wind" aria-pressed="false"><span>〰</span><strong>Ciel</strong></button></div>
         <div class="banner-control-grid"><label class="banner-control">Couleur principale<input id="banner-color-picker" type="color" value="#62bfd1" aria-label="Couleur principale de la bannière"></label><label class="banner-control">Couleur secondaire<input id="banner-color-secondary" type="color" value="#17334d" aria-label="Couleur secondaire de la bannière"></label><label class="banner-control">Lueur<input id="banner-glow-color" type="color" value="#b8a6df" aria-label="Couleur de la lueur"></label>
@@ -176,6 +185,12 @@
     let currentUser = null;
     let profile = { nickname: "", avatar_path: null, banner_theme: "water", banner_color: "#62bfd1", banner_settings: {}, featured_cards: [] };
     let selectedAvatarImage = null;
+    let selectedAvatarObjectUrl = null;
+    let avatarCropZoom = 1;
+    let avatarCropOffsetX = 0;
+    let avatarCropOffsetY = 0;
+    let avatarCropPointer = null;
+    const AVATAR_CROP_SIZE = 360;
     let profileRenderVersion = 0;
     let loadedProfileUserId = null;
     let ownedCards = [];
@@ -218,6 +233,44 @@
       const { data } = await client.rpc("is_site_moderator");
       if (currentUser?.id === user.id && data === true) link.classList.remove("hidden");
     }
+    function avatarCropGeometry(size) {
+      const image = selectedAvatarImage;
+      if (!image?.naturalWidth || !image?.naturalHeight) return null;
+      const scale = Math.max(size / image.naturalWidth, size / image.naturalHeight) * avatarCropZoom;
+      const width = image.naturalWidth * scale, height = image.naturalHeight * scale;
+      const factor = size / AVATAR_CROP_SIZE;
+      const maxX = Math.max(0, (width - size) / 2), maxY = Math.max(0, (height - size) / 2);
+      const offsetX = Math.max(-maxX, Math.min(maxX, avatarCropOffsetX * factor));
+      const offsetY = Math.max(-maxY, Math.min(maxY, avatarCropOffsetY * factor));
+      if (size === AVATAR_CROP_SIZE) { avatarCropOffsetX = offsetX; avatarCropOffsetY = offsetY; }
+      return { scale, width, height, x: (size - width) / 2 + offsetX, y: (size - height) / 2 + offsetY };
+    }
+    function drawAvatarCrop() {
+      const canvas = document.getElementById("avatar-crop-canvas");
+      const image = selectedAvatarImage;
+      if (!canvas || !image?.naturalWidth) return;
+      canvas.width = canvas.height = AVATAR_CROP_SIZE;
+      const context = canvas.getContext("2d");
+      context.clearRect(0, 0, AVATAR_CROP_SIZE, AVATAR_CROP_SIZE);
+      const crop = avatarCropGeometry(AVATAR_CROP_SIZE);
+      context.drawImage(image, crop.x, crop.y, crop.width, crop.height);
+    }
+    function refreshAvatarPreview() {
+      if (!selectedAvatarImage) return;
+      const preview = document.getElementById("avatar-edit");
+      preview.replaceChildren();
+      const local = new Image(); local.alt = "Aperçu du cadrage de la photo";
+      local.src = document.getElementById("avatar-crop-canvas").toDataURL("image/jpeg", .9);
+      preview.append(local);
+    }
+    function makeAvatarCropBlob() {
+      const size = 512, canvas = document.createElement("canvas");
+      canvas.width = canvas.height = size;
+      const context = canvas.getContext("2d");
+      const crop = avatarCropGeometry(size);
+      context.drawImage(selectedAvatarImage, crop.x, crop.y, crop.width, crop.height);
+      return new Promise((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("La photo n’a pas pu être préparée.")), "image/jpeg", .9));
+    }
     async function renderProfile() {
       const userForRender = currentUser;
       const renderVersion = ++profileRenderVersion;
@@ -257,7 +310,7 @@
       accountLink.style.display = "inline-flex"; accountLink.style.alignItems = "center"; accountLink.style.gap = "0";
       const preview = document.getElementById("avatar-edit");
       preview.replaceChildren();
-      if (selectedAvatarImage) { const local = new Image(); local.alt = "Aperçu du cadrage de la photo"; local.src = selectedAvatarImage.src; local.style.transform = `scale(${document.getElementById("avatar-zoom").value})`; preview.append(local); return; }
+      if (selectedAvatarImage) { refreshAvatarPreview(); return; }
       if (profile.avatar_path && currentUser) {
         const { data, error } = await client.storage.from("user-avatars").createSignedUrl(profile.avatar_path, 3600);
         if (userForRender !== currentUser || renderVersion !== profileRenderVersion) return;
@@ -359,9 +412,49 @@
     document.getElementById("avatar-file").addEventListener("change", event => {
       const file = event.target.files?.[0]; if (!file) return;
       if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { message("style-message", "Choisis une image JPG, PNG ou WebP.", "error"); event.target.value = ""; return; }
-      selectedAvatarImage = new Image(); selectedAvatarImage.onload = () => { document.getElementById("crop-controls").classList.remove("hidden"); renderProfile(); }; selectedAvatarImage.src = URL.createObjectURL(file);
+      if (selectedAvatarObjectUrl) URL.revokeObjectURL(selectedAvatarObjectUrl);
+      selectedAvatarObjectUrl = URL.createObjectURL(file);
+      selectedAvatarImage = new Image();
+      selectedAvatarImage.onload = () => { avatarCropZoom = 1; avatarCropOffsetX = avatarCropOffsetY = 0; document.getElementById("avatar-zoom").value = "1"; document.getElementById("zoom-value").value = "1×"; document.getElementById("crop-controls").classList.remove("hidden"); drawAvatarCrop(); renderProfile(); };
+      selectedAvatarImage.onerror = () => message("style-message", "Cette image n’a pas pu être ouverte.", "error");
+      selectedAvatarImage.src = selectedAvatarObjectUrl;
     });
-    document.getElementById("avatar-zoom").addEventListener("input", event => { document.getElementById("zoom-value").value = `${Number(event.target.value).toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}×`; renderProfile(); });
+    document.getElementById("avatar-zoom").addEventListener("input", event => {
+      avatarCropZoom = Number(event.target.value);
+      document.getElementById("zoom-value").value = `${avatarCropZoom.toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}×`;
+      drawAvatarCrop(); refreshAvatarPreview();
+    });
+    const cropViewport = document.getElementById("avatar-crop-viewport");
+    cropViewport.addEventListener("pointerdown", event => {
+      if (!selectedAvatarImage) return;
+      event.preventDefault(); cropViewport.setPointerCapture(event.pointerId);
+      avatarCropPointer = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    });
+    cropViewport.addEventListener("pointermove", event => {
+      if (!avatarCropPointer || avatarCropPointer.id !== event.pointerId) return;
+      const rect = cropViewport.getBoundingClientRect(), factor = AVATAR_CROP_SIZE / rect.width;
+      avatarCropOffsetX += (event.clientX - avatarCropPointer.x) * factor;
+      avatarCropOffsetY += (event.clientY - avatarCropPointer.y) * factor;
+      avatarCropPointer.x = event.clientX; avatarCropPointer.y = event.clientY;
+      drawAvatarCrop(); refreshAvatarPreview();
+    });
+    const stopCropDrag = event => { if (avatarCropPointer?.id === event.pointerId) avatarCropPointer = null; };
+    cropViewport.addEventListener("pointerup", stopCropDrag);
+    cropViewport.addEventListener("pointercancel", stopCropDrag);
+    cropViewport.addEventListener("keydown", event => {
+      const step = event.shiftKey ? 24 : 8;
+      if (event.key === "ArrowLeft") avatarCropOffsetX += step;
+      else if (event.key === "ArrowRight") avatarCropOffsetX -= step;
+      else if (event.key === "ArrowUp") avatarCropOffsetY += step;
+      else if (event.key === "ArrowDown") avatarCropOffsetY -= step;
+      else return;
+      event.preventDefault(); drawAvatarCrop(); refreshAvatarPreview();
+    });
+    document.getElementById("avatar-crop-reset").addEventListener("click", () => {
+      avatarCropZoom = 1; avatarCropOffsetX = avatarCropOffsetY = 0;
+      document.getElementById("avatar-zoom").value = "1"; document.getElementById("zoom-value").value = "1×";
+      drawAvatarCrop(); refreshAvatarPreview();
+    });
     async function loadProfile() {
       if (!currentUser) return;
       const { data, error } = await client.from("user_profiles").select("nickname,avatar_path,banner_theme,banner_color,banner_settings,featured_cards").eq("user_id", currentUser.id).maybeSingle();
@@ -412,7 +505,7 @@
         if (file) {
           if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 10 * 1024 * 1024) throw new Error("Choisis une image JPG, PNG ou WebP de 10 Mo maximum.");
           let blob = file; let type = file.type; let ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
-          if (selectedAvatarImage) { const zoom = Number(document.getElementById("avatar-zoom").value); const side = Math.min(selectedAvatarImage.naturalWidth, selectedAvatarImage.naturalHeight) / zoom; const sx = (selectedAvatarImage.naturalWidth - side) / 2; const sy = (selectedAvatarImage.naturalHeight - side) / 2; const canvas = document.createElement("canvas"); canvas.width = canvas.height = 512; canvas.getContext("2d").drawImage(selectedAvatarImage, sx, sy, side, side, 0, 0, 512, 512); blob = await new Promise((resolve, reject) => canvas.toBlob(result => result ? resolve(result) : reject(new Error("La photo n’a pas pu être préparée.")), "image/jpeg", .9)); type = "image/jpeg"; ext = "jpg"; }
+          if (selectedAvatarImage) { blob = await makeAvatarCropBlob(); type = "image/jpeg"; ext = "jpg"; }
           newAvatarPath = `${currentUser.id}/avatar-${Date.now()}.${ext}`;
           const { error: uploadError } = await client.storage.from("user-avatars").upload(newAvatarPath, blob, { contentType: type, upsert: false });
           if (uploadError) throw new Error("Impossible d’envoyer la photo. Vérifie le stockage des avatars dans Supabase.");
@@ -422,7 +515,7 @@
         if (error) { if (file && newAvatarPath) await client.storage.from("user-avatars").remove([newAvatarPath]); throw new Error("Impossible d’enregistrer. Vérifie que la mise à jour SQL de la bannière a été exécutée dans Supabase."); }
         const previousPath = profile.avatar_path; profile = { ...profile, nickname, avatar_path: newAvatarPath, featured_cards };
         if (previousPath && file && previousPath !== newAvatarPath) await client.storage.from("user-avatars").remove([previousPath]);
-        input.value = ""; selectedAvatarImage = null; document.getElementById("crop-controls").classList.add("hidden"); document.getElementById("avatar-zoom").value = "1"; document.getElementById("nickname").classList.add("hidden");
+        input.value = ""; selectedAvatarImage = null; if (selectedAvatarObjectUrl) URL.revokeObjectURL(selectedAvatarObjectUrl); selectedAvatarObjectUrl = null; avatarCropZoom = 1; avatarCropOffsetX = avatarCropOffsetY = 0; document.getElementById("crop-controls").classList.add("hidden"); document.getElementById("avatar-zoom").value = "1"; document.getElementById("zoom-value").value = "1×"; document.getElementById("nickname").classList.add("hidden");
         await renderProfile(); message("style-message", "Tes modifications ont été enregistrées.", "success");
       } catch (error) { message("style-message", error.message || "Une erreur est survenue pendant l’enregistrement.", "error"); }
       finally { saveButton.disabled = false; }
