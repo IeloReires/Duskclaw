@@ -103,8 +103,9 @@
     let realtimeChannel = null;
     const updateCount = () => {
       const unread = rows.filter(row => !row.read_at).length;
-      count.textContent = unread > 99 ? "99+" : String(unread);
+      count.textContent = "";
       count.hidden = unread === 0;
+      bell.classList.toggle("has-unread", unread > 0);
       bell.setAttribute("aria-label", unread ? "Ouvrir les notifications, " + unread + " non lue" + (unread > 1 ? "s" : "") : "Ouvrir les notifications");
     };
     const renderRows = () => {
@@ -116,7 +117,6 @@
         item.className = "site-shell-notification-item" + (row.read_at ? " is-read" : " is-unread");
         item.href = notificationLink(row);
         item.dataset.notificationId = String(row.id);
-        item.href = notificationLink(row);
         const dot = document.createElement("span");
         dot.className = "site-shell-notification-dot";
         dot.setAttribute("aria-hidden", "true");
@@ -130,6 +130,52 @@
         date.textContent = formatDate(row.created_at);
         content.append(itemTitle, message, date);
         item.append(dot, content);
+        if (row.kind === "friend_request" && !row.read_at) {
+          const actions = document.createElement("span");
+          actions.className = "site-shell-notification-item-actions";
+          const accept = document.createElement("button");
+          accept.type = "button";
+          accept.className = "site-shell-notification-accept";
+          accept.textContent = "Accepter";
+          accept.addEventListener("click", async event => {
+            event.preventDefault();
+            event.stopPropagation();
+            accept.disabled = true;
+            const [user_low, user_high] = [currentUserId, row.actor_id].sort();
+            const { data, error } = await supabaseClient.from("friendships").update({ status: "accepted" })
+              .eq("user_low", user_low).eq("user_high", user_high).eq("requested_by", row.actor_id)
+              .eq("status", "pending").select("status").maybeSingle();
+            if (error || !data) {
+              accept.disabled = false;
+              accept.textContent = "Réessayer";
+              return;
+            }
+            await supabaseClient.from("user_notifications").update({ read_at: new Date().toISOString() })
+              .eq("id", row.id).eq("recipient_id", currentUserId);
+            await loadNotifications();
+          });
+          actions.append(accept);
+          content.append(actions);
+        }
+        if (!row.read_at) {
+          const acknowledge = document.createElement("button");
+          acknowledge.type = "button";
+          acknowledge.className = "site-shell-notification-dismiss";
+          acknowledge.textContent = "×";
+          acknowledge.setAttribute("aria-label", "Marquer comme lue");
+          acknowledge.title = "Marquer comme lue";
+          acknowledge.addEventListener("click", async event => {
+            event.preventDefault();
+            event.stopPropagation();
+            acknowledge.disabled = true;
+            const readAt = new Date().toISOString();
+            const { error } = await supabaseClient.from("user_notifications").update({ read_at: readAt })
+              .eq("id", row.id).eq("recipient_id", currentUserId);
+            if (!error) { row.read_at = readAt; updateCount(); renderRows(); }
+            else acknowledge.disabled = false;
+          });
+          item.append(acknowledge);
+        }
         item.addEventListener("click", async event => {
           if (!row.read_at && supabaseClient) {
             event.preventDefault();
@@ -144,7 +190,7 @@
     const loadNotifications = async () => {
       if (!supabaseClient || !currentUserId) return;
       const { data, error } = await supabaseClient.from("user_notifications")
-        .select("id,kind,title,message,href,created_at,read_at")
+        .select("id,kind,title,message,href,actor_id,created_at,read_at")
         .eq("recipient_id", currentUserId).order("created_at", { ascending: false }).limit(30);
       if (error) { showMessage("Les notifications n’ont pas pu être chargées."); return; }
       rows = data || [];
