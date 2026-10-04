@@ -157,6 +157,33 @@
           actions.append(accept);
           content.append(actions);
         }
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "site-shell-notification-delete";
+        remove.setAttribute("aria-label", "Supprimer cette notification");
+        remove.title = "Supprimer cette notification";
+        const trash = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        trash.setAttribute("viewBox", "0 0 24 24");
+        trash.setAttribute("aria-hidden", "true");
+        const trashPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        trashPath.setAttribute("d", "M4 7h16M10 11v6m4-6v6M5 7l1 14h12l1-14M9 7V4h6v3");
+        trashPath.setAttribute("fill", "none");
+        trashPath.setAttribute("stroke", "currentColor");
+        trashPath.setAttribute("stroke-width", "1.7");
+        trashPath.setAttribute("stroke-linecap", "round");
+        trashPath.setAttribute("stroke-linejoin", "round");
+        trash.append(trashPath);
+        remove.append(trash);
+        remove.addEventListener("click", async event => {
+          event.preventDefault();
+          event.stopPropagation();
+          remove.disabled = true;
+          const { error } = await supabaseClient.from("user_notifications").delete()
+            .eq("id", row.id).eq("recipient_id", currentUserId);
+          if (!error) { rows = rows.filter(item => item.id !== row.id); updateCount(); renderRows(); }
+          else remove.disabled = false;
+        });
+        item.append(remove);
         if (!row.read_at) {
           const acknowledge = document.createElement("button");
           acknowledge.type = "button";
@@ -191,7 +218,7 @@
       if (!supabaseClient || !currentUserId) return;
       const { data, error } = await supabaseClient.from("user_notifications")
         .select("id,kind,title,message,href,actor_id,created_at,read_at")
-        .eq("recipient_id", currentUserId).order("created_at", { ascending: false }).limit(30);
+        .eq("recipient_id", currentUserId).order("created_at", { ascending: false }).order("id", { ascending: false }).limit(6);
       if (error) { showMessage("Les notifications n’ont pas pu être chargées."); return; }
       rows = data || [];
       updateCount();
