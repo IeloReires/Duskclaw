@@ -31,13 +31,13 @@
   // Incoming friend requests badge, shared by every page using the site shell.
   const accountLink = document.getElementById("account-nav-link");
   const actions = accountLink?.closest(".site-shell-actions");
-  if (accountLink && actions && window.supabase?.createClient) {
+  if (accountLink && actions) {
     const bell = document.createElement("a");
     bell.className = "site-shell-notifications";
     bell.href = "amis.html#requests-list";
     bell.setAttribute("aria-label", "Notifications des demandes d’amis");
     bell.title = "Demandes d’amis";
-    bell.hidden = true;
+    bell.hidden = false;
     const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     icon.setAttribute("viewBox", "0 0 24 24");
     icon.setAttribute("aria-hidden", "true");
@@ -56,14 +56,16 @@
     bell.append(icon, count);
     actions.insertBefore(bell, accountLink);
 
-    const client = window.supabase.createClient(
-      "https://bqqbciifmfbsjurkulfo.supabase.co",
-      "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior"
-    );
-    let checking = false;
+    if (window.supabase?.createClient) {
+      const client = window.supabase.createClient(
+        "https://bqqbciifmfbsjurkulfo.supabase.co",
+        "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior"
+      );
+      let checking = false;
     const updateNotifications = async user => {
-      bell.hidden = !user;
-      if (!user || checking) return;
+      bell.hidden = false;
+      if (!user) { count.hidden = true; return; }
+      if (checking) return;
       checking = true;
       try {
         const { data, error } = await client.rpc("friends_directory");
@@ -84,9 +86,10 @@
     };
     client.auth.getSession().then(({ data }) => updateNotifications(data.session?.user || null)).catch(() => {});
     client.auth.onAuthStateChange((_event, session) => updateNotifications(session?.user || null));
-    window.setInterval(() => {
-      if (!document.hidden) client.auth.getSession().then(({ data }) => updateNotifications(data.session?.user || null)).catch(() => {});
-    }, 60000);
+      window.setInterval(() => {
+        if (!document.hidden) client.auth.getSession().then(({ data }) => updateNotifications(data.session?.user || null)).catch(() => {});
+      }, 60000);
+    }
   }
 
   const timeToggle = document.getElementById("site-shell-mode-toggle");
