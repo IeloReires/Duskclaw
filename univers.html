@@ -33,9 +33,6 @@
     .zone-card h2{margin:0 0 8px;font-size:1.65rem}
     .zone-card p{margin:0;color:var(--doux);font-size:.9rem;line-height:1.65}
     .zone-open{display:block;margin-top:15px;padding-top:12px;border-top:1px solid var(--trait);color:var(--accent);font-size:.8rem;font-weight:750}
-    .future-note{padding:52px 0 100px;border-top:1px solid var(--trait);text-align:center}
-    .future-note h2{margin:12px 0;font-size:clamp(2.35rem,5vw,3.8rem)}
-    .future-note p{max-width:640px;margin:auto;color:var(--doux);line-height:1.8}
     .zone-dialog{width:min(1180px,94vw);max-width:none;max-height:min(92vh,1000px);padding:0;overflow:hidden;border:1px solid var(--trait);background:var(--papier);color:var(--texte);box-shadow:var(--panel-shadow)}
     .zone-dialog::backdrop{background:rgba(6,8,13,.76);backdrop-filter:blur(5px)}
     .dialog-scroll{max-height:min(92vh,1000px);overflow:auto}
@@ -114,6 +111,43 @@
     body[data-time="nuit"] .terrain-pinede polygon{fill:#2e503d}body[data-time="nuit"] .terrain-fjord polygon{fill:#315b79}body[data-time="nuit"] .terrain-rune polygon{fill:#766849}body[data-time="nuit"] .terrain-hall polygon{fill:#76573f}
     .terrain-about{margin-top:24px;padding:0 clamp(18px,3vw,30px) 28px;color:var(--doux);font-size:.78rem;line-height:1.65}
     .terrain-about strong{color:var(--texte)}
+    /* Atlas plus ample, avec une ambiance de carte vivante. */
+    .page-wrap{width:min(1540px,94%)}
+    .atlas-intro{max-width:none;padding:clamp(42px,7vw,84px) 0 18px}
+    .atlas-intro h1{margin:12px 0 0}
+    .world-section{padding:12px 0 64px}
+    .world-heading{max-width:none;margin-bottom:18px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:24px}
+    .world-heading>.eyebrow,.world-heading>h2{grid-column:1}
+    .world-heading h2{margin:3px 0;font-size:clamp(2rem,4vw,3.2rem)}
+    .world-heading .floor-controls{grid-column:2;grid-row:1/3;justify-content:flex-end;margin:0 0 4px}
+    .world-viewport{min-height:min(76vh,940px);border-radius:32px;background:radial-gradient(ellipse at 50% 40%,rgba(122,154,126,.25),transparent 53%),radial-gradient(ellipse at 48% 57%,color-mix(in srgb,#466c73 22%,var(--papier)),var(--papier) 78%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 30px 90px rgba(16,24,28,.18);}
+    body[data-time="nuit"] .world-viewport{background:radial-gradient(ellipse at 50% 40%,rgba(87,119,128,.34),transparent 54%),radial-gradient(ellipse at 48% 57%,#1a2b35,var(--papier) 78%);box-shadow:inset 0 0 0 1px rgba(220,232,245,.1),0 30px 90px rgba(0,0,0,.38)}
+    .world-map{width:min(100%,1450px);padding:30px}
+    .layer-key{justify-content:center;padding:13px 0 0;letter-spacing:.02em}
+    .zone-dialog{width:min(1720px,98vw);max-height:96vh;border-radius:26px;box-shadow:0 40px 140px rgba(0,0,0,.56)}
+    .dialog-scroll{max-height:96vh;background:radial-gradient(ellipse at 12% 0%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 46%),var(--papier)}
+    .dialog-head{position:sticky;top:0;z-index:5;align-items:center;padding:clamp(22px,3.5vw,42px) clamp(22px,4vw,56px);background:color-mix(in srgb,var(--papier) 91%,transparent);backdrop-filter:blur(18px);box-shadow:0 14px 32px rgba(0,0,0,.08)}
+    .dialog-head>div{min-width:0}
+    .dialog-head .eyebrow{display:inline-flex;margin:0;padding:7px 11px;border:1px solid var(--trait);border-radius:999px;background:color-mix(in srgb,var(--accent) 9%,var(--papier));}
+    .dialog-head h2{margin:12px 0 7px;font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-.035em}
+    .dialog-description{max-width:780px;font-size:.98rem;line-height:1.7}
+    .close-button{padding:11px 16px;border-radius:999px;background:color-mix(in srgb,var(--papier) 80%,transparent);font-weight:700;transition:transform .2s,border-color .2s,color .2s}
+    .close-button:hover,.close-button:focus-visible{transform:translateY(-2px)}
+    .explorer{grid-template-columns:minmax(0,1.8fr) minmax(290px,.62fr);gap:24px;padding:clamp(18px,3vw,40px)}
+    .map-panel{padding:clamp(14px,2vw,24px);border:1px solid var(--trait);border-radius:24px;background:color-mix(in srgb,var(--fond) 62%,var(--papier));box-shadow:0 18px 45px rgba(12,17,23,.1)}
+    .map-toolbar{padding:3px 2px 12px}
+    .zoom-button,.reset-view{border-radius:10px;transition:transform .18s,border-color .18s,color .18s,background .18s}
+    .zoom-button:hover,.reset-view:hover{transform:translateY(-1px)}
+    .board-viewport{height:min(68vh,800px);min-height:470px;border:1px solid color-mix(in srgb,var(--trait) 70%,transparent);border-radius:22px;background:radial-gradient(ellipse at center,color-mix(in srgb,#789b89 23%,var(--fond)),var(--fond) 76%);box-shadow:inset 0 0 55px rgba(20,32,35,.08)}
+    body[data-time="nuit"] .board-viewport{background:radial-gradient(ellipse at center,#263e46,#111923 77%);box-shadow:inset 0 0 65px rgba(0,0,0,.28)}
+    .board-svg{min-width:620px;filter:drop-shadow(0 14px 14px rgba(0,0,0,.14))}
+    .tile-detail{position:sticky;top:140px;min-height:300px;padding:clamp(22px,2.5vw,34px);border:1px solid var(--trait);border-radius:22px;background:linear-gradient(155deg,color-mix(in srgb,var(--accent) 13%,var(--papier)),var(--papier) 68%);box-shadow:0 20px 55px rgba(12,17,23,.12)}
+    .tile-detail .eyebrow{display:inline-flex;padding:6px 10px;border:1px solid var(--trait);border-radius:999px;background:color-mix(in srgb,var(--fond) 55%,transparent)}
+    .tile-detail h3{font-size:clamp(1.8rem,3vw,2.5rem);letter-spacing:-.025em}
+    .terrain-label{border-radius:999px;background:color-mix(in srgb,var(--fond) 60%,transparent)}
+    .tile-detail p{font-size:.96rem;line-height:1.8}
+    .detail-note{font-size:.8rem!important;line-height:1.65!important}
+    .board-legend{gap:10px 14px;padding:13px 4px 2px;font-size:.79rem}
     .mode-switch{position:fixed;z-index:20;bottom:22px;left:22px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--trait);background:var(--papier);color:var(--doux);font-size:.76rem;font-weight:700;box-shadow:0 5px 22px rgba(18,21,29,.18);cursor:pointer}
     .mode-switch input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
     .mode-track{position:relative;width:42px;height:23px;border:1px solid var(--trait);border-radius:20px;background:#d9cfb9}
@@ -124,6 +158,8 @@
     .dusk-footer a:hover,.dusk-footer a:focus-visible{transform:translateY(-2px);border-color:var(--accent);background:var(--accent);color:#fff;outline:none}
     @media(max-width:900px){.explorer{grid-template-columns:1fr}.tile-detail{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}.tile-detail .eyebrow,.tile-detail h3,.tile-detail .terrain-label{grid-column:1/-1}.tile-detail .detail-note{margin:0;padding:0;border:0}}
     @media(max-width:560px){.atlas-intro{padding-top:54px}.world-section{padding-bottom:56px}.world-viewport{display:block;overflow:auto;border-radius:16px}.world-map{width:720px;max-width:none;padding:4px}.world-heading h2{font-size:2.4rem}.floor-controls{gap:7px}.floor-controls button{padding:9px 11px;font-size:.76rem}.layer-key{gap:7px 15px;font-size:.76rem}.zone-dialog{width:100vw;max-height:94vh;margin:auto 0 0;border-right:0;border-bottom:0;border-left:0;border-radius:18px 18px 0 0}.dialog-scroll{max-height:94vh}.dialog-head{padding:20px 18px}.close-button{padding:8px 10px}.explorer{gap:16px;padding:15px}.board-viewport{height:48vh;min-height:290px}.board-svg{min-width:440px}.tile-detail{display:block;padding:17px}.tile-detail .detail-note{margin-top:14px;padding-top:12px;border-top:1px solid var(--trait)}.reset-view{margin-left:0}.mode-switch{position:static;width:max-content;margin:18px auto 22px;box-shadow:none}.dusk-footer{align-items:flex-start;flex-direction:column;padding-bottom:24px}}
+    @media(max-width:900px){.world-heading{grid-template-columns:1fr}.world-heading>.eyebrow,.world-heading>h2,.world-heading .floor-controls{grid-column:1;grid-row:auto}.world-heading .floor-controls{justify-content:flex-start;margin-top:14px}.explorer{grid-template-columns:1fr}.tile-detail{position:static;min-height:0}}
+    @media(max-width:560px){.world-viewport{min-height:68vh}.world-map{width:850px}.zone-dialog{border-radius:20px 20px 0 0}.dialog-head{position:relative;align-items:flex-start;gap:12px}.dialog-head h2{font-size:2.15rem}.dialog-description{font-size:.88rem}.explorer{padding:12px}.map-panel{padding:11px;border-radius:18px}.board-viewport{height:60vh;min-height:380px;border-radius:17px}.board-svg{min-width:520px}.tile-detail{display:block;padding:20px}.tile-detail .eyebrow,.tile-detail h3,.tile-detail .terrain-label{grid-column:auto}.tile-detail .detail-note{margin-top:14px;padding-top:12px;border-top:1px solid var(--trait)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
@@ -137,7 +173,6 @@
 <main>
   <section class="atlas-intro page-wrap"><p class="eyebrow">Univers Duskclaw</p><h1>Les terres<br><em>à explorer.</em></h1></section>
   <section class="world-section page-wrap" aria-labelledby="world-title"><div class="world-heading"><p class="eyebrow">Atlas continu</p><h2 id="world-title">Explore le monde</h2><div class="floor-controls" role="group" aria-label="Choisir le niveau de la carte"><button type="button" data-floor="0" aria-pressed="true">Rez-de-chaussée</button><button type="button" data-floor="1" aria-pressed="false">Premier étage</button><button type="button" data-floor="2" aria-pressed="false">Deuxième étage</button></div></div><div class="world-viewport" id="world-viewport"><svg class="world-map" id="world-map" role="group" aria-label="Carte continue de quarante zones aux plateaux hexagonaux" viewBox="0 0 1000 700"></svg></div><div class="layer-key"><span><strong>I</strong> Premier étage</span><span><strong>II</strong> Deuxième étage</span></div></section>
-  <section class="future-note page-wrap"><p class="eyebrow">L’atlas s’agrandira</p><h2>Il reste tant à découvrir.</h2><p>D’autres zones, plateaux et histoires viendront s’ajouter à l’atlas au fil de leur création.</p></section>
 </main>
 <dialog class="zone-dialog" id="zone-dialog" aria-labelledby="dialog-title"><div class="dialog-scroll">
   <header class="dialog-head"><div><p class="eyebrow" id="dialog-number">ZONE 01</p><h2 id="dialog-title">Les Marches d’Auréval</h2><p class="dialog-description" id="dialog-description"></p></div><button class="close-button" id="close-dialog" type="button">Fermer <span aria-hidden="true">×</span></button></header>
