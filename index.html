@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1ead9">
-  <meta name="description" content="Découvre Duskclaw, un monde de Furries, de cartes et de contrées mystérieuses, entre le Jour et la Nuit.">
+    <meta name="description" content="Choisis tes Furries, prends le contrôle du plateau et découvre Duskclaw, un jeu de cartes tactique où le Jour et la Nuit changent la partie.">
   <title>Duskclaw — Entre le Jour et la Nuit</title>
   <link rel="stylesheet" href="style.css">
   <style>
@@ -22,7 +22,7 @@
     .dusk-nav .dusk-support { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); font-weight: 700; }
     .dusk-nav #account-nav-link { margin-left: auto; }
     .dusk-main { position: relative; overflow: hidden; }
-    .dusk-hero { position: relative; display: grid; grid-template-columns: 1fr .92fr; align-items: center; gap: clamp(45px, 8vw, 110px); min-height: min(720px, calc(100svh - 83px)); padding-block: 64px 78px; isolation: isolate; }
+    .dusk-hero { position: relative; display: grid; grid-template-columns: .88fr 1.12fr; align-items: center; gap: clamp(38px, 6vw, 82px); min-height: min(820px, calc(100svh - 83px)); padding-block: 48px 62px; isolation: isolate; }
     .dusk-hero::before { position: absolute; z-index: -2; inset: 0 -5.6vw; background: radial-gradient(ellipse at 76% 46%, rgba(183,151,97,.14), transparent 39%), linear-gradient(112deg, var(--dusk-bg), var(--dusk-paper) 63%, #e7dfcd); content: ""; transition: background .45s ease; }
     .dusk-copy { max-width: 610px; }
     .dusk-kicker { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--dusk-accent); font-size: .7rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
@@ -43,12 +43,12 @@
     .dusk-primary { display: inline-flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--dusk-ink); color: var(--dusk-paper) !important; font-size: .88rem; font-weight: 750; text-decoration: none; transition: transform .2s ease, background .3s ease; }
     .dusk-primary:hover, .dusk-primary:focus-visible { transform: translateY(-2px); background: var(--dusk-accent); }
     .dusk-secondary { color: var(--dusk-ink) !important; font-size: .9rem; text-decoration-color: var(--dusk-rule); text-underline-offset: 5px; }
-    .dusk-art { position: relative; display: grid; place-items: center; min-height: 520px; }
-    .dusk-art::before { position: absolute; width: min(42vw, 540px); aspect-ratio: 1; border: 1px solid rgba(138,106,55,.37); border-radius: 50%; box-shadow: 0 0 0 13px rgba(138,106,55,.05), 0 0 0 45px rgba(138,106,55,.035); content: ""; }
+    .dusk-art { position: relative; display: grid; place-items: center; min-height: 660px; }
+    .dusk-art::before { position: absolute; width: min(49vw, 640px); aspect-ratio: 1; border: 1px solid rgba(138,106,55,.37); border-radius: 50%; box-shadow: 0 0 0 13px rgba(138,106,55,.05), 0 0 0 45px rgba(138,106,55,.035); content: ""; }
     .dusk-emblem { position: absolute; top: 2%; right: 9%; display: grid; width: 88px; aspect-ratio: 1; place-items: center; border: 1px solid rgba(138,106,55,.44); border-radius: 50%; background: var(--dusk-paper); color: var(--dusk-accent); font-size: 2.25rem; box-shadow: 0 8px 32px rgba(48,42,31,.12); transition: transform .45s ease, background .45s ease, color .45s ease; }
-    .dusk-art-frame { position: relative; width: min(100%, 530px); padding: 12px; border: 1px solid rgba(138,106,55,.52); background: var(--dusk-paper); box-shadow: 0 24px 58px rgba(48,42,31,.2); transform: rotate(1deg); transition: background .45s ease, border-color .45s ease; }
+    .dusk-art-frame { position: relative; width: min(100%, 680px); padding: 12px; border: 1px solid rgba(138,106,55,.52); background: var(--dusk-paper); box-shadow: 0 24px 58px rgba(48,42,31,.2); transform: rotate(1deg); transition: background .45s ease, border-color .45s ease; }
     .dusk-art-frame::before { position: absolute; z-index: 1; inset: 6px; border: 1px solid rgba(87,76,56,.24); content: ""; pointer-events: none; }
-    .dusk-art-frame img { display: block; width: 100%; max-height: 570px; object-fit: contain; }
+    .dusk-art-frame img { display: block; width: 100%; max-height: min(72svh, 700px); object-fit: contain; }
     .dusk-art-caption { position: absolute; right: 0; bottom: -36px; color: var(--dusk-muted); font-family: Georgia, "Times New Roman", serif; font-size: .83rem; font-style: italic; }
     .dusk-divider { display: flex; align-items: center; gap: 18px; color: var(--dusk-accent); font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem; }
     .dusk-divider::before, .dusk-divider::after { height: 1px; flex: 1; background: var(--dusk-rule); content: ""; }
@@ -74,9 +74,9 @@
       .dusk-nav a { font-size: .82rem; }
       .dusk-hero { grid-template-columns: 1fr; gap: 35px; min-height: 0; padding-block: 58px 62px; }
       .dusk-copy { max-width: 680px; }
-      .dusk-art { min-height: 420px; }
-      .dusk-art::before { width: min(82vw, 470px); }
-      .dusk-art-frame { width: min(90%, 470px); }
+      .dusk-art { min-height: 560px; }
+      .dusk-art::before { width: min(88vw, 560px); }
+      .dusk-art-frame { width: min(100%, 560px); }
       .dusk-emblem { right: 12%; }
       .dusk-mode-switch { bottom: 14px; left: 14px; }
     }
@@ -84,8 +84,8 @@
       .dusk-shell { width: 90%; }
       .dusk-title { font-size: clamp(3.2rem, 14vw, 5rem); }
       .dusk-links { align-items: flex-start; flex-direction: column; }
-      .dusk-art { min-height: 350px; }
-      .dusk-art-frame { width: 90%; }
+      .dusk-art { min-height: 440px; }
+      .dusk-art-frame { width: 96%; }
       .dusk-emblem { top: 0; right: 4%; width: 65px; font-size: 1.7rem; }
       .dusk-lore-grid { grid-template-columns: 1fr; }
       .dusk-lore article { padding: 25px 4%; }
@@ -183,16 +183,16 @@
   <script>
     const dayNightContent = {
       jour: {
-        kicker: "Le royaume du Jour",
-        title: "Les routes<br>s’ouvrent à <em>l’aube.</em>",
-        description: "Sous la lumière dorée, les voyageurs quittent les remparts et s’aventurent vers des terres encore inconnues. Le premier pas t’appartient.",
+        kicker: "Choisis ton équipe · Prends position",
+        title: "Le monde s’éveille.<br><em>Prends le terrain.</em>",
+        description: "Rassemble tes Furries, avance sur un plateau vivant et conquiers les objectifs. Chaque déplacement ouvre une possibilité… ou laisse une faille.",
         emblem: "☼",
         artCaption: "Chroniques du royaume · Première veille"
       },
       nuit: {
-        kicker: "Le royaume de la Nuit",
-        title: "Les secrets<br>veillent sous <em>la lune.</em>",
-        description: "Quand le dernier rayon disparaît, les étoiles éclairent d’autres chemins. Avance avec prudence : la Nuit révèle autant qu’elle dissimule.",
+        kicker: "Le royaume de la Nuit · La partie bascule",
+        title: "La nuit change tout.<br><em>Réécris l’issue.</em>",
+        description: "Les forces du monde évoluent avec l’obscurité. Lis le plateau, protège tes alliés et saisis le bon moment : une carte peut renverser l’affrontement.",
         emblem: "☾",
         artCaption: "Chroniques du royaume · Veille nocturne"
       }
