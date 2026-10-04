@@ -164,7 +164,7 @@
     /* Fiche de zone compacte : le plateau entier tient à l'ouverture. */
     .zone-dialog{width:min(1540px,96vw);height:min(92dvh,980px);max-height:92dvh;display:flex;border-radius:22px}
     .dialog-scroll{display:flex;flex:1;flex-direction:column;min-height:0;max-height:none;overflow:hidden}
-    .dialog-head{flex:none;position:static;gap:14px;padding:14px 22px;backdrop-filter:blur(12px)}
+    .dialog-head{flex:none;position:static;gap:14px;padding:14px 22px;background:var(--papier);backdrop-filter:none}
     .dialog-head .eyebrow{padding:4px 9px;font-size:.65rem}
     .dialog-head h2{margin:5px 0 0;font-size:clamp(1.55rem,3vw,2.35rem)}
     .dialog-description{display:none}
@@ -180,7 +180,7 @@
     .zoom-value{min-width:36px;font-size:.7rem}
     .reset-view{padding:6px 9px;font-size:.7rem}
     .board-viewport{display:grid;flex:1;place-items:center;width:100%;height:auto;min-height:0;overflow:auto;border-radius:15px}
-    .board-svg{width:auto;min-width:0;height:100%;max-width:100%;max-height:100%;transform:scale(var(--board-zoom,1));transform-origin:center;filter:drop-shadow(0 10px 12px rgba(0,0,0,.14))}
+    .board-svg{display:block;width:100%;height:100%;min-width:0;max-width:100%;max-height:100%;transform:scale(var(--board-zoom,1));transform-origin:center;filter:drop-shadow(0 10px 12px rgba(0,0,0,.14))}
     .board-legend{flex:none;gap:5px 10px;margin:0;padding:8px 2px 0;font-size:.67rem}
     .tile-detail{position:static;align-self:stretch;min-height:0;overflow:auto;padding:18px;border-radius:18px}
     .tile-detail .eyebrow{margin:0 0 10px;font-size:.68rem}
