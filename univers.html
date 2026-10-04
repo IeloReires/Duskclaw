@@ -191,6 +191,8 @@
     .terrain-about{display:none}
     @media(max-width:760px){.zone-dialog{width:100vw;height:94dvh;max-height:94dvh;margin:auto 0 0;border-radius:18px 18px 0 0}.dialog-head{padding:12px 15px}.explorer{grid-template-columns:minmax(0,1fr) 180px;gap:9px;padding:9px}.map-panel{padding:8px}.map-panel>.floor-controls{gap:4px}.map-panel>.floor-controls button{padding:6px 8px;font-size:.65rem}.board-legend{gap:4px 7px;font-size:.58rem}.tile-detail{padding:12px}.tile-detail p{font-size:.74rem}.map-toolbar .reset-view{display:none}}
     @media(max-width:560px){.zone-dialog{width:100vw;height:94dvh;max-height:94dvh}.explorer{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;overflow:hidden}.map-panel{min-height:0}.board-legend{font-size:.6rem}.tile-detail{max-height:20dvh;padding:10px 12px}.tile-detail .eyebrow{margin-bottom:5px}.tile-detail h3{font-size:1.1rem}.tile-detail p{display:none}.terrain-label{margin:0}.zoom-slider{width:min(100px,25vw)}.zoom-value{display:none}}
+    /* La fiche recouvre toute la fenêtre : aucune bordure de la page ne dépasse. */
+    .zone-dialog{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;border:0;border-radius:0}
   </style>
 </head>
 <body data-time="jour">
