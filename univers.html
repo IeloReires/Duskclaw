@@ -4,549 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1ead9">
-  <meta name="description" content="Découvre les zones et les plateaux de Duskclaw.">
+  <meta name="description" content="Explore les zones de Duskclaw, leurs plateaux hexagonaux et leurs terrains.">
   <title>Les zones — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    body {
-      --fond: #f1ead9;
-      --papier: #f8f3e8;
-      --texte: #252920;
-      --texte-doux: #66695f;
-      --accent: #8a6a37;
-      --trait: rgba(60, 58, 47, .24);
-      margin: 0;
-      background: var(--fond);
-      color: var(--texte);
-      transition: background .4s ease, color .4s ease;
-    }
-
-    body[data-time="nuit"] {
-      --fond: #111724;
-      --papier: #1a2030;
-      --texte: #ece9e1;
-      --texte-doux: #b8bdca;
-      --accent: #b8a6df;
-      --trait: rgba(229, 225, 243, .2);
-      color-scheme: dark;
-    }
-
-    .conteneur { width: min(1200px, 90%); margin-inline: auto; }
-
-    .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
-    .dusk-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--trait); }
-    .dusk-brand { color: var(--texte); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
-    .dusk-brand span { color: var(--accent); }
-    .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
-    .dusk-nav a { color: var(--texte-doux); font-size: .88rem; text-decoration: none; }
-    .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--accent); }
-    .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--trait); color: var(--texte); }
-    .dusk-nav .dusk-support { padding: 10px 14px; background: var(--accent); color: #fff !important; font-weight: 700; }
-    .dusk-nav .dusk-support:hover, .dusk-nav .dusk-support:focus-visible { filter: brightness(1.08); }
-
-    .introduction {
-      max-width: 800px;
-      padding: clamp(70px, 10vw, 120px) 0 55px;
-    }
-
-    .petit-titre {
-      color: var(--accent);
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-
-    h1, .zone h2, .fin h2, .fenetre-zone h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 400;
-    }
-
-    h1 {
-      margin: 18px 0;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      letter-spacing: -.06em;
-      line-height: .96;
-    }
-
-    h1 em { color: var(--accent); font-weight: 400; }
-
-    .introduction > p:last-child {
-      max-width: 690px;
-      color: var(--texte-doux);
-      font-size: 1.08rem;
-      line-height: 1.8;
-    }
-
-    .zones {
-      padding: 35px 0 90px;
-      border-top: 1px solid var(--trait);
-    }
-
-    .grille-zones {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .zone {
-      padding: 12px;
-      border: 1px solid var(--trait);
-      background: var(--papier);
-      cursor: pointer;
-      transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
-    }
-
-    .zone:hover, .zone:focus-visible {
-      transform: translateY(-3px);
-      border-color: var(--accent);
-      box-shadow: 0 8px 25px rgba(35, 30, 20, .12);
-      outline: none;
-    }
-
-    .emplacement-image {
-      display: grid;
-      min-height: 190px;
-      place-items: center;
-      border: 1px dashed var(--trait);
-      color: var(--texte-doux);
-      text-align: center;
-    }
-
-    .emplacement-image span {
-      padding: 16px;
-      font-size: .75rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .emplacement-image strong {
-      display: block;
-      margin-top: 9px;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      letter-spacing: 0;
-      text-transform: none;
-    }
-
-    .numero-zone {
-      display: block;
-      margin-top: 17px;
-      color: var(--accent);
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    .zone h2 { margin: 9px 0 6px; font-size: 1.65rem; }
-
-    .zone p {
-      margin: 0;
-      color: var(--texte-doux);
-      font-size: .9rem;
-      line-height: 1.65;
-    }
-
-    .invitation {
-      margin-top: 17px;
-      padding-top: 12px;
-      border-top: 1px solid var(--trait);
-      color: var(--accent);
-      font-size: .78rem;
-    }
-
-    .fin {
-      padding: 48px 0 95px;
-      border-top: 1px solid var(--trait);
-      text-align: center;
-    }
-
-    .fin h2 { margin: 12px 0; font-size: clamp(2.4rem, 5vw, 4rem); }
-
-    .fin p {
-      max-width: 580px;
-      margin: 0 auto;
-      color: var(--texte-doux);
-      line-height: 1.8;
-    }
-
-    .pied-de-page {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 24px 0 32px;
-      border-top: 1px solid var(--trait);
-      color: var(--texte-doux);
-      font-size: .8rem;
-    }
-
-    .fenetre-zone {
-      width: min(900px, 90vw);
-      max-height: 85vh;
-      padding: clamp(20px, 4vw, 38px);
-      overflow-y: auto;
-      border: 1px solid var(--trait);
-      background: var(--papier);
-      color: var(--texte);
-    }
-
-    .fenetre-zone::backdrop {
-      background: rgba(8, 10, 15, .72);
-      backdrop-filter: blur(4px);
-    }
-
-    .entete-fenetre {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .entete-fenetre h2 {
-      margin: 7px 0 12px;
-      font-size: clamp(2rem, 5vw, 3.3rem);
-    }
-
-    .fermer {
-      padding: 10px 14px;
-      border: 1px solid var(--trait);
-      background: transparent;
-      color: var(--texte);
-      font: inherit;
-      cursor: pointer;
-    }
-
-    .fermer:hover, .fermer:focus-visible {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .description-fenetre { color: var(--texte-doux); line-height: 1.7; }
-
-    .grille-fenetre {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .grand-emplacement {
-      display: grid;
-      min-height: 270px;
-      padding: 18px;
-      place-items: center;
-      border: 1px dashed var(--trait);
-      color: var(--texte-doux);
-      text-align: center;
-    }
-
-    .grand-emplacement strong {
-      display: block;
-      margin-top: 10px;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-    }
-
-    .bouton-mode {
-      position: fixed;
-      z-index: 10;
-      bottom: 22px;
-      left: 22px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 13px;
-      border: 1px solid var(--trait);
-      background: var(--papier);
-      color: var(--texte-doux);
-      font-size: .78rem;
-      font-weight: 700;
-      box-shadow: 0 5px 22px rgba(18, 21, 29, .2);
-      cursor: pointer;
-    }
-
-    .bouton-mode input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-    }
-
-    .interrupteur {
-      position: relative;
-      width: 42px;
-      height: 23px;
-      border: 1px solid var(--trait);
-      border-radius: 20px;
-      background: #d9cfb9;
-    }
-
-    .interrupteur::before {
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      background: #fffaf0;
-      content: "";
-      transition: transform .25s ease;
-    }
-
-    body[data-time="nuit"] .interrupteur { background: #5e527f; }
-
-    .bouton-mode input:checked + .interrupteur::before {
-      transform: translateX(19px);
-      background: #e5dcf5;
-    }
-
-    .bouton-mode input:focus-visible + .interrupteur {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 760px) {
-      .grille-zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .dusk-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
-      .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
-      .dusk-nav a { font-size: .82rem; }
-    }
-
-    @media (max-width: 520px) {
-      .grille-zones, .grille-fenetre { grid-template-columns: 1fr; }
-      .pied-de-page, .dusk-footer { flex-direction: column; align-items: flex-start; }
-      .bouton-mode { bottom: 14px; left: 14px; }
-    }
-      @media (max-width: 560px) {
-      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
-        position: static !important;
-        inset: auto !important;
-        width: max-content;
-        margin: 18px auto 24px;
-        padding: 7px 9px;
-        gap: 7px;
-        font-size: .7rem;
-        box-shadow: none;
-      }
-      .product-art {
-        width: min(84%, 340px);
-        min-height: 0;
-        aspect-ratio: 1.12 / 1;
-        margin-inline: auto;
-      }
-    }
-    
-    .dusk-footer { display:flex; justify-content:space-between; align-items:center; gap:18px; padding-block:23px 30px; border-top:1px solid var(--dusk-rule, var(--trait, rgba(60,58,47,.24))); color:var(--dusk-muted, var(--texte-secondaire, #66695f)); font-size:.8rem; }
-    .dusk-footer a { color:var(--dusk-ink, var(--texte, #252920)); text-decoration:none; }
-    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--dusk-rule, var(--trait, rgba(60,58,47,.24))); color:var(--dusk-ink, var(--texte, #252920)) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
-    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--dusk-accent, var(--accent, #8a6a37)); background:var(--dusk-accent, var(--accent, #8a6a37)); color:#fff !important; outline:none; }
-  </style>
   <link rel="stylesheet" href="site-shell.css">
+  <style>
+    :root{--fond:#f1ead9;--papier:#f8f3e8;--texte:#252920;--doux:#66695f;--accent:#8a6a37;--trait:rgba(60,58,47,.24);--panel-shadow:0 28px 90px rgba(5,8,15,.42)}
+    body[data-time="nuit"]{--fond:#111724;--papier:#1a2030;--texte:#ece9e1;--doux:#b8bdca;--accent:#b8a6df;--trait:rgba(229,225,243,.2);color-scheme:dark}
+    body{margin:0;background:var(--fond);color:var(--texte);transition:background .35s ease,color .35s ease}
+    .page-wrap{width:min(1240px,90%);margin-inline:auto}
+    .atlas-intro{padding:clamp(64px,10vw,120px) 0 45px;max-width:870px}
+    .eyebrow{color:var(--accent);font-size:.72rem;font-weight:800;letter-spacing:.19em;text-transform:uppercase}
+    h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400}
+    h1{margin:16px 0 20px;font-size:clamp(3.3rem,8vw,6.7rem);letter-spacing:-.065em;line-height:.95}
+    h1 em{color:var(--accent);font-weight:400}
+    .atlas-intro>p:last-child{max-width:760px;color:var(--doux);font-size:1.08rem;line-height:1.8}
+    .atlas-guide{display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px;padding:18px 0;border-top:1px solid var(--trait);border-bottom:1px solid var(--trait);color:var(--doux);font-size:.82rem}
+    .guide-chip{display:inline-flex;align-items:center;gap:8px}
+    .guide-dot{width:12px;height:12px;border:1px solid rgba(0,0,0,.18);border-radius:50%;background:var(--tile-color)}
+    .map-hint{margin-left:auto;color:var(--accent);font-weight:700}
+    .zones{padding:32px 0 86px}
+    .zone-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .zone-card{min-width:0;padding:12px;border:1px solid var(--trait);background:var(--papier);color:var(--texte);text-align:left;font:inherit;cursor:pointer;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+    .zone-card:hover,.zone-card:focus-visible{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 34px rgba(20,18,12,.14);outline:none}
+    .map-preview{display:grid;min-height:205px;place-items:center;overflow:hidden;border:1px solid var(--trait);background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 11%,var(--papier)),var(--papier) 72%)}
+    .map-preview svg{display:block;width:min(90%,350px);height:auto}
+    .zone-number{display:block;margin:17px 0 7px;color:var(--accent);font-size:.68rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+    .zone-card h2{margin:0 0 8px;font-size:1.65rem}
+    .zone-card p{margin:0;color:var(--doux);font-size:.9rem;line-height:1.65}
+    .zone-open{display:block;margin-top:15px;padding-top:12px;border-top:1px solid var(--trait);color:var(--accent);font-size:.8rem;font-weight:750}
+    .future-note{padding:52px 0 100px;border-top:1px solid var(--trait);text-align:center}
+    .future-note h2{margin:12px 0;font-size:clamp(2.35rem,5vw,3.8rem)}
+    .future-note p{max-width:640px;margin:auto;color:var(--doux);line-height:1.8}
+    .zone-dialog{width:min(1180px,94vw);max-width:none;max-height:min(92vh,1000px);padding:0;overflow:hidden;border:1px solid var(--trait);background:var(--papier);color:var(--texte);box-shadow:var(--panel-shadow)}
+    .zone-dialog::backdrop{background:rgba(6,8,13,.76);backdrop-filter:blur(5px)}
+    .dialog-scroll{max-height:min(92vh,1000px);overflow:auto}
+    .dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;padding:clamp(20px,4vw,36px);border-bottom:1px solid var(--trait)}
+    .dialog-head h2{margin:6px 0 9px;font-size:clamp(2rem,4vw,3.3rem)}
+    .dialog-description{max-width:700px;margin:0;color:var(--doux);line-height:1.65}
+    .close-button{flex:none;padding:10px 14px;border:1px solid var(--trait);background:transparent;color:var(--texte);font:inherit;cursor:pointer}
+    .close-button:hover,.close-button:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+    .explorer{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.72fr);gap:24px;padding:clamp(18px,3vw,30px)}
+    .map-panel{min-width:0}
+    .map-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-bottom:12px}
+    .map-toolbar button,.map-toolbar input{accent-color:var(--accent)}
+    .zoom-button{width:38px;height:36px;border:1px solid var(--trait);background:var(--papier);color:var(--texte);font-size:1.15rem;cursor:pointer}
+    .zoom-button:hover,.zoom-button:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+    .zoom-slider{width:min(180px,30vw)}
+    .zoom-value{min-width:46px;color:var(--doux);font-size:.78rem;font-variant-numeric:tabular-nums}
+    .reset-view{margin-left:auto;padding:9px 11px;border:1px solid var(--trait);background:transparent;color:var(--doux);font:inherit;font-size:.78rem;cursor:pointer}
+    .board-viewport{height:min(58vh,600px);min-height:340px;overflow:auto;overscroll-behavior:contain;border:1px solid var(--trait);background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 13%,var(--papier)),var(--papier) 74%)}
+    .board-svg{display:block;width:100%;height:auto;min-width:460px;margin:0 auto;transition:width .18s ease}
+    .tile polygon{stroke:color-mix(in srgb,var(--texte) 31%,transparent);stroke-width:2;vector-effect:non-scaling-stroke;transition:filter .15s ease,stroke .15s ease,stroke-width .15s ease}
+    .tile:hover polygon,.tile:focus polygon{filter:brightness(1.14);stroke:var(--accent);stroke-width:3;outline:none}
+    .tile.is-selected polygon{stroke:var(--accent);stroke-width:4;filter:brightness(1.1)}
+    .tile:focus{outline:none}
+    .tile-label{fill:#fff;font:700 11px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:rgba(16,18,24,.55);stroke-width:2px}
+    .objective polygon{fill:#d1a75b!important;stroke:#fff0bd!important;stroke-width:3!important}
+    .spawn-blue polygon{fill:#648ec8!important;stroke:#d8e9ff!important;stroke-width:2.5!important}
+    .spawn-red polygon{fill:#b96d75!important;stroke:#ffe0e2!important;stroke-width:2.5!important}
+    .terrain-prairie polygon{fill:#829a66}.terrain-forest polygon{fill:#426d53}.terrain-water polygon{fill:#538daa}.terrain-rock polygon{fill:#94795e}.terrain-ice polygon{fill:#8db2bd}.terrain-ruins polygon{fill:#a69678}.terrain-wind polygon{fill:#8e85ad}
+    body[data-time="nuit"] .terrain-prairie polygon{fill:#506b4b}body[data-time="nuit"] .terrain-forest polygon{fill:#2c5944}body[data-time="nuit"] .terrain-water polygon{fill:#3d6e91}body[data-time="nuit"] .terrain-rock polygon{fill:#766149}body[data-time="nuit"] .terrain-ice polygon{fill:#638b9b}body[data-time="nuit"] .terrain-ruins polygon{fill:#88785f}body[data-time="nuit"] .terrain-wind polygon{fill:#70658f}
+    .board-legend{display:flex;flex-wrap:wrap;gap:9px 16px;margin-top:13px;color:var(--doux);font-size:.75rem}
+    .tile-detail{align-self:start;padding:21px;border:1px solid var(--trait);background:color-mix(in srgb,var(--papier) 86%,var(--accent) 14%)}
+    .tile-detail .eyebrow{margin:0 0 13px}
+    .tile-detail h3{margin:0 0 12px;font-size:1.8rem}
+    .terrain-label{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:7px 10px;border:1px solid var(--trait);font-size:.8rem;font-weight:700}
+    .tile-detail p{color:var(--doux);font-size:.9rem;line-height:1.65}
+    .detail-note{margin-top:18px;padding-top:14px;border-top:1px solid var(--trait);font-size:.78rem!important}
+    .terrain-about{margin-top:24px;padding:0 clamp(18px,3vw,30px) 28px;color:var(--doux);font-size:.78rem;line-height:1.65}
+    .terrain-about strong{color:var(--texte)}
+    .mode-switch{position:fixed;z-index:20;bottom:22px;left:22px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--trait);background:var(--papier);color:var(--doux);font-size:.76rem;font-weight:700;box-shadow:0 5px 22px rgba(18,21,29,.18);cursor:pointer}
+    .mode-switch input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+    .mode-track{position:relative;width:42px;height:23px;border:1px solid var(--trait);border-radius:20px;background:#d9cfb9}
+    .mode-track:before{position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fffaf0;content:"";transition:transform .25s ease}
+    body[data-time="nuit"] .mode-track{background:#5e527f}.mode-switch input:checked+.mode-track:before{transform:translateX(19px);background:#e5dcf5}
+    .dusk-footer{width:min(1320px,90%);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:23px 0 30px;border-top:1px solid var(--trait);color:var(--doux);font-size:.8rem}
+    .dusk-footer a{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--trait);color:var(--texte);font-size:.82rem;font-weight:750;text-decoration:none;transition:background .2s,color .2s,border-color .2s,transform .2s}
+    .dusk-footer a:hover,.dusk-footer a:focus-visible{transform:translateY(-2px);border-color:var(--accent);background:var(--accent);color:#fff;outline:none}
+    @media(max-width:900px){.zone-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.explorer{grid-template-columns:1fr}.tile-detail{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}.tile-detail .eyebrow,.tile-detail h3,.tile-detail .terrain-label{grid-column:1/-1}.tile-detail .detail-note{margin:0;padding:0;border:0}}
+    @media(max-width:560px){.zone-grid{grid-template-columns:1fr}.atlas-intro{padding-top:54px}.map-hint{width:100%;margin-left:0}.zone-dialog{width:100vw;max-height:94vh;margin:auto 0 0;border-right:0;border-bottom:0;border-left:0;border-radius:18px 18px 0 0}.dialog-scroll{max-height:94vh}.dialog-head{padding:20px 18px}.close-button{padding:8px 10px}.explorer{gap:16px;padding:15px}.board-viewport{height:48vh;min-height:290px}.board-svg{min-width:440px}.tile-detail{display:block;padding:17px}.tile-detail .detail-note{margin-top:14px;padding-top:12px;border-top:1px solid var(--trait)}.reset-view{margin-left:0}.mode-switch{position:static;width:max-content;margin:18px auto 22px;box-shadow:none}.dusk-footer{align-items:flex-start;flex-direction:column;padding-bottom:24px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
 </head>
-
 <body data-time="jour">
-  <header class="site-shell-header">
+<header class="site-shell-header">
   <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-  <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="site-shell-actions">
-    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
-    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a>
-  </div>
-  <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert>
-    <a href="personnages.html">Cardex</a>
-    <a href="univers.html">Univers</a>
-    <a href="faq.html">FAQ</a>
-    <a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
-  <a href="amis.html">Amis</a></nav>
+  <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation"><span></span><span></span><span></span></button>
+  <div class="site-shell-actions"><a class="site-shell-support" href="soutenir.html">Soutenir</a><a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a></div>
+  <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert><a href="personnages.html">Cardex</a><a href="univers.html">Univers</a><a href="faq.html">FAQ</a><a href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a href="amis.html">Amis</a></nav>
 </header>
-
-  <main>
-    <section class="introduction conteneur">
-      <p class="petit-titre">Atlas des zones · Environ 30 prévues</p>
-      <h1>Les terres<br><em>à explorer.</em></h1>
-      <p>
-        Chaque carte de zone présente un lieu et la disposition des pièces sur
-        le plateau. Une carte est tirée au début de la partie : le plateau choisi
-        reste le même jusqu’à la fin, même lorsque le temps passe du Jour à la Nuit.
-        Clique sur une zone pour l’agrandir.
-      </p>
-    </section>
-
-    <section class="zones conteneur" aria-label="Zones de Duskclaw">
-      <div class="grille-zones">
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 01</span>
-          <h2>Les Marches d’Auréval</h2>
-          <p>Proposition : des collines ouvertes, des routes anciennes et des tours de veille.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 02</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 03</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 04</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 05</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-
-        <article class="zone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="emplacement-image">
-            <span>Illustration de la zone<strong>À ajouter plus tard</strong></span>
-          </div>
-          <span class="numero-zone">Zone 06</span>
-          <h2>Nom à définir</h2>
-          <p>Le paysage et l’histoire de cette zone restent à imaginer.</p>
-          <div class="invitation">Cliquer pour agrandir →</div>
-        </article>
-      </div>
-    </section>
-
-    <section class="fin conteneur">
-      <p class="petit-titre">L’atlas s’agrandira</p>
-      <h2>Il reste tant à découvrir.</h2>
-      <p>
-        D’autres zones, paysages et histoires viendront s’ajouter à l’atlas
-        de Duskclaw au fil de leur création.
-      </p>
-    </section>
-  </main>
-
-  <dialog class="fenetre-zone" id="fenetre-zone" aria-labelledby="titre-fenetre">
-    <div class="entete-fenetre">
-      <div>
-        <span class="petit-titre" id="numero-fenetre">Zone</span>
-        <h2 id="titre-fenetre">Nom de la zone</h2>
-      </div>
-      <button class="fermer" id="fermer-fenetre" type="button">Fermer ×</button>
-    </div>
-
-    <p class="description-fenetre" id="description-fenetre"></p>
-
-    <div class="grille-fenetre">
-      <div class="grand-emplacement">
-        <span>Emplacement réservé à la grande illustration<strong>Image de la zone</strong></span>
-      </div>
-      <div class="grand-emplacement">
-        <span>Emplacement réservé au plan<strong>Disposition du plateau</strong></span>
-      </div>
-    </div>
-  </dialog>
-
-  <footer class="site-shell-footer">
-  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
-  <span class="site-shell-handle">@Duskclaw</span>
-</footer>
-
-  <label class="bouton-mode" title="Basculer entre les ambiances Jour et Nuit">
-    <span>Jour</span>
-    <input id="theme-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit">
-    <span class="interrupteur" aria-hidden="true"></span>
-    <span>Nuit</span>
-  </label>
-
-  <script>
-    const themeSwitch = document.getElementById("theme-toggle");
-
-    function setTheme(time, save = false) {
-      document.body.dataset.time = time;
-      themeSwitch.checked = time === "nuit";
-      document.querySelector('meta[name="theme-color"]').content =
-        time === "nuit" ? "#111724" : "#f1ead9";
-
-      if (save) {
-        localStorage.setItem("duskclaw-time", time);
-      }
-    }
-
-    themeSwitch.addEventListener("change", () => {
-      setTheme(themeSwitch.checked ? "nuit" : "jour", true);
-    });
-
-    setTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
-
-    const fenetre = document.getElementById("fenetre-zone");
-    const numeroFenetre = document.getElementById("numero-fenetre");
-    const titreFenetre = document.getElementById("titre-fenetre");
-    const descriptionFenetre = document.getElementById("description-fenetre");
-
-    function ouvrirZone(zone) {
-      numeroFenetre.textContent = zone.querySelector(".numero-zone").textContent;
-      titreFenetre.textContent = zone.querySelector("h2").textContent;
-      descriptionFenetre.textContent = zone.querySelector(".zone p").textContent;
-      fenetre.showModal();
-    }
-
-    document.querySelectorAll(".zone").forEach((zone) => {
-      zone.addEventListener("click", () => ouvrirZone(zone));
-
-      zone.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          ouvrirZone(zone);
-        }
-      });
-    });
-
-    document.getElementById("fermer-fenetre").addEventListener("click", () => {
-      fenetre.close();
-    });
-
-    fenetre.addEventListener("click", (event) => {
-      if (event.target === fenetre) {
-        fenetre.close();
-      }
-    });
-  </script>
+<main>
+  <section class="atlas-intro page-wrap"><p class="eyebrow">Atlas interactif · Environ 30 zones prévues</p><h1>Les terres<br><em>à explorer.</em></h1><p>Choisis une zone pour ouvrir son plateau hexagonal. Zoome, parcours les cases et découvre leur terrain. Les aperçus et particularités tactiques sont des propositions modifiables, en attendant les cartes de zone définitives.</p></section>
+  <div class="atlas-guide page-wrap" aria-label="Légende du plateau"><span class="guide-chip"><i class="guide-dot" style="--tile-color:#d1a75b"></i>Objectif central</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#648ec8"></i>Spawners bleus</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#b96d75"></i>Spawners rouges</span><span class="map-hint">Clique une zone pour explorer son plateau ↗</span></div>
+  <section class="zones page-wrap" aria-label="Zones de Duskclaw"><div class="zone-grid" id="zone-grid"></div></section>
+  <section class="future-note page-wrap"><p class="eyebrow">L’atlas s’agrandira</p><h2>Il reste tant à découvrir.</h2><p>D’autres zones, plateaux et histoires viendront s’ajouter à l’atlas au fil de leur création.</p></section>
+</main>
+<dialog class="zone-dialog" id="zone-dialog" aria-labelledby="dialog-title"><div class="dialog-scroll">
+  <header class="dialog-head"><div><p class="eyebrow" id="dialog-number">ZONE 01</p><h2 id="dialog-title">Les Marches d’Auréval</h2><p class="dialog-description" id="dialog-description"></p></div><button class="close-button" id="close-dialog" type="button">Fermer <span aria-hidden="true">×</span></button></header>
+  <div class="explorer"><section class="map-panel" aria-label="Plateau hexagonal"><div class="map-toolbar"><button class="zoom-button" id="zoom-out" type="button" aria-label="Dézoomer">−</button><input class="zoom-slider" id="zoom-slider" type="range" min="80" max="180" step="10" value="100" aria-label="Zoom du plateau"><button class="zoom-button" id="zoom-in" type="button" aria-label="Zoomer">+</button><output class="zoom-value" id="zoom-value">100 %</output><button class="reset-view" id="reset-view" type="button">Réinitialiser</button></div><div class="board-viewport" id="board-viewport"><svg class="board-svg" id="board-svg" role="group" aria-label="Plateau hexagonal interactif" viewBox="0 0 620 570"></svg></div><div class="board-legend"><span class="guide-chip"><i class="guide-dot" style="--tile-color:#829a66"></i>Prairie</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#426d53"></i>Forêt</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#538daa"></i>Eau</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#94795e"></i>Roche</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#8db2bd"></i>Glace</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#a69678"></i>Ruines</span><span class="guide-chip"><i class="guide-dot" style="--tile-color:#8e85ad"></i>Vent</span></div></section>
+  <aside class="tile-detail" id="tile-detail" aria-live="polite"><p class="eyebrow">Case sélectionnée</p><h3 id="tile-title">Choisis une case</h3><span class="terrain-label" id="terrain-label" hidden></span><p id="tile-description">Clique sur une case du plateau pour découvrir son terrain et sa particularité.</p><p class="detail-note" id="tile-note">Le plan est indicatif ; les règles propres aux terrains restent à définir.</p></aside></div>
+  <p class="terrain-about"><strong>Plateau proposé :</strong> 61 cases hexagonales, un objectif sur la case centrale et quatre spawners par joueur, disposés en miroir. Cette disposition sert d’aperçu interactif et peut être ajustée à tes cartes de zone.</p>
+</div></dialog>
+<footer class="dusk-footer"><a href="contact.html">Contact <span aria-hidden="true">↗</span></a><span>@Duskclaw</span></footer>
+<label class="mode-switch" title="Basculer entre les ambiances Jour et Nuit"><span>Jour</span><input id="theme-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit"><span class="mode-track" aria-hidden="true"></span><span>Nuit</span></label>
+<script>
+  const zones=[
+    {number:'01',title:'Les Marches d’Auréval',description:'Des collines ouvertes, des routes anciennes et des tours de veille. Une première proposition de terrain pour cette zone.',theme:'Prairie, roches et vestiges',primary:'prairie',secondary:'ruines',spots:[{q:1,r:-1,t:'ruines'},{q:-2,r:2,t:'roche'}]},
+    {number:'02',title:'Nom à définir',description:'Zone en préparation. Les cases permettent déjà d’explorer une composition provisoire de forêt et de clairières.',theme:'Forêt et clairières',primary:'forêt',secondary:'vent',spots:[{q:-1,r:0,t:'forêt'},{q:2,r:-2,t:'forêt'},{q:3,r:0,t:'vent'}]},
+    {number:'03',title:'Nom à définir',description:'Zone en préparation. La disposition provisoire met en avant des crêtes, des rochers et quelques vestiges.',theme:'Crêtes et rochers',primary:'roche',secondary:'ruines',spots:[{q:2,r:1,t:'roche'},{q:-2,r:-1,t:'ruines'},{q:-2,r:1,t:'roche'}]},
+    {number:'04',title:'Nom à définir',description:'Zone en préparation. Un cours d’eau traverse ce plateau provisoire et rejoint plusieurs terrains ouverts.',theme:'Ruisseaux et prairies',primary:'eau',secondary:'forêt',spots:[{q:1,r:1,t:'eau'},{q:-1,r:-1,t:'eau'},{q:-2,r:0,t:'forêt'}]},
+    {number:'05',title:'Nom à définir',description:'Zone en préparation. Une proposition de vallée froide, entre glace, roche et passages d’eau.',theme:'Glace et passages rocheux',primary:'glace',secondary:'roche',spots:[{q:-1,r:1,t:'glace'},{q:1,r:-1,t:'glace'},{q:3,r:-1,t:'roche'},{q:-3,r:1,t:'eau'}]},
+    {number:'06',title:'Nom à définir',description:'Zone en préparation. Une proposition de plateau ancien où les ruines côtoient des couloirs venteux.',theme:'Ruines et couloirs de vent',primary:'ruines',secondary:'vent',spots:[{q:0,r:-2,t:'ruines'},{q:1,r:-2,t:'ruines'},{q:-3,r:0,t:'vent'},{q:2,r:0,t:'roche'}]}
+  ];
+  const terrainLabels={prairie:'Prairie',forêt:'Forêt',eau:'Eau',roche:'Roche',glace:'Glace',ruines:'Ruines',vent:'Vent'};
+  const terrainDescriptions={prairie:'Une case ouverte, sans relief particulier dans cet aperçu.',forêt:'Une case boisée. Son effet sur la visibilité reste à définir.',eau:'Un passage d’eau. Son franchissement et son éventuel coût restent à définir.',roche:'Un terrain rocheux. Son relief et ses éventuels bonus restent à définir.',glace:'Une surface gelée. Son effet sur le déplacement reste à définir.',ruines:'Des vestiges qui pourraient offrir du couvert ; la règle reste à définir.',vent:'Un couloir exposé. Son effet tactique reste à définir.'};
+  const spawnBlue=new Set(['0,-4','1,-4','2,-4','3,-4']);
+  const spawnRed=new Set(['0,4','-1,4','-2,4','-3,4']);
+  const grid=document.getElementById('zone-grid'),dialog=document.getElementById('zone-dialog'),svg=document.getElementById('board-svg');
+  let activeZone=zones[0],selectedTile=null,zoom=100;
+  function axialCells(radius=4){const out=[];for(let q=-radius;q<=radius;q++)for(let r=-radius;r<=radius;r++)if(Math.abs(q+r)<=radius)out.push({q,r});return out;}
+  function distance(a,b){return Math.max(Math.abs(a.q-b.q),Math.abs(a.r-b.r),Math.abs(a.q+a.r-b.q-b.r));}
+  function terrainFor(zone,cell){if(cell.q===0&&cell.r===0)return'objective';const key=`${cell.q},${cell.r}`;if(spawnBlue.has(key))return'spawn-blue';if(spawnRed.has(key))return'spawn-red';const near=zone.spots.find(s=>distance(s,cell)<=1);if(near)return near.t;const index=zones.indexOf(zone);if(index===0)return Math.abs(cell.q-cell.r)>5?'roche':'prairie';if(index===1)return((cell.q*3+cell.r*2+12)%7)<3?'forêt':'prairie';if(index===2)return((cell.q*2-cell.r*3+20)%7)<3?'roche':'prairie';if(index===3)return Math.abs(cell.q+cell.r)<=1?'eau':((cell.q-cell.r+12)%8)<2?'forêt':'prairie';if(index===4)return((cell.q*3+cell.r*2+18)%6)<3?'glace':'prairie';return((cell.q*2+cell.r*3+20)%7)<3?'ruines':(((cell.q-cell.r+15)%9)<2?'vent':'roche');}
+  function points(cx,cy,size){const out=[];for(let i=0;i<6;i++){const a=Math.PI/3*i;out.push(`${(cx+size*Math.cos(a)).toFixed(1)},${(cy+size*Math.sin(a)).toFixed(1)}`);}return out.join(' ');}
+  function terrainClass(kind){return kind==='forêt'?'terrain-forest':kind==='eau'?'terrain-water':kind==='roche'?'terrain-rock':kind==='glace'?'terrain-ice':kind==='ruines'?'terrain-ruins':kind==='vent'?'terrain-wind':'terrain-prairie';}
+  function cellText(kind){return kind==='objective'?'◆':kind==='spawn-blue'?'B':kind==='spawn-red'?'R':'';}
+  function createBoard(zone,target,mini=false){const radius=mini?3:4,size=mini?15:34,cx=mini?150:310,cy=mini?133:285;const view=mini?'0 0 300 266':'0 0 620 570';const cells=axialCells(radius);const groups=cells.map(c=>{const kind=terrainFor(zone,c),x=cx+size*1.5*c.q,y=cy+Math.sqrt(3)*size*(c.r+c.q/2);const title=kind==='objective'?'Objectif central':kind==='spawn-blue'?'Spawner bleu':kind==='spawn-red'?'Spawner rouge':terrainLabels[kind];const selected=!mini&&selectedTile&&selectedTile.q===c.q&&selectedTile.r===c.r?' is-selected':'';const cls=kind==='objective'?'objective':kind==='spawn-blue'?'spawn-blue':kind==='spawn-red'?'spawn-red':terrainClass(kind);return `<g class="tile ${cls}${selected}" data-q="${c.q}" data-r="${c.r}" data-kind="${kind}" tabindex="${mini?'-1':'0'}" role="${mini?'img':'button'}" aria-label="${title}, case ${c.q}, ${c.r}" ${mini?'':'aria-pressed="'+(selected?'true':'false')+'"'}><title>${title}</title><polygon points="${points(x,y,size*.94)}"></polygon>${cellText(kind)?`<text class="tile-label" x="${x}" y="${y}">${cellText(kind)}</text>`:''}</g>`;}).join('');target.setAttribute('viewBox',view);target.innerHTML=groups;if(!mini)target.querySelectorAll('.tile').forEach(tile=>{tile.addEventListener('click',()=>selectTile(tile));tile.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectTile(tile);}});});}
+  function renderCards(){grid.innerHTML=zones.map(z=>`<button class="zone-card" type="button" data-zone="${z.number}" aria-label="Explorer la zone ${z.number}, ${z.title}"><span class="map-preview"><svg viewBox="0 0 300 266" aria-hidden="true"></svg></span><span class="zone-number">Zone ${z.number} · ${z.theme}</span><h2>${z.title}</h2><p>${z.description}</p><span class="zone-open">Explorer le plateau hexagonal →</span></button>`).join('');grid.querySelectorAll('.zone-card').forEach((card,i)=>{createBoard(zones[i],card.querySelector('svg'),true);card.addEventListener('click',()=>openZone(zones[i]));});}
+  function openZone(zone){activeZone=zone;selectedTile=null;document.getElementById('dialog-number').textContent=`ZONE ${zone.number} · ${zone.theme}`;document.getElementById('dialog-title').textContent=zone.title;document.getElementById('dialog-description').textContent=zone.description;createBoard(zone,svg);setZoom(100);resetDetail();dialog.showModal();}
+  function selectTile(tile){if(selectedTile)selectedTile.classList.remove('is-selected');selectedTile={q:Number(tile.dataset.q),r:Number(tile.dataset.r)};tile.classList.add('is-selected');svg.querySelectorAll('.tile').forEach(t=>t.setAttribute('aria-pressed',String(t===tile)));const kind=tile.dataset.kind,title=document.getElementById('tile-title'),label=document.getElementById('terrain-label'),description=document.getElementById('tile-description'),note=document.getElementById('tile-note');if(kind==='objective'){title.textContent='Objectif central';label.hidden=true;description.textContent='Cette case unique marque le centre du plateau.';note.textContent='Condition de contrôle et interactions : à définir dans les règles de la zone.';return;}if(kind==='spawn-blue'||kind==='spawn-red'){title.textContent=kind==='spawn-blue'?'Spawner bleu':'Spawner rouge';label.hidden=false;label.innerHTML=`<i class="guide-dot" style="--tile-color:${kind==='spawn-blue'?'#648ec8':'#b96d75'}"></i>Point de déploiement`;description.textContent='Un des quatre emplacements de départ de ce joueur.';note.textContent='Les deux groupes de quatre spawners sont placés en miroir autour de la case centrale.';return;}title.textContent=terrainLabels[kind]||'Terrain';label.hidden=false;const color={prairie:'#829a66','forêt':'#426d53',eau:'#538daa',roche:'#94795e',glace:'#8db2bd',ruines:'#a69678',vent:'#8e85ad'}[kind]||'#8a6a37';label.innerHTML=`<i class="guide-dot" style="--tile-color:${color}"></i>${terrainLabels[kind]}`;description.textContent=terrainDescriptions[kind];note.textContent=`Particularité de la zone ${activeZone.number} : ${activeZone.theme}. Effet de jeu précis à définir.`;}
+  function resetDetail(){document.getElementById('tile-title').textContent='Choisis une case';document.getElementById('terrain-label').hidden=true;document.getElementById('tile-description').textContent='Clique sur une case du plateau pour découvrir son terrain et sa particularité.';document.getElementById('tile-note').textContent='Le plan est indicatif ; les règles propres aux terrains restent à définir.';}
+  function setZoom(value){zoom=Math.max(80,Math.min(180,Number(value)));document.getElementById('zoom-slider').value=zoom;document.getElementById('zoom-value').textContent=`${zoom} %`;svg.style.width=`${zoom}%`;}
+  renderCards();
+  document.getElementById('zoom-slider').addEventListener('input',e=>setZoom(e.target.value));
+  document.getElementById('zoom-in').addEventListener('click',()=>setZoom(zoom+10));document.getElementById('zoom-out').addEventListener('click',()=>setZoom(zoom-10));document.getElementById('reset-view').addEventListener('click',()=>{setZoom(100);document.getElementById('board-viewport').scrollTo({top:0,left:0,behavior:'smooth'});});
+  document.getElementById('close-dialog').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+  const themeSwitch=document.getElementById('theme-toggle');function setTheme(time,save=false){document.body.dataset.time=time;themeSwitch.checked=time==='nuit';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=time==='nuit'?'#111724':'#f1ead9';if(save)localStorage.setItem('duskclaw-time',time);}themeSwitch.addEventListener('change',()=>setTheme(themeSwitch.checked?'nuit':'jour',true));setTheme(localStorage.getItem('duskclaw-time')==='nuit'?'nuit':'jour');
+</script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="account-nav.js"></script>
 <script src="site-shell.js"></script>
 </body>
 </html>
-
-
-
-
