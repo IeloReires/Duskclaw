@@ -28,21 +28,15 @@
     });
   }
 
-  // Incoming friend requests badge, shared by every page using the site shell.
   // Account notifications shared by every page using the site shell.
   const accountLink = document.getElementById("account-nav-link");
   const actions = accountLink?.closest(".site-shell-actions");
   if (accountLink && actions) {
     const wrap = document.createElement("div");
     wrap.className = "site-shell-notification-wrap";
-    const bell = document.createElement("a");
     const bell = document.createElement("button");
     bell.type = "button";
     bell.className = "site-shell-notifications";
-    bell.href = "amis.html#requests-list";
-    bell.setAttribute("aria-label", "Notifications des demandes d’amis");
-    bell.title = "Demandes d’amis";
-    bell.hidden = false;
     bell.setAttribute("aria-label", "Ouvrir les notifications");
     bell.setAttribute("aria-expanded", "false");
     bell.setAttribute("aria-haspopup", "dialog");
@@ -63,7 +57,6 @@
     count.setAttribute("aria-live", "polite");
     count.hidden = true;
     bell.append(icon, count);
-    actions.insertBefore(bell, accountLink);
 
     const panel = document.createElement("section");
     panel.className = "site-shell-notification-panel";
@@ -245,39 +238,10 @@
       if (event.key === "Escape" && !panel.hidden) { panel.hidden = true; bell.setAttribute("aria-expanded", "false"); bell.focus(); }
     });
     if (window.supabase?.createClient) {
-      const client = window.supabase.createClient(
       supabaseClient = window.supabase.createClient(
         "https://bqqbciifmfbsjurkulfo.supabase.co",
         "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior"
       );
-      let checking = false;
-    const updateNotifications = async user => {
-      bell.hidden = false;
-      if (!user) { count.hidden = true; return; }
-      if (checking) return;
-      checking = true;
-      try {
-        const { data, error } = await client.rpc("friends_directory");
-        if (error) throw error;
-        const incoming = (data || []).filter(item => item.direction === "received").length;
-        count.textContent = incoming > 99 ? "99+" : String(incoming);
-        count.hidden = incoming === 0;
-        bell.setAttribute("aria-label", incoming
-          ? incoming + " demande" + (incoming > 1 ? "s" : "") + " d’amitié en attente"
-          : "Aucune demande d’ami en attente");
-        bell.title = incoming ? incoming + " demande" + (incoming > 1 ? "s" : "") + " d’ami" : "Demandes d’amis";
-      } catch {
-        count.hidden = true;
-        bell.setAttribute("aria-label", "Voir les demandes d’amis");
-      } finally {
-        checking = false;
-      }
-    };
-    client.auth.getSession().then(({ data }) => updateNotifications(data.session?.user || null)).catch(() => {});
-    client.auth.onAuthStateChange((_event, session) => updateNotifications(session?.user || null));
-      window.setInterval(() => {
-        if (!document.hidden) client.auth.getSession().then(({ data }) => updateNotifications(data.session?.user || null)).catch(() => {});
-      }, 60000);
       supabaseClient.auth.getSession().then(({ data }) => {
         currentUserId = data.session?.user?.id || null;
         if (currentUserId) loadNotifications();
