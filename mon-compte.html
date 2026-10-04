@@ -101,6 +101,7 @@
       </form>
       <form id="signup-form" class="panel">
         <h2>Créer un compte</h2>
+        <label class="field">Pseudo<input name="nickname" type="text" minlength="2" maxlength="15" autocomplete="nickname" required aria-describedby="signup-nickname-help"><span id="signup-nickname-help" class="small">2 à 15 caractères. Tu pourras le modifier plus tard depuis ton profil.</span></label>
         <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
         <label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="10" required><span class="small">10 caractères minimum. Supabase vérifiera aussi les critères de sécurité définis sur le site.</span></label>
         <button class="button" type="submit">Créer mon compte <span aria-hidden="true">→</span></button>
@@ -374,9 +375,12 @@
     });
     document.getElementById("signup-form").addEventListener("submit", async event => {
       event.preventDefault(); const form = new FormData(event.currentTarget); const password = form.get("password");
+      const nickname = String(form.get("nickname") || "").trim();
+      if (nickname.length < 2 || nickname.length > 15) { message("signup-message", "Le pseudo doit contenir de 2 à 15 caractères.", "error"); return; }
+      if (nicknameHasProfanity(nickname)) { message("signup-message", "Ce pseudo contient un mot inapproprié. Choisis-en un autre.", "error"); return; }
       if (password.length < 10) { message("signup-message", "Choisis au moins 10 caractères.", "error"); return; }
       message("signup-message", "Création du compte…");
-      const { data, error } = await client.auth.signUp({ email: form.get("email"), password, options: { emailRedirectTo: SITE_URL + "collection.html" } });
+      const { data, error } = await client.auth.signUp({ email: form.get("email"), password, options: { data: { nickname }, emailRedirectTo: SITE_URL + "collection.html" } });
       if (error) message("signup-message", error.message, "error");
       else if (data.session) { message("signup-message", "Compte créé.", "success"); afterLogin(); }
       else message("signup-message", "Compte créé. Consulte ta boîte mail pour confirmer ton adresse, puis connecte-toi.", "success");
