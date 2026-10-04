@@ -96,3 +96,10 @@ body[data-time="nuit"]{--shell-ink:#ece9e1;--shell-muted:#b8bdca;--shell-paper:#
 .site-shell-notification-item:hover,.site-shell-notification-item:focus-visible{background:color-mix(in srgb,var(--shell-accent) 12%,transparent)}
 .site-shell-mode-track{border-color:var(--shell-line)}
 .site-shell-mode input:focus-visible+.site-shell-mode-track{outline-color:var(--shell-accent)}
+
+/* Match the lighter, wider header used on the home page across every page. */
+.site-shell-header{width:calc(100% - 56px)!important;max-width:none!important;font-weight:400}
+.site-shell-brand{font-weight:700}
+.site-shell-header .site-shell-actions>a:not(.site-shell-support){font-weight:600}
+.site-shell-header .site-shell-actions>a.site-shell-support{font-weight:700}
+@media(max-width:520px){.site-shell-header{width:calc(100% - 24px)!important}}
