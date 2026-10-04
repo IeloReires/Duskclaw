@@ -47,7 +47,7 @@
     @media(max-width:620px) { .contact-options { grid-template-columns:1fr; } .contact-option,.contact-option + .contact-option { min-height:0; padding:22px 0; border-left:0; } .contact-option + .contact-option { border-top:1px solid var(--contact-rule); } .contact-option h2 { margin-top:14px; } .contact-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .contact-footer { flex-direction:column; } }
     @media(prefers-reduced-motion:reduce) { body,.contact-track::before,.contact-option .contact-action,.contact-action span { transition:none; } }
   </style>
-  <link rel="stylesheet" href="site-shell.css">
+  <link rel="stylesheet" href="site-shell.css?v=20261004-2215">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -115,10 +115,11 @@
     setContactTheme(localStorage.getItem("duskclaw-time") === "nuit");
   </script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="account-nav.js"></script>
-<script src="site-shell.js"></script>
+<script src="account-nav.js?v=20261004-2215"></script>
+<script src="site-shell.js?v=20261004-2215"></script>
 </body>
 </html>
+
 
 
 
