@@ -199,3 +199,22 @@ main.cardex-page{position:relative!important;margin:0 7px 0!important;width:calc
 }
 @media(max-width:760px){.character-record .field-note-stack{position:relative!important;inset:auto!important;display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important;height:auto!important;margin:14px auto!important;padding:10px 2px!important;border-top:1px dashed #aa986e88!important;pointer-events:auto!important}.character-record .field-note{position:relative!important;left:auto!important;top:auto!important;width:min(48%,250px)!important;min-height:60px!important;transform:rotate(var(--note-tilt,-2deg))!important}}
 @media(max-width:430px){.character-record .field-note{width:100%!important}}
+
+/* Final fit: no folded corner or heading on notes; full notebook within desktop viewport */
+.field-note small{display:none!important}.field-note::after{display:none!important;content:none!important}
+@media(min-width:761px){
+html,body{overflow-x:hidden!important}
+main.family-page{box-sizing:border-box!important;width:100%!important;height:calc(100vh - 83px)!important;height:calc(100dvh - 83px)!important;min-height:0!important;max-height:calc(100dvh - 83px)!important;margin:0!important;padding:8px 10px 10px!important;overflow:hidden!important}
+.character-book-layout{box-sizing:border-box!important;display:grid!important;grid-template-columns:clamp(330px,27vw,440px) minmax(0,1fr)!important;gap:clamp(14px,1.5vw,24px)!important;width:100%!important;height:100%!important;min-height:0!important;max-height:100%!important;margin:0!important;padding:0!important;align-items:stretch!important}
+.character-index{position:relative!important;top:auto!important;height:100%!important;max-height:100%!important;min-height:0!important;overflow:hidden!important}
+.character-index-list{height:calc(100% - 106px)!important;max-height:none!important;overflow-y:auto!important}
+.character-record{box-sizing:border-box!important;height:100%!important;min-height:0!important;max-height:100%!important;margin:0!important;padding:clamp(15px,1.6vw,24px)!important;overflow:hidden!important}
+.character-record .family-layout{box-sizing:border-box!important;width:100%!important;height:100%!important;min-height:0!important;max-height:100%!important;padding:8px!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:clamp(28px,4vw,58px)!important;align-items:center!important}
+.character-record .family-art-column{box-sizing:border-box!important;height:100%!important;min-height:0!important;justify-content:center!important;padding:12px!important}
+.character-record .art-stage{width:min(100%,34vw,calc(100dvh - 260px))!important;max-height:calc(100dvh - 260px)!important;aspect-ratio:1/1!important}
+.character-record .family-info{box-sizing:border-box!important;max-height:100%!important;overflow:visible!important;padding:clamp(8px,1.2vw,18px)!important}
+.character-record .stats-list>div,.character-record .stats-list>div:nth-child(even){min-height:clamp(38px,5.1vh,48px)!important;padding-block:6px!important}
+.character-record::after{position:absolute!important;top:19px!important;right:15px!important;bottom:19px!important;z-index:3!important;width:10px!important;display:block!important;content:""!important;border:0!important;background:repeating-linear-gradient(90deg,#b4a37d 0 1px,#fbf4e2 1px 2px,#d6c7a4 2px 3px,#f5ecd5 3px 5px,#b5a47d 5px 6px,#fff8e9 6px 8px,#d8c9a7 8px 10px)!important;box-shadow:-2px 0 3px #473b2433,1px 0 0 #fff8e4!important}
+.character-record{box-shadow:0 1px 0 #fff4d8,0 3px 0 #cbb98e,0 5px 0 #f4ead1,0 7px 0 #ae9a6c,0 11px 0 #f7edd5,0 17px 26px #10203a44,inset 0 0 0 3px #8293a7,inset 0 0 0 6px #d4b66d,inset 0 0 0 8px #344d6c,inset -7px 0 0 #d7c9a6,inset -10px 0 0 #f7f0df,inset -13px 0 0 #c6b58d!important}
+.character-record .field-note-stack{inset:22px!important}
+}

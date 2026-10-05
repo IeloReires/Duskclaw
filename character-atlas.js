@@ -36,15 +36,15 @@
       const noteTexts=['Comparer les mouvements au repos.','Observer les détails du regard.','Noter les traces après le passage.','Esquisser la silhouette de mémoire.','Revoir les couleurs à la lumière douce.','Repérer le détail qui change.','Garder cette forme comme référence.','Regarder les marques sur les contours.'];
       const doodles=['✧','⌁','◌','❋','⌖','☾','✳','∿'];
       const seed=chosenItem.id*17+chosenItem.stageIndex*11;
-      const stack=document.createElement('div');stack.className='field-note-stack';stack.setAttribute('aria-label','Pense-bête du carnet');
+      const stack=document.createElement('div');stack.className='field-note-stack';stack.setAttribute('aria-label','Notes du carnet');
       const count=2+(seed%2);
       for(let n=0;n<count;n++){
         const index=(seed+n*5)%noteTexts.length;const note=document.createElement('aside');note.className='field-note note-variant-'+((seed+n)%6)+' note-place-'+((seed+n*3)%7)+' note-script-'+((seed+n)%3)+' note-shape-'+((seed+n*3)%6)+' note-size-'+((seed+n*7)%4)+' note-stain-'+((seed+n*11)%4);
         note.style.setProperty('--note-tilt',(((seed+n*13)%17)-8)+'deg');
-        const label=document.createElement('small');label.textContent='PENSE-BÊTE · '+String((chosenItem.id+n)%9+1).padStart(2,'0');
+        
         const copy=document.createElement('span');copy.textContent=noteTexts[index];
         const doodle=document.createElement('b');doodle.setAttribute('aria-hidden','true');doodle.textContent=doodles[(seed+n*3)%doodles.length];
-        note.append(label,copy,doodle);stack.append(note);
+        note.append(copy,doodle);stack.append(note);
       }
       pane.insertBefore(stack,pager||null);
       const placeNotes=()=>{const bounds=stack.getBoundingClientRect();if(!bounds.width||!bounds.height)return;let state=(seed*2654435761)>>>0;const random=()=>{state^=state<<13;state^=state>>>17;state^=state<<5;return (state>>>0)/4294967296};const safe=[...main.querySelectorAll('.art-stage,.family-info')].map(el=>{const r=el.getBoundingClientRect();return {left:r.left-bounds.left-32,top:r.top-bounds.top-32,right:r.right-bounds.left+32,bottom:r.bottom-bounds.top+32}});const candidates=[];for(let y=0;y<=90;y+=5)for(let x=0;x<=90;x+=5)candidates.push({x:bounds.width*x/100,y:bounds.height*y/100,k:random()});candidates.sort((a,b)=>a.k-b.k);const placed=[];stack.querySelectorAll('.field-note').forEach(note=>{note.style.left='-10000px';note.style.top='-10000px';note.style.position='absolute'});stack.querySelectorAll('.field-note').forEach(note=>{const w=note.offsetWidth,h=note.offsetHeight;for(const c of candidates){if(c.x+w>bounds.width||c.y+h>bounds.height)continue;const box={left:c.x,top:c.y,right:c.x+w,bottom:c.y+h};if(safe.some(r=>box.left<r.right&&box.right>r.left&&box.top<r.bottom&&box.bottom>r.top))continue;if(placed.some(r=>box.left<r.right+10&&box.right>r.left-10&&box.top<r.bottom+10&&box.bottom>r.top-10))continue;note.style.left=c.x+'px';note.style.top=c.y+'px';note.style.setProperty('--note-tilt',((random()*18)-9).toFixed(1)+'deg');placed.push(box);break}})};requestAnimationFrame(placeNotes);window.addEventListener('resize',placeNotes,{passive:true});
