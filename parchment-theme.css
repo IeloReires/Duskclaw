@@ -385,4 +385,24 @@ main.cardex-page.character-record>.notebook-hardware .corner-bl{bottom:-2px!impo
 main.cardex-page.character-record>.notebook-hardware .corner-br{bottom:-2px!important;right:-2px!important}
 .cardex-open-spread{background-color:#eee9d8!important;background-image:linear-gradient(90deg,#d1c39f 0,#f6efdc 1%,transparent 3%,transparent 49.55%,#d7c9a8 49.8%,#8b7954 50%,#fff8e6 50.18%,#d7c9a8 50.45%,transparent 51%,transparent 97%,#f6efdc 99%,#d1c39f 100%),repeating-linear-gradient(0deg,#71634408 0 1px,transparent 1px 6px),linear-gradient(100deg,#f2ecd9,#e8e0c9)!important;box-shadow:inset 0 1px 0 #fff9e8,inset 0 0 0 1px #b6a57f,inset 0 8px 18px #73634414,inset 0 -7px 12px #75644318!important}
 .cardex-gutter{background:linear-gradient(90deg,#d7c9a8 0%,#f6efdc 30%,#82704c 49%,#6c5b3a 50%,#e3d6b5 70%,#f6efdc 100%)!important;box-shadow:0 0 10px #57472a24!important}
+
+/* Filters sit above the book; the center fold mirrors the character notebook's soft page crease. */
+@media(min-width:761px){
+  body:has(main.cardex-page){overflow:hidden!important}
+  body:has(main.cardex-page)>.site-shell-header{margin-bottom:7px!important}
+  body:has(main.cardex-page)>.cardex-filters{
+    box-sizing:border-box!important;display:grid!important;grid-template-columns:repeat(5,minmax(90px,1fr)) auto!important;align-items:end!important;
+    width:calc(100% - 24px)!important;max-width:1900px!important;min-height:0!important;margin:0 auto 7px!important;padding:7px 10px!important;
+    border:1px solid #b49a6877!important;border-radius:5px!important;background:linear-gradient(100deg,#f2ecd9,#e9e1cc 60%,#e6dec9)!important;
+    box-shadow:inset 0 0 0 2px #fff8e7aa,0 2px 5px #453a2517!important;
+  }
+  body:has(main.cardex-page)>.cardex-filters .cardex-control{gap:3px!important;font-size:.58rem!important}
+  body:has(main.cardex-page)>.cardex-filters .cardex-control input,
+  body:has(main.cardex-page)>.cardex-filters .cardex-control select,
+  body:has(main.cardex-page)>.cardex-filters .filter-reset{box-sizing:border-box!important;min-height:31px!important;padding:5px 8px!important;font-size:.7rem!important}
+  main.cardex-page.character-record{height:calc(100dvh - 166px)!important;max-height:calc(100dvh - 166px)!important;margin:0 auto 10px!important}
+  .cardex-open-spread{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr)!important;background-image:linear-gradient(90deg,#d9cbaa 0,#f5eedc 1%,transparent 3%,transparent 97%,#f5eedc 99%,#d9cbaa 100%),repeating-linear-gradient(0deg,#71634408 0 1px,transparent 1px 6px),linear-gradient(100deg,#f2ecd9,#e8e0c9)!important}
+  .cardex-gutter{width:24px!important;background:linear-gradient(90deg,transparent,#94815a25 26%,#7a68442e 45%,#fff9e2 53%,#8d794f22 74%,transparent)!important;box-shadow:none!important}
+}
+@media(max-width:760px){body:has(main.cardex-page)>.cardex-filters{position:relative!important;width:calc(100% - 20px)!important;margin:0 auto 10px!important;padding:10px!important;border:1px solid #b49a68!important;border-radius:5px!important;background:#ece1c7!important;box-shadow:inset 0 0 0 2px #fff7e5!important}main.cardex-page.character-record{height:auto!important;max-height:none!important}.cardex-open-spread{grid-template-columns:minmax(0,1fr) 16px minmax(0,1fr)!important}.cardex-gutter{width:16px!important;background:linear-gradient(90deg,transparent,#94815a25 26%,#7a68442e 45%,#fff9e2 53%,#8d794f22 74%,transparent)!important;box-shadow:none!important}}
 @media(max-width:760px){main.cardex-page.character-record{border-width:12px!important;border-radius:11px!important}main.cardex-page.character-record::after{display:none!important}}
