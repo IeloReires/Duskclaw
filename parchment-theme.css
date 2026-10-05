@@ -418,3 +418,6 @@ main.cardex-page.character-record>.notebook-hardware .corner-br{bottom:-2px!impo
   .cardex-leaf .furry-entry>img{flex:1 1 0!important;width:calc(100% - 10px)!important;height:auto!important;min-height:0!important;max-height:100%!important;margin:5px auto!important;object-fit:contain!important}
   .cardex-leaf .furry-entry .furry-caption{flex:0 0 auto!important}
 }
+/* The spread stays flat while a paper veil hides the outgoing cards before swapping. */
+.cardex-turning-leaf{display:none!important}
+.cardex-page-transition{position:absolute!important;inset:0!important;z-index:9!important;display:block!important;pointer-events:none!important;transform:scaleX(0);transform-style:flat!important;backface-visibility:hidden!important;will-change:transform!important;background:repeating-linear-gradient(0deg,#7163440b 0 1px,transparent 1px 6px),linear-gradient(100deg,#f4eedf 0%,#eee5d0 48%,#e4d8bd 50%,#f0e7d2 53%,#f8f2e3 100%)!important;box-shadow:0 3px 12px #44371f44,inset 0 0 0 1px #b8a77f!important}

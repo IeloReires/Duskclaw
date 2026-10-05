@@ -106,7 +106,7 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261006-cardex-turn29">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261006-cardex-turn30">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -502,44 +502,35 @@
       const destinationLeft = filteredCards.slice(start, start + pageSize);
       const destinationRight = filteredCards.slice(start + pageSize, start + cardsPerPage);
       const spread = document.getElementById("cardex-open-spread");
-      spread.querySelectorAll(".cardex-turning-leaf").forEach(leaf => leaf.remove());
+      spread.querySelectorAll(".cardex-page-transition, .cardex-turning-leaf").forEach(leaf => leaf.remove());
       if (direction) {
         isTurning = true;
-        const outgoingPage = direction === "next" ? rightPage : leftPage;
-        const sideClass = direction === "next" ? "cardex-leaf-right" : "cardex-leaf-left";
-        const turningLeaf = document.createElement("div");
-        turningLeaf.className = `cardex-turning-leaf ${direction}`;
-        turningLeaf.setAttribute("aria-hidden", "true");
-        turningLeaf.inert = true;
-        const front = document.createElement("div");
-        front.className = `cardex-leaf ${sideClass} cardex-turn-face`;
-        outgoingPage.querySelectorAll(":scope > *").forEach(card => front.append(card.cloneNode(true)));
-        const back = document.createElement("div");
-        back.className = "cardex-turn-back";
-        turningLeaf.append(front, back);
-        spread.append(turningLeaf);
-        turningLeaf.style.transform = "rotateY(0deg)";
-        const edgeAngle = direction === "next" ? -90 : 90;
-        const endAngle = direction === "next" ? -180 : 180;
-        const turnDuration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 380;
-        const turnOptions = { duration: turnDuration, easing: "cubic-bezier(.32,.68,.22,1)", fill: "forwards" };
+        const transition = document.createElement("div");
+        transition.className = `cardex-page-transition ${direction}`;
+        transition.setAttribute("aria-hidden", "true");
+        transition.inert = true;
+        transition.style.transformOrigin = direction === "next" ? "right center" : "left center";
+        spread.append(transition);
+        const turnDuration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 300;
+        const turnOptions = { duration: turnDuration, easing: "cubic-bezier(.4,0,.2,1)", fill: "forwards" };
         (async () => {
           try {
-            await turningLeaf.animate([{ transform: "rotateY(0deg)", filter: "brightness(1)" }, { transform: `rotateY(${edgeAngle}deg)`, filter: "brightness(.84)" }], turnOptions).finished;
-            if (!turningLeaf.isConnected) return;
+            await transition.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], turnOptions).finished;
+            if (!transition.isConnected) return;
             leftPage.replaceChildren(...destinationLeft);
             rightPage.replaceChildren(...destinationRight);
-            await turningLeaf.animate([{ transform: `rotateY(${edgeAngle}deg)`, filter: "brightness(.84)" }, { transform: `rotateY(${endAngle}deg)`, filter: "brightness(1)" }], turnOptions).finished;
-            if (!turningLeaf.isConnected) return;
-            turningLeaf.remove();
+            transition.style.transformOrigin = direction === "next" ? "left center" : "right center";
+            await transition.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], turnOptions).finished;
+            if (!transition.isConnected) return;
+            transition.remove();
             isTurning = false;
             previousButton.disabled = currentPage === 0;
             nextButton.disabled = currentPage >= pageCount - 1;
           } catch {
-            if (!turningLeaf.isConnected) return;
+            if (!transition.isConnected) return;
             leftPage.replaceChildren(...destinationLeft);
             rightPage.replaceChildren(...destinationRight);
-            turningLeaf.remove();
+            transition.remove();
             isTurning = false;
             previousButton.disabled = currentPage === 0;
             nextButton.disabled = currentPage >= pageCount - 1;
