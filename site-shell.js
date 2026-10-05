@@ -1,6 +1,18 @@
 (() => {
   const toggle = document.querySelector(".site-shell-menu-toggle");
   const menu = document.getElementById("site-shell-menu");
+  if (menu) {
+    const addMenuLink = (href, label) => {
+      if (menu.querySelector(`a[href="${href}"]`)) return;
+      const link = document.createElement("a");
+      link.href = href;
+      link.textContent = label;
+      const anchor = menu.querySelector('a[href="univers.html"]');
+      anchor ? anchor.after(link) : menu.append(link);
+    };
+    addMenuLink("deck-builder.html", "Deck Builder");
+    addMenuLink("evenements.html", "Événements");
+  }
   if (toggle && menu) {
     const closeMenu = (focusToggle = false) => {
       toggle.setAttribute("aria-expanded", "false");
