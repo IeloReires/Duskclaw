@@ -46,7 +46,7 @@
         const doodle=document.createElement('b');doodle.setAttribute('aria-hidden','true');doodle.textContent=doodles[(seed+n*3)%doodles.length];
         note.append(label,copy,doodle);stack.append(note);
       }
-      const stats=info.querySelector('.stats-list');if(stats)info.insertBefore(stack,stats);else info.append(stack);
+      pane.insertBefore(stack,pager||null);
     }
   }
   search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase('fr');list.querySelectorAll('.character-index-entry').forEach(row=>{row.hidden=!row.dataset.search.includes(q)});});
