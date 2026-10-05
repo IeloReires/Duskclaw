@@ -1,0 +1,7 @@
+DUSKCLAW — REFONTE COMPLÈTE CARNET D’EXPLORATION
+
+Ce paquet remplace la présentation du site par un carnet de terrain inspiré des atlas anciens : couverture indigo, pages parchemin, index de registre, cadres d’illustration et détails laiton et rouge brique. Il comprend les pages HTML et les fichiers communs mis à jour.
+
+Publication : décompresse cette archive et téléverse les fichiers qu’elle contient à la racine du dépôt GitHub, en remplaçant les fichiers de même nom. Téléverse également les ressources image déjà présentes dans ton dépôt si GitHub les signale comme modifiées. Ne supprime pas les illustrations existantes.
+
+La sauvegarde complète de l’ancien site est dans le dossier Duskclaw-sauvegarde-avant-refonte_2026-10-05, à côté de outputs. Elle n’est pas incluse dans ce paquet de publication.
