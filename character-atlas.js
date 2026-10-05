@@ -37,7 +37,7 @@
       const doodles=['✧','⌁','◌','❋','⌖','☾','✳','∿'];
       const seed=chosenItem.id*17+chosenItem.stageIndex*11;
       const stack=document.createElement('div');stack.className='field-note-stack';stack.setAttribute('aria-label','Pense-bête du carnet');
-      const count=1+(seed%3);
+      const count=1+(seed%2);
       for(let n=0;n<count;n++){
         const index=(seed+n*5)%noteTexts.length;const note=document.createElement('aside');note.className='field-note note-variant-'+((seed+n)%6)+' note-place-'+((seed+n*3)%7)+' note-script-'+((seed+n)%3);
         note.style.setProperty('--note-tilt',(((seed+n*13)%17)-8)+'deg');
@@ -46,7 +46,7 @@
         const doodle=document.createElement('b');doodle.setAttribute('aria-hidden','true');doodle.textContent=doodles[(seed+n*3)%doodles.length];
         note.append(label,copy,doodle);stack.append(note);
       }
-      pane.insertBefore(stack,pager||null);
+      const artColumn=main.querySelector('.family-art-column');if(artColumn)artColumn.append(stack);else pane.insertBefore(stack,pager||null);
     }
   }
   search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase('fr');list.querySelectorAll('.character-index-entry').forEach(row=>{row.hidden=!row.dataset.search.includes(q)});});
