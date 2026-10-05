@@ -45,7 +45,7 @@
     @media(max-width:560px){.global-mode-switch{position:static;width:max-content;margin:18px auto 24px;padding:7px 9px;gap:7px;font-size:.7rem;box-shadow:none}}
 </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardexjournal2">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261005-openbook3">
 </head><body data-time="jour">
   <header class="site-shell-header">
   <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
@@ -83,22 +83,25 @@
   <script>const TYPE_NAME="Glace";const FAMILY_NAME="Furry 28";</script>
 
   <script>
-    const forms = [{"letter": "a", "level": "Base", "pv": 40, "vit": 4, "atk": 30, "por": 3, "cost": 2, "rarity": "Commun", "image": "", "type": "glace"}, {"letter": "b", "level": "Niveau 1", "pv": 80, "vit": 5, "atk": 40, "por": 3, "cost": 3, "rarity": "Peu commun", "image": "", "type": "glace"}, {"letter": "c", "level": "Niveau 2", "pv": 120, "vit": 5, "atk": 50, "por": 4, "cost": 4, "rarity": "Rare", "image": "", "type": "glace"}];
+    const forms = [{"letter":"a","level":"Base","pv":40,"vit":4,"atk":30,"por":3,"cost":2,"rarity":"Commun","image":"","type":"glace","night":{"vit":3,"atk":30,"por":4}},{"letter":"b","level":"Niveau 1","pv":80,"vit":5,"atk":40,"por":3,"cost":3,"rarity":"Peu commun","image":"","type":"glace","night":{"vit":4,"atk":40,"por":4}},{"letter":"c","level":"Niveau 2","pv":120,"vit":5,"atk":50,"por":4,"cost":4,"rarity":"Rare","image":"","type":"glace","night":{"vit":4,"atk":50,"por":5}}];
     const labels = {pv:'Points de vie',vit:'Vitesse',atk:'Attaque',por:'Portée'};
     const maxima = {pv:180,vit:6,atk:80,por:5};
     const stage = document.querySelector('.art-stage');
     const family = document.querySelector('.family-page');
     const portraits = document.querySelectorAll('.portrait');
     const stageButtons = document.querySelectorAll('.stage-button');
+    let selectedFormIndex=0;
     function showForm(index){
       const f=forms[index]; if(!f)return;
+      selectedFormIndex=index;
+      const shown=document.body.dataset.time==='nuit'&&f.night?{...f,...f.night}:f;
       family.dataset.type=f.type;
       document.getElementById('form-title').textContent=FAMILY_NAME;
       document.getElementById('form-type').textContent=f.type;
       document.getElementById('form-cost').textContent=f.cost ?? 'À définir';
       document.getElementById('form-rarity').textContent=f.rarity;
       ['pv','vit','atk','por'].forEach((key)=>{
-        const value=f[key]; const valueEl=document.querySelector(`[data-value="${key}"]`); const fill=document.querySelector(`[data-fill="${key}"]`); const track=fill.parentElement;
+        const value=shown[key]; const valueEl=document.querySelector(`[data-value="${key}"]`); const fill=document.querySelector(`[data-fill="${key}"]`); const track=fill.parentElement;
         valueEl.textContent=value ?? '—'; track.setAttribute('aria-label',labels[key]); track.setAttribute('aria-valuenow',String(value??0));
         fill.classList.toggle('is-max',value!==null&&value>=maxima[key]);
         fill.style.width='0%'; if(value!==null) requestAnimationFrame(()=>requestAnimationFrame(()=>{fill.style.width=Math.min(100,value/maxima[key]*100)+'%';}));
@@ -107,6 +110,7 @@
       stageButtons.forEach((b,i)=>{b.classList.toggle('is-active',i===index);b.setAttribute('aria-pressed',String(i===index));});
       stage.classList.add('has-selection');
     }
+    window.addEventListener('duskclaw:timechange',()=>showForm(selectedFormIndex));
     portraits.forEach((p,i)=>{const activate=()=>showForm(i);p.addEventListener('pointerenter',activate);p.addEventListener('focus',activate);p.addEventListener('click',activate);});
     stageButtons.forEach((b,i)=>b.addEventListener('click',()=>showForm(i)));
     const initialForm = Number(new URLSearchParams(location.search).get('forme') || 0);
@@ -114,7 +118,7 @@
   </script>
 
   <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit"><span class="mode-day">Jour</span><input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="global-mode-track" aria-hidden="true"></span><span class="mode-night">Nuit</span></label>
-  <script>const globalThemeSwitch=document.getElementById('global-mode-toggle');function applySiteTheme(time,save=false){document.body.dataset.time=time;globalThemeSwitch.checked=time==='nuit';globalThemeSwitch.setAttribute('aria-checked',String(time==='nuit'));const themeColor=document.querySelector('meta[name="theme-color"]');if(themeColor)themeColor.content=time==='nuit'?'#11121a':'#f1ead9';if(save)localStorage.setItem('duskclaw-time',time);}globalThemeSwitch.addEventListener('change',()=>applySiteTheme(globalThemeSwitch.checked?'nuit':'jour',true));applySiteTheme(localStorage.getItem('duskclaw-time')==='nuit'?'nuit':'jour');</script>
+  <script>const globalThemeSwitch=document.getElementById('global-mode-toggle');function applySiteTheme(time,save=false){document.body.dataset.time=time;globalThemeSwitch.checked=time==='nuit';globalThemeSwitch.setAttribute('aria-checked',String(time==='nuit'));const themeColor=document.querySelector('meta[name="theme-color"]');if(themeColor)themeColor.content=time==='nuit'?'#11121a':'#f1ead9';if(save)localStorage.setItem('duskclaw-time',time);window.dispatchEvent(new CustomEvent('duskclaw:timechange',{detail:{time}}));}globalThemeSwitch.addEventListener('change',()=>applySiteTheme(globalThemeSwitch.checked?'nuit':'jour',true));applySiteTheme(localStorage.getItem('duskclaw-time')==='nuit'?'nuit':'jour');</script>
   <footer class="site-shell-footer">
   <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
   <span class="site-shell-handle">@Duskclaw</span>
@@ -123,7 +127,7 @@
 <script src="account-nav.js?v=20261004-2215"></script>
 <script src="site-shell.js?v=20261005-header-unified2"></script>
 
-<script src="character-atlas.js?v=20261005-roster2"></script>
+<script src="character-atlas.js?v=20261005-roster3"></script>
 </body></html>
 
 
