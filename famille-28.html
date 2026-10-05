@@ -45,7 +45,7 @@
     @media(max-width:560px){.global-mode-switch{position:static;width:max-content;margin:18px auto 24px;padding:7px 9px;gap:7px;font-size:.7rem;box-shadow:none}}
 </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-fieldbook2">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardexjournal2">
 </head><body data-time="jour">
   <header class="site-shell-header">
   <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
@@ -109,7 +109,8 @@
     }
     portraits.forEach((p,i)=>{const activate=()=>showForm(i);p.addEventListener('pointerenter',activate);p.addEventListener('focus',activate);p.addEventListener('click',activate);});
     stageButtons.forEach((b,i)=>b.addEventListener('click',()=>showForm(i)));
-    showForm(0);
+    const initialForm = Number(new URLSearchParams(location.search).get('forme') || 0);
+    showForm(Number.isInteger(initialForm) && initialForm >= 0 && initialForm < forms.length ? initialForm : 0);
   </script>
 
   <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit"><span class="mode-day">Jour</span><input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="global-mode-track" aria-hidden="true"></span><span class="mode-night">Nuit</span></label>
@@ -121,6 +122,8 @@
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="account-nav.js?v=20261004-2215"></script>
 <script src="site-shell.js?v=20261005-header-unified2"></script>
+
+<script src="character-atlas.js?v=20261005-roster2"></script>
 </body></html>
 
 
