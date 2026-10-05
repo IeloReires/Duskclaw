@@ -78,6 +78,7 @@
     body[data-time="jour"] .future-badge[data-rarity="bronze"]{--badge-metal:#a96232}body[data-time="jour"] .future-badge[data-rarity="silver"]{--badge-metal:#727d89}body[data-time="jour"] .future-badge[data-rarity="gold"]{--badge-metal:#98701e}body[data-time="jour"] .future-badge[data-rarity="platinum"]{--badge-metal:#6665a0}
     body[data-time="jour"] .badge-tooltip{border-color:#c5bdad;background:#fffdf7;color:#292c27;box-shadow:0 9px 30px rgba(54,47,33,.22)}
     body[data-time="jour"] .showcase-card span{color:#e0e3ee}
+    .community-profile-panel{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.community-profile-panel h3{margin:0 0 8px;font:400 1.35rem Georgia,"Times New Roman",serif}.community-profile-panel h4{margin:22px 0 10px;font-size:.95rem}.community-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}.community-profile-grid label{display:grid;gap:6px;color:var(--muted);font-size:.78rem;font-weight:700}.community-profile-grid input,.community-profile-grid select,.community-profile-grid textarea{box-sizing:border-box;width:100%;min-height:42px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit}.community-profile-grid textarea{resize:vertical;line-height:1.5}.community-profile-grid label small{justify-self:end;font-weight:400}.privacy-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.privacy-hint{margin-bottom:0}@media(max-width:640px){.community-profile-grid,.privacy-grid{grid-template-columns:1fr}}
   </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
   <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages15">
@@ -146,6 +147,16 @@
         <div class="banner-presets"><strong>Compositions rapides</strong><button type="button" data-banner-preset="abyss">Abysses</button><button type="button" data-banner-preset="dawn">Aube sauvage</button><button type="button" data-banner-preset="aurora">Aurore</button><button type="button" data-banner-preset="eclipse">Éclipse</button></div>
       </section>
       <section class="featured-panel"><div class="featured-actions"><div><h3>Mes cartes à l’honneur</h3><p class="small">Présente jusqu’à trois cartes que tu possèdes.</p></div><span class="small" id="featured-count">0 / 3</span></div><div id="featured-gallery" class="showcase-gallery"></div><button id="add-featured-card" class="add-card-button" type="button"><span aria-hidden="true">+</span> Ajouter une carte</button></section>
+      <section class="community-profile-panel" aria-labelledby="community-profile-title"><h3 id="community-profile-title">Ton identité de joueur</h3><p class="small">Duskclaw se joue sur table : présente-toi à la communauté comme tu le souhaites.</p><div class="community-profile-grid">
+        <label>Petite bio<textarea id="profile-bio" maxlength="280" rows="3" placeholder="Quelques mots pour te présenter…"></textarea><small><output id="profile-bio-count">0</output> / 280</small></label>
+        <label>Ton rôle dans la communauté<select id="profile-role"><option value="Joueur">Joueur</option><option value="Collectionneur">Collectionneur</option><option value="Créateur de decks">Créateur de decks</option><option value="Artiste">Artiste</option><option value="Playtester">Playtester</option><option value="Organisateur">Organisateur</option></select></label>
+        <label>Furry favori<select id="profile-favorite-furry"><option value="">Choisir un Furry</option></select></label>
+        <label>Type favori<select id="profile-favorite-type"><option value="">Choisir un type</option><option>Glace</option><option>Eau</option><option>Vent</option><option>Plante</option><option>Roche</option></select></label>
+      </div><h4>Ce que les autres peuvent voir</h4><div class="community-profile-grid privacy-grid">
+        <label>Profil<select id="profile-visibility"><option value="public">Tout le monde connecté</option><option value="friends">Mes amis</option><option value="private">Moi uniquement</option></select></label>
+        <label>Progression de collection<select id="collection-visibility"><option value="private">Moi uniquement</option><option value="friends">Mes amis</option><option value="public">Tout le monde connecté</option></select></label>
+        <label>Liste de souhaits<select id="wishlist-visibility"><option value="private">Moi uniquement</option><option value="friends">Mes amis</option><option value="public">Tout le monde connecté</option></select></label>
+      </div><p class="small privacy-hint">Les quantités carte par carte restent privées. Seule ta progression globale pourra être partagée. Un profil privé masque aussi la collection et la wishlist.</p></section>
       <section class="badges-panel"><h3>Mes badges</h3><div id="badge-list" class="badge-list"></div></section>
       <dialog class="card-dialog" id="featured-card-dialog" aria-labelledby="featured-dialog-title"><div class="dialog-head"><h2 id="featured-dialog-title">Choisir une carte</h2><button class="button secondary" id="close-featured-dialog" type="button" aria-label="Fermer">Fermer</button></div><div id="dialog-card-list" class="dialog-list"></div></dialog>
       <div class="profile-savebar"><p id="style-message" class="message" aria-live="polite"></p><button id="save-profile-style" class="button" type="button">Enregistrer les modifications</button></div>
@@ -184,7 +195,7 @@
     const authPanel = document.getElementById("auth-panel");
     const accountPanel = document.getElementById("account-panel");
     let currentUser = null;
-    let profile = { nickname: "", avatar_path: null, banner_theme: "water", banner_color: "#62bfd1", banner_settings: {}, featured_cards: [] };
+    let profile = { nickname: "", avatar_path: null, banner_theme: "water", banner_color: "#62bfd1", banner_settings: {}, featured_cards: [], bio: "", community_role: "Joueur", favorite_furry_id: null, favorite_type: "", profile_visibility: "public", collection_visibility: "private", wishlist_visibility: "private" };
     let selectedAvatarImage = null;
     let selectedAvatarObjectUrl = null;
     let avatarCropZoom = 1;
@@ -458,12 +469,36 @@
     });
     async function loadProfile() {
       if (!currentUser) return;
-      const { data, error } = await client.from("user_profiles").select("nickname,avatar_path,banner_theme,banner_color,banner_settings,featured_cards").eq("user_id", currentUser.id).maybeSingle();
-      if (error) { pageMessage("Le profil n’a pas pu être chargé. Vérifie la mise à jour SQL des bannières dans Supabase, puis recharge cette page."); profile = { nickname: "", avatar_path: null, banner_theme: "water", banner_color: "#62bfd1", banner_settings: {}, featured_cards: [] }; }
-      else { pageMessage(""); profile = { nickname: "", avatar_path: null, banner_theme: "water", banner_color: "#62bfd1", banner_settings: {}, featured_cards: [], ...(data || {}) }; }
+      await loadFavoriteFurryOptions();
+      const { data, error } = await client.from("user_profiles").select("nickname,avatar_path,banner_theme,banner_color,banner_settings,featured_cards,bio,community_role,favorite_furry_id,favorite_type,profile_visibility,collection_visibility,wishlist_visibility,community_since").eq("user_id", currentUser.id).maybeSingle();
+      if (error) { pageMessage("Le profil n’a pas pu être chargé. Applique la migration profile-community-v1.sql dans Supabase, puis recharge cette page."); profile = { nickname: "", avatar_path: null, banner_theme: "water", banner_color: "#62bfd1", banner_settings: {}, featured_cards: [], bio: "", community_role: "Joueur", favorite_furry_id: null, favorite_type: "", profile_visibility: "public", collection_visibility: "private", wishlist_visibility: "private" }; }
+      else { pageMessage(""); profile = { nickname: "", avatar_path: null, banner_theme: "water", banner_color: "#62bfd1", banner_settings: {}, featured_cards: [], bio: "", community_role: "Joueur", favorite_furry_id: null, favorite_type: "", profile_visibility: "public", collection_visibility: "private", wishlist_visibility: "private", ...(data || {}) }; }
+      syncCommunityProfileFields();
       renderProfile();
       try { await loadFeaturedCards(); } catch { message("style-message", "Impossible de charger tes cartes. Vérifie ta collection puis recharge la page.", "error"); }
     }
+    async function loadFavoriteFurryOptions() {
+      const select = document.getElementById("profile-favorite-furry");
+      try {
+        const response = await fetch("character-roster.json", { cache: "force-cache" });
+        if (!response.ok) return;
+        const roster = await response.json();
+        for (const furry of roster.filter(item => Number(item.stageIndex) === 0)) {
+          const option = document.createElement("option"); option.value = String(furry.id); option.textContent = `${furry.displayName} · ${furry.type}`; select.append(option);
+        }
+      } catch { /* Le profil reste utilisable même si le catalogue local ne charge pas. */ }
+    }
+    function syncCommunityProfileFields() {
+      const bio = document.getElementById("profile-bio"); bio.value = profile.bio || "";
+      document.getElementById("profile-bio-count").value = String(bio.value.length);
+      document.getElementById("profile-role").value = profile.community_role || "Joueur";
+      document.getElementById("profile-favorite-furry").value = profile.favorite_furry_id == null ? "" : String(profile.favorite_furry_id);
+      document.getElementById("profile-favorite-type").value = profile.favorite_type || "";
+      document.getElementById("profile-visibility").value = profile.profile_visibility || "public";
+      document.getElementById("collection-visibility").value = profile.collection_visibility || "private";
+      document.getElementById("wishlist-visibility").value = profile.wishlist_visibility || "private";
+    }
+    document.getElementById("profile-bio").addEventListener("input", event => { document.getElementById("profile-bio-count").value = String(event.target.value.length); });
     client.auth.onAuthStateChange((_event, session) => { renderUser(session?.user || null); if (session?.user) afterLogin(); });
     client.auth.getSession().then(({ data, error }) => {
       if (error) { pageMessage("Impossible de vérifier la connexion. Recharge la page."); authPanel.classList.remove("hidden"); return; }
@@ -512,9 +547,10 @@
           if (uploadError) throw new Error("Impossible d’envoyer la photo. Vérifie le stockage des avatars dans Supabase.");
         }
         const featured_cards = featuredCardIds.slice(0, 3);
-        const { error } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname, avatar_path: newAvatarPath, banner_theme: profile.banner_theme, banner_color: profile.banner_color, banner_settings: profile.banner_settings, featured_cards, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
-        if (error) { if (file && newAvatarPath) await client.storage.from("user-avatars").remove([newAvatarPath]); throw new Error("Impossible d’enregistrer. Vérifie que la mise à jour SQL de la bannière a été exécutée dans Supabase."); }
-        const previousPath = profile.avatar_path; profile = { ...profile, nickname, avatar_path: newAvatarPath, featured_cards };
+        const communityFields = { bio: document.getElementById("profile-bio").value.trim(), community_role: document.getElementById("profile-role").value, favorite_furry_id: Number(document.getElementById("profile-favorite-furry").value) || null, favorite_type: document.getElementById("profile-favorite-type").value, profile_visibility: document.getElementById("profile-visibility").value, collection_visibility: document.getElementById("collection-visibility").value, wishlist_visibility: document.getElementById("wishlist-visibility").value };
+        const { error } = await client.from("user_profiles").upsert({ user_id: currentUser.id, nickname, avatar_path: newAvatarPath, banner_theme: profile.banner_theme, banner_color: profile.banner_color, banner_settings: profile.banner_settings, featured_cards, ...communityFields, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
+        if (error) { if (file && newAvatarPath) await client.storage.from("user-avatars").remove([newAvatarPath]); throw new Error("Impossible d’enregistrer. Vérifie que profile-community-v1.sql a été appliqué dans Supabase."); }
+        const previousPath = profile.avatar_path; profile = { ...profile, nickname, avatar_path: newAvatarPath, featured_cards, ...communityFields };
         if (previousPath && file && previousPath !== newAvatarPath) await client.storage.from("user-avatars").remove([previousPath]);
         input.value = ""; selectedAvatarImage = null; if (selectedAvatarObjectUrl) URL.revokeObjectURL(selectedAvatarObjectUrl); selectedAvatarObjectUrl = null; avatarCropZoom = 1; avatarCropOffsetX = avatarCropOffsetY = 0; document.getElementById("crop-controls").classList.add("hidden"); document.getElementById("avatar-zoom").value = "1"; document.getElementById("zoom-value").value = "1×"; document.getElementById("nickname").classList.add("hidden");
         await renderProfile(); message("style-message", "Tes modifications ont été enregistrées.", "success");
