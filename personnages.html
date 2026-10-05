@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10121b">
   <meta name="description" content="Le Cardex de Duskclaw : découvre les Furries et leurs évolutions.">
-  <title>Cardex — Duskclaw</title>
+  <title>Registre des spécimens — Duskclaw</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .cardex-site-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--dusk-rule); }
@@ -106,7 +106,7 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-journal14">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages15">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -129,7 +129,6 @@
     <div class="cardex-heading">
       <div>
         <p class="eyebrow">REGISTRE DES SPÉCIMENS · 75 FORMES</p>
-        <h1>Cardex<span style="color:var(--accent)">.</span></h1>
       </div>
       <p><strong>6</strong> formes illustrées sur 75</p>
     </div>
@@ -193,8 +192,19 @@
       <button class="filter-reset" id="reset-filters" type="button">Tout effacer</button>
     </form>
     <p class="cardex-results" id="cardex-results" aria-live="polite">75 formes classées · 6 illustrées</p>
-    <section class="cardex-grid" id="cardex-grid" aria-label="Les 75 emplacements du Cardex"></section>
-    <p class="cardex-empty" id="cardex-empty" hidden>Aucun Furry ne correspond à ces filtres.</p>
+    <section class="cardex-grid" id="cardex-grid" aria-label="Les formes du registre">
+      <div class="cardex-open-spread" id="cardex-open-spread" aria-live="polite">
+        <div class="cardex-leaf cardex-leaf-left" id="cardex-left-page" aria-label="Page de gauche"></div>
+        <div class="cardex-gutter" aria-hidden="true"></div>
+        <div class="cardex-leaf cardex-leaf-right" id="cardex-right-page" aria-label="Page de droite"></div>
+      </div>
+    </section>
+    <p class="cardex-empty" id="cardex-empty" hidden>Aucun spécimen ne correspond à ces filtres.</p>
+    <nav class="cardex-pagination" aria-label="Feuillets du registre">
+      <button id="cardex-prev" type="button" aria-label="Tourner vers le feuillet précédent">← Précédent</button>
+      <span id="cardex-page-label" aria-live="polite">Feuillet 1 / 5</span>
+      <button id="cardex-next" type="button" aria-label="Tourner vers le feuillet suivant">Suivant →</button>
+    </nav>
   </main>
   <script>
     const furries = Array(75).fill(null);
@@ -471,6 +481,7 @@
         grid.append(card);
       }
     }
+    const allCards = [...grid.querySelectorAll(".furry-entry")];
     const levelFilter = document.getElementById("level-filter");
     const typeFilter = document.getElementById("type-filter");
     const familyFilter = document.getElementById("family-filter");
@@ -478,18 +489,45 @@
     const statSort = document.getElementById("stat-sort");
     const results = document.getElementById("cardex-results");
     const emptyMessage = document.getElementById("cardex-empty");
+    let currentPage = 0;
+    let filteredCards = [];
+    const cardsPerPage = 18;
+    const pageSize = 9;
+    const leftPage = document.getElementById("cardex-left-page");
+    const rightPage = document.getElementById("cardex-right-page");
+    const pageLabel = document.getElementById("cardex-page-label");
+    const previousButton = document.getElementById("cardex-prev");
+    const nextButton = document.getElementById("cardex-next");
+    function renderPage(direction = "") {
+      const pageCount = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
+      currentPage = Math.min(currentPage, pageCount - 1);
+      const start = currentPage * cardsPerPage;
+      leftPage.replaceChildren(...filteredCards.slice(start, start + pageSize));
+      rightPage.replaceChildren(...filteredCards.slice(start + pageSize, start + cardsPerPage));
+      pageLabel.textContent = `Feuillet ${currentPage + 1} / ${pageCount}`;
+      previousButton.disabled = currentPage === 0;
+      nextButton.disabled = currentPage >= pageCount - 1;
+      const spread = document.getElementById("cardex-open-spread");
+      spread.classList.remove("turning-next", "turning-previous");
+      if (direction) {
+        void spread.offsetWidth;
+        spread.classList.add(direction === "next" ? "turning-next" : "turning-previous");
+        window.setTimeout(() => spread.classList.remove("turning-next", "turning-previous"), 720);
+      }
+      results.textContent = `${filteredCards.length} formes · ${filteredCards.filter(card => card.querySelector("img")).length} illustrées`;
+      emptyMessage.hidden = filteredCards.length > 0;
+      document.getElementById("cardex-grid").hidden = filteredCards.length === 0;
+    }
     function filterCardex() {
-      let visible = 0;
-      grid.querySelectorAll(".furry-entry").forEach((card) => {
+      const cards = allCards;
+      cards.forEach((card) => {
         const matches = (!levelFilter.value || card.dataset.level === levelFilter.value)
           && (!typeFilter.value || card.dataset.type === typeFilter.value)
           && (!familyFilter.value || card.dataset.family === familyFilter.value)
           && (!rarityFilter.value || card.dataset.rarity === rarityFilter.value);
         card.hidden = !matches;
-        if (matches) visible++;
       });
       const [sortKey, direction] = statSort.value.split("-");
-      const cards = [...grid.querySelectorAll(".furry-entry")];
       cards.sort((a, b) => {
         if (!sortKey) return Number(a.dataset.order) - Number(b.dataset.order);
         const dataKey = "stat" + sortKey[0].toUpperCase() + sortKey.slice(1);
@@ -500,10 +538,12 @@
         if (!Number.isFinite(bv)) return -1;
         return (direction === "desc" ? bv - av : av - bv) || Number(a.dataset.order) - Number(b.dataset.order);
       });
-      cards.forEach((card) => grid.append(card));
-      results.textContent = visible + (visible > 1 ? " cases affichées" : " case affichée") + " · 75 fiches classées, 6 illustrées";
-      emptyMessage.hidden = visible > 0;
+      filteredCards = cards.filter(card => !card.hidden);
+      currentPage = 0;
+      renderPage();
     }
+    previousButton.addEventListener("click", () => { if (currentPage > 0) { currentPage--; renderPage("previous"); } });
+    nextButton.addEventListener("click", () => { if ((currentPage + 1) * cardsPerPage < filteredCards.length) { currentPage++; renderPage("next"); } });
     document.getElementById("cardex-filters").addEventListener("submit", (event) => event.preventDefault());
     [levelFilter, typeFilter, familyFilter, rarityFilter, statSort].forEach((filter) => {
       filter.addEventListener("input", filterCardex);
@@ -514,6 +554,7 @@
       filterCardex();
       levelFilter.focus();
     });
+    filterCardex();
   </script>
   <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
     <span class="mode-day">Jour</span>
