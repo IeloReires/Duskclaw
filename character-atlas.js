@@ -8,7 +8,8 @@
   const aside = document.createElement('aside'); aside.className = 'character-index'; aside.setAttribute('aria-label','Index des Furries');
   aside.innerHTML = '<div class="character-index-heading"><span>REGISTRE DES SPÉCIMENS</span><strong>75 <i>formes</i></strong></div><label class="character-index-search"><span class="visually-hidden">Rechercher un Furry</span><input type="search" placeholder="Rechercher…" autocomplete="off"></label><nav class="character-index-list" aria-label="Les 75 Furries"></nav>';
   const pane = document.createElement('div'); pane.className = 'character-record';
-  main.insertBefore(wrap, layout); wrap.append(aside,pane); pane.append(layout);
+  const hardware=document.createElement('div');hardware.className='notebook-hardware';hardware.setAttribute('aria-hidden','true');hardware.innerHTML='<i class="hardware-corner corner-tl"></i><i class="hardware-corner corner-tr"></i><i class="hardware-corner corner-bl"></i><i class="hardware-corner corner-br"></i>';
+  main.insertBefore(wrap, layout); wrap.append(aside,pane); pane.append(hardware,layout);
   const pager=main.querySelector('.family-pager'); if(pager)pane.append(pager);
   const list=aside.querySelector('.character-index-list'),search=aside.querySelector('input');
   const phase=document.createElement('p'); phase.className='character-phase'; phase.setAttribute('aria-live','polite'); const info=main.querySelector('.family-info'); if(info)info.insertBefore(phase,info.querySelector('h2'));
@@ -30,6 +31,23 @@
     const current=list.querySelector('.is-current'); if(current)current.scrollIntoView({block:'nearest'});
     const syncIdentity=()=>{const chosen=list.querySelector('.is-current');if(!chosen)return;const name=chosen.querySelector('strong').textContent;const title=document.getElementById('form-title');if(title)title.textContent=name;document.title=name+' — Cardex Duskclaw';};
     syncIdentity(); window.addEventListener('duskclaw:timechange',syncIdentity);
+    const chosenItem=items.find(item=>item.route===routeNow&&item.stageIndex===selectedStage);
+    if(chosenItem&&info){
+      const noteTexts=['Comparer les mouvements au repos.','Observer les détails du regard.','Noter les traces après le passage.','Esquisser la silhouette de mémoire.','Revoir les couleurs à la lumière douce.','Repérer le détail qui change.','Garder cette forme comme référence.','Regarder les marques sur les contours.'];
+      const doodles=['✧','⌁','◌','❋','⌖','☾','✳','∿'];
+      const seed=chosenItem.id*17+chosenItem.stageIndex*11;
+      const stack=document.createElement('div');stack.className='field-note-stack';stack.setAttribute('aria-label','Pense-bête du carnet');
+      const count=seed%4===0?2:1;
+      for(let n=0;n<count;n++){
+        const index=(seed+n*5)%noteTexts.length;const note=document.createElement('aside');note.className='field-note note-variant-'+((seed+n)%4);
+        note.style.setProperty('--note-tilt',(((seed+n*7)%7)-3)+'deg');
+        const label=document.createElement('small');label.textContent='PENSE-BÊTE · '+String((chosenItem.id+n)%9+1).padStart(2,'0');
+        const copy=document.createElement('span');copy.textContent=noteTexts[index];
+        const doodle=document.createElement('b');doodle.setAttribute('aria-hidden','true');doodle.textContent=doodles[(seed+n*3)%doodles.length];
+        note.append(label,copy,doodle);stack.append(note);
+      }
+      const stats=info.querySelector('.stats-list');if(stats)info.insertBefore(stack,stats);else info.append(stack);
+    }
   }
   search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase('fr');list.querySelectorAll('.character-index-entry').forEach(row=>{row.hidden=!row.dataset.search.includes(q)});});
 })();
