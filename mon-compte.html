@@ -163,7 +163,7 @@
         </div>
       </details>
       <section class="account-shortcut"><div><h2>Collection des cartes</h2><p>Retrouve les cartes que tu as ajoutées à ton compte.</p></div><a class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a></section>
-      <section class="account-shortcut"><div><h2>Deck Builder</h2><p>Prépare, enregistre et partage tes listes pour les parties physiques.</p></div><a class="button" href="deck-builder.html">Construire un deck <span aria-hidden="true">→</span></a></section>
+      <section class="account-shortcut"><div><h2>Rencontres Duskclaw</h2><p>Découvre les événements et soirées autour du jeu physique.</p></div><a class="button" href="evenements.html">Voir les événements <span aria-hidden="true">→</span></a></section>
       <section class="account-shortcut"><div><h2>Deck Builder</h2><p>Prépare, enregistre et partage tes listes pour les parties physiques.</p></div><a class="button" href="deck-builder.html">Construire un deck <span aria-hidden="true">→</span></a></section>
       <section class="account-shortcut"><div><h2>Paramètres</h2><p>Adresse e-mail, mot de passe et déconnexion.</p></div><a class="button" href="parametres.html">Ouvrir les paramètres <span aria-hidden="true">→</span></a></section>
     </section>
@@ -193,6 +193,7 @@
     const SITE_URL = "https://ieloreires.github.io/Duskclaw/";
     const params = new URLSearchParams(location.search);
     const shouldOpenCollection = params.get("redirect") === "collection.html";
+    const shouldOpenEvents = params.get("redirect") === "evenements.html";
     const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
     const authPanel = document.getElementById("auth-panel");
     const accountPanel = document.getElementById("account-panel");
@@ -228,7 +229,7 @@
       const exactOnly = new Set(["con","conne","cons","pute","putes","nique","niquer","pd","pede","fdp"]);
       return words.some(word => exactOnly.has(word) || banned.some(term => word.includes(term))) || exactOnly.has(compact) || banned.some(term => compact.includes(term.replace(/\s/g, "")));
     }
-    function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); }
+    function afterLogin() { if (shouldOpenCollection) location.replace("collection.html"); else if (shouldOpenEvents) location.replace("evenements.html"); }
     function renderUser(user) {
       currentUser = user || null;
       updateModerationLink(user);
