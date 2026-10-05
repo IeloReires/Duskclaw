@@ -106,7 +106,7 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages15">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages16">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -126,12 +126,6 @@
   <a href="amis.html">Amis</a></nav>
 </header>
   <main class="cardex-page">
-    <div class="cardex-heading">
-      <div>
-        <p class="eyebrow">REGISTRE DES SPÉCIMENS · 75 FORMES</p>
-      </div>
-      <p><strong>6</strong> formes illustrées sur 75</p>
-    </div>
     <form class="cardex-filters" id="cardex-filters">
       <label class="cardex-control">
         Niveau
@@ -191,7 +185,7 @@
       </label>
       <button class="filter-reset" id="reset-filters" type="button">Tout effacer</button>
     </form>
-    <p class="cardex-results" id="cardex-results" aria-live="polite">75 formes classées · 6 illustrées</p>
+    <p class="cardex-results" id="cardex-results" aria-live="polite" hidden>75 formes classées · 6 illustrées</p>
     <section class="cardex-grid" id="cardex-grid" aria-label="Les formes du registre">
       <div class="cardex-open-spread" id="cardex-open-spread" aria-live="polite">
         <div class="cardex-leaf cardex-leaf-left" id="cardex-left-page" aria-label="Page de gauche"></div>
@@ -441,6 +435,7 @@
         const image = document.createElement("img");
         image.src = furry.image;
         image.alt = furry.name + " — " + furry.stage;
+        image.style.setProperty("--paper-angle", `${((number % 5) - 2) * 0.55}deg`);
         const caption = document.createElement("span");
         caption.className = "furry-caption";
         const name = document.createElement("strong");
