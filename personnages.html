@@ -106,7 +106,7 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages18">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages19">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -192,13 +192,13 @@
         <div class="cardex-gutter" aria-hidden="true"></div>
         <div class="cardex-leaf cardex-leaf-right" id="cardex-right-page" aria-label="Page de droite"></div>
       </div>
+      <nav class="cardex-pagination" aria-label="Feuillets du registre">
+        <button id="cardex-prev" type="button" aria-label="Tourner vers le feuillet précédent">‹</button>
+        <span id="cardex-page-label" aria-live="polite">Feuillet 1 / 5</span>
+        <button id="cardex-next" type="button" aria-label="Tourner vers le feuillet suivant">›</button>
+      </nav>
     </section>
     <p class="cardex-empty" id="cardex-empty" hidden>Aucun spécimen ne correspond à ces filtres.</p>
-    <nav class="cardex-pagination" aria-label="Feuillets du registre">
-      <button id="cardex-prev" type="button" aria-label="Tourner vers le feuillet précédent">← Précédent</button>
-      <span id="cardex-page-label" aria-live="polite">Feuillet 1 / 5</span>
-      <button id="cardex-next" type="button" aria-label="Tourner vers le feuillet suivant">Suivant →</button>
-    </nav>
   </main>
   <script>
     const furries = Array(75).fill(null);
@@ -442,11 +442,9 @@
         const name = document.createElement("strong");
         name.textContent = furry.name;
         const stage = document.createElement("span");
-        stage.textContent = furry.stage;
-        const rarity = document.createElement("span");
-        rarity.className = "rarity-label";
-        rarity.textContent = furry.rarityLabel;
-        caption.append(name, stage, rarity);
+        const prettyType = furry.type.charAt(0).toLocaleUpperCase("fr") + furry.type.slice(1);
+        stage.textContent = `${prettyType} · ${furry.levelLabel}`;
+        caption.append(name, stage);
         card.append(image, caption);
         allCards.push(card);
       } else {
