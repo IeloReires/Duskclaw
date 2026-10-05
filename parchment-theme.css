@@ -357,3 +357,32 @@ body:has(.cardex-page) .site-shell-footer{display:none!important}
 /* Explorer's notebook cover, gold corner fittings, layered paper and soft central gutter. */
 .cardex-page::before{background-image:radial-gradient(circle at 8px 8px,#c8a65e 0 2px,transparent 3px),radial-gradient(circle at calc(100% - 8px) 8px,#c8a65e 0 2px,transparent 3px),radial-gradient(circle at 8px calc(100% - 8px),#c8a65e 0 2px,transparent 3px),radial-gradient(circle at calc(100% - 8px) calc(100% - 8px),#c8a65e 0 2px,transparent 3px),linear-gradient(90deg,#d9bd73,#9c783a) left top/30px 3px no-repeat,linear-gradient(#d9bd73,#9c783a) left top/3px 30px no-repeat,linear-gradient(90deg,#9c783a,#d9bd73) right top/30px 3px no-repeat,linear-gradient(#d9bd73,#9c783a) right top/3px 30px no-repeat,linear-gradient(90deg,#d9bd73,#9c783a) left bottom/30px 3px no-repeat,linear-gradient(#9c783a,#d9bd73) left bottom/3px 30px no-repeat,linear-gradient(90deg,#9c783a,#d9bd73) right bottom/30px 3px no-repeat,linear-gradient(#9c783a,#d9bd73) right bottom/3px 30px no-repeat!important;box-shadow:inset 0 0 0 4px #fff6dd55!important}
 .cardex-open-spread{background-color:#eee8d5!important;background-image:linear-gradient(90deg,#c8b78d 0,#f6efdc 1.1%,transparent 3%,transparent 48.9%,#d2c29c 49.65%,#fff8e6 49.9%,#9b875d 50%,#fff8e6 50.1%,#d2c29c 50.35%,transparent 51.1%,transparent 97%,#f6efdc 98.9%,#c8b78d 100%),repeating-linear-gradient(0deg,#71634408 0 1px,transparent 1px 7px),linear-gradient(100deg,#f3eddd,#e9e1cc)!important;box-shadow:inset 0 0 0 1px #b6a57f,inset 0 0 18px #73634414,0 2px 0 #f7f0df,0 4px 0 #c4b58f,0 6px 0 #eee5d0!important}
+
+/* The Cardex uses the same physical notebook shell as each character record. */
+main.cardex-page.character-record{
+  position:relative!important;isolation:isolate!important;box-sizing:border-box!important;
+  border:16px solid #344d6c!important;border-radius:13px!important;outline:2px solid #d0b268!important;outline-offset:-8px!important;
+  background-color:#eee9d8!important;
+  background-image:radial-gradient(ellipse at 8% 10%,#fff9e988,transparent 42%),radial-gradient(ellipse at 95% 90%,#d5c79e55,transparent 38%),repeating-linear-gradient(0deg,#6e63470a 0 1px,transparent 1px 6px),linear-gradient(125deg,#f2ecd9,#e8e0c9 55%,#e2d9be)!important;
+  box-shadow:0 1px 0 #fff4d8,0 3px 0 #cbb98e,0 5px 0 #f4ead1,0 7px 0 #ae9a6c,0 11px 0 #f7edd5,0 17px 26px #10203a44,inset 0 0 0 3px #8293a7,inset 0 0 0 6px #d4b66d,inset 0 0 0 8px #344d6c,inset -7px 0 0 #d7c9a6,inset -10px 0 0 #f7f0df,inset -13px 0 0 #c6b58d!important;
+}
+main.cardex-page.character-record::before{
+  position:absolute!important;inset:11px!important;z-index:4!important;display:block!important;pointer-events:none!important;
+  border:1px dashed #a8905c88!important;border-radius:4px!important;content:""!important;
+  background:radial-gradient(circle at 9px 9px,#94783e 0 2px,transparent 3px),radial-gradient(circle at calc(100% - 9px) 9px,#94783e 0 2px,transparent 3px),radial-gradient(circle at 9px calc(100% - 9px),#94783e 0 2px,transparent 3px),radial-gradient(circle at calc(100% - 9px) calc(100% - 9px),#94783e 0 2px,transparent 3px)!important;
+  box-shadow:inset 0 0 0 3px #fff5d844!important;
+}
+main.cardex-page.character-record::after{
+  position:absolute!important;top:19px!important;right:15px!important;bottom:19px!important;z-index:3!important;width:10px!important;display:block!important;pointer-events:none!important;
+  border:0!important;content:""!important;background:repeating-linear-gradient(90deg,#b4a37d 0 1px,#fbf4e2 1px 2px,#d6c7a4 2px 3px,#f5ecd5 3px 5px,#b5a47d 5px 6px,#fff8e9 6px 8px,#d8c9a7 8px 10px)!important;
+  box-shadow:-2px 0 3px #473b2433,1px 0 0 #fff8e4!important;
+}
+main.cardex-page.character-record>.notebook-hardware{inset:0!important;z-index:5!important}
+main.cardex-page.character-record>.notebook-hardware .hardware-corner{width:36px!important;height:36px!important}
+main.cardex-page.character-record>.notebook-hardware .corner-tl{top:-2px!important;left:-2px!important}
+main.cardex-page.character-record>.notebook-hardware .corner-tr{top:-2px!important;right:-2px!important}
+main.cardex-page.character-record>.notebook-hardware .corner-bl{bottom:-2px!important;left:-2px!important}
+main.cardex-page.character-record>.notebook-hardware .corner-br{bottom:-2px!important;right:-2px!important}
+.cardex-open-spread{background-color:#eee9d8!important;background-image:linear-gradient(90deg,#d1c39f 0,#f6efdc 1%,transparent 3%,transparent 49.55%,#d7c9a8 49.8%,#8b7954 50%,#fff8e6 50.18%,#d7c9a8 50.45%,transparent 51%,transparent 97%,#f6efdc 99%,#d1c39f 100%),repeating-linear-gradient(0deg,#71634408 0 1px,transparent 1px 6px),linear-gradient(100deg,#f2ecd9,#e8e0c9)!important;box-shadow:inset 0 1px 0 #fff9e8,inset 0 0 0 1px #b6a57f,inset 0 8px 18px #73634414,inset 0 -7px 12px #75644318!important}
+.cardex-gutter{background:linear-gradient(90deg,#d7c9a8 0%,#f6efdc 30%,#82704c 49%,#6c5b3a 50%,#e3d6b5 70%,#f6efdc 100%)!important;box-shadow:0 0 10px #57472a24!important}
+@media(max-width:760px){main.cardex-page.character-record{border-width:12px!important;border-radius:11px!important}main.cardex-page.character-record::after{display:none!important}}
