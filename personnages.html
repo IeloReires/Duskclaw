@@ -106,7 +106,7 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-book25">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261006-cardex-turn28">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -488,17 +488,23 @@
     let filteredCards = [];
     const cardsPerPage = 18;
     const pageSize = 9;
+    let isTurning = false;
     const leftPage = document.getElementById("cardex-left-page");
     const rightPage = document.getElementById("cardex-right-page");
     const previousButton = document.getElementById("cardex-prev");
     const nextButton = document.getElementById("cardex-next");
     function renderPage(direction = "") {
+      if (direction && isTurning) return;
+      if (!direction) isTurning = false;
       const pageCount = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
       currentPage = Math.min(currentPage, pageCount - 1);
       const start = currentPage * cardsPerPage;
+      const destinationLeft = filteredCards.slice(start, start + pageSize);
+      const destinationRight = filteredCards.slice(start + pageSize, start + cardsPerPage);
       const spread = document.getElementById("cardex-open-spread");
       spread.querySelectorAll(".cardex-turning-leaf").forEach(leaf => leaf.remove());
       if (direction) {
+        isTurning = true;
         const outgoingPage = direction === "next" ? rightPage : leftPage;
         const sideClass = direction === "next" ? "cardex-leaf-right" : "cardex-leaf-left";
         const turningLeaf = document.createElement("div");
@@ -512,12 +518,40 @@
         back.className = "cardex-turn-back";
         turningLeaf.append(front, back);
         spread.append(turningLeaf);
-        turningLeaf.addEventListener("animationend", () => turningLeaf.remove(), { once: true });
+        turningLeaf.style.transform = "rotateY(0deg)";
+        const edgeAngle = direction === "next" ? -90 : 90;
+        const endAngle = direction === "next" ? -180 : 180;
+        const turnDuration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 380;
+        const turnOptions = { duration: turnDuration, easing: "cubic-bezier(.32,.68,.22,1)", fill: "forwards" };
+        (async () => {
+          try {
+            await turningLeaf.animate([{ transform: "rotateY(0deg)", filter: "brightness(1)" }, { transform: `rotateY(${edgeAngle}deg)`, filter: "brightness(.84)" }], turnOptions).finished;
+            if (!turningLeaf.isConnected) return;
+            leftPage.replaceChildren(...destinationLeft);
+            rightPage.replaceChildren(...destinationRight);
+            await turningLeaf.animate([{ transform: `rotateY(${edgeAngle}deg)`, filter: "brightness(.84)" }, { transform: `rotateY(${endAngle}deg)`, filter: "brightness(1)" }], turnOptions).finished;
+            if (!turningLeaf.isConnected) return;
+            turningLeaf.remove();
+            isTurning = false;
+            previousButton.disabled = currentPage === 0;
+            nextButton.disabled = currentPage >= pageCount - 1;
+          } catch {
+            if (!turningLeaf.isConnected) return;
+            leftPage.replaceChildren(...destinationLeft);
+            rightPage.replaceChildren(...destinationRight);
+            turningLeaf.remove();
+            isTurning = false;
+            previousButton.disabled = currentPage === 0;
+            nextButton.disabled = currentPage >= pageCount - 1;
+          }
+        })();
       }
-      leftPage.replaceChildren(...filteredCards.slice(start, start + pageSize));
-      rightPage.replaceChildren(...filteredCards.slice(start + pageSize, start + cardsPerPage));
-      previousButton.disabled = currentPage === 0;
-      nextButton.disabled = currentPage >= pageCount - 1;
+      if (!direction) {
+        leftPage.replaceChildren(...destinationLeft);
+        rightPage.replaceChildren(...destinationRight);
+      }
+      previousButton.disabled = isTurning || currentPage === 0;
+      nextButton.disabled = isTurning || currentPage >= pageCount - 1;
       results.textContent = `${filteredCards.length} formes · ${filteredCards.filter(card => card.querySelector("img")).length} illustrées`;
       emptyMessage.hidden = filteredCards.length > 0;
       document.getElementById("cardex-grid").hidden = filteredCards.length === 0;
