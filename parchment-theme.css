@@ -412,3 +412,9 @@ main.cardex-page.character-record>.notebook-hardware .corner-br{bottom:-2px!impo
 .cardex-turn-back{backface-visibility:hidden!important}
 .cardex-turning-leaf.next,.cardex-turning-leaf.previous{animation:none!important;transform-style:preserve-3d!important;will-change:transform!important}
 .cardex-turn-back{background:repeating-linear-gradient(0deg,#7163440b 0 1px,transparent 1px 6px),linear-gradient(100deg,#f4eedf,#e7dec8)!important}
+@media(min-width:761px){
+  main.cardex-page.character-record{padding-bottom:4px!important}
+  .cardex-leaf .furry-entry{box-sizing:border-box!important;display:flex!important;flex-direction:column!important;align-self:stretch!important;height:100%!important;min-height:0!important;aspect-ratio:auto!important}
+  .cardex-leaf .furry-entry>img{flex:1 1 0!important;width:calc(100% - 10px)!important;height:auto!important;min-height:0!important;max-height:100%!important;margin:5px auto!important;object-fit:contain!important}
+  .cardex-leaf .furry-entry .furry-caption{flex:0 0 auto!important}
+}
