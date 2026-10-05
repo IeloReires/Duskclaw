@@ -9,16 +9,8 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .rules-page { width: min(1080px, 88%); margin: 0 auto; padding: 46px 0 100px; }
-    .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
-    .dusk-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--dusk-rule); }
-    .dusk-brand { color: var(--dusk-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
-    .dusk-brand span { color: var(--dusk-accent); }
-    .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
-    .dusk-nav a { color: var(--dusk-muted); font-size: .88rem; text-decoration: none; }
-    .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--dusk-accent); }
-    .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); }
-    .dusk-nav .dusk-support { padding: 10px 14px; background: var(--dusk-accent); color: #fff !important; font-weight: 700; }
-    .dusk-nav .dusk-support:hover, .dusk-nav .dusk-support:focus-visible { filter: brightness(1.08); }
+    .rules-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 64px; }
+    .rules-home { color: var(--accent); font-weight: 600; }
     .rules-hero { padding: 58px 0 44px; border-bottom: 1px solid var(--line); }
     .rules-hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); margin-bottom: 18px; }
     .rules-lead { max-width: 700px; color: var(--muted); font-size: 1.08rem; }
@@ -27,7 +19,7 @@
     .rules-toc ol { columns: 2; column-gap: 40px; padding-left: 22px; }
     .rules-toc li { break-inside: avoid; padding: 5px 0; color: var(--muted); }
     .rules-toc a { color: inherit; }
-    .rules-toc a:hover { color: var(--text); }
+    .rules-toc a:hover, .rules-home:hover { color: var(--text); }
     .rule-chapter { padding: 36px 0 42px; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
     .rule-chapter h2 { margin-bottom: 22px; color: var(--text); font-size: clamp(2rem, 4vw, 3rem); }
     .rule-chapter h3 { margin: 32px 0 12px; color: var(--accent); font-size: 1.55rem; }
@@ -45,79 +37,25 @@
     .rule-chapter th, .rule-chapter td { padding: 11px 14px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
     .rule-chapter th { color: var(--accent); background: rgba(255,255,255,.04); }
     .rule-chapter td { color: var(--muted); }
-    .rules-footer { padding-top: 34px; text-align: center; }
-    .dusk-footer { display:flex; justify-content:space-between; gap:18px; padding-block:23px 30px; border-top:1px solid var(--dusk-rule); color:var(--dusk-muted); font-size:.8rem; }
-    .dusk-footer a { color:var(--dusk-ink); text-decoration:none; }
-    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--dusk-rule); color:var(--dusk-ink) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
-    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--dusk-accent); background:var(--dusk-accent); color:#fff !important; outline:none; }
-    html { scroll-behavior: smooth; }
+    .rules-footer { padding-top: 34px; text-align: center; }    html { scroll-behavior: smooth; }
     .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 1000; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.28); font-size: 1.5rem; text-decoration: none; transition: transform .2s ease, background .2s ease, color .2s ease; }
     .back-to-top:hover, .back-to-top:focus-visible { transform: translateY(-4px); background: var(--accent); color: #10121b; outline: none; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .back-to-top { transition: none; } }
-    @media (max-width: 800px) {
-      .dusk-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
-      .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
-      .dusk-nav a { font-size: .82rem; }
-      .dusk-footer { flex-direction: column; }
-    }
     @media (max-width: 680px) {
       .rules-page { width: 90%; padding-top: 26px; }
+      .rules-top { margin-bottom: 42px; }
       .rules-toc { padding: 20px; }
       .rules-toc ol { columns: 1; }
       .rule-chapter th, .rule-chapter td { padding: 9px; }
     }
-      body:not(.dual-page)[data-time="jour"] { --dusk-bg: #f1ead9; --dusk-paper: #f8f3e8; --dusk-ink: #252920; --dusk-muted: #66695f; --dusk-accent: #8a6a37; --dusk-rule: rgba(60,58,47,.24); --bg: #f1ead9; --background: #f1ead9; --surface: #f8f3e8; --text: #252920; --muted: #66695f; --accent: #8a6a37; --line: rgba(60,58,47,.24); background: #f1ead9 !important; color: #252920 !important; color-scheme: light; }
-    body:not(.dual-page)[data-time="nuit"] { --dusk-bg: #111724; --dusk-paper: #1a2030; --dusk-ink: #ece9e1; --dusk-muted: #b8bdca; --dusk-accent: #b8a6df; --dusk-rule: rgba(229,225,243,.2); --bg: #111724; --background: #111724; --surface: #1a2030; --text: #ece9e1; --muted: #b8bdca; --accent: #b8a6df; --line: rgba(229,225,243,.2); background: #111724 !important; color: #ece9e1 !important; color-scheme: dark; }
-    body:not(.dual-page) { transition: background-color .45s ease, color .45s ease; }
-    body:not(.dual-page) :where(.site-header, .rules-toc, .feature-card, .feature-card-alt, .stats-list, .family-info, .filter-reset, .cardex-control input, .cardex-control select, .rule-chapter table, .rule-chapter th, .rule-chapter td, .global-mode-switch) { transition: background-color .45s ease, color .45s ease, border-color .45s ease; }
-    .global-mode-switch { position: fixed; z-index: 30; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--dusk-rule); background: var(--dusk-paper); color: var(--dusk-muted); font-family: inherit; font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; }
-    body:not(.dual-page)[data-time="jour"] .global-mode-switch .mode-day, body:not(.dual-page)[data-time="nuit"] .global-mode-switch .mode-night { color: var(--dusk-accent); }
-    .global-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .global-mode-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--dusk-rule); border-radius: 20px; background: #d9cfb9; transition: background .25s ease; }
-    .global-mode-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fffaf0; box-shadow: 0 1px 4px rgba(0,0,0,.24); content: ""; transition: transform .25s ease, background .25s ease; }
-    body:not(.dual-page)[data-time="nuit"] .global-mode-track { background: #5e527f; }
-    .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); background: #e5dcf5; }
-    .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
-    @media (max-width: 560px) { .global-mode-switch { bottom: 14px; left: 14px; } }
-      @media (max-width: 560px) {
-      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
-        position: static !important;
-        inset: auto !important;
-        width: max-content;
-        margin: 18px auto 24px;
-        padding: 7px 9px;
-        gap: 7px;
-        font-size: .7rem;
-        box-shadow: none;
-      }
-      .product-art {
-        width: min(84%, 340px);
-        min-height: 0;
-        aspect-ratio: 1.12 / 1;
-        margin-inline: auto;
-      }
-    }
-    </style>
-  <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
+  </style>
   <link rel="stylesheet" href="parchment-theme.css?v=20261005-01">
 </head>
-<body id="top" data-time="jour">
-  <header class="site-shell-header">
-  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-  <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="site-shell-actions">
-    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
-    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a>
-  </div>
-  <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert>
-    <a href="personnages.html">Cardex</a>
-    <a href="univers.html">Univers</a>
-    <a href="faq.html">FAQ</a>
-    <a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
-  <a href="amis.html">Amis</a></nav>
-</header>
+<body id="top">
+  <header class="site-header">
+    <a class="logo" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <a class="rules-home" href="index.html">← Retour à l’accueil</a>
+  </header>
   <main class="rules-page">
     <section class="rules-hero">
       <p class="eyebrow">GUIDE DU JOUEUR</p>
@@ -1577,39 +1515,8 @@ Nuit : 🌱</code></pre>
     </article>
     <div class="rules-footer"><a class="text-link" href="index.html">Retour à l’accueil ↑</a></div>
   </main>
-  <footer class="site-shell-footer">
-  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
-  <span class="site-shell-handle">@Duskclaw</span>
-</footer>
   <a class="back-to-top" href="#top" aria-label="Remonter en haut de la page"><span aria-hidden="true">↑</span></a>
-  <label class="global-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
-    <span class="mode-day">Jour</span>
-    <input id="global-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
-    <span class="global-mode-track" aria-hidden="true"></span>
-    <span class="mode-night">Nuit</span>
-  </label>
-  <script>
-    const globalThemeSwitch = document.getElementById("global-mode-toggle");
-    function applySiteTheme(time, save = false) {
-      document.body.dataset.time = time;
-      globalThemeSwitch.checked = time === "nuit";
-      globalThemeSwitch.setAttribute("aria-checked", String(time === "nuit"));
-      const themeColor = document.querySelector('meta[name="theme-color"]');
-      if (themeColor) themeColor.content = time === "nuit" ? "#11121a" : "#f1ead9";
-      if (save) localStorage.setItem("duskclaw-time", time);
-    }
-    globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
-    applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
-  </script>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="account-nav.js?v=20261004-2215"></script>
-<script src="site-shell.js?v=20261005-header-unified2"></script>
 </body>
 </html>
-
-
-
-
-
 
 
