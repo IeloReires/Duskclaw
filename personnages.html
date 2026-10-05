@@ -106,7 +106,7 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages19">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages20">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -430,6 +430,7 @@
         card.dataset.family = furry.familyName.toLocaleLowerCase("fr");
         card.dataset.rarity = furry.rarity;
         card.dataset.order = String(number);
+        card.dataset.number = String(number + 1).padStart(2, "0");
         Object.entries(furry.stats || {}).forEach(([key, value]) => { card.dataset["stat" + key[0].toUpperCase() + key.slice(1)] = String(value); });
         card.href = furry.family + (furry.level === "niveau-1" ? "?forme=1" : furry.level === "niveau-2" ? "?forme=2" : "?forme=0");
         card.setAttribute("aria-label", "Ouvrir la famille " + furry.name + " — " + furry.stage);
@@ -454,6 +455,7 @@
         card.className = "furry-entry furry-placeholder" + (data.rarity ? " rarity-" + data.rarity : "");
         card.dataset.rarity = data.rarity || "";
         card.dataset.order = String(number);
+        card.dataset.number = String(number + 1).padStart(2, "0");
         Object.entries(furry && furry.stats || {}).forEach(([key, value]) => { card.dataset["stat" + key[0].toUpperCase() + key.slice(1)] = String(value); });
         card.dataset.name = (data.name || "").toLocaleLowerCase("fr");
         card.dataset.level = data.level || "";
@@ -495,18 +497,29 @@
       const pageCount = Math.max(1, Math.ceil(filteredCards.length / cardsPerPage));
       currentPage = Math.min(currentPage, pageCount - 1);
       const start = currentPage * cardsPerPage;
+      const spread = document.getElementById("cardex-open-spread");
+      spread.querySelectorAll(".cardex-turning-leaf").forEach(leaf => leaf.remove());
+      if (direction) {
+        const outgoingPage = direction === "next" ? rightPage : leftPage;
+        const sideClass = direction === "next" ? "cardex-leaf-right" : "cardex-leaf-left";
+        const turningLeaf = document.createElement("div");
+        turningLeaf.className = `cardex-turning-leaf ${direction}`;
+        turningLeaf.setAttribute("aria-hidden", "true");
+        turningLeaf.inert = true;
+        const front = document.createElement("div");
+        front.className = `cardex-leaf ${sideClass} cardex-turn-face`;
+        outgoingPage.querySelectorAll(":scope > *").forEach(card => front.append(card.cloneNode(true)));
+        const back = document.createElement("div");
+        back.className = "cardex-turn-back";
+        turningLeaf.append(front, back);
+        spread.append(turningLeaf);
+        turningLeaf.addEventListener("animationend", () => turningLeaf.remove(), { once: true });
+      }
       leftPage.replaceChildren(...filteredCards.slice(start, start + pageSize));
       rightPage.replaceChildren(...filteredCards.slice(start + pageSize, start + cardsPerPage));
       pageLabel.textContent = `Feuillet ${currentPage + 1} / ${pageCount}`;
       previousButton.disabled = currentPage === 0;
       nextButton.disabled = currentPage >= pageCount - 1;
-      const spread = document.getElementById("cardex-open-spread");
-      spread.classList.remove("turning-next", "turning-previous");
-      if (direction) {
-        void spread.offsetWidth;
-        spread.classList.add(direction === "next" ? "turning-next" : "turning-previous");
-        window.setTimeout(() => spread.classList.remove("turning-next", "turning-previous"), 720);
-      }
       results.textContent = `${filteredCards.length} formes · ${filteredCards.filter(card => card.querySelector("img")).length} illustrées`;
       emptyMessage.hidden = filteredCards.length > 0;
       document.getElementById("cardex-grid").hidden = filteredCards.length === 0;
