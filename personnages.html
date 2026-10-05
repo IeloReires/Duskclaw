@@ -106,7 +106,7 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages16">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages17">
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
@@ -418,6 +418,7 @@
       if (image) furry.image = image;
     });
     const grid = document.getElementById("cardex-grid");
+    const allCards = [];
     for (let number = 0; number < 75; number++) {
       const furry = furries[number];
       if (furry && furry.image) {
@@ -447,7 +448,7 @@
         rarity.textContent = furry.rarityLabel;
         caption.append(name, stage, rarity);
         card.append(image, caption);
-        grid.append(card);
+        allCards.push(card);
       } else {
         const data = furry || { familyName: "Famille à venir", family: "famille-a-venir.html", levelLabel: "", type: "", rarity: "", rarityLabel: "" };
         const card = document.createElement("a");
@@ -473,10 +474,9 @@
         label.className = "placeholder-label";
         label.textContent = (data.name || data.familyName) + (summary ? "\n" + summary : "\nÀ venir");
         card.append(mark, label);
-        grid.append(card);
+        allCards.push(card);
       }
     }
-    const allCards = [...grid.querySelectorAll(".furry-entry")];
     const levelFilter = document.getElementById("level-filter");
     const typeFilter = document.getElementById("type-filter");
     const familyFilter = document.getElementById("family-filter");
