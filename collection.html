@@ -22,6 +22,7 @@
     .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:32px}.panel{padding:clamp(20px,3vw,32px);border:1px solid var(--line-ink);border-radius:16px;background:var(--paper)}.panel h2{margin:0 0 20px;font-size:1.5rem}.field{display:grid;gap:7px;margin:15px 0;color:var(--muted-ink);font-size:.9rem}.field input,.field select{box-sizing:border-box;width:100%;min-height:48px;padding:11px 13px;border:1px solid var(--line-ink);border-radius:8px;background:var(--background,#111724);color:var(--ink);font:inherit}.field input:focus,.field select:focus{outline:2px solid var(--accent-ink);outline-offset:2px}
     .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 17px;border:1px solid var(--accent-ink);border-radius:8px;background:var(--accent-ink);color:#171520;font:inherit;font-weight:700;font-size:.92rem;text-decoration:none;cursor:pointer}.button:hover{filter:brightness(1.08)}.button:disabled{opacity:.55;cursor:not-allowed}.button-secondary{background:transparent;color:var(--ink);border-color:var(--line-ink)}.button-danger{border-color:#a65e61;background:transparent;color:#f0b2b3}.text-button{padding:8px 0;border:0;background:none;color:var(--accent-ink);font:inherit;text-decoration:underline;cursor:pointer}.form-message{min-height:1.5em;margin:12px 0 0;color:var(--muted-ink);font-size:.9rem;line-height:1.5}.form-message.error{color:#ffaaa8}.form-message.success{color:#9bd7b1}.small-note{color:var(--muted-ink);font-size:.82rem;line-height:1.55}
     .account-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 20px;border:1px solid var(--line-ink);border-radius:12px;background:var(--paper)}.account-bar p{margin:3px 0;color:var(--muted-ink)}.collection-layout{display:grid;grid-template-columns:minmax(270px,.75fr) minmax(0,1.25fr);gap:22px;margin-top:22px}.collection-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}.collection-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;border:1px solid var(--line-ink);border-radius:10px;background:var(--paper)}.collection-item strong{display:block}.collection-item small{display:block;margin-top:3px;color:var(--muted-ink)}.quantity{display:flex;align-items:center;gap:9px}.quantity span{color:var(--accent-ink);font-weight:800}.empty-state{padding:28px 16px;border:1px dashed var(--line-ink);border-radius:12px;color:var(--muted-ink);text-align:center}.collection-count{color:var(--muted-ink);font-size:.9rem}.scanner-panel{margin-top:22px}.scan-video{display:block;width:min(100%,560px);aspect-ratio:4/3;margin-top:16px;border-radius:12px;background:#080a10;object-fit:cover}.scan-actions{display:flex;flex-wrap:wrap;gap:12px}.scan-hint{max-width:680px;color:var(--muted-ink);line-height:1.6}.hidden{display:none!important}
+    .progress-panel{margin-top:22px}.progress-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}.progress-heading h2{margin-bottom:6px}.progress-heading strong{color:var(--accent-ink);font-size:1.2rem}.progress-track{height:12px;margin:12px 0 18px;overflow:hidden;border:1px solid var(--line-ink);border-radius:99px;background:var(--background)}.progress-track span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent-ink),#b8795e);transition:width .35s ease}.rarity-progress{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.rarity-progress article{padding:11px 13px;border:1px solid var(--line-ink);border-radius:10px;background:color-mix(in srgb,var(--paper) 80%,transparent)}.rarity-progress strong,.rarity-progress span{display:block}.rarity-progress span{margin-top:4px;color:var(--muted-ink);font-size:.82rem}.collection-tools{display:grid;grid-template-columns:minmax(150px,.55fr) minmax(180px,1fr);gap:10px;margin:0 0 14px}.collection-tools input,.collection-tools select{box-sizing:border-box;min-height:42px;padding:9px 11px;border:1px solid var(--line-ink);border-radius:8px;background:var(--background);color:var(--ink);font:inherit}.collection-list{max-height:640px;overflow:auto;padding-right:4px}.quantity button{min-width:34px;min-height:34px;padding:4px 9px}.collection-item[data-owned="false"]{background:transparent}.collection-item[data-owned="false"] .collection-item-add{min-height:36px;padding:7px 11px}.collection-results{margin:0 0 10px;color:var(--muted-ink);font-size:.84rem}
     .dusk-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;width:min(1320px,90%);margin:60px auto 0;padding:30px 0;border-top:1px solid var(--line-ink);color:var(--muted-ink)}.dusk-footer a{color:var(--accent-ink)}
     .global-mode-switch{position:fixed;z-index:30;bottom:22px;left:22px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid var(--line-ink);border-radius:999px;background:var(--paper);color:var(--muted-ink);font-size:.76rem;font-weight:700;box-shadow:0 5px 22px rgba(18,21,29,.2);cursor:pointer}.global-mode-switch input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.global-mode-track{position:relative;width:40px;height:22px;border:1px solid var(--line-ink);border-radius:20px;background:#d9cfb9;transition:background .25s ease}.global-mode-track::before{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fffaf0;box-shadow:0 1px 4px rgba(0,0,0,.24);content:"";transition:transform .25s ease}.global-mode-switch input:checked+.global-mode-track{background:#5e527f}.global-mode-switch input:checked+.global-mode-track::before{transform:translateX(18px);background:#e5dcf5}.global-mode-switch input:focus-visible+.global-mode-track{outline:2px solid var(--accent-ink);outline-offset:3px}
     @media(max-width:760px){.dusk-header{flex-wrap:wrap;height:auto;min-height:82px;padding-block:17px}.dusk-nav{order:3;width:100%;justify-content:space-between;gap:10px}.dusk-nav a{font-size:.78rem}.page{width:92%;margin-top:38px}.auth-grid,.collection-layout{grid-template-columns:1fr}.account-bar{align-items:flex-start;flex-direction:column}.dusk-footer{align-items:flex-start;flex-direction:column}.global-mode-switch{position:static;width:max-content;margin:20px auto 24px;box-shadow:none}}
@@ -86,6 +87,7 @@
     </section>
     <section id="account-panel" class="hidden" aria-label="Ma collection de cartes">
       <div class="account-bar"><div><strong>Connecté avec <span id="account-email"></span></strong><p>Seul ce compte peut consulter et modifier cette collection.</p></div><button id="logout-button" class="button button-secondary" type="button">Se déconnecter</button></div>
+      <section class="panel progress-panel" aria-labelledby="progress-title"><div class="progress-heading"><div><h2 id="progress-title">Ta collection Duskclaw</h2><p id="collection-progress-label" class="collection-count">Chargement de ta progression…</p></div><strong id="collection-progress-number">0 / 75</strong></div><div class="progress-track" role="progressbar" aria-label="Progression de la collection" aria-valuemin="0" aria-valuemax="75" aria-valuenow="0"><span id="collection-progress-bar"></span></div><div class="rarity-progress" id="rarity-progress" aria-label="Progression par rareté"></div></section>
       <div class="collection-layout">
         <form id="add-card-form" class="panel">
           <h2>Ajouter une carte</h2>
@@ -96,7 +98,7 @@
           <p class="small-note">Si la carte est déjà dans ta collection, la quantité est mise à jour.</p>
           <button id="clear-collection" class="button button-danger" type="button">Vider ma collection</button>
         </form>
-        <div class="panel"><h2>Mes cartes</h2><p id="collection-count" class="collection-count"></p><ul id="collection-list" class="collection-list"></ul><p id="collection-empty" class="empty-state hidden">Ta collection est encore vide. Ajoute ta première carte.</p></div>
+        <div class="panel"><h2>Le catalogue</h2><p id="collection-count" class="collection-count"></p><div class="collection-tools"><label class="field" style="margin:0">Afficher<select id="collection-filter"><option value="all">Toutes les cartes</option><option value="owned">Possédées</option><option value="missing">Manquantes</option></select></label><label class="field" style="margin:0">Rechercher<input id="collection-search" type="search" placeholder="Nom, type, numéro…" autocomplete="off"></label></div><p id="collection-results" class="collection-results" aria-live="polite"></p><ul id="collection-list" class="collection-list"></ul><p id="collection-empty" class="empty-state hidden">Aucune carte ne correspond à ces critères.</p></div>
       </div>
     </section>
   </main>
@@ -129,23 +131,50 @@
       setupWarning.hidden=true;
       const backend=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
       let currentUser=null;
+      let collectionRows=[];
+      const rarityNames=['Commun','Peu commun','Rare','Épique'];
       async function refreshCollection(){
         if(!currentUser)return;
-        const list=document.getElementById('collection-list');list.replaceChildren();
         const {data,error}=await backend.from('user_collection').select('card_number,quantity').eq('user_id',currentUser.id).order('card_number');
         if(error){globalSay('Impossible de charger ta collection. Vérifie que les règles de confidentialité de la base ont bien été installées.');return;}
-        const byId=new Map(CARDS.map(card=>[card.id,card]));
-        document.getElementById('collection-count').textContent=`${data.length} carte${data.length>1?'s':''} différente${data.length>1?'s':''} · ${data.reduce((sum,row)=>sum+row.quantity,0)} exemplaire${data.reduce((sum,row)=>sum+row.quantity,0)>1?'s':''}`;
-        document.getElementById('collection-empty').classList.toggle('hidden',data.length>0);
-        data.forEach(row=>{
-          const card=byId.get(row.card_number);if(!card)return;
-          const li=document.createElement('li');li.className='collection-item';
-          const detail=document.createElement('span');const title=document.createElement('strong');title.textContent=card.label;const meta=document.createElement('small');meta.textContent=`${card.type} · ${card.rarity}`;detail.append(title,meta);
-          const controls=document.createElement('span');controls.className='quantity';const count=document.createElement('span');count.textContent='×'+row.quantity;
-          const remove=document.createElement('button');remove.type='button';remove.className='button button-secondary';remove.textContent='Retirer';remove.setAttribute('aria-label','Retirer '+card.label+' de la collection');remove.addEventListener('click',()=>removeCard(card.id));controls.append(count,remove);li.append(detail,controls);list.append(li);
-        });
+        collectionRows=data||[];renderCollection();
       }
-      async function removeCard(id){const {error}=await backend.from('user_collection').delete().eq('user_id',currentUser.id).eq('card_number',id);if(error)globalSay(friendlyError(error));else{globalSay('Carte retirée de ta collection.');await refreshCollection();}}
+      function renderCollection(){
+        const list=document.getElementById('collection-list');list.replaceChildren();
+        const owned=new Map(collectionRows.map(row=>[Number(row.card_number),Number(row.quantity)]));
+        const distinct=owned.size,total=collectionRows.reduce((sum,row)=>sum+Number(row.quantity),0);
+        const percent=Math.round(distinct/CARDS.length*100);
+        document.getElementById('collection-count').textContent=`${distinct} carte${distinct>1?'s':''} différente${distinct>1?'s':''} · ${total} exemplaire${total>1?'s':''}`;
+        document.getElementById('collection-progress-label').textContent=`Tu as découvert ${distinct} des ${CARDS.length} cartes du catalogue (${percent} %).`;
+        document.getElementById('collection-progress-number').textContent=`${distinct} / ${CARDS.length}`;
+        const progress=document.querySelector('.progress-track');progress.setAttribute('aria-valuenow',String(distinct));document.getElementById('collection-progress-bar').style.width=`${percent}%`;
+        const rarityCounts=new Map(rarityNames.map(name=>[name,{all:0,owned:0}]));
+        CARDS.forEach(card=>{const bucket=rarityCounts.get(card.rarity);if(bucket){bucket.all++;if(owned.has(card.id))bucket.owned++;}});
+        const rarityRoot=document.getElementById('rarity-progress');rarityRoot.replaceChildren();
+        rarityNames.forEach(name=>{const bucket=rarityCounts.get(name);const article=document.createElement('article');const title=document.createElement('strong');title.textContent=name;const detail=document.createElement('span');detail.textContent=`${bucket.owned} / ${bucket.all} · ${bucket.all?Math.round(bucket.owned/bucket.all*100):0} %`;article.append(title,detail);rarityRoot.append(article);});
+        const filter=document.getElementById('collection-filter').value;const query=document.getElementById('collection-search').value.trim().toLocaleLowerCase('fr');let visible=0;
+        CARDS.forEach(card=>{
+          const quantity=owned.get(card.id)||0;const has=quantity>0;
+          if(filter==='owned'&&!has||filter==='missing'&&has||query&&!`${card.label} ${card.type} ${card.level} ${card.rarity}`.toLocaleLowerCase('fr').includes(query))return;
+          visible++;const li=document.createElement('li');li.className='collection-item';li.dataset.owned=String(has);
+          const detail=document.createElement('span');const title=document.createElement('strong');title.textContent=card.label;const meta=document.createElement('small');meta.textContent=`${card.type} · ${card.rarity}${has?' · dans ta collection':' · à trouver'}`;detail.append(title,meta);
+          const controls=document.createElement('span');controls.className='quantity';
+          if(has){const less=document.createElement('button');less.type='button';less.className='button button-secondary';less.textContent='−';less.setAttribute('aria-label',`Retirer un exemplaire de ${card.label}`);less.disabled=quantity===0;less.addEventListener('click',()=>setQuantity(card.id,quantity-1));const count=document.createElement('span');count.textContent='×'+quantity;const more=document.createElement('button');more.type='button';more.className='button button-secondary';more.textContent='+';more.setAttribute('aria-label',`Ajouter un exemplaire de ${card.label}`);more.disabled=quantity>=99;more.addEventListener('click',()=>setQuantity(card.id,quantity+1));controls.append(less,count,more);}
+          else{const add=document.createElement('button');add.type='button';add.className='button button-secondary collection-item-add';add.textContent='Ajouter';add.setAttribute('aria-label',`Ajouter ${card.label} à ta collection`);add.addEventListener('click',()=>setQuantity(card.id,1));controls.append(add);}
+          li.append(detail,controls);list.append(li);
+        });
+        document.getElementById('collection-results').textContent=`${visible} carte${visible>1?'s':''} affichée${visible>1?'s':''}`;
+        document.getElementById('collection-empty').classList.toggle('hidden',visible>0);
+      }
+      async function setQuantity(id,quantity){
+        if(!currentUser)return;
+        let result;
+        if(quantity<=0)result=await backend.from('user_collection').delete().eq('user_id',currentUser.id).eq('card_number',id);
+        else result=await backend.from('user_collection').upsert({user_id:currentUser.id,card_number:id,quantity},{onConflict:'user_id,card_number'});
+        if(result.error)globalSay(friendlyError(result.error));else{collectionRows=quantity<=0?collectionRows.filter(row=>Number(row.card_number)!==id):[...collectionRows.filter(row=>Number(row.card_number)!==id),{card_number:id,quantity}];renderCollection();}
+      }
+      document.getElementById('collection-filter').addEventListener('change',renderCollection);
+      document.getElementById('collection-search').addEventListener('input',renderCollection);
       async function syncSession(){const {data,error}=await backend.auth.getSession();if(error||!data.session?.user){location.replace("mon-compte.html?redirect=collection.html");return;}currentUser=data.session.user;setSignedIn(currentUser);await refreshCollection();}
       backend.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;if(event==='SIGNED_OUT'){location.replace('mon-compte.html');return;}setSignedIn(currentUser);if(currentUser)setTimeout(()=>refreshCollection(),0);if(event==='PASSWORD_RECOVERY'){authPanel.classList.remove('hidden');document.getElementById('login-form').classList.add('hidden');document.getElementById('signup-form').classList.add('hidden');document.getElementById('reset-form').classList.remove('hidden');}});
       syncSession();
