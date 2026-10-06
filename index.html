@@ -258,10 +258,14 @@
     .home-quill{position:absolute;z-index:2;right:-10%;bottom:-11%;width:70%;height:40%;margin:0;transform:rotate(90deg);filter:brightness(.92) drop-shadow(6px 10px 8px #120b0999);transition:filter .3s ease;pointer-events:none}
     .home-quill img{display:block;width:100%;height:100%;object-fit:contain}
     @media(max-width:760px){.home-map-scrap{width:min(78%,480px)!important;height:260px!important;left:auto!important;bottom:auto!important;align-self:flex-start;margin:0 0 0 3%;position:relative!important}.home-map-scrap img{inset:9px 8px 18px!important;width:calc(100% - 16px)!important;height:calc(100% - 27px)!important}.home-photo-lower{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;align-self:flex-start!important;margin:0 0 0 4%!important}.home-photo-upper{position:relative!important;right:auto!important;top:auto!important;align-self:flex-end!important}.home-quill{right:-4%!important;bottom:-7%!important;width:68%!important;height:36%!important;transform:rotate(90deg)!important}.home-table-map{filter:brightness(.72) sepia(.36) saturate(.7) contrast(.95)!important}}
-    /* Détails finaux du carnet : sceau gravé, ruban et lueur irrégulière. */
-    .home-book-stamp{right:10%!important;bottom:6%!important;width:112px;height:112px;padding:0!important;border:0!important;color:#806443!important;opacity:.83;mix-blend-mode:multiply;transform:rotate(-11deg)!important}
+    /* Le sceau étoilé sert de commande audio et tourne comme un disque. */
+    @keyframes home-vinyl-spin{from{transform:rotate(-11deg)}to{transform:rotate(349deg)}}
+    .home-book-stamp{right:10%!important;bottom:6%!important;width:112px;height:112px;padding:0!important;border:0!important;background:transparent!important;color:#806443!important;opacity:.83;mix-blend-mode:multiply;transform:rotate(-11deg)!important;cursor:pointer;appearance:none;-webkit-appearance:none;transition:opacity .2s,filter .2s}
+    .home-book-stamp:hover,.home-book-stamp:focus-visible{opacity:1;filter:drop-shadow(0 0 5px #c68b38aa);outline:none}
+    .home-book-stamp[aria-pressed="true"]{animation:home-vinyl-spin 3.2s linear infinite;opacity:1}
+    .home-book-stamp:focus-visible{outline:2px solid #a65a48!important;outline-offset:4px;border-radius:50%}
+    @media(prefers-reduced-motion:reduce){.home-book-stamp[aria-pressed="true"]{animation:none}}
     .home-book-stamp svg{display:block;width:100%;height:100%;overflow:visible}
-    .home-book-stamp text{fill:currentColor;font:700 7px Georgia,serif;letter-spacing:1px}
     .home-photo-upper{left:4%!important;right:auto!important;top:auto!important;bottom:5%!important;width:25%!important;height:18%!important;transform:rotate(-3deg)!important;z-index:5!important}
     .home-book-photo-right{z-index:5!important}
     .home-quill{position:absolute!important;z-index:4!important;left:66%!important;top:20%!important;right:auto!important;bottom:auto!important;width:94vh!important;height:63vh!important;margin:0!important;transform:rotate(90deg)!important;transform-origin:center!important;filter:brightness(.94) drop-shadow(7px 12px 10px #120b09b0)!important;pointer-events:none!important}
@@ -531,16 +535,8 @@
     body.home .home-book-page.cardex-leaf-left{grid-column:1!important;grid-row:1!important;box-shadow:inset 7px 0 9px #5b4a2a12,inset -10px 0 16px #6e57321a!important}
     body.home .home-book-page.cardex-leaf-right{grid-column:3!important;grid-row:1!important;box-shadow:inset 10px 0 16px #6e57321a,inset -7px 0 9px #5b4a2a12!important}
     body.home .home-book-gutter{position:relative!important;z-index:2!important;grid-column:2!important;grid-row:1!important;width:22px!important;background:linear-gradient(90deg,#d7c9a8 0%,#f6efdc 30%,#82704c 49%,#6c5b3a 50%,#e3d6b5 70%,#f6efdc 100%)!important;box-shadow:0 0 10px #57472a24!important}
-    .home-music-dock{position:fixed;z-index:1500;right:18px;bottom:15px;display:flex;align-items:center;gap:0;padding:3px;border:1px solid transparent;border-radius:24px;background:transparent;color:#30445e;transition:background .22s,border-color .22s,box-shadow .22s,gap .22s}
-    .home-music-dock:hover,.home-music-dock:focus-within{gap:8px;padding:4px 10px 4px 4px;border-color:#a58c5988;background:#e9dec6dd;box-shadow:0 3px 10px #160e0866;backdrop-filter:blur(3px)}
-    #home-music-toggle{display:grid;place-items:center;width:35px;height:35px;padding:0;border:1px solid #d0b878;border-radius:50%;background:radial-gradient(circle at 35% 25%,#486282,#1c2e49 76%);box-shadow:inset 0 0 0 2px #223550,0 2px 6px #120c0899;color:#e7cc83;cursor:pointer;transition:transform .2s,box-shadow .2s}
-    #home-music-toggle:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 2px #223550,0 4px 9px #120c08aa}
-    #home-music-toggle[aria-pressed="true"]{background:radial-gradient(circle at 35% 25%,#536d87,#263b56 76%);box-shadow:inset 0 0 0 2px #223550,0 0 0 2px #c09c53aa,0 2px 7px #120c0899}
-    #home-music-toggle:focus-visible,#home-music-volume:focus-visible{outline:2px solid #a65a48;outline-offset:3px}
-    .home-music-note{font-size:1.1rem;color:#e7cc83}.home-music-state{font:700 .6rem Arial,sans-serif}
-    .home-music-volume{display:flex;align-items:center;width:0;overflow:hidden;opacity:0;transition:width .22s,opacity .18s}.home-music-dock:hover .home-music-volume,.home-music-dock:focus-within .home-music-volume{width:72px;opacity:1}.home-music-volume input{width:72px;height:4px;accent-color:#8c6736;cursor:pointer}
     .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-    @media(max-width:760px){body.home .home-open-book.cardex-open-spread{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto 16px auto!important;padding:8px!important;border-width:12px!important}.home-book-page.cardex-leaf-left{grid-column:1!important;grid-row:1!important}.home-book-page.cardex-leaf-right{grid-column:1!important;grid-row:3!important}.home-book-page.cardex-leaf{padding:30px 26px!important}.home-book-gutter{grid-column:1!important;grid-row:2!important;width:auto!important;height:16px!important;background:linear-gradient(180deg,#d7c9a8 0%,#f6efdc 30%,#82704c 49%,#6c5b3a 50%,#e3d5b5 70%,#f6efdc 100%)!important}.home-open-book.cardex-open-spread:after{display:none!important}.home-music-dock{right:10px;bottom:10px;padding:5px;border-color:#a58c5988;background:#e9dec6dd;box-shadow:0 3px 10px #160e0866;backdrop-filter:blur(3px)}.home-music-volume{width:55px;opacity:1}.home-music-volume input{width:55px}}
+    @media(max-width:760px){body.home .home-open-book.cardex-open-spread{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto 16px auto!important;padding:8px!important;border-width:12px!important}.home-book-page.cardex-leaf-left{grid-column:1!important;grid-row:1!important}.home-book-page.cardex-leaf-right{grid-column:1!important;grid-row:3!important}.home-book-page.cardex-leaf{padding:30px 26px!important}.home-book-gutter{grid-column:1!important;grid-row:2!important;width:auto!important;height:16px!important;background:linear-gradient(180deg,#d7c9a8 0%,#f6efdc 30%,#82704c 49%,#6c5b3a 50%,#e3d5b5 70%,#f6efdc 100%)!important}.home-open-book.cardex-open-spread:after{display:none!important}}
   </style>
 </head>
 <body class="home">
@@ -568,7 +564,7 @@
           <p class="home-summary">Duskclaw se joue autour d’une vraie table : construis ton deck, mène tes Furries sur un plateau hexagonal et dispute les objectifs.</p>
           <div class="home-book-facts"><span><b>40</b> cartes par deck</span><span><b>7</b> cartes en main</span><span><b>2</b> joueurs</span></div>
           <a class="home-primary" href="regles.html">Ouvrir le guide de jeu <span aria-hidden="true">→</span></a>
-          <div class="home-book-stamp" aria-label="Sceau du clan des brumes"><svg viewBox="0 0 140 140" role="img" aria-hidden="true"><circle cx="70" cy="70" r="63" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="4 2 1 3"/><circle cx="70" cy="70" r="54" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M70 34 78 52 96 44 88 62 106 70 88 78 96 96 78 88 70 106 62 88 44 96 52 78 34 70 52 62 44 44 62 52Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M70 47 78 63 70 58 62 63ZM70 93 78 77 70 82 62 77Z" fill="currentColor"/><path d="M27 70h9m68 0h9M70 24v9m0 84v9" stroke="currentColor" stroke-width="2.5"/><text x="70" y="18" text-anchor="middle">CLAN DES BRUMES</text><text x="70" y="130" text-anchor="middle">VEILLE DU NORD</text></svg></div>
+          <button id="home-music-toggle" class="home-book-stamp" type="button" aria-label="Lancer la musique d’ambiance" aria-pressed="false" title="Musique d’ambiance"><svg viewBox="0 0 140 140" role="img" aria-hidden="true"><circle cx="70" cy="70" r="63" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="4 2 1 3"/><circle cx="70" cy="70" r="54" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M70 34 78 52 96 44 88 62 106 70 88 78 96 96 78 88 70 106 62 88 44 96 52 78 34 70 52 62 44 44 62 52Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M70 47 78 63 70 58 62 63ZM70 93 78 77 70 82 62 77Z" fill="currentColor"/><path d="M27 70h9m68 0h9M70 24v9m0 84v9" stroke="currentColor" stroke-width="2.5"/></svg></button>
           <figure class="home-book-photo home-book-photo-left"><div>IMAGE</div><figcaption>Portrait à venir</figcaption></figure>
         </article>
         <div class="home-book-gutter cardex-gutter" aria-hidden="true"></div>
@@ -592,10 +588,6 @@
       <figure class="home-photo-card home-photo-lower"><div>IMAGE</div><figcaption>Herbier du voyage</figcaption></figure>
     </div>
   </main>
-  <div class="home-music-dock" aria-label="Musique d’ambiance">
-    <button id="home-music-toggle" type="button" aria-pressed="false" aria-label="Lancer la musique d’ambiance" title="Musique d’ambiance"><span class="home-music-note" aria-hidden="true">♫</span><span id="home-music-label" class="visually-hidden">Musique</span><span class="home-music-state" aria-hidden="true">▶</span></button>
-    <label class="home-music-volume"><span class="visually-hidden">Volume de la musique</span><input id="home-music-volume" type="range" min="0" max="100" value="28" aria-label="Volume de la musique"></label>
-  </div>
   <footer class="site-shell-footer"><a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a><span class="site-shell-handle">@Duskclaw</span></footer>
   <script>
     const table=document.querySelector(".home-tabletop");
@@ -680,16 +672,13 @@
   <script>
     (()=>{
       const button=document.getElementById("home-music-toggle");
-      const slider=document.getElementById("home-music-volume");
-      const label=document.getElementById("home-music-label");
-      const state=button?.querySelector(".home-music-state");
-      if(!button||!slider||!label||!state)return;
+      if(!button)return;
       const Context=window.AudioContext||window.webkitAudioContext;
-      if(!Context){button.disabled=true;label.textContent="Audio indisponible";return}
+      if(!Context){button.disabled=true;button.title="Audio indisponible";return}
       const audio=new Audio(new URL("assets/duskclaw-ambiance.mp3",document.baseURI));
       audio.loop=true;audio.preload="auto";
       let context=null,master=null,playing=false,variationTimer=0,variation=1;
-      const setButton=()=>{button.setAttribute("aria-pressed",String(playing));button.setAttribute("aria-label",playing?"Mettre la musique d’ambiance en pause":"Lancer la musique d’ambiance");label.textContent=playing?"Ambiance en cours":"Musique";state.textContent=playing?"Ⅱ":"▶"};
+      const setButton=()=>{button.setAttribute("aria-pressed",String(playing));button.setAttribute("aria-label",playing?"Arrêter la musique d’ambiance":"Lancer la musique d’ambiance");button.title=playing?"Arrêter la musique d’ambiance":"Lancer la musique d’ambiance"};
       const makeRoomTone=()=>{
         const length=Math.floor(context.sampleRate*1.8),buffer=context.createBuffer(2,length,context.sampleRate);
         for(let channel=0;channel<2;channel++){const data=buffer.getChannelData(channel);for(let i=0;i<length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/length,3.2)}
@@ -707,15 +696,14 @@
         source.connect(warmth);warmth.connect(softness);softness.connect(compressor);
         compressor.connect(dry);dry.connect(master);compressor.connect(convolver);convolver.connect(wet);wet.connect(master);master.connect(context.destination);
       };
-      const setLevel=(seconds=.3)=>{if(master&&context)master.gain.setTargetAtTime(Number(slider.value)/100*.8*variation,context.currentTime,seconds)};
+      const setLevel=(seconds=.3)=>{if(master&&context)master.gain.setTargetAtTime(.28*variation,context.currentTime,seconds)};
       const varyGently=()=>{if(!playing)return;variation=.97+Math.random()*.06;setLevel(1.4);variationTimer=window.setTimeout(varyGently,4500+Math.random()*6500)};
       const start=async()=>{
         if(!context)buildSound();await context.resume();await audio.play();playing=true;variation=1;setLevel(.9);setButton();window.clearTimeout(variationTimer);varyGently();
       };
       const pause=()=>{playing=false;window.clearTimeout(variationTimer);if(master&&context){master.gain.setTargetAtTime(0,context.currentTime,.22);window.setTimeout(()=>{if(!playing)audio.pause()},900)}else audio.pause();setButton()};
-      button.addEventListener("click",()=>{if(playing){pause();return}start().catch(()=>{pause();label.textContent="Musique indisponible"})});
-      slider.addEventListener("input",()=>setLevel(.12));
-      audio.addEventListener("error",()=>{button.disabled=true;label.textContent="Musique indisponible"});
+      button.addEventListener("click",()=>{if(playing){pause();return}start().catch(()=>{pause();button.title="Musique indisponible"})});
+      audio.addEventListener("error",()=>{button.disabled=true;button.title="Musique indisponible"});
       setButton();
     })();
   </script>
