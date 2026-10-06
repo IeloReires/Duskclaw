@@ -348,6 +348,9 @@
     @keyframes candlelight-overall-natural{0%{opacity:.62;filter:blur(13px) saturate(1.08)}19%{opacity:.8;filter:blur(15px) saturate(1.14)}38%{opacity:.7;filter:blur(12px) saturate(1.1)}61%{opacity:.9;filter:blur(16px) saturate(1.17)}79%{opacity:.68;filter:blur(13px) saturate(1.09)}100%{opacity:.84;filter:blur(15px) saturate(1.13)}}
     .home-book-right .home-quill{right:-12%!important;bottom:-1%!important}
     @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
+    .home-candle-glow.is-random-flicker{animation:none!important;opacity:var(--flame-strength,.72)!important;filter:blur(var(--flame-blur,14px)) saturate(var(--flame-saturation,1.1)) brightness(var(--flame-brightness,1.06))!important;transition:opacity var(--flame-transition,650ms) ease-in-out,filter var(--flame-transition,650ms) ease-in-out!important}
+    .home-candle-glow.is-random-flicker:before{animation:none!important;opacity:var(--flame-reflection,.45)!important;transition:opacity var(--flame-transition,650ms) ease-in-out!important}
+    @media(prefers-reduced-motion:reduce){.home-candle-glow.is-random-flicker,.home-candle-glow.is-random-flicker:before{transition:none!important}}
   </style>
 </head>
 <body class="home">
@@ -406,6 +409,22 @@
       paper.addEventListener("pointermove",event=>{if(!paper.classList.contains("is-dragging"))return;const bounds=table.getBoundingClientRect();const left=Math.max(10,Math.min(bounds.width-paper.offsetWidth-10,Number(paper.dataset.dragLeft)+event.clientX-Number(paper.dataset.dragX)));const top=Math.max(10,Math.min(bounds.height-paper.offsetHeight-10,Number(paper.dataset.dragTop)+event.clientY-Number(paper.dataset.dragY)));paper.style.left=`${left}px`;paper.style.top=`${top}px`});
       paper.addEventListener("pointerup",()=>paper.classList.remove("is-dragging"));paper.addEventListener("pointercancel",()=>paper.classList.remove("is-dragging"));
     });
+    const candleGlow=document.querySelector(".home-candle-glow");
+    if(candleGlow&&!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+      candleGlow.classList.add("is-random-flicker");
+      const flicker=()=>{
+        const strength=.52+Math.random()*.4;
+        const transition=420+Math.random()*680;
+        candleGlow.style.setProperty("--flame-strength",strength.toFixed(2));
+        candleGlow.style.setProperty("--flame-reflection",(.3+Math.random()*.42).toFixed(2));
+        candleGlow.style.setProperty("--flame-brightness",(1+Math.random()*.2).toFixed(2));
+        candleGlow.style.setProperty("--flame-saturation",(1.04+Math.random()*.14).toFixed(2));
+        candleGlow.style.setProperty("--flame-blur",`${12+Math.random()*5}px`);
+        candleGlow.style.setProperty("--flame-transition",`${transition|0}ms`);
+        window.setTimeout(flicker,420+Math.random()*1050);
+      };
+      window.setTimeout(flicker,350);
+    }
   </script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="account-nav.js?v=20261004-2215"></script>
