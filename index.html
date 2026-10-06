@@ -273,6 +273,16 @@
     @keyframes candlelight-reflect-flicker{0%{opacity:.24;transform:translate(-.6%,0) scale(.99)}11%{opacity:.48;transform:translate(.4%,-.3%) scale(1.01)}18%{opacity:.3;transform:translate(-.2%,.3%) scale(.995)}36%{opacity:.65;transform:translate(.7%,.4%) scale(1.02)}42%{opacity:.34;transform:translate(-.4%,0) scale(.99)}58%{opacity:.52;transform:translate(.2%,-.5%) scale(1.01)}72%{opacity:.29;transform:translate(-.5%,.2%) scale(.995)}88%{opacity:.7;transform:translate(.6%,.3%) scale(1.02)}100%{opacity:.4;transform:translate(-.1%,-.2%) scale(1)}}
     @media(max-width:760px){.home-quill{left:52%!important;top:54%!important;width:80vw!important;height:54vw!important;transform:rotate(90deg)!important;z-index:4!important}.home-ribbon-bookmark{left:auto;right:7%;top:50%;bottom:auto;width:17px;height:105px;transform:rotate(2deg)}.home-photo-upper{left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:min(62%,300px)!important;height:190px!important;align-self:flex-end!important;margin:0 2% 0 0!important}}
     @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
+    /* Dernier placement : plume dans la page droite, fiche dégagée du bord du carnet. */
+    .home-ribbon-bookmark{display:none!important}
+    .home-book-photo-right{right:4%!important;bottom:5%!important;width:25%!important;height:18%!important;transform:rotate(3deg)!important}
+    .home-quill{position:absolute!important;z-index:2!important;left:auto!important;right:-3%!important;top:auto!important;bottom:2%!important;width:62%!important;height:38%!important;transform:rotate(90deg)!important;transform-origin:center!important;filter:brightness(.96) drop-shadow(4px 8px 7px #120b09a8)!important;pointer-events:none!important}
+    .home-quill img{display:block;width:100%;height:100%;object-fit:contain}
+    .home-candle-glow{animation:candlelight-brighter 4.2s ease-in-out infinite alternate!important;filter:blur(12px)!important}
+    .home-candle-glow:before{animation:candlelight-brighter-reflection 3.1s ease-in-out infinite alternate!important}
+    @keyframes candlelight-brighter{0%{opacity:.57;filter:blur(12px) brightness(1)}9%{opacity:.82;filter:blur(15px) brightness(1.11)}16%{opacity:.68;filter:blur(11px) brightness(1.04)}34%{opacity:.94;filter:blur(17px) brightness(1.18)}42%{opacity:.62;filter:blur(12px) brightness(1.01)}59%{opacity:.85;filter:blur(14px) brightness(1.12)}67%{opacity:.7;filter:blur(11px) brightness(1.04)}82%{opacity:.98;filter:blur(18px) brightness(1.2)}88%{opacity:.66;filter:blur(12px) brightness(1.03)}100%{opacity:.84;filter:blur(15px) brightness(1.13)}}
+    @keyframes candlelight-brighter-reflection{0%{opacity:.3;transform:translate(-.3%,0) scale(.99)}14%{opacity:.55;transform:translate(.25%,-.2%) scale(1.01)}23%{opacity:.34;transform:translate(-.2%,.18%) scale(.995)}46%{opacity:.68;transform:translate(.38%,.2%) scale(1.015)}54%{opacity:.39;transform:translate(-.2%,-.1%) scale(.998)}75%{opacity:.61;transform:translate(.3%,.24%) scale(1.01)}83%{opacity:.35;transform:translate(-.28%,0) scale(.996)}100%{opacity:.58;transform:translate(.18%,-.16%) scale(1.008)}}
+    @media(max-width:760px){.home-quill{right:2%!important;bottom:2%!important;left:auto!important;top:auto!important;width:52%!important;height:30%!important;transform:rotate(90deg)!important}}
     /* Ajustement demandé : halo doux, petit ruban satin, plume posée en diagonale. */
     .home-candle-glow{animation:candlelight-natural 4.8s ease-in-out infinite alternate!important;filter:blur(15px);}
     .home-candle-glow:before{animation:candlelight-natural-reflection 3.6s ease-in-out infinite alternate!important;}
@@ -284,6 +294,16 @@
     @media(max-width:760px){.home-quill{left:42%!important;top:76%!important;width:min(34vw,220px)!important;height:min(22.7vw,147px)!important;transform:rotate(28deg)!important}.home-ribbon-bookmark{top:50%!important;bottom:auto!important;right:7%!important;width:13px!important;height:76px!important;transform:rotate(2deg)!important}}
     @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+    /* Placement final des éléments après les anciennes variantes responsive. */
+    .home-book-right .home-quill{left:auto!important;right:0!important;top:auto!important;bottom:1%!important;width:58%!important;height:36%!important;z-index:2!important;transform:rotate(90deg)!important;transform-origin:center!important}
+    .home-book-photo-right{right:5%!important;bottom:5%!important;width:24%!important;height:17%!important;z-index:5!important}
+    .home-ribbon-bookmark{display:none!important}
+    .home-candle-glow{animation:candlelight-flicker-lively 3.9s ease-in-out infinite alternate!important;filter:blur(12px)!important}
+    .home-candle-glow:before{animation:candlelight-reflect-lively 2.8s ease-in-out infinite alternate!important}
+    @keyframes candlelight-flicker-lively{0%{opacity:.54;filter:blur(12px) brightness(.99)}10%{opacity:.84;filter:blur(16px) brightness(1.14)}18%{opacity:.63;filter:blur(11px) brightness(1.03)}33%{opacity:.97;filter:blur(18px) brightness(1.23)}39%{opacity:.61;filter:blur(12px) brightness(1.01)}56%{opacity:.88;filter:blur(15px) brightness(1.16)}64%{opacity:.68;filter:blur(11px) brightness(1.04)}78%{opacity:1;filter:blur(19px) brightness(1.24)}85%{opacity:.59;filter:blur(12px) brightness(1)}100%{opacity:.86;filter:blur(15px) brightness(1.16)}}
+    @keyframes candlelight-reflect-lively{0%{opacity:.28;transform:translate(-.35%,0) scale(.99)}13%{opacity:.56;transform:translate(.25%,-.18%) scale(1.01)}21%{opacity:.31;transform:translate(-.2%,.2%) scale(.995)}43%{opacity:.7;transform:translate(.4%,.2%) scale(1.015)}51%{opacity:.38;transform:translate(-.25%,-.1%) scale(.997)}72%{opacity:.63;transform:translate(.32%,.25%) scale(1.012)}80%{opacity:.34;transform:translate(-.3%,0) scale(.995)}100%{opacity:.6;transform:translate(.2%,-.16%) scale(1.01)}}
+    @media(max-width:760px){.home-book-right .home-quill{right:2%!important;bottom:2%!important;width:50%!important;height:32%!important}}
+    @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
   </style>
 </head>
 <body class="home">
@@ -319,6 +339,7 @@
           <div class="home-book-cycle"><p class="home-paper-kicker">Chapitre IV · Le cycle des veilles</p><h3><span>☼</span> Jour <i>↔</i> <span>☾</span> Nuit</h3><p>Les valeurs changent tous les trois rounds. Adapte ta stratégie à la veille.</p></div>
           <a class="home-book-link" href="personnages.html">Découvrir les Furries du Cardex ↗</a>
           <figure class="home-photo-card home-photo-upper"><div>IMAGE</div><figcaption>Cartes de terrain</figcaption></figure>
+          <figure class="home-quill"><img src="duskclaw-plume.png" alt="Grande plume d’écriture du carnet d’exploration"></figure>
           <figure class="home-book-photo home-book-photo-right"><div>IMAGE</div><figcaption>Terrain à venir</figcaption></figure>
         </article>
       </section>
@@ -331,8 +352,6 @@
       </article>
       <figure class="home-map-scrap"><img src="duskclaw-hero.png" alt="Croquis de trois Furries en expédition"><figcaption>Croquis de terrain</figcaption></figure>
       <figure class="home-photo-card home-photo-lower"><div>IMAGE</div><figcaption>Herbier du voyage</figcaption></figure>
-      <figure class="home-quill"><img src="duskclaw-plume.png" alt="Grande plume d’écriture du carnet d’exploration"></figure>
-      <div class="home-ribbon-bookmark" aria-hidden="true"></div>
     </div>
   </main>
   <footer class="site-shell-footer"><a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a><span class="site-shell-handle">@Duskclaw</span></footer>
