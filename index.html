@@ -362,6 +362,16 @@
     .home-table-map{filter:brightness(.82) sepia(.28) saturate(.9) contrast(.98)!important}
     .home-book-right .home-quill{bottom:5%!important}
     @media(max-width:760px){.home-book-right .home-quill{bottom:2%!important}}
+    /* Ambiance fantastique dessinée : lumière exclusivement ambre/or, grain du bois visible. */
+    .home-candle-glow.is-random-flicker,.home-candle-glow.is-random-flicker:before{mix-blend-mode:normal!important}
+    .home-candle-glow{background:radial-gradient(ellipse 48% 55% at 7% 0%,#ffd07870 0%,#f4a64b50 28%,#df783b28 58%,transparent 100%),radial-gradient(ellipse 82% 78% at 8% 4%,#ef944226 0%,#d8793514 48%,transparent 100%),radial-gradient(ellipse 112% 98% at 10% 9%,#cb702c0a 0%,transparent 100%)!important}
+    .home-candle-glow:before{background:radial-gradient(ellipse 53% 43% at 8% 2%,#ffe0a64a 0%,#f6ad5920 44%,transparent 100%),radial-gradient(ellipse 72% 68% at 17% 14%,#e88e4218 0%,transparent 100%)!important}
+    body.home{background-image:linear-gradient(118deg,#64517818 0%,transparent 38%,#b0804312 67%,#4d675219 100%),linear-gradient(#170f0a9c,#170f0a9c),url("duskclaw-tavern-wood.png")!important}
+    .home-tabletop:after{position:absolute;z-index:2;inset:0;content:"";pointer-events:none;background:radial-gradient(ellipse at 50% 48%,transparent 49%,#c7a66d0d 50%,transparent 51%),radial-gradient(ellipse at 50% 48%,transparent 60%,#b9965a12 60.3%,transparent 60.8%),repeating-linear-gradient(135deg,transparent 0 97px,#d0b27108 98px,#d0b27108 99px,transparent 100px 196px);opacity:.8}
+    .home-table-map{filter:brightness(.84) sepia(.4) saturate(1.14) contrast(1.02)!important}
+    .home-table-map:before{position:absolute;inset:0;content:"";pointer-events:none;background-image:repeating-linear-gradient(0deg,transparent 0 35px,#d8bd7824 36px 37px,transparent 38px 70px),repeating-linear-gradient(60deg,transparent 0 35px,#d8bd781b 36px 37px,transparent 38px 70px),repeating-linear-gradient(120deg,transparent 0 35px,#d8bd781b 36px 37px,transparent 38px 70px);opacity:.45;mix-blend-mode:soft-light}
+    .home-book-right .home-quill{filter:sepia(.14) saturate(1.15) brightness(1.02) drop-shadow(5px 9px 8px #17100b9c)!important}
+    @media(max-width:760px){.home-tabletop:after{opacity:.35}.home-table-map:before{opacity:.25}}
   </style>
 </head>
 <body class="home">
