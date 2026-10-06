@@ -240,6 +240,20 @@
     @keyframes candlelight-shimmer{0%{opacity:.72;filter:blur(10px) brightness(.98)}28%{opacity:.96;filter:blur(13px) brightness(1.1)}56%{opacity:.78;filter:blur(11px) brightness(1)}100%{opacity:1;filter:blur(14px) brightness(1.12)}}
     @media(max-width:760px){.home-tabletop:before{display:none!important}.home-table-map{top:4%!important;left:7%!important;width:83%!important;height:91%!important}.home-book-photo-left{left:-4%;bottom:3%;width:34%;height:14%}.home-book-photo-right{right:-4%;bottom:3%;width:32%;height:14%}.home-quill{left:36%;top:60%;width:43%;height:23%;transform:rotate(-2deg)}.home-photo-lower{align-self:flex-end;margin-right:5%}.home-map-scrap{width:min(70%,420px)!important;height:220px!important}}
     @media(prefers-reduced-motion:reduce){.home-candle-glow{animation:none!important}}
+    /* Composition corrigée : lumière localisée, plume verticale côté droit, images cadrées. */
+    .home-tabletop{background-image:linear-gradient(#140d09a8,#140d09a8),url("duskclaw-tavern-wood.png")!important;box-shadow:inset 0 0 120px #120b0877!important}
+    .home-table-map{filter:brightness(.72) sepia(.36) saturate(.7) contrast(.95)!important}
+    .home-open-book{filter:brightness(.88) drop-shadow(0 17px 19px #090604a8)!important}
+    .home-loose-sheet{filter:brightness(.88)}
+    .home-photo-card,.home-book-photo,.home-map-scrap{filter:brightness(.86)}
+    .home-candle-glow{background:radial-gradient(ellipse at 8% 8%,#ffd07c82 0, #f8bc6438 13%,transparent 31%),radial-gradient(ellipse at 20% 30%,#f6c4784d 0,transparent 31%),radial-gradient(ellipse at 39% 50%,#efb65b2c 0,transparent 34%),radial-gradient(ellipse at 9% 70%,#e7a84d24 0,transparent 33%);mix-blend-mode:screen;filter:blur(15px);animation:candlelight-shimmer 3.4s ease-in-out infinite alternate}
+    @keyframes candlelight-shimmer{0%{opacity:.45;filter:blur(13px) brightness(.86)}24%{opacity:.76;filter:blur(18px) brightness(1.14)}57%{opacity:.54;filter:blur(14px) brightness(.94)}100%{opacity:.82;filter:blur(20px) brightness(1.12)}}
+    .home-map-scrap{left:4%!important;bottom:2%!important;width:18%!important;height:25%!important;padding:9px 8px 18px!important;overflow:hidden;transform:rotate(-7deg)!important;filter:brightness(.9) drop-shadow(3px 8px 8px #10090688)!important}
+    .home-map-scrap img{position:absolute;inset:9px 8px 18px;width:calc(100% - 16px);height:calc(100% - 27px);display:block;object-fit:contain;overflow:hidden}
+    .home-photo-lower{left:4%!important;top:5%!important;right:auto!important;bottom:auto!important;width:12%!important;height:16%!important;transform:rotate(-8deg)!important}
+    .home-photo-upper{right:4%!important;top:6%!important;width:10%!important;height:16%!important;transform:rotate(5deg)!important}
+    .home-quill{left:67%!important;top:67%!important;width:16%!important;height:21%!important;transform:rotate(-90deg)!important;filter:brightness(.92) drop-shadow(6px 10px 8px #120b0899)!important}
+    @media(max-width:760px){.home-map-scrap{width:min(78%,480px)!important;height:260px!important;left:auto!important;bottom:auto!important;align-self:flex-start;margin:0 0 0 3%;position:relative!important}.home-map-scrap img{inset:9px 8px 18px!important;width:calc(100% - 16px)!important;height:calc(100% - 27px)!important}.home-photo-lower{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;align-self:flex-start!important;margin:0 0 0 4%!important}.home-photo-upper{position:relative!important;right:auto!important;top:auto!important;align-self:flex-end!important}.home-quill{left:67%!important;top:67%!important;width:16%!important;height:21%!important}.home-table-map{filter:brightness(.72) sepia(.36) saturate(.7) contrast(.95)!important}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
   </style>
 </head>
