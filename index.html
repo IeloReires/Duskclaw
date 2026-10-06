@@ -304,6 +304,17 @@
     @keyframes candlelight-reflect-lively{0%{opacity:.28;transform:translate(-.35%,0) scale(.99)}13%{opacity:.56;transform:translate(.25%,-.18%) scale(1.01)}21%{opacity:.31;transform:translate(-.2%,.2%) scale(.995)}43%{opacity:.7;transform:translate(.4%,.2%) scale(1.015)}51%{opacity:.38;transform:translate(-.25%,-.1%) scale(.997)}72%{opacity:.63;transform:translate(.32%,.25%) scale(1.012)}80%{opacity:.34;transform:translate(-.3%,0) scale(.995)}100%{opacity:.6;transform:translate(.2%,-.16%) scale(1.01)}}
     @media(max-width:760px){.home-book-right .home-quill{right:2%!important;bottom:2%!important;width:50%!important;height:32%!important}}
     @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
+    /* Finition plus organique : halo de flamme doux, plume au premier plan, couverture en relief. */
+    .home-candle-glow{animation:candlelight-calm-glow 7.2s ease-in-out infinite alternate!important;filter:blur(17px)!important;mix-blend-mode:screen}
+    .home-candle-glow:before{animation:candlelight-calm-reflection 9.6s ease-in-out infinite alternate!important}
+    @keyframes candlelight-calm-glow{0%{opacity:.68;filter:blur(16px) brightness(1.01)}24%{opacity:.75;filter:blur(17px) brightness(1.04)}51%{opacity:.71;filter:blur(16px) brightness(1.025)}76%{opacity:.82;filter:blur(18px) brightness(1.07)}100%{opacity:.73;filter:blur(16px) brightness(1.03)}}
+    @keyframes candlelight-calm-reflection{0%{opacity:.34;transform:translate(-.15%,0) scale(.998)}29%{opacity:.42;transform:translate(.1%,-.1%) scale(1.003)}57%{opacity:.37;transform:translate(-.08%,.08%) scale(1)}82%{opacity:.46;transform:translate(.14%,.1%) scale(1.005)}100%{opacity:.36;transform:translate(-.05%,-.08%) scale(.999)}}
+    .home-book-right .home-quill{right:-2%!important;bottom:-22%!important;width:75%!important;height:45%!important;z-index:4!important;transform:rotate(90deg)!important;filter:brightness(.98) drop-shadow(5px 9px 7px #17100b9c)!important}
+    .home-open-book{border:10px solid #26364a!important;outline:1px solid #c8a968;outline-offset:2px;box-shadow:0 20px 34px #130e0ac9,0 3px 2px #e3c87f,inset 0 0 0 1px #e1c47a,inset 0 0 0 3px #806841,inset 0 0 0 6px #17273b,inset 0 0 0 8px #cfad63,inset 0 0 0 10px #4b3927!important}
+    .home-book-page{box-shadow:inset 0 0 0 1px #fff9e8,inset 0 0 0 3px #d3c19c,inset 0 0 17px #705a3328!important}
+    .home-book-left{box-shadow:inset -12px 0 18px #59452d38,inset 0 0 0 1px #fff9e8,inset 0 0 0 3px #d3c19c,inset 0 0 17px #705a3328!important}
+    .home-book-right{box-shadow:inset 12px 0 18px #59452d38,inset 0 0 0 1px #fff9e8,inset 0 0 0 3px #d3c19c,inset 0 0 17px #705a3328!important}
+    @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
   </style>
 </head>
 <body class="home">
