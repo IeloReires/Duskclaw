@@ -260,12 +260,12 @@
     @media(max-width:760px){.home-map-scrap{width:min(78%,480px)!important;height:260px!important;left:auto!important;bottom:auto!important;align-self:flex-start;margin:0 0 0 3%;position:relative!important}.home-map-scrap img{inset:9px 8px 18px!important;width:calc(100% - 16px)!important;height:calc(100% - 27px)!important}.home-photo-lower{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;align-self:flex-start!important;margin:0 0 0 4%!important}.home-photo-upper{position:relative!important;right:auto!important;top:auto!important;align-self:flex-end!important}.home-quill{right:-4%!important;bottom:-7%!important;width:68%!important;height:36%!important;transform:rotate(90deg)!important}.home-table-map{filter:brightness(.72) sepia(.36) saturate(.7) contrast(.95)!important}}
     /* Le sceau étoilé sert de commande audio et tourne comme un disque. */
     @keyframes home-vinyl-spin{from{transform:rotate(-11deg)}to{transform:rotate(349deg)}}
-    .home-book-stamp{right:10%!important;bottom:6%!important;width:112px;height:112px;padding:0!important;border:0!important;background:transparent!important;color:#806443!important;opacity:.83;mix-blend-mode:multiply;transform:rotate(-11deg)!important;cursor:pointer;appearance:none;-webkit-appearance:none;transition:opacity .2s,filter .2s}
-    .home-book-stamp:hover,.home-book-stamp:focus-visible{opacity:1;filter:drop-shadow(0 0 5px #c68b38aa);outline:none}
-    .home-book-stamp[aria-pressed="true"]{animation:home-vinyl-spin 3.2s linear infinite;opacity:1}
-    .home-book-stamp:focus-visible{outline:2px solid #a65a48!important;outline-offset:4px;border-radius:50%}
-    @media(prefers-reduced-motion:reduce){.home-book-stamp[aria-pressed="true"]{animation:none}}
-    .home-book-stamp svg{display:block;width:100%;height:100%;overflow:visible}
+    .home-book-stamp{right:10%!important;bottom:6%!important;width:112px;height:112px;padding:0!important;border:0!important;background:transparent!important;color:#806443!important;opacity:.83;mix-blend-mode:multiply;transform:rotate(-11deg)!important;cursor:default;appearance:none;-webkit-appearance:none}
+    .home-book-stamp:hover,.home-book-stamp:focus-visible{opacity:.83;filter:none;outline:none}
+    .home-book-stamp[aria-pressed="true"] svg{animation:home-vinyl-spin 3.2s linear infinite}
+    .home-book-stamp:focus-visible{outline:1px dotted #806443!important;outline-offset:3px;border-radius:50%}
+    @media(prefers-reduced-motion:reduce){.home-book-stamp[aria-pressed="true"] svg{animation:none}}
+    .home-book-stamp svg{display:block;width:100%;height:100%;overflow:visible;transform-origin:50% 50%}
     .home-photo-upper{left:4%!important;right:auto!important;top:auto!important;bottom:5%!important;width:25%!important;height:18%!important;transform:rotate(-3deg)!important;z-index:5!important}
     .home-book-photo-right{z-index:5!important}
     .home-quill{position:absolute!important;z-index:4!important;left:66%!important;top:20%!important;right:auto!important;bottom:auto!important;width:94vh!important;height:63vh!important;margin:0!important;transform:rotate(90deg)!important;transform-origin:center!important;filter:brightness(.94) drop-shadow(7px 12px 10px #120b09b0)!important;pointer-events:none!important}
@@ -696,7 +696,7 @@
         source.connect(warmth);warmth.connect(softness);softness.connect(compressor);
         compressor.connect(dry);dry.connect(master);compressor.connect(convolver);convolver.connect(wet);wet.connect(master);master.connect(context.destination);
       };
-      const setLevel=(seconds=.3)=>{if(master&&context)master.gain.setTargetAtTime(.28*variation,context.currentTime,seconds)};
+      const setLevel=(seconds=.3)=>{if(master&&context)master.gain.setTargetAtTime(.48*variation,context.currentTime,seconds)};
       const varyGently=()=>{if(!playing)return;variation=.97+Math.random()*.06;setLevel(1.4);variationTimer=window.setTimeout(varyGently,4500+Math.random()*6500)};
       const start=async()=>{
         if(!context)buildSound();await context.resume();await audio.play();playing=true;variation=1;setLevel(.9);setButton();window.clearTimeout(variationTimer);varyGently();
