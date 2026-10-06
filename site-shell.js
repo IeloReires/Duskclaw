@@ -254,14 +254,18 @@
         "https://bqqbciifmfbsjurkulfo.supabase.co",
         "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior"
       );
+      const sendPresence = async () => {
+        if (!currentUserId || document.hidden) return;
+        try { await supabaseClient.rpc("update_my_presence"); } catch (_) {}
+      };
       supabaseClient.auth.getSession().then(({ data }) => {
         currentUserId = data.session?.user?.id || null;
-        if (currentUserId) loadNotifications();
+        if (currentUserId) { loadNotifications(); sendPresence(); }
       }).catch(() => {});
       supabaseClient.auth.onAuthStateChange((_event, session) => {
         currentUserId = session?.user?.id || null;
         rows = [];
-        if (currentUserId) loadNotifications(); else { updateCount(); if (!panel.hidden) renderRows(); }
+        if (currentUserId) { loadNotifications(); sendPresence(); } else { updateCount(); if (!panel.hidden) renderRows(); }
       });
       const subscribe = () => {
         if (!currentUserId) return;
@@ -271,7 +275,8 @@
           .subscribe();
       };
       supabaseClient.auth.onAuthStateChange((_event, session) => { if (session?.user?.id) subscribe(); else if (realtimeChannel) { supabaseClient.removeChannel(realtimeChannel); realtimeChannel = null; } });
-      window.setInterval(() => { if (!document.hidden && currentUserId) loadNotifications(); }, 60000);
+      window.setInterval(() => { if (!document.hidden && currentUserId) { loadNotifications(); sendPresence(); } }, 45000);
+      document.addEventListener("visibilitychange", () => { if (!document.hidden && currentUserId) sendPresence(); });
     }
   }
 

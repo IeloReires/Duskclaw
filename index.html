@@ -372,6 +372,23 @@
     .home-table-map:before{position:absolute;inset:0;content:"";pointer-events:none;background-image:repeating-linear-gradient(0deg,transparent 0 35px,#d8bd7824 36px 37px,transparent 38px 70px),repeating-linear-gradient(60deg,transparent 0 35px,#d8bd781b 36px 37px,transparent 38px 70px),repeating-linear-gradient(120deg,transparent 0 35px,#d8bd781b 36px 37px,transparent 38px 70px);opacity:.45;mix-blend-mode:soft-light}
     .home-book-right .home-quill{filter:sepia(.14) saturate(1.15) brightness(1.02) drop-shadow(5px 9px 8px #17100b9c)!important}
     @media(max-width:760px){.home-tabletop:after{opacity:.35}.home-table-map:before{opacity:.25}}
+    /* Index du site dans la fiche de gauche. */
+    .home-index-links{display:grid;gap:clamp(3px,.55vh,8px);flex:1;align-content:center;margin:4px 0 0}
+    .home-index-links a{display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:5px;padding:5px 6px;border-bottom:1px solid #92774644;color:#34445b;font:700 clamp(.62rem,.82vw,.82rem)/1.2 Georgia,serif;text-decoration:none;transition:background .18s,transform .18s}
+    .home-index-links a:hover,.home-index-links a:focus-visible{transform:translateX(3px);background:#d9bd7950;outline:none}
+    .home-index-links span{color:#9c684b;font:italic .62rem Georgia,serif}.home-index-links i{color:#957347;font:normal .68rem Arial,sans-serif}
+    /* Liste de guilde : 8 entrées maximum, ordre en ligne puis dernière visite. */
+    .home-friends-message{margin:0 0 6px;color:#70664f;font:italic clamp(.55rem,.68vw,.72rem)/1.35 Georgia,serif}
+    .home-friends-list{display:grid;flex:1;align-content:start;gap:4px;min-height:0;margin:2px 0 8px;overflow:hidden}
+    .home-friend-row{display:flex;align-items:center;justify-content:space-between;gap:5px;padding:5px 6px;border-bottom:1px solid #92774638;background:#fff8e51a}
+    .home-friend-identity{display:grid;min-width:0;gap:2px}.home-friend-identity strong{overflow:hidden;color:#34445b;font:700 clamp(.58rem,.72vw,.74rem)/1.1 Georgia,serif;text-overflow:ellipsis;white-space:nowrap}.home-friend-identity small{color:#766c58;font:400 clamp(.48rem,.56vw,.59rem)/1.15 Arial,sans-serif}
+    .home-friend-status{display:flex;flex:0 0 auto;align-items:center;gap:4px;color:#746b59;font:700 clamp(.43rem,.5vw,.53rem)/1 Arial,sans-serif}.home-friend-status:before{width:6px;height:6px;border:1px solid #766e5d;border-radius:50%;background:#988b70;content:""}.home-friend-status.is-online{color:#536a47}.home-friend-status.is-online:before{border-color:#648552;background:#8fae68;box-shadow:0 0 5px #93aa6988}
+    .home-loose-right{padding-bottom:clamp(16px,2vw,26px)}
+    @media(max-width:1120px) and (min-width:761px){.home-index-links{gap:2px}.home-index-links a{grid-template-columns:18px 1fr auto;padding:4px 3px;font-size:.6rem}.home-friend-row{padding:4px 3px}.home-friend-status{font-size:.42rem}}
+    @media(max-width:760px){.home-index-links a{font-size:.86rem;padding:9px 8px}.home-friends-list{overflow:visible;gap:8px}.home-friend-row{padding:9px}.home-friend-identity strong{font-size:.86rem}.home-friend-identity small{font-size:.72rem}.home-friend-status{font-size:.68rem}}
+    /* La flamme reste exclusivement orange, sans reflets jaunes ou verts. */
+    .home-candle-glow{background:radial-gradient(ellipse 48% 55% at 7% 0%,#ff8a3975 0%,#f36f2c52 28%,#d9562028 58%,transparent 100%),radial-gradient(ellipse 82% 78% at 8% 4%,#e86a2928 0%,#ca4e1b14 48%,transparent 100%),radial-gradient(ellipse 112% 98% at 10% 9%,#bb42100b 0%,transparent 100%)!important}
+    .home-candle-glow:before{background:radial-gradient(ellipse 53% 43% at 8% 2%,#ff9b524d 0%,#ef712920 44%,transparent 100%),radial-gradient(ellipse 72% 68% at 17% 14%,#dc5e2118 0%,transparent 100%)!important}
   </style>
 </head>
 <body class="home">
@@ -386,9 +403,8 @@
       <figure class="home-table-map" role="img" aria-label="Carte tactique hexagonale de Duskclaw"></figure>
       <div class="home-candle-glow" aria-hidden="true"></div>
       <article class="home-loose-sheet home-loose-left">
-        <p class="home-paper-kicker">Chapitre III · Le terrain</p><h2>Prendre position.</h2>
-        <p>Déploie tes Furries sur les hexagones, avance vers les objectifs et garde un œil sur les chemins adverses.</p>
-        <div class="home-paper-image"><span>IMAGE</span></div><a href="regles.html#plateau">Le plateau et ses règles ↗</a>
+        <p class="home-paper-kicker">Index · Duskclaw</p><h2>Explorer.</h2>
+        <nav class="home-index-links" aria-label="Index du site"><a href="personnages.html"><span>01</span>Cardex <i>↗</i></a><a href="univers.html"><span>02</span>Univers <i>↗</i></a><a href="deck-builder.html"><span>03</span>Deck Builder <i>↗</i></a><a href="evenements.html"><span>04</span>Événements <i>↗</i></a><a href="faq.html"><span>05</span>FAQ <i>↗</i></a><a href="regles.html"><span>06</span>Les règles <i>↗</i></a><a href="soutenir.html"><span>07</span>Soutenir <i>↗</i></a></nav>
       </article>
       <section class="home-open-book" aria-label="Carnet d’exploration : règles essentielles de Duskclaw">
         <article class="home-book-page home-book-left">
@@ -412,8 +428,8 @@
         </article>
       </section>
       <article class="home-loose-sheet home-loose-right">
-        <p class="home-paper-kicker">Chapitre V · Le bestiaire</p><h2>Les Furries.</h2>
-        <div class="home-paper-image home-paper-portrait"><span>IMAGE</span></div><p>Chaque Furry apporte ses propres forces, talents et façons de jouer.</p><a href="personnages.html">Feuilleter le Cardex ↗</a>
+        <p class="home-paper-kicker">Guilde · Présence</p><h2>Les Furries.</h2>
+        <p id="home-friends-message" class="home-friends-message" aria-live="polite">Connecte-toi pour voir ta liste d’amis.</p><div id="home-friends-list" class="home-friends-list" aria-live="polite"></div><a href="amis.html">Ma liste d’amis ↗</a>
       </article>
       <article class="home-loose-sheet home-loose-bottom">
         <p class="home-paper-kicker">Notes de l’explorateur</p><h2>À la table, ensemble.</h2><p>Règles, rencontres et nouvelles terres à découvrir.</p><div class="home-sheet-links"><a href="evenements.html">Événements ↗</a><a href="univers.html">Univers ↗</a><a href="deck-builder.html">Préparer un deck ↗</a></div>
@@ -448,6 +464,20 @@
     }
   </script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script>
+    (()=>{
+      const list=document.getElementById("home-friends-list"),message=document.getElementById("home-friends-message");
+      if(!list||!message||!window.supabase?.createClient)return;
+      const client=window.supabase.createClient("https://bqqbciifmfbsjurkulfo.supabase.co","sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior");
+      const lastSeen=value=>{if(!value)return"Dernière connexion inconnue";const date=new Date(value),now=new Date();if(Number.isNaN(date.valueOf()))return"Dernière connexion inconnue";const time=new Intl.DateTimeFormat("fr-FR",{hour:"2-digit",minute:"2-digit"}).format(date);if(date.toDateString()===now.toDateString())return`Vu aujourd’hui à ${time}`;const yesterday=new Date(now);yesterday.setDate(now.getDate()-1);if(date.toDateString()===yesterday.toDateString())return`Vu hier à ${time}`;return`Vu le ${new Intl.DateTimeFormat("fr-FR",{day:"2-digit",month:"2-digit",year:"numeric"}).format(date)}`};
+      const showEmpty=text=>{list.replaceChildren();message.textContent=text};
+      const render=people=>{list.replaceChildren();const ordered=[...people].sort((a,b)=>Number(b.is_online)-Number(a.is_online)||(new Date(b.last_seen_at||0)-new Date(a.last_seen_at||0))).slice(0,8);message.textContent=ordered.length?`${ordered.length} ami${ordered.length>1?"s":""} affiché${ordered.length>1?"s":""} · connectés en premier`:"Aucun ami à afficher pour l’instant.";for(const person of ordered){const row=document.createElement("div");row.className="home-friend-row";const identity=document.createElement("div");identity.className="home-friend-identity";const name=document.createElement("strong");name.textContent=person.nickname||"Joueur Duskclaw";const seen=document.createElement("small");seen.textContent=person.is_online?"En ligne maintenant":lastSeen(person.last_seen_at);identity.append(name,seen);const status=document.createElement("span");status.className=`home-friend-status${person.is_online?" is-online":""}`;status.textContent=person.is_online?"En ligne":"Hors ligne";row.append(identity,status);list.append(row)}};
+      const refresh=async()=>{const {data,error}=await client.rpc("home_friends_presence");if(error){showEmpty("La présence des amis sera disponible après activation de la fonctionnalité.");return}render(data||[])};
+      client.auth.getSession().then(({data})=>{if(!data.session?.user){showEmpty("Connecte-toi pour voir ta liste d’amis.");return}refresh()}).catch(()=>showEmpty("La liste d’amis est momentanément indisponible."));
+      client.auth.onAuthStateChange((_event,session)=>{if(session?.user)refresh();else showEmpty("Connecte-toi pour voir ta liste d’amis.")});
+      window.setInterval(()=>{if(!document.hidden)refresh()},45000);
+    })();
+  </script>
   <script src="account-nav.js?v=20261004-2215"></script>
   <script src="site-shell.js?v=20261005-header-unified2"></script>
 </body>
