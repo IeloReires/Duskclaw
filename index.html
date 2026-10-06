@@ -342,6 +342,12 @@
     .home-candle-glow:before{background:radial-gradient(ellipse 40% 34% at 8% 2%,#ffdda66e 0%,#f6ad592e 45%,transparent 100%),radial-gradient(ellipse 56% 53% at 17% 14%,#e88e4229 0%,transparent 100%)!important}
     .home-book-right .home-quill{right:-10%!important;bottom:-10%!important}
     @media(max-width:760px){.home-book-right .home-quill{right:-2%!important;bottom:-4%!important}}
+    /* Halo au premier plan sur toute la scène, plume légèrement plus haute et à droite. */
+    .home-candle-glow{z-index:1000!important;pointer-events:none!important;background:radial-gradient(ellipse 48% 55% at 7% 0%,#ffd08aba 0%,#f3a54f80 28%,#df833e45 58%,transparent 100%),radial-gradient(ellipse 82% 78% at 8% 4%,#e8954940 0%,#d8793525 48%,transparent 100%),radial-gradient(ellipse 112% 98% at 10% 9%,#c86d2c19 0%,transparent 100%)!important;mix-blend-mode:screen!important;filter:blur(14px) saturate(1.12)!important;animation:candlelight-overall-natural 3.5s ease-in-out infinite alternate!important}
+    .home-candle-glow:before{background:radial-gradient(ellipse 53% 43% at 8% 2%,#ffdda66c 0%,#f6ad5932 44%,transparent 100%),radial-gradient(ellipse 72% 68% at 17% 14%,#e88e422b 0%,transparent 100%)!important;mix-blend-mode:screen!important}
+    @keyframes candlelight-overall-natural{0%{opacity:.62;filter:blur(13px) saturate(1.08)}19%{opacity:.8;filter:blur(15px) saturate(1.14)}38%{opacity:.7;filter:blur(12px) saturate(1.1)}61%{opacity:.9;filter:blur(16px) saturate(1.17)}79%{opacity:.68;filter:blur(13px) saturate(1.09)}100%{opacity:.84;filter:blur(15px) saturate(1.13)}}
+    .home-book-right .home-quill{right:-12%!important;bottom:-1%!important}
+    @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
   </style>
 </head>
 <body class="home">
