@@ -192,6 +192,29 @@
     body.home[data-time="nuit"] .home-book-page{background:linear-gradient(105deg,#e9dfc9,#ddd1b7);color:#29384b}body.home[data-time="nuit"] .home-loose-sheet{background:linear-gradient(135deg,#e6dcc5,#d5c6a7)}
     @media(max-width:1120px) and (min-width:761px){.home-open-book{left:16%;width:68%;height:77%}.home-loose-left{left:1%;width:18%}.home-loose-right{right:1%;width:17%}.home-book-page{padding:28px 24px}.home-book-page .home-title{font-size:clamp(2rem,3.2vw,3.1rem)}.home-loose-sheet{padding:14px}.home-loose-sheet>p:not(.home-paper-kicker){font-size:.62rem}.home-loose-bottom{right:15%;width:37%}}
     @media(max-width:760px){body.home{height:auto;min-height:100svh;overflow-x:hidden;overflow-y:auto}.home-main{height:auto;min-height:calc(100svh - 76px);overflow:visible!important}.home-tabletop{display:flex;height:auto;min-height:0;flex-direction:column;align-items:center;gap:21px;padding:30px 5% 62px;overflow:hidden}.home-tabletop:before{position:fixed;z-index:1;inset:80px 5px 5px;border-width:6px;pointer-events:none}.home-table-map{position:absolute;inset:3% 3% auto;width:94%;height:93%;opacity:.7}.home-open-book,.home-loose-sheet,.home-map-scrap{position:relative;inset:auto;width:min(100%,620px);height:auto;min-height:0;max-height:none;transform:none}.home-open-book{z-index:4;grid-template-columns:1fr;border-width:6px;padding:8px}.home-open-book:before{top:50%;right:0;bottom:auto;left:0;width:auto;height:25px;background:linear-gradient(180deg,#d9c9a8,#8c7142 45%,#f5ead1 55%,#d3c3a1);transform:translateY(-50%)}.home-open-book:after{display:none}.home-book-page{min-height:0;padding:30px 27px}.home-book-left{border-radius:8px 8px 0 0}.home-book-right{padding-top:42px;border-radius:0 0 8px 8px}.home-book-page .home-title{font-size:clamp(2.5rem,12vw,4.2rem)}.home-book-page .home-summary{font-size:.9rem}.home-book-facts{font-size:.72rem}.home-book-right h2{font-size:2.3rem}.home-book-steps span,.home-book-cycle p:last-child{font-size:.77rem}.home-book-steps b{font-size:.9rem}.home-book-cycle{margin-top:20px}.home-book-link{font-size:.8rem}.home-loose-sheet{min-height:390px;padding:25px 27px}.home-loose-sheet h2{font-size:1.8rem}.home-loose-sheet>p:not(.home-paper-kicker){font-size:.85rem}.home-paper-image{min-height:190px}.home-loose-bottom{min-height:205px}.home-map-scrap{width:42%;height:170px;margin-left:-48%;min-height:0;align-self:flex-start}.home-mode{position:fixed;right:12px;bottom:12px;left:auto}}
+    /* Final table layout: wood all around, a single worn map sheet, no map wallpaper. */
+    body.home{background-color:#4a3526!important;background-image:url("duskclaw-tavern-wood.png")!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important}
+    body.home[data-time="nuit"]{background-color:#38291f!important;background-image:linear-gradient(#221a1b66,#221a1b66),url("duskclaw-tavern-wood.png")!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important}
+    .home-tabletop{background-color:#503923;background-image:linear-gradient(#2b1c0f22,#2b1c0f22),url("duskclaw-tavern-wood.png");background-size:cover;background-position:center}
+    .home-table-map{top:9%;left:22%;width:69%;height:78%;border:9px solid #b69a64;background-image:linear-gradient(#d9cba433,#d9cba433),url("duskclaw-map-antique.png");filter:sepia(.22) saturate(.78) contrast(.93);box-shadow:8px 16px 27px #160e09aa,inset 0 0 0 4px #eee0bd;clip-path:polygon(1% 1%,98% 0,100% 3%,99% 97%,96% 100%,2% 99%,0 96%);transform:rotate(3.1deg)}
+    .home-open-book{left:19%;width:62%;height:78%;top:9%}
+    .home-loose-left{left:1.5%;width:17%;height:54%;top:19%}.home-loose-right{right:1.5%;width:15.5%;height:51%;top:20%}
+    .home-loose-sheet{z-index:5;box-shadow:3px 11px 18px #100b0788}
+    .home-loose-bottom{right:2%;bottom:3%;width:17%;height:21%;padding:16px 18px;transform:rotate(-2deg)}
+    .home-map-scrap{left:4%;bottom:4%;width:14%;height:17%;z-index:7}
+    .home-photo-card{position:absolute;z-index:7;display:flex;flex-direction:column;margin:0;padding:8px 8px 19px;background:#fff8e8;box-shadow:2px 8px 14px #160f0b85;transform:rotate(6deg)}
+    .home-photo-card div{display:grid;flex:1;min-height:0;place-items:center;border:1px solid #b1a17c;background:repeating-linear-gradient(0deg,transparent 0 22px,#86745118 23px 24px,transparent 25px 44px),#eee5d2;color:#998967;font:800 .53rem Arial,sans-serif;letter-spacing:.18em}
+    .home-photo-card figcaption{position:absolute;right:5px;bottom:3px;color:#756849;font:italic .5rem Georgia,serif;cursor:grab}.home-map-scrap figcaption{cursor:grab}
+    .home-photo-upper{top:5%;right:3%;width:9%;height:15%}.home-photo-lower{left:21%;bottom:5%;width:9%;height:15%;transform:rotate(-8deg)}
+    .home-map-markers{position:absolute;z-index:8;inset:0;pointer-events:none}
+    .home-map-marker{position:absolute;display:grid;width:28px;height:28px;place-items:center;border:1px solid #947743;border-radius:50%;background:#f2e6c5;color:#9b5742;box-shadow:0 2px 8px #21150c66;cursor:pointer;pointer-events:auto;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+    .home-map-marker:hover,.home-map-marker:focus-visible,.home-map-marker[aria-pressed="true"]{z-index:2;transform:scale(1.18);background:#fff4d9;box-shadow:0 0 0 5px #c8a85855,0 3px 10px #21150c88;outline:none}
+    .marker-gue{left:84%;top:6%}.marker-ruines{left:93%;top:73%}.marker-col{left:20%;top:89%}
+    .home-map-status{position:absolute;z-index:7;right:3%;bottom:25%;margin:0;padding:7px 11px;border:1px solid #b9a16b;background:#f3e7ca;color:#65543b;box-shadow:2px 4px 8px #160f0b55;font:italic .66rem Georgia,serif;transform:rotate(3deg)}
+    .home-loose-sheet .home-paper-kicker{cursor:grab}.home-loose-sheet.is-dragging,.home-photo-card.is-dragging,.home-map-scrap.is-dragging{z-index:12!important;cursor:grabbing;filter:drop-shadow(0 15px 13px #100a08aa)}
+    body.home[data-time="nuit"] .home-tabletop{background-image:linear-gradient(#271f2770,#271f2770),url("duskclaw-tavern-wood.png")}
+    @media(max-width:1120px) and (min-width:761px){.home-open-book{left:18%;width:64%}.home-loose-left{width:16.5%}.home-loose-right{width:15%}.home-photo-upper{right:2%;width:8%}.home-loose-bottom{right:2%;width:18%}}
+    @media(max-width:760px){body.home{background-image:url("duskclaw-tavern-wood.png")!important}.home-tabletop{background-image:linear-gradient(#4a3a2b66,#4a3a2b66),url("duskclaw-tavern-wood.png")}.home-table-map{top:4%;left:7%;width:83%;height:91%;transform:rotate(-3deg)}.home-loose-left,.home-loose-right,.home-loose-bottom{width:min(100%,620px);height:auto;min-height:390px}.home-loose-bottom{min-height:220px}.home-photo-card{position:relative;inset:auto;width:min(62%,300px);height:190px;align-self:flex-start}.home-photo-upper{align-self:flex-end;margin-right:2%}.home-photo-lower{margin-left:2%}.home-map-scrap{width:min(70%,420px);height:220px;margin-left:0;align-self:center}.home-map-markers{position:absolute;z-index:8;height:100%;pointer-events:none}.home-map-marker{position:relative;left:auto;top:auto;display:inline-grid;margin:12px 8px 0}.home-map-status{position:relative;right:auto;bottom:auto;align-self:center}.home-mode{position:fixed}}
     @media(max-height:760px) and (min-width:761px){.home-main{min-height:590px}.home-open-book{top:6%;height:85%;min-height:0}.home-book-page{padding:24px 28px}.home-book-page .home-eyebrow{margin-top:9px}.home-book-page .home-title{margin:9px 0;font-size:clamp(1.9rem,2.75vw,3.1rem)}.home-book-facts{margin:10px 0}.home-book-steps{gap:5px}.home-book-steps li{padding:5px 0}.home-book-cycle{margin-top:9px;padding:8px 10px}.home-loose-left{top:15%;height:55%}.home-loose-right{top:16%;height:52%}.home-loose-bottom{height:18%}}
     @media(max-height:760px) and (min-width:761px){.home-main,.home-tabletop{min-height:0}.home-open-book{top:4%;height:90%;min-height:0}.home-book-page{padding:19px 23px}.home-book-page .home-eyebrow{margin-top:6px}.home-book-page .home-title{margin:7px 0;font-size:clamp(1.8rem,2.65vw,2.8rem)}.home-book-page .home-summary{font-size:.68rem}.home-book-facts{margin:7px 0;font-size:.55rem}.home-book-steps{gap:3px}.home-book-steps li{padding:3px 0}.home-book-cycle{margin-top:6px;padding:6px 8px}.home-loose-left{top:12%;height:53%}.home-loose-right{top:13%;height:50%}.home-loose-bottom{height:15%}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
@@ -207,6 +230,12 @@
   <main class="home-main dusk-main">
     <div class="home-tabletop" aria-label="Table d’exploration Duskclaw">
       <figure class="home-table-map" role="img" aria-label="Carte tactique hexagonale de Duskclaw"></figure>
+      <div class="home-map-markers" aria-label="Repères à explorer sur la carte">
+        <button class="home-map-marker marker-gue" type="button" data-note="Le Gué · passage central" aria-label="Explorer le Gué, passage central" aria-pressed="true">✦</button>
+        <button class="home-map-marker marker-ruines" type="button" data-note="Les Ruines · point de contrôle" aria-label="Explorer les Ruines, point de contrôle" aria-pressed="false">✦</button>
+        <button class="home-map-marker marker-col" type="button" data-note="Le Col · terrain découvert" aria-label="Explorer le Col, terrain découvert" aria-pressed="false">✦</button>
+      </div>
+      <p class="home-map-status" aria-live="polite">Le Gué · passage central</p>
       <article class="home-loose-sheet home-loose-left">
         <p class="home-paper-kicker">Chapitre III · Le terrain</p><h2>Prendre position.</h2>
         <p>Déploie tes Furries sur les hexagones, avance vers les objectifs et garde un œil sur les chemins adverses.</p>
@@ -237,6 +266,8 @@
         <p class="home-paper-kicker">Notes de l’explorateur</p><h2>À la table, ensemble.</h2><p>Règles, rencontres et nouvelles terres à découvrir.</p><div class="home-sheet-links"><a href="evenements.html">Événements ↗</a><a href="univers.html">Univers ↗</a><a href="deck-builder.html">Préparer un deck ↗</a></div>
       </article>
       <figure class="home-map-scrap"><img src="duskclaw-hero.png" alt="Croquis de trois Furries en expédition"><figcaption>Croquis de terrain</figcaption></figure>
+      <figure class="home-photo-card home-photo-upper"><div>IMAGE</div><figcaption>Cartes de terrain</figcaption></figure>
+      <figure class="home-photo-card home-photo-lower"><div>IMAGE</div><figcaption>Herbier du voyage</figcaption></figure>
       <label class="home-mode" title="Basculer entre les ambiances Jour et Nuit"><span>Jour</span><input id="home-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="home-mode-track" aria-hidden="true"></span><span>Nuit</span></label>
     </div>
   </main>
@@ -245,6 +276,14 @@
     const homeToggle=document.getElementById("home-mode-toggle");
     function setHomeTime(night,save=false){const isNight=Boolean(night);document.body.dataset.time=isNight?"nuit":"jour";homeToggle.checked=isNight;homeToggle.setAttribute("aria-checked",String(isNight));document.querySelector('meta[name="theme-color"]').content=isNight?"#161b27":"#f1ead9";if(save)localStorage.setItem("duskclaw-time",isNight?"nuit":"jour")}
     homeToggle.addEventListener("change",()=>setHomeTime(homeToggle.checked,true));setHomeTime(localStorage.getItem("duskclaw-time")==="nuit");
+    const mapStatus=document.querySelector(".home-map-status");
+    document.querySelectorAll(".home-map-marker").forEach(marker=>marker.addEventListener("click",()=>{document.querySelectorAll(".home-map-marker").forEach(item=>item.setAttribute("aria-pressed",String(item===marker)));mapStatus.textContent=marker.dataset.note}));
+    const table=document.querySelector(".home-tabletop");
+    document.querySelectorAll(".home-loose-sheet,.home-photo-card,.home-map-scrap").forEach(paper=>{
+      paper.addEventListener("pointerdown",event=>{if(event.pointerType==="touch"||!event.target.closest(".home-paper-kicker,figcaption")||event.button!==0)return;event.preventDefault();paper.style.left=`${paper.offsetLeft}px`;paper.style.top=`${paper.offsetTop}px`;paper.style.right="auto";paper.style.bottom="auto";paper.dataset.dragX=String(event.clientX);paper.dataset.dragY=String(event.clientY);paper.dataset.dragLeft=String(paper.offsetLeft);paper.dataset.dragTop=String(paper.offsetTop);paper.classList.add("is-dragging");paper.setPointerCapture(event.pointerId)});
+      paper.addEventListener("pointermove",event=>{if(!paper.classList.contains("is-dragging"))return;const bounds=table.getBoundingClientRect();const left=Math.max(10,Math.min(bounds.width-paper.offsetWidth-10,Number(paper.dataset.dragLeft)+event.clientX-Number(paper.dataset.dragX)));const top=Math.max(10,Math.min(bounds.height-paper.offsetHeight-10,Number(paper.dataset.dragTop)+event.clientY-Number(paper.dataset.dragY)));paper.style.left=`${left}px`;paper.style.top=`${top}px`});
+      paper.addEventListener("pointerup",()=>paper.classList.remove("is-dragging"));paper.addEventListener("pointercancel",()=>paper.classList.remove("is-dragging"));
+    });
   </script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="account-nav.js?v=20261004-2215"></script>
