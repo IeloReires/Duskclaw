@@ -229,7 +229,7 @@
     .home-book-photo div{display:grid;flex:1;min-height:40px;place-items:center;border:1px solid #c0b18e;background:repeating-linear-gradient(0deg,transparent 0 21px,#8b795018 22px 23px,transparent 24px 43px),#f1e8d5;color:#978664;font:800 .56rem Arial,sans-serif;letter-spacing:.2em}
     .home-book-photo figcaption{padding-top:4px;color:#756849;font:italic .52rem Georgia,serif;text-align:right}
     .home-book-photo-left{left:-7%;bottom:5%;width:29%;height:22%;transform:rotate(-5deg)}
-    .home-book-photo-right{right:-8%;bottom:4%;width:27%;height:21%;transform:rotate(4deg)}
+    .home-book-photo-right{right:-8%;bottom:4%;width:27%;height:21%;transform:rotate(4deg);z-index:5!important}
     .home-map-scrap{left:5%!important;bottom:4%!important;width:12%!important;height:16%!important;transform:rotate(-5deg)!important}
     .home-photo-upper{top:7%!important;right:4%!important;width:9%!important;height:15%!important;transform:rotate(4deg)!important}
     .home-photo-lower{left:83%!important;bottom:5%!important;width:10%!important;height:15%!important;transform:rotate(-6deg)!important}
@@ -241,19 +241,23 @@
     @media(max-width:760px){.home-tabletop:before{display:none!important}.home-table-map{top:4%!important;left:7%!important;width:83%!important;height:91%!important}.home-book-photo-left{left:-4%;bottom:3%;width:34%;height:14%}.home-book-photo-right{right:-4%;bottom:3%;width:32%;height:14%}.home-quill{left:36%;top:60%;width:43%;height:23%;transform:rotate(-2deg)}.home-photo-lower{align-self:flex-end;margin-right:5%}.home-map-scrap{width:min(70%,420px)!important;height:220px!important}}
     @media(prefers-reduced-motion:reduce){.home-candle-glow{animation:none!important}}
     /* Composition corrigée : lumière localisée, plume verticale côté droit, images cadrées. */
-    .home-tabletop{background-image:linear-gradient(#140d09a8,#140d09a8),url("duskclaw-tavern-wood.png")!important;box-shadow:inset 0 0 120px #120b0877!important}
+    body.home{background-color:#23180f!important;background-image:linear-gradient(#170f0ab0,#170f0ab0),url("duskclaw-tavern-wood.png")!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important}
+    .home-tabletop{background:transparent!important;box-shadow:none!important}
     .home-table-map{filter:brightness(.72) sepia(.36) saturate(.7) contrast(.95)!important}
     .home-open-book{filter:brightness(.88) drop-shadow(0 17px 19px #090604a8)!important}
     .home-loose-sheet{filter:brightness(.88)}
     .home-photo-card,.home-book-photo,.home-map-scrap{filter:brightness(.86)}
-    .home-candle-glow{background:radial-gradient(ellipse at 8% 8%,#ffd07c82 0, #f8bc6438 13%,transparent 31%),radial-gradient(ellipse at 20% 30%,#f6c4784d 0,transparent 31%),radial-gradient(ellipse at 39% 50%,#efb65b2c 0,transparent 34%),radial-gradient(ellipse at 9% 70%,#e7a84d24 0,transparent 33%);mix-blend-mode:screen;filter:blur(15px);animation:candlelight-shimmer 3.4s ease-in-out infinite alternate}
-    @keyframes candlelight-shimmer{0%{opacity:.45;filter:blur(13px) brightness(.86)}24%{opacity:.76;filter:blur(18px) brightness(1.14)}57%{opacity:.54;filter:blur(14px) brightness(.94)}100%{opacity:.82;filter:blur(20px) brightness(1.12)}}
+    .home-candle-glow{background:radial-gradient(ellipse at 8% 8%,#ffd07c72 0,#f8bc6434 13%,transparent 31%),radial-gradient(ellipse at 20% 30%,#f6c4783e 0,transparent 31%),radial-gradient(ellipse at 39% 50%,#efb65b25 0,transparent 34%),radial-gradient(ellipse at 9% 70%,#e7a84d1d 0,transparent 33%);mix-blend-mode:screen;filter:blur(15px);animation:candlelight-shimmer 3.1s ease-in-out infinite alternate}
+    .home-candle-glow:before{position:absolute;inset:0;background:radial-gradient(ellipse at 25% 23%,#ffe6ac35 0,transparent 22%),radial-gradient(ellipse at 55% 38%,#f8d38b20 0,transparent 26%),radial-gradient(ellipse at 17% 75%,#ffd58a22 0,transparent 21%);content:"";animation:light-reflection 4.7s ease-in-out infinite alternate}
+    @keyframes candlelight-shimmer{0%{opacity:.52;background-position:0 0,0 0,0 0,0 0;filter:blur(13px) brightness(.9)}23%{opacity:.82;background-position:1.2% -.8%,0 0,0 0,0 0;filter:blur(17px) brightness(1.12)}51%{opacity:.62;background-position:-.8% 1.1%,0 0,0 0,0 0;filter:blur(14px) brightness(.96)}76%{opacity:.9;background-position:.5% .6%,0 0,0 0,0 0;filter:blur(19px) brightness(1.1)}100%{opacity:.68;background-position:0 -1%,0 0,0 0,0 0;filter:blur(15px) brightness(.94)}}
+    @keyframes light-reflection{0%{opacity:.28;transform:translate(-1%,0) scale(.98)}38%{opacity:.7;transform:translate(1%,1%) scale(1.025)}69%{opacity:.4;transform:translate(-.5%,-1%) scale(.99)}100%{opacity:.76;transform:translate(.8%,0) scale(1.02)}}
     .home-map-scrap{left:4%!important;bottom:2%!important;width:18%!important;height:25%!important;padding:9px 8px 18px!important;overflow:hidden;transform:rotate(-7deg)!important;filter:brightness(.9) drop-shadow(3px 8px 8px #10090688)!important}
     .home-map-scrap img{position:absolute;inset:9px 8px 18px;width:calc(100% - 16px);height:calc(100% - 27px);display:block;object-fit:contain;overflow:hidden}
     .home-photo-lower{left:4%!important;top:5%!important;right:auto!important;bottom:auto!important;width:12%!important;height:16%!important;transform:rotate(-8deg)!important}
     .home-photo-upper{right:4%!important;top:6%!important;width:10%!important;height:16%!important;transform:rotate(5deg)!important}
-    .home-quill{left:67%!important;top:67%!important;width:16%!important;height:21%!important;transform:rotate(-90deg)!important;filter:brightness(.92) drop-shadow(6px 10px 8px #120b0899)!important}
-    @media(max-width:760px){.home-map-scrap{width:min(78%,480px)!important;height:260px!important;left:auto!important;bottom:auto!important;align-self:flex-start;margin:0 0 0 3%;position:relative!important}.home-map-scrap img{inset:9px 8px 18px!important;width:calc(100% - 16px)!important;height:calc(100% - 27px)!important}.home-photo-lower{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;align-self:flex-start!important;margin:0 0 0 4%!important}.home-photo-upper{position:relative!important;right:auto!important;top:auto!important;align-self:flex-end!important}.home-quill{left:67%!important;top:67%!important;width:16%!important;height:21%!important}.home-table-map{filter:brightness(.72) sepia(.36) saturate(.7) contrast(.95)!important}}
+    .home-quill{position:absolute;z-index:2;right:-10%;bottom:-11%;width:70%;height:40%;margin:0;transform:rotate(90deg);filter:brightness(.92) drop-shadow(6px 10px 8px #120b0999);transition:filter .3s ease;pointer-events:none}
+    .home-quill img{display:block;width:100%;height:100%;object-fit:contain}
+    @media(max-width:760px){.home-map-scrap{width:min(78%,480px)!important;height:260px!important;left:auto!important;bottom:auto!important;align-self:flex-start;margin:0 0 0 3%;position:relative!important}.home-map-scrap img{inset:9px 8px 18px!important;width:calc(100% - 16px)!important;height:calc(100% - 27px)!important}.home-photo-lower{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;align-self:flex-start!important;margin:0 0 0 4%!important}.home-photo-upper{position:relative!important;right:auto!important;top:auto!important;align-self:flex-end!important}.home-quill{right:-4%!important;bottom:-7%!important;width:68%!important;height:36%!important;transform:rotate(90deg)!important}.home-table-map{filter:brightness(.72) sepia(.36) saturate(.7) contrast(.95)!important}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
   </style>
 </head>
@@ -268,7 +272,6 @@
     <div class="home-tabletop" aria-label="Table d’exploration Duskclaw">
       <figure class="home-table-map" role="img" aria-label="Carte tactique hexagonale de Duskclaw"></figure>
       <div class="home-candle-glow" aria-hidden="true"></div>
-      <figure class="home-quill"><img src="duskclaw-plume.png" alt="Grande plume d’écriture posée de travers sur le carnet"></figure>
       <article class="home-loose-sheet home-loose-left">
         <p class="home-paper-kicker">Chapitre III · Le terrain</p><h2>Prendre position.</h2>
         <p>Déploie tes Furries sur les hexagones, avance vers les objectifs et garde un œil sur les chemins adverses.</p>
@@ -290,6 +293,7 @@
           <ol class="home-book-steps"><li><b>Préparer</b><span>Compose 40 cartes et pioche-en 7.</span></li><li><b>Déployer</b><span>Place un Furry de base, puis ton équipe.</span></li><li><b>Conquérir</b><span>Contrôle les objectifs et marque 6 points.</span></li></ol>
           <div class="home-book-cycle"><p class="home-paper-kicker">Chapitre IV · Le cycle des veilles</p><h3><span>☼</span> Jour <i>↔</i> <span>☾</span> Nuit</h3><p>Les valeurs changent tous les trois rounds. Adapte ta stratégie à la veille.</p></div>
           <a class="home-book-link" href="personnages.html">Découvrir les Furries du Cardex ↗</a>
+          <figure class="home-quill"><img src="duskclaw-plume.png" alt="Grande plume d’écriture posée de travers sur le carnet"></figure>
           <figure class="home-book-photo home-book-photo-right"><div>IMAGE</div><figcaption>Terrain à venir</figcaption></figure>
         </article>
       </section>
