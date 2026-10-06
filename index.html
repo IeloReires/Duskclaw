@@ -351,6 +351,11 @@
     .home-candle-glow.is-random-flicker{animation:none!important;opacity:var(--flame-strength,.72)!important;filter:blur(var(--flame-blur,14px)) saturate(var(--flame-saturation,1.1)) brightness(var(--flame-brightness,1.06))!important;transition:opacity var(--flame-transition,650ms) ease-in-out,filter var(--flame-transition,650ms) ease-in-out!important}
     .home-candle-glow.is-random-flicker:before{animation:none!important;opacity:var(--flame-reflection,.45)!important;transition:opacity var(--flame-transition,650ms) ease-in-out!important}
     @media(prefers-reduced-motion:reduce){.home-candle-glow.is-random-flicker,.home-candle-glow.is-random-flicker:before{transition:none!important}}
+    /* Garde la texture du bois lisible sous le halo : lumière moins voilée, grain préservé. */
+    .home-candle-glow.is-random-flicker{mix-blend-mode:soft-light!important}
+    .home-candle-glow.is-random-flicker:before{mix-blend-mode:soft-light!important}
+    .home-candle-glow{background:radial-gradient(ellipse 48% 55% at 7% 0%,#ffd08a82 0%,#f3a54f5a 28%,#df833e30 58%,transparent 100%),radial-gradient(ellipse 82% 78% at 8% 4%,#e895492a 0%,#d8793516 48%,transparent 100%),radial-gradient(ellipse 112% 98% at 10% 9%,#c86d2c0c 0%,transparent 100%)!important}
+    .home-candle-glow:before{background:radial-gradient(ellipse 53% 43% at 8% 2%,#ffdda64d 0%,#f6ad5922 44%,transparent 100%),radial-gradient(ellipse 72% 68% at 17% 14%,#e88e421b 0%,transparent 100%)!important}
   </style>
 </head>
 <body class="home">
@@ -413,12 +418,12 @@
     if(candleGlow&&!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
       candleGlow.classList.add("is-random-flicker");
       const flicker=()=>{
-        const strength=.52+Math.random()*.4;
+        const strength=.4+Math.random()*.31;
         const transition=420+Math.random()*680;
         candleGlow.style.setProperty("--flame-strength",strength.toFixed(2));
-        candleGlow.style.setProperty("--flame-reflection",(.3+Math.random()*.42).toFixed(2));
-        candleGlow.style.setProperty("--flame-brightness",(1+Math.random()*.2).toFixed(2));
-        candleGlow.style.setProperty("--flame-saturation",(1.04+Math.random()*.14).toFixed(2));
+        candleGlow.style.setProperty("--flame-reflection",(.24+Math.random()*.3).toFixed(2));
+        candleGlow.style.setProperty("--flame-brightness",(1.08+Math.random()*.22).toFixed(2));
+        candleGlow.style.setProperty("--flame-saturation",(1.04+Math.random()*.12).toFixed(2));
         candleGlow.style.setProperty("--flame-blur",`${12+Math.random()*5}px`);
         candleGlow.style.setProperty("--flame-transition",`${transition|0}ms`);
         window.setTimeout(flicker,420+Math.random()*1050);
