@@ -217,10 +217,39 @@
     @media(max-width:760px){body.home{background-image:url("duskclaw-tavern-wood.png")!important}.home-tabletop{background-image:linear-gradient(#4a3a2b66,#4a3a2b66),url("duskclaw-tavern-wood.png")}.home-table-map{top:4%;left:7%;width:83%;height:91%;transform:rotate(-3deg)}.home-loose-left,.home-loose-right,.home-loose-bottom{width:min(100%,620px);height:auto;min-height:390px}.home-loose-bottom{min-height:220px}.home-photo-card{position:relative;inset:auto;width:min(62%,300px);height:190px;align-self:flex-start}.home-photo-upper{align-self:flex-end;margin-right:2%}.home-photo-lower{margin-left:2%}.home-map-scrap{width:min(70%,420px);height:220px;margin-left:0;align-self:center}.home-map-markers{position:absolute;z-index:8;height:100%;pointer-events:none}.home-map-marker{position:relative;left:auto;top:auto;display:inline-grid;margin:12px 8px 0}.home-map-status{position:relative;right:auto;bottom:auto;align-self:center}.home-mode{position:fixed}}
     @media(max-height:760px) and (min-width:761px){.home-main{min-height:590px}.home-open-book{top:6%;height:85%;min-height:0}.home-book-page{padding:24px 28px}.home-book-page .home-eyebrow{margin-top:9px}.home-book-page .home-title{margin:9px 0;font-size:clamp(1.9rem,2.75vw,3.1rem)}.home-book-facts{margin:10px 0}.home-book-steps{gap:5px}.home-book-steps li{padding:5px 0}.home-book-cycle{margin-top:9px;padding:8px 10px}.home-loose-left{top:15%;height:55%}.home-loose-right{top:16%;height:52%}.home-loose-bottom{height:18%}}
     @media(max-height:760px) and (min-width:761px){.home-main,.home-tabletop{min-height:0}.home-open-book{top:4%;height:90%;min-height:0}.home-book-page{padding:19px 23px}.home-book-page .home-eyebrow{margin-top:6px}.home-book-page .home-title{margin:7px 0;font-size:clamp(1.8rem,2.65vw,2.8rem)}.home-book-page .home-summary{font-size:.68rem}.home-book-facts{margin:7px 0;font-size:.55rem}.home-book-steps{gap:3px}.home-book-steps li{padding:3px 0}.home-book-cycle{margin-top:6px;padding:6px 8px}.home-loose-left{top:12%;height:53%}.home-loose-right{top:13%;height:50%}.home-loose-bottom{height:15%}}
+    /* Lumière de bougie, plume et illustrations épinglées au carnet. */
+    .home-tabletop:before{display:none!important}
+    .home-tabletop{background-color:#896443!important;background-image:linear-gradient(115deg,#f0d19a38,#e8c58a24 55%,#f6dda533),url("duskclaw-tavern-wood.png")!important;box-shadow:inset 0 0 90px #2b190c50!important}
+    .home-table-map{top:12%!important;left:23%!important;width:66%!important;height:75%!important;transform:rotate(-4.2deg)!important;filter:sepia(.34) saturate(.72) contrast(.92)!important}
+    .home-map-markers,.home-map-status{display:none!important}
+    .home-open-book{z-index:5;filter:drop-shadow(0 17px 19px #1a110c77)}
+    .home-book-page{position:relative;isolation:isolate}
+    .home-book-photo{position:absolute;z-index:2;display:flex;flex-direction:column;margin:0;padding:7px 7px 17px;background:#fff9e9;box-shadow:2px 5px 11px #21170e42;transition:transform .25s ease,box-shadow .25s ease}
+    .home-book-photo:hover{z-index:4;transform:translateY(-4px) rotate(0)!important;box-shadow:3px 9px 16px #21170e55}
+    .home-book-photo div{display:grid;flex:1;min-height:40px;place-items:center;border:1px solid #c0b18e;background:repeating-linear-gradient(0deg,transparent 0 21px,#8b795018 22px 23px,transparent 24px 43px),#f1e8d5;color:#978664;font:800 .56rem Arial,sans-serif;letter-spacing:.2em}
+    .home-book-photo figcaption{padding-top:4px;color:#756849;font:italic .52rem Georgia,serif;text-align:right}
+    .home-book-photo-left{left:7%;bottom:7%;width:25%;height:19%;transform:rotate(-3deg)}
+    .home-book-photo-right{right:7%;bottom:7%;width:24%;height:19%;transform:rotate(2.5deg)}
+    .home-map-scrap{left:5%!important;bottom:4%!important;width:12%!important;height:16%!important;transform:rotate(-5deg)!important}
+    .home-photo-upper{top:7%!important;right:4%!important;width:9%!important;height:15%!important;transform:rotate(4deg)!important}
+    .home-photo-lower{left:83%!important;bottom:5%!important;width:10%!important;height:15%!important;transform:rotate(-6deg)!important}
+    .home-candle{position:absolute;z-index:9;top:3.5%;left:3%;width:74px;height:142px;filter:drop-shadow(7px 11px 8px #21140d70);transform:rotate(-2deg)}
+    .home-candle-body{position:absolute;left:16px;bottom:0;width:43px;height:94px;border-radius:8px 8px 5px 5px;background:linear-gradient(90deg,#c6ad78,#f4e6c3 28%,#e8d5aa 73%,#b99e69);box-shadow:inset 2px 0 5px #fff7df88,inset -4px 0 7px #80643a55}
+    .home-candle-body:after{position:absolute;top:0;left:0;width:100%;height:11px;border-radius:50%;background:linear-gradient(#fff2cf,#d6c08e);content:""}
+    .home-candle-wick{position:absolute;z-index:2;left:36px;bottom:91px;width:3px;height:15px;background:#493323;transform:rotate(5deg)}
+    .home-candle-flame{position:absolute;z-index:3;left:28px;bottom:104px;width:19px;height:31px;border-radius:60% 40% 55% 45%;background:radial-gradient(ellipse at 53% 72%,#fff5bd 0 18%,#ffd778 38%,#ee8e3b 69%,#ce5936 100%);box-shadow:0 0 16px 7px #ffc76488,0 0 43px 20px #ffbe5c48;transform-origin:50% 100%;animation:flame-flicker 1.25s ease-in-out infinite alternate}
+    .home-candle-glow{position:absolute;z-index:2;inset:-10% auto auto -8%;width:43%;height:60%;background:radial-gradient(ellipse at 12% 12%,#ffd27a55,transparent 66%);filter:blur(12px);pointer-events:none;animation:glow-breathe 3s ease-in-out infinite alternate}
+    .home-quill{position:absolute;z-index:8;top:5%;right:14%;width:58px;height:210px;transform:rotate(27deg);filter:drop-shadow(5px 8px 5px #21150b66);transition:transform .25s ease}
+    .home-quill:hover{transform:rotate(20deg) translateY(-5px)}
+    .home-quill svg{width:100%;height:100%;overflow:visible}
+    @keyframes flame-flicker{0%{transform:rotate(-5deg) scale(.94,.98)}35%{transform:rotate(3deg) scale(1.04,1.03)}68%{transform:rotate(-2deg) scale(.97,1.07)}100%{transform:rotate(5deg) scale(1.02,.97)}}
+    @keyframes glow-breathe{from{opacity:.62;transform:scale(.95)}to{opacity:1;transform:scale(1.07)}}
+    @media(max-width:760px){.home-tabletop:before{display:none!important}.home-table-map{top:4%!important;left:7%!important;width:83%!important;height:91%!important}.home-book-photo-left{left:7%;bottom:4%;width:31%;height:16%}.home-book-photo-right{right:7%;bottom:4%;width:30%;height:16%}.home-candle{position:relative;top:auto;left:auto;align-self:flex-start;margin:0 0 -10px 5%;width:64px;height:122px}.home-quill{top:2%;right:9%;width:42px;height:150px}.home-photo-lower{align-self:flex-end;margin-right:5%}.home-map-scrap{width:min(70%,420px)!important;height:220px!important}}
+    @media(prefers-reduced-motion:reduce){.home-candle-flame,.home-candle-glow{animation:none!important}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
   </style>
 </head>
-<body class="home" data-time="jour">
+<body class="home">
   <header class="site-shell-header">
     <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation"><span></span><span></span><span></span></button>
@@ -230,12 +259,9 @@
   <main class="home-main dusk-main">
     <div class="home-tabletop" aria-label="Table d’exploration Duskclaw">
       <figure class="home-table-map" role="img" aria-label="Carte tactique hexagonale de Duskclaw"></figure>
-      <div class="home-map-markers" aria-label="Repères à explorer sur la carte">
-        <button class="home-map-marker marker-gue" type="button" data-note="Le Gué · passage central" aria-label="Explorer le Gué, passage central" aria-pressed="true">✦</button>
-        <button class="home-map-marker marker-ruines" type="button" data-note="Les Ruines · point de contrôle" aria-label="Explorer les Ruines, point de contrôle" aria-pressed="false">✦</button>
-        <button class="home-map-marker marker-col" type="button" data-note="Le Col · terrain découvert" aria-label="Explorer le Col, terrain découvert" aria-pressed="false">✦</button>
-      </div>
-      <p class="home-map-status" aria-live="polite">Le Gué · passage central</p>
+      <div class="home-candle-glow" aria-hidden="true"></div>
+      <div class="home-candle" role="img" aria-label="Bougie allumée sur la table"><span class="home-candle-flame"></span><span class="home-candle-wick"></span><span class="home-candle-body"></span></div>
+      <div class="home-quill" role="img" aria-label="Plume pour noter les découvertes"><svg viewBox="0 0 80 250" aria-hidden="true"><path d="M40 229C13 181 8 121 24 60 32 29 52 10 67 4 66 60 57 116 43 167L40 229Z" fill="#e8dfc7" stroke="#66523a" stroke-width="2"/><path d="M40 229C42 155 50 78 67 4M39 201 19 166M42 180 59 145M34 150 20 117M47 131 61 101M28 104 23 79M53 84 64 55M33 68 31 43" fill="none" stroke="#92784d" stroke-width="1.6"/><path d="m40 229-7 16 8-4 8 5-3-17" fill="#c5a15b" stroke="#66523a" stroke-width="1.5"/><path d="m40 229 1 18" stroke="#374259" stroke-width="1.5"/></svg></div>
       <article class="home-loose-sheet home-loose-left">
         <p class="home-paper-kicker">Chapitre III · Le terrain</p><h2>Prendre position.</h2>
         <p>Déploie tes Furries sur les hexagones, avance vers les objectifs et garde un œil sur les chemins adverses.</p>
@@ -250,12 +276,14 @@
           <div class="home-book-facts"><span><b>40</b> cartes par deck</span><span><b>7</b> cartes en main</span><span><b>2</b> joueurs</span></div>
           <a class="home-primary" href="regles.html">Ouvrir le guide de jeu <span aria-hidden="true">→</span></a>
           <div class="home-book-stamp">DUSKCLAW<br><small>Registre de l’explorateur</small></div>
+          <figure class="home-book-photo home-book-photo-left"><div>IMAGE</div><figcaption>Portrait à venir</figcaption></figure>
         </article>
         <article class="home-book-page home-book-right">
           <p class="home-paper-kicker">Carnet de terrain · Chapitre II</p><h2>Une partie, trois gestes.</h2>
           <ol class="home-book-steps"><li><b>Préparer</b><span>Compose 40 cartes et pioche-en 7.</span></li><li><b>Déployer</b><span>Place un Furry de base, puis ton équipe.</span></li><li><b>Conquérir</b><span>Contrôle les objectifs et marque 6 points.</span></li></ol>
           <div class="home-book-cycle"><p class="home-paper-kicker">Chapitre IV · Le cycle des veilles</p><h3><span>☼</span> Jour <i>↔</i> <span>☾</span> Nuit</h3><p>Les valeurs changent tous les trois rounds. Adapte ta stratégie à la veille.</p></div>
           <a class="home-book-link" href="personnages.html">Découvrir les Furries du Cardex ↗</a>
+          <figure class="home-book-photo home-book-photo-right"><div>IMAGE</div><figcaption>Terrain à venir</figcaption></figure>
         </article>
       </section>
       <article class="home-loose-sheet home-loose-right">
@@ -268,16 +296,10 @@
       <figure class="home-map-scrap"><img src="duskclaw-hero.png" alt="Croquis de trois Furries en expédition"><figcaption>Croquis de terrain</figcaption></figure>
       <figure class="home-photo-card home-photo-upper"><div>IMAGE</div><figcaption>Cartes de terrain</figcaption></figure>
       <figure class="home-photo-card home-photo-lower"><div>IMAGE</div><figcaption>Herbier du voyage</figcaption></figure>
-      <label class="home-mode" title="Basculer entre les ambiances Jour et Nuit"><span>Jour</span><input id="home-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="home-mode-track" aria-hidden="true"></span><span>Nuit</span></label>
     </div>
   </main>
   <footer class="site-shell-footer"><a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a><span class="site-shell-handle">@Duskclaw</span></footer>
   <script>
-    const homeToggle=document.getElementById("home-mode-toggle");
-    function setHomeTime(night,save=false){const isNight=Boolean(night);document.body.dataset.time=isNight?"nuit":"jour";homeToggle.checked=isNight;homeToggle.setAttribute("aria-checked",String(isNight));document.querySelector('meta[name="theme-color"]').content=isNight?"#161b27":"#f1ead9";if(save)localStorage.setItem("duskclaw-time",isNight?"nuit":"jour")}
-    homeToggle.addEventListener("change",()=>setHomeTime(homeToggle.checked,true));setHomeTime(localStorage.getItem("duskclaw-time")==="nuit");
-    const mapStatus=document.querySelector(".home-map-status");
-    document.querySelectorAll(".home-map-marker").forEach(marker=>marker.addEventListener("click",()=>{document.querySelectorAll(".home-map-marker").forEach(item=>item.setAttribute("aria-pressed",String(item===marker)));mapStatus.textContent=marker.dataset.note}));
     const table=document.querySelector(".home-tabletop");
     document.querySelectorAll(".home-loose-sheet,.home-photo-card,.home-map-scrap").forEach(paper=>{
       paper.addEventListener("pointerdown",event=>{if(event.pointerType==="touch"||!event.target.closest(".home-paper-kicker,figcaption")||event.button!==0)return;event.preventDefault();paper.style.left=`${paper.offsetLeft}px`;paper.style.top=`${paper.offsetTop}px`;paper.style.right="auto";paper.style.bottom="auto";paper.dataset.dragX=String(event.clientX);paper.dataset.dragY=String(event.clientY);paper.dataset.dragLeft=String(paper.offsetLeft);paper.dataset.dragTop=String(paper.offsetTop);paper.classList.add("is-dragging");paper.setPointerCapture(event.pointerId)});
