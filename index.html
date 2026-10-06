@@ -389,6 +389,48 @@
     /* La flamme reste exclusivement orange, sans reflets jaunes ou verts. */
     .home-candle-glow{background:radial-gradient(ellipse 48% 55% at 7% 0%,#ff8a3975 0%,#f36f2c52 28%,#d9562028 58%,transparent 100%),radial-gradient(ellipse 82% 78% at 8% 4%,#e86a2928 0%,#ca4e1b14 48%,transparent 100%),radial-gradient(ellipse 112% 98% at 10% 9%,#bb42100b 0%,transparent 100%)!important}
     .home-candle-glow:before{background:radial-gradient(ellipse 53% 43% at 8% 2%,#ff9b524d 0%,#ef712920 44%,transparent 100%),radial-gradient(ellipse 72% 68% at 17% 14%,#dc5e2118 0%,transparent 100%)!important}
+
+    /* Accueil : en-tête léger sur la table, sans bandeau ni doublon d’index. */
+    body.home>.site-shell-header{
+      position:absolute!important;top:0!important;right:0!important;left:0!important;z-index:1200!important;
+      display:grid!important;grid-template-columns:1fr auto!important;grid-template-rows:1fr!important;align-items:center!important;
+      width:100%!important;max-width:none!important;min-height:68px!important;margin:0!important;padding:12px clamp(18px,2.3vw,44px)!important;
+      border:0!important;border-radius:0!important;background:transparent!important;
+      box-shadow:none!important;color:#f8efd9!important;backdrop-filter:none!important
+    }
+    body.home>.site-shell-header::after{display:none!important}
+    body.home .site-shell-brand{grid-column:1!important;grid-row:1!important;justify-self:start!important;color:#fff3d6!important;text-shadow:0 2px 8px #100b08c9!important}
+    body.home .site-shell-brand span{color:#e4bf70!important}
+    body.home .site-shell-menu-toggle,body.home .site-shell-actions>a.site-shell-support{display:none!important}
+    body.home .site-shell-actions{grid-column:2!important;grid-row:1!important;justify-content:flex-end!important;gap:11px!important;margin:0!important}
+    body.home .site-shell-header .site-shell-actions>a.site-shell-account,
+    body.home .site-shell-header .site-shell-actions .site-shell-notifications{color:#fff0d1!important;border-color:#e7c77d99!important;background:#1e2838a6!important;box-shadow:0 3px 10px #120c0870!important}
+    body.home .site-shell-avatar{border-color:#e7c77d!important;background:#26374b!important;box-shadow:0 0 0 2px #1b26359c!important}
+    body.home .site-shell-notification-count{border-color:#1e2838!important}
+
+    /* Le carnet est le point focal : centré dans la scène et dessiné comme un vrai volume relié. */
+    body.home{height:100svh!important;min-height:0!important;overflow:hidden!important}
+    body.home .home-main{height:100svh!important;min-height:0!important;margin:0!important;padding:0!important}
+    body.home .home-tabletop{height:100svh!important;min-height:0!important}
+    body.home .home-open-book{
+      top:50%!important;left:50%!important;width:min(66%,1440px)!important;height:min(78%,790px)!important;min-height:min(560px,74svh)!important;
+      padding:13px!important;border:11px solid #26364a!important;border-radius:17px 20px 18px 15px!important;
+      outline:1px solid #d0b36e!important;outline-offset:2px!important;
+      box-shadow:0 28px 42px #100a08b8,0 9px 15px #170f0a73,inset 0 1px 0 #f6dfa2,inset 0 0 0 2px #82683d,inset 0 0 0 5px #17273b,inset 0 0 0 7px #d0ad62,inset 0 0 0 10px #4b3927!important;
+      transform:translate(-50%,-50%) rotate(-.35deg)!important
+    }
+    body.home .home-open-book:before{width:38px!important;background:linear-gradient(90deg,#70593600 0%,#a98d5f55 27%,#49372275 46%,#f8efd8 52%,#cdbb96 76%,#fff6e1 100%)!important;filter:drop-shadow(0 0 3px #4d3a2266)}
+    body.home .home-open-book:after{right:-9px!important;top:13px!important;bottom:13px!important;width:13px!important;background:repeating-linear-gradient(0deg,#fbf3df 0 2px,#c4b58f 3px 4px,#f3e8cf 5px 6px)!important;box-shadow:3px 2px 6px #100a0999,1px 0 #e4cb84!important}
+    body.home .home-book-page{background-image:radial-gradient(ellipse at 80% 12%,#c5a96b16,transparent 37%),radial-gradient(ellipse at 14% 91%,#806b4710,transparent 34%),repeating-linear-gradient(0deg,#77613d08 0 1px,transparent 2px 5px),linear-gradient(105deg,#fbf5e4,#eee3ca)!important}
+    body.home .home-book-left{box-shadow:inset -15px 0 20px #59452d35,inset 0 0 0 1px #fff9e8,inset 0 0 0 3px #d3c19c,inset 0 0 17px #705a3328!important}
+    body.home .home-book-right{box-shadow:inset 15px 0 20px #59452d35,inset 0 0 0 1px #fff9e8,inset 0 0 0 3px #d3c19c,inset 0 0 17px #705a3328!important}
+    @media(max-width:760px){
+      body.home{height:auto!important;min-height:100svh!important;overflow-x:hidden!important;overflow-y:auto!important}
+      body.home>.site-shell-header{min-height:62px!important;padding:10px 15px!important}
+      body.home .home-main{height:auto!important;min-height:100svh!important;padding-top:0!important}
+      body.home .home-tabletop{height:auto!important;min-height:100svh!important;padding-top:76px!important}
+      body.home .home-open-book{top:auto!important;left:auto!important;width:min(100%,620px)!important;height:auto!important;min-height:0!important;transform:none!important}
+    }
   </style>
 </head>
 <body class="home">
