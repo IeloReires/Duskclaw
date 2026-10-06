@@ -1,304 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1ead9">
-    <meta name="description" content="Choisis tes Furries, prends le contrôle du plateau et découvre Duskclaw, un jeu de cartes tactique où le Jour et la Nuit changent la partie.">
-  <title>Duskclaw — Entre le Jour et la Nuit</title>
-  <style>
-    :root { --dusk-bg: #f1ead9; --dusk-paper: #f8f3e8; --dusk-ink: #252920; --dusk-muted: #66695f; --dusk-accent: #8a6a37; --dusk-rule: rgba(60,58,47,.24); }
-    body.dual-page { margin: 0; background: var(--dusk-bg); color: var(--dusk-ink); transition: background .45s ease, color .45s ease; }
-    .dual-page a { color: inherit; }
-    .dusk-shell { width: min(1320px, 90%); margin-inline: auto; }
-    .dusk-header { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(1320px, 90%); height: 83px; min-height: 83px; margin-inline: auto; padding: 0; border-bottom: 1px solid var(--dusk-rule); }
-    .dusk-brand { color: var(--dusk-ink); font-size: 1rem; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
-    .dusk-brand span { color: var(--dusk-accent); }
-    .dusk-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 38px); }
-    .dusk-nav a { color: var(--dusk-muted); font-size: .88rem; text-decoration: none; }
-    .dusk-nav a:hover, .dusk-nav a:focus-visible { color: var(--dusk-accent); }
-    .dusk-nav .dusk-rules { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); }
-    .dusk-nav .dusk-support { padding: 10px 14px; border: 1px solid var(--dusk-rule); color: var(--dusk-ink); font-weight: 700; }
-    .dusk-nav #account-nav-link { margin-left: auto; }
-    .dusk-main { position: relative; overflow: hidden; }
-    .dusk-hero { position: relative; display: grid; grid-template-columns: .88fr 1.12fr; align-items: center; gap: clamp(38px, 6vw, 82px); min-height: min(820px, calc(100svh - 83px)); padding-block: 48px 62px; isolation: isolate; }
-    .dusk-hero::before { position: absolute; z-index: -2; inset: 0 -5.6vw; background: radial-gradient(ellipse at 76% 46%, rgba(183,151,97,.14), transparent 39%), linear-gradient(112deg, var(--dusk-bg), var(--dusk-paper) 63%, #e7dfcd); content: ""; transition: background .45s ease; }
-    .dusk-copy { max-width: 610px; }
-    .dusk-kicker { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--dusk-accent); font-size: .7rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
-    .dusk-kicker::before { width: 28px; height: 1px; background: currentColor; content: ""; }
-    .dusk-title { margin: 23px 0 21px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.4rem, 7vw, 7rem); font-weight: 400; letter-spacing: -.065em; line-height: .94; }
-    .dusk-title em { color: var(--dusk-accent); font-weight: 400; }
-    .dusk-description { max-width: 500px; margin: 0; color: var(--dusk-muted); font-size: clamp(1rem, 1.4vw, 1.12rem); line-height: 1.8; }
-    .dusk-mode-switch { position: fixed; z-index: 20; bottom: 22px; left: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--dusk-rule); background: var(--dusk-paper); color: var(--dusk-muted); font-size: .78rem; font-weight: 700; box-shadow: 0 5px 22px rgba(18,21,29,.2); cursor: pointer; transition: background .3s ease, color .3s ease, border-color .3s ease; }
-    body.dual-page:not([data-time="nuit"]) .dusk-mode-switch .mode-day-label, body.dual-page[data-time="nuit"] .dusk-mode-switch .mode-night-label { color: var(--dusk-accent); }
-    .dusk-mode-switch input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .dusk-switch-track { position: relative; width: 42px; height: 23px; border: 1px solid var(--dusk-rule); border-radius: 20px; background: #d9cfb9; transition: background .25s ease; }
-    .dusk-switch-track::before { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fffaf0; box-shadow: 0 1px 4px rgba(0,0,0,.24); content: ""; transition: transform .25s ease, background .25s ease; }
-    .dusk-mode-switch input:checked + .dusk-switch-track { background: #5e527f; }
-    .dusk-mode-switch input:checked + .dusk-switch-track::before { transform: translateX(19px); background: #e5dcf5; }
-    .dusk-mode-switch input:focus-visible + .dusk-switch-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
-    body.dual-page[data-time="nuit"] .dusk-mode-switch { border-color: rgba(184,166,223,.55); background: #25253d; }
-    .dusk-links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 23px; margin-top: 32px; }
-    .dusk-primary { display: inline-flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--dusk-ink); color: var(--dusk-paper) !important; font-size: .88rem; font-weight: 750; text-decoration: none; transition: transform .2s ease, background .3s ease; }
-    .dusk-primary:hover, .dusk-primary:focus-visible { transform: translateY(-2px); background: var(--dusk-accent); }
-    .dusk-secondary { color: var(--dusk-ink) !important; font-size: .9rem; text-decoration-color: var(--dusk-rule); text-underline-offset: 5px; }
-    .dusk-art { position: relative; display: grid; place-items: center; min-height: 660px; }
-    .dusk-art::before { position: absolute; width: min(49vw, 640px); aspect-ratio: 1; border: 1px solid rgba(138,106,55,.37); border-radius: 50%; box-shadow: 0 0 0 13px rgba(138,106,55,.05), 0 0 0 45px rgba(138,106,55,.035); content: ""; }
-    .dusk-emblem { position: absolute; top: 2%; right: 9%; display: grid; width: 88px; aspect-ratio: 1; place-items: center; border: 1px solid rgba(138,106,55,.44); border-radius: 50%; background: var(--dusk-paper); color: var(--dusk-accent); font-size: 2.25rem; box-shadow: 0 8px 32px rgba(48,42,31,.12); transition: transform .45s ease, background .45s ease, color .45s ease; }
-    .dusk-art-frame { position: relative; width: min(100%, 680px); padding: 12px; border: 1px solid rgba(138,106,55,.52); background: var(--dusk-paper); box-shadow: 0 24px 58px rgba(48,42,31,.2); transform: rotate(1deg); transition: background .45s ease, border-color .45s ease; }
-    .dusk-art-frame::before { position: absolute; z-index: 1; inset: 6px; border: 1px solid rgba(87,76,56,.24); content: ""; pointer-events: none; }
-    .dusk-art-frame img { display: block; width: 100%; max-height: min(72svh, 700px); object-fit: contain; }
-    .dusk-map-art { display:block; width:100%; height:auto; max-height:min(72svh,700px); background:#eee4ca; }
-    .dusk-map-art .map-ink { fill:none; stroke:#687665; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    .dusk-map-art .map-fine { fill:none; stroke:#9b8760; stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round; opacity:.72; }
-    .dusk-map-art .map-water { fill:none; stroke:#6e9292; stroke-width:13; stroke-linecap:round; stroke-linejoin:round; opacity:.78; }
-    .dusk-map-art .map-water-line { fill:none; stroke:#e8e0c9; stroke-width:2; stroke-linecap:round; stroke-dasharray:2 9; opacity:.95; }
-    .dusk-map-art .map-label { fill:#5c604f; font:italic 13px Georgia,serif; letter-spacing:2px; }
-    .dusk-map-art .map-hex { fill:#d6c79e; fill-opacity:.32; stroke:#8e7c57; stroke-width:1.2; }
-    body.dual-page[data-time="nuit"] .dusk-map-art { filter:hue-rotate(18deg) brightness(.82) saturate(.82); }
-    .dusk-art-caption { position: absolute; right: 0; bottom: -36px; color: var(--dusk-muted); font-family: Georgia, "Times New Roman", serif; font-size: .83rem; font-style: italic; }
-    .dusk-divider { display: flex; align-items: center; gap: 18px; color: var(--dusk-accent); font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem; }
-    .dusk-divider::before, .dusk-divider::after { height: 1px; flex: 1; background: var(--dusk-rule); content: ""; }
-    .dusk-lore { padding: 24px 0 74px; }
-    .dusk-lore-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-block: 1px solid var(--dusk-rule); }
-    .dusk-lore article { padding: 34px clamp(20px, 4vw, 56px); }
-    .dusk-lore article + article { border-left: 1px solid var(--dusk-rule); }
-    .dusk-lore h2 { margin: 0 0 10px; font-family: Georgia, "Times New Roman", serif; font-size: 2rem; font-weight: 400; }
-    .dusk-lore p { max-width: 500px; margin: 0; color: var(--dusk-muted); line-height: 1.7; }
-    .dusk-facts { display:grid; grid-template-columns:repeat(3,1fr); margin:4px 0 56px; border-block:1px solid var(--dusk-rule); }
-    .dusk-facts div { padding:17px 22px; }
-    .dusk-facts div + div { border-left:1px solid var(--dusk-rule); }
-    .dusk-facts strong,.dusk-facts span { display:block; }
-    .dusk-facts strong { color:var(--dusk-accent); font:500 1.25rem Georgia,"Times New Roman",serif; }
-    .dusk-facts span { margin-top:4px; color:var(--dusk-muted); font-size:.8rem; }
-    .dusk-discovery { padding:0 0 78px; }
-    .dusk-discovery-head { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:20px; }
-    .dusk-discovery-head h2 { margin:8px 0 0; font:400 clamp(2rem,4vw,3rem)/1.05 Georgia,"Times New Roman",serif; letter-spacing:-.035em; }
-    .dusk-discovery-head p { max-width:390px; margin:0; color:var(--dusk-muted); line-height:1.6; }
-    .dusk-paths { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-block:1px solid var(--dusk-rule); }
-    .dusk-path { position:relative; display:flex; min-height:190px; flex-direction:column; padding:23px 24px 26px; text-decoration:none; transition:background .2s ease,transform .2s ease; }
-    .dusk-path + .dusk-path { border-left:1px solid var(--dusk-rule); }
-    .dusk-path:hover,.dusk-path:focus-visible { z-index:1; transform:translateY(-3px); background:color-mix(in srgb,var(--dusk-paper) 76%,transparent); outline:1px solid var(--dusk-rule); outline-offset:-1px; }
-    .dusk-path-mark { display:grid; width:42px; height:42px; place-items:center; border:1px solid var(--dusk-rule); border-radius:50%; color:var(--dusk-accent); font:1.35rem Georgia,serif; }
-    .dusk-path small { margin-top:20px; color:var(--dusk-accent); font-size:.65rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; }
-    .dusk-path strong { margin-top:5px; font:500 1.45rem Georgia,"Times New Roman",serif; }
-    .dusk-path span:last-child { margin-top:7px; color:var(--dusk-muted); font-size:.9rem; line-height:1.5; }
-    .dusk-footer { display: flex; justify-content: space-between; gap: 18px; padding-block: 23px 30px; border-top: 1px solid var(--dusk-rule); color: var(--dusk-muted); font-size: .8rem; }
-    .dusk-footer a { color: var(--dusk-ink); text-decoration: none; }
-    body.dual-page[data-time="nuit"] { --dusk-bg: #111724; --dusk-paper: #1a2030; --dusk-ink: #ece9e1; --dusk-muted: #b8bdca; --dusk-accent: #b8a6df; --dusk-rule: rgba(229,225,243,.2); }
-    body.dual-page[data-time="nuit"] .dusk-hero::before { background: radial-gradient(ellipse at 76% 46%, rgba(124,109,183,.22), transparent 40%), radial-gradient(ellipse at 32% 85%, rgba(50,77,103,.18), transparent 45%), linear-gradient(112deg, #111724, #1a2030 63%, #20233a); }
-    body.dual-page[data-time="nuit"] .dusk-mode-toggle { background: #25253d; color: #d6c5f2; border-color: rgba(184,166,223,.6); }
-    body.dual-page[data-time="nuit"] .dusk-primary { background: #d5c9ee; color: #19172a !important; }
-    body.dual-page[data-time="nuit"] .dusk-primary:hover, body.dual-page[data-time="nuit"] .dusk-primary:focus-visible { background: #eadff4; }
-    body.dual-page[data-time="nuit"] .dusk-art::before { border-color: rgba(184,166,223,.4); box-shadow: 0 0 0 13px rgba(184,166,223,.06), 0 0 0 45px rgba(184,166,223,.035); }
-    body.dual-page[data-time="nuit"] .dusk-emblem { background: #25253d; color: #d6c5f2; border-color: rgba(184,166,223,.55); transform: rotate(-16deg); }
-    body.dual-page[data-time="nuit"] .dusk-art-frame { border-color: rgba(184,166,223,.6); box-shadow: 0 24px 58px rgba(0,0,0,.35), 0 0 30px rgba(141,121,194,.15); }
-    @media (max-width: 800px) {
-      .dusk-header { flex-wrap: wrap; height: auto; min-height: 82px; padding-block: 17px; }
-      .dusk-nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
-      .dusk-nav a { font-size: .82rem; }
-      .dusk-hero { grid-template-columns: 1fr; gap: 35px; min-height: 0; padding-block: 58px 62px; }
-      .dusk-copy { max-width: 680px; }
-      .dusk-art { min-height: 560px; }
-      .dusk-art::before { width: min(88vw, 560px); }
-      .dusk-art-frame { width: min(100%, 560px); }
-      .dusk-emblem { right: 12%; }
-      .dusk-mode-switch { bottom: 14px; left: 14px; }
-    }
-    @media (max-width: 560px) {
-      .dusk-shell { width: 90%; }
-      .dusk-title { font-size: clamp(3.2rem, 14vw, 5rem); }
-      .dusk-links { align-items: flex-start; flex-direction: column; }
-      .dusk-art { min-height: 440px; }
-      .dusk-art-frame { width: 96%; }
-      .dusk-emblem { top: 0; right: 4%; width: 65px; font-size: 1.7rem; }
-      .dusk-lore-grid { grid-template-columns: 1fr; }
-      .dusk-lore article { padding: 25px 4%; }
-      .dusk-lore article + article { border-top: 1px solid var(--dusk-rule); border-left: 0; }
-      .dusk-facts { grid-template-columns:1fr; margin-bottom:42px; }
-      .dusk-facts div + div { border-top:1px solid var(--dusk-rule); border-left:0; }
-      .dusk-discovery-head { align-items:flex-start; flex-direction:column; }
-      .dusk-paths { grid-template-columns:1fr; }
-      .dusk-path { min-height:0; padding:20px 4%; }
-      .dusk-path + .dusk-path { border-top:1px solid var(--dusk-rule); border-left:0; }
-      .dusk-footer { flex-direction: column; }
-    }
-    @media (prefers-reduced-motion: reduce) { .dual-page *, .dual-page *::before, .dual-page *::after { transition-duration: .01ms !important; } }
-      @media (max-width: 560px) {
-      .global-mode-switch, .dusk-mode-switch, .bouton-mode {
-        position: static !important;
-        inset: auto !important;
-        width: max-content;
-        margin: 18px auto 24px;
-        padding: 7px 9px;
-        gap: 7px;
-        font-size: .7rem;
-        box-shadow: none;
-      }
-      .product-art {
-        width: min(84%, 340px);
-        min-height: 0;
-        aspect-ratio: 1.12 / 1;
-        margin-inline: auto;
-      }
-    }
-    
-    .contact-footer-button { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--dusk-rule, var(--line, rgba(60,58,47,.24))); color:var(--dusk-ink, var(--text, #252920)) !important; font-size:.82rem; font-weight:750; text-decoration:none; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
-    .contact-footer-button:hover,.contact-footer-button:focus-visible { transform:translateY(-2px); border-color:var(--dusk-accent, var(--accent, #8a6a37)); background:var(--dusk-accent, var(--accent, #8a6a37)); color:#fff !important; outline:none; }
-  </style>
+  <meta name="description" content="Duskclaw est un jeu de cartes tactique pour deux joueurs : compose ton deck, déploie tes Furries sur un plateau hexagonal et joue avec le cycle Jour/Nuit.">
+  <title>Duskclaw — Le Jour change. Le plateau aussi.</title>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
   <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages15">
+  <style>
+    :root{--home-paper:#f2ead8;--home-sheet:#faf5e9;--home-ink:#25364b;--home-muted:#6d6a60;--home-gold:#a68143;--home-red:#a65a48;--home-line:#c9b992;--home-green:#727d63}
+    *{box-sizing:border-box}body.home{margin:0;background:var(--home-paper);color:var(--home-ink);font-family:Georgia,"Times New Roman",serif}body.home a{color:inherit}.home-main{overflow:hidden}.home-width{width:min(1380px,92%);margin-inline:auto}
+    .home-hero{position:relative;display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);align-items:center;gap:clamp(30px,5vw,76px);min-height:min(810px,calc(100svh - 76px));padding-block:50px 66px;isolation:isolate}.home-hero:before{position:absolute;z-index:-1;inset:0 -5vw;background:radial-gradient(ellipse at 76% 50%,#b9a57125,transparent 40%),linear-gradient(115deg,#f2ead8,#f8f2e4 62%,#e8dec8);content:""}
+    .home-copy{max-width:620px}.home-eyebrow{display:flex;align-items:center;gap:10px;margin:0;color:var(--home-red);font:800 .68rem/1.4 Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase}.home-eyebrow:before{width:27px;height:1px;background:currentColor;content:""}.home-title{margin:19px 0 18px;font:400 clamp(3.35rem,6.2vw,6.35rem)/.94 Georgia,"Times New Roman",serif;letter-spacing:-.065em}.home-title em{color:var(--home-red);font-weight:400}.home-summary{max-width:550px;margin:0;color:#57594f;font:400 clamp(1rem,1.3vw,1.13rem)/1.75 Arial,sans-serif}.home-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.home-fact{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #c8b992;background:#f8f2e4;color:#5e5b50;font:700 .73rem Arial,sans-serif}.home-fact b{color:var(--home-ink);font-size:.85rem}.home-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:27px}.home-primary{display:inline-flex;align-items:center;gap:13px;min-height:48px;padding:12px 16px;background:var(--home-ink);color:#fff9eb!important;font:750 .87rem Arial,sans-serif;text-decoration:none;transition:transform .2s ease,background .2s ease}.home-primary:hover,.home-primary:focus-visible{transform:translateY(-2px);background:var(--home-red)}.home-secondary{color:var(--home-ink);font:700 .88rem Arial,sans-serif;text-decoration-thickness:1px;text-underline-offset:5px}.home-secondary:hover,.home-secondary:focus-visible{color:var(--home-red)}
+    .home-art{position:relative;justify-self:end;width:min(100%,710px);padding:clamp(12px,2vw,25px);background:#e8dec5;box-shadow:0 18px 46px #40372224;transform:rotate(.8deg)}.home-art:before{position:absolute;z-index:1;inset:8px;border:1px solid #8d79554d;content:"";pointer-events:none}.home-art:after{position:absolute;z-index:2;top:-9px;left:50%;width:112px;height:23px;background:#cfbd8b99;box-shadow:0 2px 4px #51472d20;content:"";transform:translateX(-50%) rotate(-2deg)}.home-art img{display:block;width:100%;height:auto;mix-blend-mode:multiply}.home-art-caption{position:absolute;right:24px;bottom:-33px;color:#77705d;font:italic .83rem Georgia,serif}.home-art-mark{position:absolute;z-index:3;right:-18px;top:9%;display:grid;width:64px;height:64px;place-items:center;border:1px solid #ae9560;border-radius:50%;background:#faf5e9;color:var(--home-gold);font-size:1.8rem;box-shadow:0 6px 16px #3c34251a}
+    .home-rule{display:flex;align-items:center;gap:15px;color:var(--home-gold);font:italic 1rem Georgia,serif}.home-rule:before,.home-rule:after{height:1px;flex:1;background:var(--home-line);content:""}.home-intro{padding-block:14px 34px}.home-intro-grid{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--home-line)}.home-intro-item{padding:17px 20px}.home-intro-item+.home-intro-item{border-left:1px solid var(--home-line)}.home-intro-item b,.home-intro-item span{display:block}.home-intro-item b{color:var(--home-ink);font:500 1.25rem Georgia,serif}.home-intro-item span{margin-top:5px;color:var(--home-muted);font:400 .78rem/1.45 Arial,sans-serif}
+    .home-section{padding-block:49px 70px}.home-section-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:23px}.home-section-head .home-eyebrow{font-size:.64rem}.home-section-head h2{margin:7px 0 0;font:400 clamp(2rem,4vw,3.25rem)/1 Georgia,serif;letter-spacing:-.04em}.home-section-head>p{max-width:440px;margin:0;color:var(--home-muted);font:400 .95rem/1.65 Arial,sans-serif}.home-steps{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--home-line)}.home-step{position:relative;min-height:240px;padding:24px 27px 26px;background:#f7f0e0}.home-step+.home-step{border-left:1px solid var(--home-line)}.home-step-number{color:var(--home-red);font:italic 1.05rem Georgia,serif}.home-step h3{margin:24px 0 9px;font:500 1.5rem Georgia,serif}.home-step p{max-width:340px;margin:0;color:var(--home-muted);font:400 .9rem/1.65 Arial,sans-serif}.home-step small{display:block;margin-top:14px;color:var(--home-gold);font:800 .65rem Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .home-cycle{position:relative;padding:36px clamp(20px,4vw,58px);background:linear-gradient(115deg,#e9dfc8,#f7f0e0 48%,#e7e4df);border-block:1px solid var(--home-line)}.home-cycle .home-section-head{margin-bottom:25px}.home-cycle-panes{display:grid;grid-template-columns:1fr 1fr}.home-cycle-pane{padding:19px 24px 22px;border-top:2px solid var(--home-gold)}.home-cycle-pane+.home-cycle-pane{border-color:#53627b;border-left:1px solid var(--home-line)}.home-cycle-pane h3{display:flex;align-items:center;gap:10px;margin:0 0 9px;font:500 1.45rem Georgia,serif}.home-cycle-pane h3 span{color:var(--home-gold);font-size:1.2rem}.home-cycle-pane p{max-width:510px;margin:0;color:var(--home-muted);font:400 .9rem/1.7 Arial,sans-serif}
+    .home-routes{padding-block:72px 90px}.home-route-grid{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--home-line)}.home-route{display:flex;min-height:210px;flex-direction:column;padding:23px 25px;text-decoration:none;transition:background .2s ease,transform .2s ease}.home-route+.home-route{border-left:1px solid var(--home-line)}.home-route:hover,.home-route:focus-visible{z-index:1;transform:translateY(-3px);background:#faf5e9;outline:1px solid var(--home-line);outline-offset:-1px}.home-route-icon{display:grid;width:42px;height:42px;place-items:center;border:1px solid var(--home-line);border-radius:50%;color:var(--home-red);font-size:1.3rem}.home-route small{margin-top:18px;color:var(--home-gold);font:800 .63rem Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase}.home-route strong{margin-top:6px;font:500 1.4rem Georgia,serif}.home-route span:last-child{margin-top:7px;color:var(--home-muted);font:400 .86rem/1.55 Arial,sans-serif}
+    .home-mode{position:fixed;z-index:20;bottom:20px;left:20px;display:flex;align-items:center;gap:9px;padding:9px 11px;border:1px solid var(--home-line);background:#faf5e9;color:var(--home-muted);font:700 .75rem Arial,sans-serif;box-shadow:0 4px 17px #1e233022;cursor:pointer}.home-mode input{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.home-mode-track{position:relative;width:39px;height:21px;border:1px solid #c2b89f;border-radius:20px;background:#d8cfbc}.home-mode-track:before{position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fffaf0;content:"";transition:transform .2s ease}.home-mode input:checked+.home-mode-track{background:#565171}.home-mode input:checked+.home-mode-track:before{transform:translateX(17px)}.home-mode input:focus-visible+.home-mode-track{outline:2px solid var(--home-red);outline-offset:3px}
+    body[data-time="nuit"]{--home-paper:#161b27;--home-sheet:#202638;--home-ink:#ece7dc;--home-muted:#c0bdc0;--home-gold:#c6a86c;--home-red:#c58b7c;--home-line:#545364;background:var(--home-paper);color:var(--home-ink);color-scheme:dark}body[data-time="nuit"] .home-hero:before{background:radial-gradient(ellipse at 76% 50%,#8a7aab30,transparent 42%),linear-gradient(115deg,#161b27,#202638 62%,#29283a)}body[data-time="nuit"] .home-summary{color:#c9c5c3}body[data-time="nuit"] .home-fact,body[data-time="nuit"] .home-step,body[data-time="nuit"] .home-route:hover{background:#202638}body[data-time="nuit"] .home-fact{border-color:#57576a;color:#c0bdc0}body[data-time="nuit"] .home-fact b,body[data-time="nuit"] .home-route{color:var(--home-ink)}body[data-time="nuit"] .home-primary{background:#ddd2be;color:#202638!important}body[data-time="nuit"] .home-primary:hover{background:#c58b7c;color:#211a1c!important}body[data-time="nuit"] .home-art{background:#eee6d5}body[data-time="nuit"] .home-cycle{background:linear-gradient(115deg,#202638,#252a3a 48%,#29283a)}body[data-time="nuit"] .home-mode{background:#202638;color:#c0bdc0}
+    @media(max-width:900px){.home-hero{grid-template-columns:1fr;min-height:0;padding-block:54px 65px}.home-copy{max-width:760px}.home-art{justify-self:center;width:min(100%,700px)}.home-section-head{align-items:flex-start;flex-direction:column}}
+    @media(max-width:620px){.home-width{width:91%}.home-hero{gap:29px;padding-block:39px 58px}.home-title{font-size:clamp(3rem,13vw,4.5rem)}.home-art{width:96%;padding:10px}.home-art-mark{right:-11px;width:52px;height:52px;font-size:1.45rem}.home-intro-grid,.home-steps,.home-cycle-panes,.home-route-grid{grid-template-columns:1fr}.home-intro-item+.home-intro-item,.home-step+.home-step,.home-cycle-pane+.home-cycle-pane,.home-route+.home-route{border-top:1px solid var(--home-line);border-left:0}.home-step{min-height:0;padding:21px 20px}.home-step h3{margin-top:13px}.home-cycle{padding:26px 18px}.home-cycle-pane{padding-inline:3px}.home-route{min-height:0;padding:21px 18px}.home-mode{bottom:12px;left:12px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
 </head>
-<body class="dual-page" data-time="jour">
+<body class="home" data-time="jour">
   <header class="site-shell-header">
-  <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
-  <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="site-shell-actions">
-    <a class="site-shell-support" href="soutenir.html">Soutenir</a>
-    <a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a>
-  </div>
-  <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert>
-    <a href="personnages.html">Cardex</a>
-    <a href="univers.html">Univers</a>
-    <a href="deck-builder.html">Deck Builder</a>
-    <a href="evenements.html">Événements</a>
-    <a href="faq.html">FAQ</a>
-    <a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
-  <a href="amis.html">Amis</a></nav>
-</header>
-
-  <main class="dusk-main" id="accueil">
-    <section class="dusk-hero dusk-shell" aria-labelledby="hero-title">
-      <div class="dusk-copy">
-        <p class="dusk-kicker" id="time-kicker">Jeu de cartes tactique · Deux joueurs</p>
-        <h1 class="dusk-title" id="hero-title">Prépare ton équipe.<br><em>Prends le terrain.</em></h1>
-        <p class="dusk-description" id="hero-description">Duskclaw se joue autour d’une table : compose ton deck, déploie tes Furries sur un plateau d’hexagones et dispute le contrôle des objectifs.</p>
-        <div class="dusk-links">
-          <a class="dusk-primary" href="personnages.html">Entrer dans le Cardex <span aria-hidden="true">→</span></a>
-          <a class="dusk-secondary" href="regles.html">Découvrir les règles</a>
-        </div>
+    <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
+    <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation"><span></span><span></span><span></span></button>
+    <div class="site-shell-actions"><a class="site-shell-support" href="soutenir.html">Soutenir</a><a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a></div>
+    <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert><a href="personnages.html">Cardex</a><a href="univers.html">Univers</a><a href="deck-builder.html">Deck Builder</a><a href="evenements.html">Événements</a><a href="faq.html">FAQ</a><a href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a href="amis.html">Amis</a></nav>
+  </header>
+  <main class="home-main">
+    <section class="home-hero home-width" aria-labelledby="home-title">
+      <div class="home-copy">
+        <p class="home-eyebrow" id="home-kicker">Jeu de cartes tactique · 2 joueurs</p>
+        <h1 class="home-title" id="home-title">Le Jour change.<br>Le plateau aussi.<br><em>À toi de jouer.</em></h1>
+        <p class="home-summary" id="home-summary">Construis un deck de 40 cartes, déploie tes Furries sur un plateau d’hexagones et dispute le contrôle des objectifs. Tous les trois rounds, le cycle bascule entre Jour et Nuit.</p>
+        <div class="home-facts" aria-label="Repères de jeu"><span class="home-fact"><b>2</b> joueurs</span><span class="home-fact"><b>40</b> cartes par deck</span><span class="home-fact"><b>3</b> rounds par veille</span></div>
+        <div class="home-actions"><a class="home-primary" href="regles.html">Comprendre les règles <span aria-hidden="true">→</span></a><a class="home-secondary" href="personnages.html">Découvrir les Furries</a></div>
       </div>
-      <div class="dusk-art">
-        <span class="dusk-emblem" id="day-emblem" aria-hidden="true">☼</span>
-        <div class="dusk-art-frame">
-          <svg class="dusk-map-art" viewBox="0 0 720 640" role="img" aria-labelledby="map-title map-description" xmlns="http://www.w3.org/2000/svg">
-            <title id="map-title">Carte d’exploration de Duskclaw</title>
-            <desc id="map-description">Carte dessinée à la main : rivière, reliefs et plateau d’hexagones sous le soleil et la lune.</desc>
-            <defs>
-              <pattern id="map-paper-grain" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="4" cy="5" r=".8" fill="#9a8660" opacity=".16"/><circle cx="16" cy="15" r=".65" fill="#6d7861" opacity=".12"/><path d="M2 19h5M14 3h4" stroke="#a98d5b" stroke-width=".55" opacity=".17"/></pattern>
-              <pattern id="map-hex-grid" width="52" height="60" patternUnits="userSpaceOnUse"><path d="M13 1 39 1 52 30 39 59 13 59 0 30Z" fill="none" stroke="#687665" stroke-width="1" opacity=".42"/></pattern>
-              <linearGradient id="map-land" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9dfc4"/><stop offset="1" stop-color="#d7c99f"/></linearGradient>
-              <linearGradient id="map-water-fill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9cb3a5"/><stop offset="1" stop-color="#799999"/></linearGradient>
-            </defs>
-            <rect width="720" height="640" fill="#eee5cf"/><rect width="720" height="640" fill="url(#map-paper-grain)"/>
-            <path d="M0 71Q97 32 171 79T320 71Q399 39 483 78T720 48V640H0Z" fill="url(#map-land)" opacity=".72"/>
-            <g class="map-fine">
-              <path d="M-30 117Q48 56 128 103T280 96Q371 49 459 103T748 72"/><path d="M-25 132Q48 74 127 119T278 112Q369 65 457 119T745 88"/><path d="M-20 148Q49 91 126 135T277 129Q367 82 455 135T741 104"/>
-              <path d="M-28 459Q48 402 130 449T281 442Q371 395 460 449T747 417"/><path d="M-21 477Q48 420 128 466T280 460Q369 413 458 467T743 435"/><path d="M-13 495Q50 438 127 483T279 478Q367 431 456 485T739 453"/>
-              <path d="M70 216Q124 181 168 209T251 206Q293 180 329 212"/><path d="M64 229Q121 194 166 222T250 219Q292 194 333 226"/><path d="M391 299Q442 263 489 291T582 287Q633 257 681 293"/><path d="M387 314Q440 278 488 306T581 302Q633 272 685 308"/>
-              <path d="M145 343q33-23 63 0t64 0q29-22 58 1"/><path d="M139 357q38-23 69 0t65 0q31-22 61 0"/>
-            </g>
-            <path d="M-20 280C70 237 107 307 175 280S274 218 330 263 405 346 474 312s123-83 190-54 79 63 83 86" fill="none" stroke="url(#map-water-fill)" stroke-width="42" stroke-linecap="round"/>
-            <path class="map-water-line" d="M-20 280C70 237 107 307 175 280S274 218 330 263 405 346 474 312s123-83 190-54 79 63 83 86"/>
-            <path d="M169 229 195 184 247 184 273 229 247 274 195 274Z" fill="#e8dfc6" stroke="#687665" stroke-width="2"/>
-            <path d="M169 229 195 184 247 184 273 229 247 274 195 274Z" class="map-hex-grid"/>
-            <path class="map-hex" d="M317 361 343 316 395 316 421 361 395 406 343 406Z"/><path d="M317 361 343 316 395 316 421 361 395 406 343 406Z" class="map-hex-grid"/>
-            <path class="map-hex" d="M451 191 474 151 520 151 543 191 520 231 474 231Z"/><path d="M451 191 474 151 520 151 543 191 520 231 474 231Z" class="map-hex-grid"/>
-            <g fill="#63765f" opacity=".84"><path d="m87 193 7-16 7 16-7-4Zm20 16 6-13 6 13-6-3Zm-39 22 7-15 7 15-7-4Zm508 176 7-16 7 16-7-4Zm25 20 6-13 6 13-6-3Zm-44 20 7-15 7 15-7-4Z"/><circle cx="289" cy="172" r="3"/><circle cx="306" cy="184" r="3"/><circle cx="430" cy="426" r="3"/><circle cx="451" cy="438" r="3"/></g>
-            <g class="map-ink"><path d="M590 104v72M554 140h72"/><circle cx="590" cy="140" r="23"/><path d="M616 489a22 22 0 1 1-22-22 18 18 0 0 0 22 22Z"/></g>
-            <text class="map-label" x="77" y="320">LES BASSES EAUX</text><text class="map-label" x="330" y="437">PLATEAU CENTRAL</text><text class="map-label" x="472" y="261">LES HAUTES TERRES</text>
-            <path class="map-fine" d="M54 548h612M54 542v12M666 542v12"/><text class="map-label" x="54" y="579">CARNET D’EXPLORATION · CARTE DES VEILLES</text>
-          </svg>
-        </div>
-        <span class="dusk-art-caption" id="art-caption">Carnet d’exploration · Carte des veilles</span>
-      </div>
+      <figure class="home-art"><span class="home-art-mark" aria-hidden="true">☼</span><img src="duskclaw-hero.png" alt="Trois Furries explorent ensemble un paysage rocheux." width="2286" height="1621"><figcaption class="home-art-caption" id="home-art-caption">Carnet d’exploration · Première veille</figcaption></figure>
     </section>
-
-    <div class="dusk-divider dusk-shell" aria-hidden="true">Un monde, deux veilles</div>
-    <section class="dusk-lore dusk-shell" id="monde" aria-label="Le cycle de Duskclaw">
-      <div class="dusk-lore-grid">
-        <article>
-          <h2>☼ Le Jour</h2>
-          <p>La partie commence au Jour. Chaque veille dure trois rounds : observe le plateau et prépare déjà ton prochain changement de rythme.</p>
-        </article>
-        <article>
-          <h2>☾ La Nuit</h2>
-          <p>À la Nuit, la visibilité normale est limitée à trois cases. La capacité Vision nocturne permet d’ignorer cette limite.</p>
-        </article>
-      </div>
-    </section>
-    <section class="dusk-facts dusk-shell" aria-label="Repères de jeu">
-      <div><strong>2 joueurs</strong><span>Une partie tactique en face à face</span></div>
-      <div><strong>40 cartes</strong><span>Le format de deck des règles actuelles</span></div>
-      <div><strong>Jour / Nuit</strong><span>Deux veilles qui rythment la stratégie</span></div>
-    </section>
-    <section class="dusk-discovery dusk-shell" aria-labelledby="discovery-title">
-      <header class="dusk-discovery-head"><div><p class="dusk-kicker">Ton carnet commence ici</p><h2 id="discovery-title">Explore Duskclaw.</h2></div><p>Découvre les personnages, les règles et les rencontres de la communauté autour du jeu physique.</p></header>
-      <div class="dusk-paths">
-        <a class="dusk-path" href="personnages.html"><span class="dusk-path-mark" aria-hidden="true">✧</span><small>Le registre</small><strong>Rencontrer les Furries</strong><span>Parcours les personnages et leurs évolutions dans le Cardex.</span></a>
-        <a class="dusk-path" href="regles.html"><span class="dusk-path-mark" aria-hidden="true">⌘</span><small>Le guide de jeu</small><strong>Apprendre les règles</strong><span>Prépare ta première partie et retrouve les règles complètes.</span></a>
-        <a class="dusk-path" href="evenements.html"><span class="dusk-path-mark" aria-hidden="true">☼</span><small>Autour de la table</small><strong>Voir les rencontres</strong><span>Découvre les prochains rendez-vous proposés par la communauté.</span></a>
-      </div>
-    </section>
+    <section class="home-intro home-width" aria-label="Le principe de Duskclaw"><div class="home-rule">Le jeu en un regard</div><div class="home-intro-grid"><div class="home-intro-item"><b>Un jeu de cartes physique</b><span>Les parties se jouent autour d’une table, face à face.</span></div><div class="home-intro-item"><b>Un plateau tactique</b><span>Déplace ton équipe sur des cases hexagonales et vise les objectifs.</span></div><div class="home-intro-item"><b>Deux veilles distinctes</b><span>Jour et Nuit modifient les valeurs et les possibilités de jeu.</span></div></div></section>
+    <section class="home-section home-width" aria-labelledby="home-steps-title"><header class="home-section-head"><div><p class="home-eyebrow">Une partie, simplement</p><h2 id="home-steps-title">Trois étapes pour entrer dans le jeu.</h2></div><p>Le guide complet détaille ensuite chaque action et chaque condition de victoire.</p></header><div class="home-steps"><article class="home-step"><span class="home-step-number">01 · Préparer</span><h3>Compose ton deck</h3><p>Réunis 40 cartes, mélange ta pioche et commence avec 7 cartes en main.</p><small>40 cartes · 7 en main</small></article><article class="home-step"><span class="home-step-number">02 · Déployer</span><h3>Place ton équipe</h3><p>Déploie un Furry de base obligatoire, puis jusqu’à trois autres pour commencer.</p><small>Furries de base · Plateau hexagonal</small></article><article class="home-step"><span class="home-step-number">03 · Conquérir</span><h3>Joue les objectifs</h3><p>Gagne 6 points de domination, mets l’équipe adverse K.O. ou réalise une autre condition de victoire.</p><small>Lis les conditions complètes dans les règles</small></article></div></section>
+    <section class="home-cycle home-width" aria-labelledby="home-cycle-title"><header class="home-section-head"><div><p class="home-eyebrow">Le rythme de la partie</p><h2 id="home-cycle-title">Le Jour. Puis la Nuit.</h2></div><p>Chaque veille dure trois rounds. Anticipe le changement : la stratégie ne reste pas la même.</p></header><div class="home-cycle-panes"><article class="home-cycle-pane"><h3><span aria-hidden="true">☼</span> Le Jour</h3><p>La partie commence au Jour. Les valeurs de Jour s’appliquent pendant les trois premiers rounds.</p></article><article class="home-cycle-pane"><h3><span aria-hidden="true">☾</span> La Nuit</h3><p>À la Nuit, les valeurs nocturnes prennent le relais et la visibilité normale passe à trois cases. Vision nocturne permet d’ignorer cette limite.</p></article></div></section>
+    <section class="home-routes home-width" aria-labelledby="home-routes-title"><header class="home-section-head"><div><p class="home-eyebrow">Poursuivre l’exploration</p><h2 id="home-routes-title">Ton prochain pas.</h2></div><p>Prépare ta première partie ou découvre l’univers et les personnages à ton rythme.</p></header><div class="home-route-grid"><a class="home-route" href="personnages.html"><span class="home-route-icon" aria-hidden="true">✧</span><small>Le registre</small><strong>Rencontrer les Furries</strong><span>Parcours les personnages et leurs évolutions dans le Cardex.</span></a><a class="home-route" href="regles.html"><span class="home-route-icon" aria-hidden="true">⌘</span><small>Le guide</small><strong>Apprendre les règles</strong><span>Retrouve la mise en place, les actions et toutes les façons de gagner.</span></a><a class="home-route" href="evenements.html"><span class="home-route-icon" aria-hidden="true">☼</span><small>La communauté</small><strong>Jouer autour d’une table</strong><span>Découvre les rencontres Duskclaw proposées près de chez toi.</span></a></div></section>
   </main>
-
-  <footer class="site-shell-footer">
-  <a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a>
-  <span class="site-shell-handle">@Duskclaw</span>
-</footer>
-  <label class="dusk-mode-switch" title="Basculer entre les ambiances Jour et Nuit">
-    <span class="mode-day-label">Jour</span>
-    <input id="mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false">
-    <span class="dusk-switch-track" aria-hidden="true"></span>
-    <span class="mode-night-label">Nuit</span>
-  </label>
+  <footer class="site-shell-footer"><a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a><span class="site-shell-handle">@Duskclaw</span></footer>
+  <label class="home-mode" title="Basculer entre les ambiances Jour et Nuit"><span>Jour</span><input id="home-mode-toggle" type="checkbox" role="switch" aria-label="Ambiance Nuit" aria-checked="false"><span class="home-mode-track" aria-hidden="true"></span><span>Nuit</span></label>
   <script>
-    const dayNightContent = {
-      jour: {
-        kicker: "Jeu de cartes tactique · Deux joueurs",
-        title: "Prépare ton équipe.<br><em>Prends le terrain.</em>",
-        description: "Duskclaw se joue autour d’une table : compose ton deck, déploie tes Furries sur un plateau d’hexagones et dispute le contrôle des objectifs.",
-        emblem: "☼",
-        artCaption: "Carte du monde · Première veille"
-      },
-      nuit: {
-        kicker: "Jour et Nuit · Deux joueurs",
-        title: "La veille bascule.<br><em>Adapte ta stratégie.</em>",
-        description: "Le cycle Jour/Nuit modifie les possibilités sur le plateau. Anticipe la prochaine veille, protège tes Furries et choisis le bon moment pour frapper.",
-        emblem: "☾",
-        artCaption: "Carte du monde · Veille nocturne"
-      }
-    };
-    const modeToggle = document.getElementById("mode-toggle");
-    function setTime(time, remember = false) {
-      const content = dayNightContent[time];
-      document.body.dataset.time = time;
-      document.querySelector('meta[name="theme-color"]').content = time === "jour" ? "#f1ead9" : "#111724";
-      document.getElementById("time-kicker").textContent = content.kicker;
-      document.getElementById("hero-title").innerHTML = content.title;
-      document.getElementById("hero-description").textContent = content.description;
-      document.getElementById("day-emblem").textContent = content.emblem;
-      document.getElementById("art-caption").textContent = content.artCaption;
-      const isNight = time === "nuit";
-      modeToggle.checked = isNight;
-      modeToggle.setAttribute("aria-checked", String(isNight));
-      if (remember) localStorage.setItem("duskclaw-time", time);
-    }
-    modeToggle.addEventListener("change", () => {
-      setTime(modeToggle.checked ? "nuit" : "jour", true);
-    });
-    setTime(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
+    const homeToggle=document.getElementById("home-mode-toggle");
+    function setHomeTime(night,save=false){const isNight=Boolean(night);document.body.dataset.time=isNight?"nuit":"jour";homeToggle.checked=isNight;homeToggle.setAttribute("aria-checked",String(isNight));document.querySelector('meta[name="theme-color"]').content=isNight?"#161b27":"#f1ead9";document.getElementById("home-art-caption").textContent=isNight?"Carnet d’exploration · Veille nocturne":"Carnet d’exploration · Première veille";document.querySelector(".home-art-mark").textContent=isNight?"☾":"☼";if(save)localStorage.setItem("duskclaw-time",isNight?"nuit":"jour")}
+    homeToggle.addEventListener("change",()=>setHomeTime(homeToggle.checked,true));setHomeTime(localStorage.getItem("duskclaw-time")==="nuit");
   </script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="account-nav.js?v=20261004-2215"></script>
-<script src="site-shell.js?v=20261005-header-unified2"></script>
+  <script src="site-shell.js?v=20261005-header-unified2"></script>
 </body>
 </html>
-
-
-
-
-
-
