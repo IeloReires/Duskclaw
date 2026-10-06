@@ -474,6 +474,32 @@
     }
     @media(max-width:760px){body.home .home-photo-upper{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:min(44%,260px)!important;height:170px!important;align-self:flex-end!important;margin:0 2% 0 0!important}body.home .home-photo-lower{position:relative!important;left:auto!important;top:auto!important;width:min(48%,300px)!important;height:190px!important;align-self:flex-start!important;margin:0 0 0 2%!important}body.home .home-book-photo-left,body.home .home-book-photo-right{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:min(70%,360px)!important;height:200px!important;margin:12px auto!important;transform:none!important}}
     @media(prefers-reduced-motion:reduce){.home-firefly{display:none!important}}
+    /* Finitions carnet : papier vécu, cadres mieux dimensionnés, lucioles plus présentes. */
+    body.home .home-loose-sheet{
+      background:
+        radial-gradient(ellipse at 13% 18%,#9c74401b 0 1.5%,transparent 16%),
+        radial-gradient(ellipse at 86% 83%,#9c744018 0 2%,transparent 18%),
+        linear-gradient(113deg,#f2e5c9 0%,#eee2c7 48%,#e7d8b8 100%)!important;
+      filter:sepia(.12) contrast(1.02) drop-shadow(3px 8px 7px #1a100b70)!important;
+      outline:1px solid #8d754b55;outline-offset:-7px
+    }
+    body.home .home-loose-left{clip-path:polygon(1.2% 1%,8% .4%,14% 1.2%,23% .3%,34% 1%,45% .5%,58% 1.2%,72% .4%,84% 1%,97% .3%,99.4% 4%,98.8% 14%,99.5% 25%,98.7% 39%,99.3% 52%,98.5% 66%,99.2% 79%,98.6% 93%,97% 99%,84% 98.5%,70% 99.4%,56% 98.6%,42% 99.5%,28% 98.4%,14% 99.3%,2% 98%,.7% 91%,1.4% 77%,.5% 64%,1.4% 51%,.6% 38%,1.5% 25%,.5% 12%)}
+    body.home .home-loose-right{clip-path:polygon(.8% 1%,12% .4%,25% 1.1%,39% .3%,54% 1%,68% .4%,81% 1.2%,96% .5%,99.3% 3%,98.6% 18%,99.5% 32%,98.6% 48%,99.4% 61%,98.5% 76%,99.2% 91%,97.8% 99%,83% 98.5%,69% 99.4%,55% 98.5%,40% 99.2%,25% 98.4%,11% 99.1%,1.6% 97.5%,.5% 83%,1.3% 69%,.5% 54%,1.4% 39%,.6% 24%,1.5% 11%)}
+    body.home .home-loose-bottom{clip-path:polygon(1% 2%,9% .4%,20% 1%,34% .2%,48% 1%,63% .3%,77% 1.1%,91% .4%,99% 2%,98.3% 17%,99.3% 32%,98.6% 49%,99.4% 65%,98.5% 82%,99% 97%,85% 98.5%,70% 99.4%,55% 98.5%,40% 99.3%,25% 98.4%,10% 99%,1.5% 97%,.5% 80%,1.4% 63%,.5% 47%,1.4% 30%,.6% 14%)}
+    body.home .home-table-map{
+      clip-path:polygon(1.1% 1.7%,3.7% .4%,6.1% 1.3%,9.4% .2%,12.8% 1.5%,16.4% .4%,20.2% 1.4%,24.5% .2%,28.3% 1.1%,32.5% .3%,36.1% 1.6%,40.4% .4%,44.2% 1.4%,48.5% .2%,52.1% 1.5%,56.4% .5%,60.3% 1.3%,64.8% .2%,68.6% 1.5%,72.4% .4%,76.8% 1.4%,80.5% .2%,84.2% 1.5%,88.5% .4%,92.6% 1.2%,96.4% .3%,99% 2.4%,98.2% 5.1%,99.5% 8.3%,98.4% 11.6%,99.4% 14.9%,98.3% 18.4%,99.5% 21.8%,98.3% 25.1%,99.4% 28.7%,98.2% 32.1%,99.5% 35.5%,98.3% 39%,99.4% 42.4%,98.2% 45.9%,99.5% 49.3%,98.3% 52.8%,99.4% 56.2%,98.2% 59.7%,99.5% 63.1%,98.3% 66.6%,99.4% 70%,98.2% 73.5%,99.5% 76.9%,98.3% 80.4%,99.4% 83.8%,98.2% 87.3%,99.5% 90.7%,98.3% 94.2%,96.8% 98.8%,93.4% 98%,90.1% 99.4%,86.5% 98.3%,83% 99.5%,79.4% 98.3%,75.8% 99.4%,72.1% 98.2%,68.5% 99.5%,64.9% 98.3%,61.2% 99.4%,57.6% 98.2%,54% 99.5%,50.3% 98.3%,46.7% 99.4%,43.1% 98.2%,39.4% 99.5%,35.8% 98.3%,32.2% 99.4%,28.5% 98.2%,24.9% 99.5%,21.3% 98.3%,17.6% 99.4%,14% 98.2%,10.4% 99.5%,6.7% 98.3%,3.2% 99.1%,.8% 97%,1.7% 93.5%,.5% 89.9%,1.6% 86.4%,.4% 82.8%,1.7% 79.2%,.5% 75.6%,1.6% 72%,.4% 68.4%,1.7% 64.8%,.5% 61.2%,1.6% 57.6%,.4% 54%,1.7% 50.4%,.5% 46.8%,1.6% 43.2%,.4% 39.6%,1.7% 36%,.5% 32.4%,1.6% 28.8%,.4% 25.2%,1.7% 21.6%,.5% 18%,1.6% 14.4%,.4% 10.8%,1.7% 7.2%);
+      filter:sepia(.52) saturate(.91) contrast(1.01) drop-shadow(9px 17px 16px #140d08aa)!important
+    }
+    body.home .home-photo-upper{right:21%!important;top:65%!important;width:15%!important;height:20%!important;transform:rotate(5deg)!important}
+    body.home .home-photo-lower{left:21%!important;top:auto!important;right:auto!important;bottom:2%!important;width:15%!important;height:21%!important;transform:rotate(-7deg)!important}
+    body.home .home-book-photo-left{left:-8%!important;bottom:4%!important;width:24%!important;height:21%!important}
+    body.home .home-book-photo-right{right:-9%!important;bottom:4%!important;width:27%!important;height:22%!important}
+    body.home .home-map-scrap{left:2%!important;bottom:2%!important;width:17%!important;height:24%!important}
+    .home-firefly{width:5px;height:5px;background:#ffd18a;box-shadow:0 0 7px 2px #ffca7bcc,0 0 17px 5px #e9903d75}
+    .home-friend-row{display:grid!important;grid-template-columns:30px minmax(0,1fr) auto!important;gap:7px!important;align-items:center!important}
+    .home-friend-avatar{width:30px;height:30px;display:grid;place-items:center;overflow:hidden;border:1px solid #9d8455;border-radius:50%;background:linear-gradient(145deg,#e8d7ae,#c6ad7a);box-shadow:0 1px 4px #291d1266;color:#39465a;font:700 .72rem Georgia,serif}
+    .home-friend-avatar img{display:block;width:100%;height:100%;object-fit:cover}
+    @media(max-width:760px){body.home .home-photo-upper{width:min(56%,340px)!important;height:210px!important;top:auto!important;right:auto!important}.home-firefly{width:5px;height:5px}.home-friend-avatar{width:38px;height:38px}.home-friend-row{grid-template-columns:38px minmax(0,1fr) auto!important}}
     @media(max-width:760px){
       body.home{height:auto!important;min-height:100svh!important;overflow-x:hidden!important;overflow-y:auto!important}
       body.home>.site-shell-header{min-height:62px!important;padding:10px 15px!important}
@@ -576,9 +602,10 @@
         particle.style.animation="none";void particle.offsetWidth;
         particle.style.animation=`home-firefly-flight ${duration}ms ease-in-out both`;
       };
-      for(let index=0;index<7;index++){
+      for(let index=0;index<12;index++){
         const particle=document.createElement("span");
         particle.className="home-firefly";particle.setAttribute("aria-hidden","true");
+        const size=random(4,7);particle.style.width=`${size}px`;particle.style.height=`${size}px`;
         document.body.append(particle);
         particle.addEventListener("animationend",()=>window.setTimeout(()=>fly(particle),random(500,4200)),{passive:true});
         window.setTimeout(()=>fly(particle),random(0,12000));
@@ -593,7 +620,7 @@
       const client=window.supabase.createClient("https://bqqbciifmfbsjurkulfo.supabase.co","sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior");
       const lastSeen=value=>{if(!value)return"Dernière connexion inconnue";const date=new Date(value),now=new Date();if(Number.isNaN(date.valueOf()))return"Dernière connexion inconnue";const time=new Intl.DateTimeFormat("fr-FR",{hour:"2-digit",minute:"2-digit"}).format(date);if(date.toDateString()===now.toDateString())return`Vu aujourd’hui à ${time}`;const yesterday=new Date(now);yesterday.setDate(now.getDate()-1);if(date.toDateString()===yesterday.toDateString())return`Vu hier à ${time}`;return`Vu le ${new Intl.DateTimeFormat("fr-FR",{day:"2-digit",month:"2-digit",year:"numeric"}).format(date)}`};
       const showEmpty=text=>{list.replaceChildren();message.textContent=text};
-      const render=people=>{list.replaceChildren();const ordered=[...people].sort((a,b)=>Number(b.is_online)-Number(a.is_online)||(new Date(b.last_seen_at||0)-new Date(a.last_seen_at||0))).slice(0,8);message.textContent=ordered.length?"":"Aucun ami à afficher pour l’instant.";for(const person of ordered){const row=document.createElement("div");row.className="home-friend-row";const identity=document.createElement("div");identity.className="home-friend-identity";const name=document.createElement("strong");name.textContent=person.nickname||"Joueur Duskclaw";const seen=document.createElement("small");seen.textContent=person.is_online?"En ligne maintenant":lastSeen(person.last_seen_at);identity.append(name,seen);const status=document.createElement("span");status.className=`home-friend-status${person.is_online?" is-online":""}`;status.textContent=person.is_online?"En ligne":"Hors ligne";row.append(identity,status);list.append(row)}};
+      const render=async people=>{list.replaceChildren();const ordered=[...people].sort((a,b)=>Number(b.is_online)-Number(a.is_online)||(new Date(b.last_seen_at||0)-new Date(a.last_seen_at||0))).slice(0,8);message.textContent=ordered.length?"":"Aucun ami à afficher pour l’instant.";for(const person of ordered){const row=document.createElement("div");row.className="home-friend-row";const avatar=document.createElement("span");avatar.className="home-friend-avatar";avatar.textContent=(person.nickname||"?").trim().slice(0,1).toLocaleUpperCase("fr-FR");if(person.avatar_path){try{const {data:image}=await client.storage.from("user-avatars").createSignedUrl(person.avatar_path,1800);if(image?.signedUrl){const photo=document.createElement("img");photo.src=image.signedUrl;photo.alt="";photo.loading="lazy";avatar.replaceChildren(photo)}}catch{}}const identity=document.createElement("div");identity.className="home-friend-identity";const name=document.createElement("strong");name.textContent=person.nickname||"Joueur Duskclaw";const seen=document.createElement("small");seen.textContent=person.is_online?"En ligne maintenant":lastSeen(person.last_seen_at);identity.append(name,seen);const status=document.createElement("span");status.className=`home-friend-status${person.is_online?" is-online":""}`;status.textContent=person.is_online?"En ligne":"Hors ligne";row.append(avatar,identity,status);list.append(row)}};
       const refresh=async()=>{const {data,error}=await client.rpc("home_friends_presence");if(error){showEmpty("La présence des amis sera disponible après activation de la fonctionnalité.");return}render(data||[])};
       client.auth.getSession().then(({data})=>{if(!data.session?.user){showEmpty("Connecte-toi pour voir ta liste d’amis.");return}refresh()}).catch(()=>showEmpty("La liste d’amis est momentanément indisponible."));
       client.auth.onAuthStateChange((_event,session)=>{if(session?.user)refresh();else showEmpty("Connecte-toi pour voir ta liste d’amis.")});
