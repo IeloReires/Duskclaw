@@ -315,6 +315,17 @@
     .home-book-left{box-shadow:inset -12px 0 18px #59452d38,inset 0 0 0 1px #fff9e8,inset 0 0 0 3px #d3c19c,inset 0 0 17px #705a3328!important}
     .home-book-right{box-shadow:inset 12px 0 18px #59452d38,inset 0 0 0 1px #fff9e8,inset 0 0 0 3px #d3c19c,inset 0 0 17px #705a3328!important}
     @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
+    /* Halo de bougie visible et chaud, avec un léger mouvement organique. */
+    .home-candle-glow{background:radial-gradient(ellipse at 8% 15%,#ffd477b8 0, #ffc15d7a 10%,#ec98483d 24%,transparent 43%),radial-gradient(ellipse at 12% 34%,#ffc76b55 0,transparent 31%),radial-gradient(ellipse at 33% 23%,#f9bd6635 0,transparent 35%),radial-gradient(ellipse at 5% 63%,#ffcf7930 0,transparent 38%)!important;mix-blend-mode:screen!important;filter:blur(10px) brightness(1.3) saturate(1.2)!important;animation:candlelight-real-glow 5.8s ease-in-out infinite alternate!important}
+    .home-candle-glow:before{background:radial-gradient(ellipse at 16% 18%,#ffe5a565 0,transparent 21%),radial-gradient(ellipse at 25% 38%,#ffd18239 0,transparent 27%),radial-gradient(ellipse at 7% 52%,#ffc56b36 0,transparent 25%)!important;animation:candlelight-real-reflection 7.1s ease-in-out infinite alternate!important}
+    @keyframes candlelight-real-glow{0%{opacity:.64;filter:blur(11px) brightness(1.15) saturate(1.12)}23%{opacity:.88;filter:blur(13px) brightness(1.34) saturate(1.23)}47%{opacity:.74;filter:blur(10px) brightness(1.22) saturate(1.16)}72%{opacity:.96;filter:blur(14px) brightness(1.4) saturate(1.28)}100%{opacity:.7;filter:blur(11px) brightness(1.2) saturate(1.16)}}
+    @keyframes candlelight-real-reflection{0%{opacity:.35;transform:translate(-.2%,0) scale(.995)}31%{opacity:.58;transform:translate(.18%,-.12%) scale(1.008)}59%{opacity:.42;transform:translate(-.12%,.1%) scale(.998)}83%{opacity:.66;transform:translate(.22%,.16%) scale(1.012)}100%{opacity:.4;transform:translate(-.08%,-.1%) scale(.998)}}
+    .home-book-right .home-quill{right:-4%!important;bottom:-22%!important;width:95%!important;height:56%!important;z-index:7!important;transform:rotate(90deg)!important;filter:brightness(1.02) drop-shadow(6px 11px 9px #130b08b8)!important}
+    .home-book-photo-right{z-index:5!important}
+    .home-open-book{border-width:12px!important;outline:2px solid #cbb06f!important;outline-offset:2px!important;background:repeating-linear-gradient(0deg,#fff1c409 0 1px,transparent 2px 4px),linear-gradient(90deg,#b38b45 0 4px,#364d67 5px 12px,#1c2a3c 13px 19px,#9b773e 20px 22px,#293a50 23px)!important;box-shadow:0 23px 38px #100a08dc,0 3px 2px #f1d58e,0 8px 15px #120c0a9c,inset 0 0 0 1px #f1d58e,inset 0 0 0 3px #806841,inset 0 0 0 6px #17273b,inset 0 0 0 8px #d1ad63,inset 0 0 0 11px #493722!important}
+    .home-open-book:after{right:-9px!important;width:14px!important;background:repeating-linear-gradient(0deg,#f5ecd8 0 2px,#c7b998 3px 4px,#fff8e8 5px 6px)!important;box-shadow:2px 2px 6px #100a0999,1px 0 #e1c77f!important}
+    .home-book-page{background-image:radial-gradient(ellipse at 78% 12%,#c4a66c14,transparent 34%),radial-gradient(ellipse at 16% 88%,#a68a5c10,transparent 30%),repeating-linear-gradient(0deg,#77613d08 0 1px,transparent 2px 5px),linear-gradient(105deg,#fbf5e4,#eee3ca)!important}
+    @media(prefers-reduced-motion:reduce){.home-candle-glow,.home-candle-glow:before{animation:none!important}}
   </style>
 </head>
 <body class="home">
