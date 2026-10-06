@@ -443,6 +443,37 @@
     body.home .home-index-links a{min-height:39px!important;padding:8px!important;grid-template-columns:27px 1fr auto!important;font-size:clamp(.74rem,.9vw,.93rem)!important}
     body.home .home-index-links span{font-size:.72rem!important}
     body.home .home-quill{display:none!important}
+    /* Bords arrachés, rubans retirés et cadres sans mouvement au survol. */
+    body.home .home-loose-sheet:before{display:none!important}
+    body.home .home-table-map{
+      border:11px solid #9f8962!important;
+      clip-path:polygon(1.2% 1.1%,4.8% .5%,5.4% 1.2%,10.6% .4%,14.1% 1.2%,19.5% .3%,24.6% 1.1%,29.3% .5%,35.2% 1.4%,40.7% .3%,46.3% 1.1%,52.2% .5%,58.4% 1.2%,64.1% .2%,69.6% 1.1%,75.1% .5%,80.6% 1.2%,86.4% .3%,91.1% 1.2%,96.3% .5%,99% 2.1%,98.7% 6.9%,99.5% 11.4%,98.7% 16.2%,99.4% 21.5%,98.5% 27.1%,99.4% 32.5%,98.6% 38.4%,99.3% 44.2%,98.4% 50.1%,99.4% 56%,98.6% 61.7%,99.2% 67.2%,98.5% 72.8%,99.5% 78.6%,98.6% 84.1%,99.2% 89.7%,98.3% 95.3%,96.9% 98.8%,92.2% 98%,87.3% 99.4%,81.9% 98.3%,76.5% 99.1%,70.8% 98.2%,65.4% 99.3%,59.7% 98.2%,54.2% 99.1%,48.6% 98.2%,43.1% 99.4%,37.5% 98.3%,31.9% 99.1%,26.3% 98.2%,20.8% 99.4%,15.1% 98.4%,9.6% 99.2%,4.1% 98.1%,1.2% 96.9%,1.9% 92.2%,.6% 87.1%,1.7% 81.7%,.5% 76.1%,1.6% 70.5%,.7% 64.9%,1.7% 59.4%,.6% 53.8%,1.6% 48.1%,.5% 42.6%,1.6% 37%,.7% 31.4%,1.8% 25.7%,.6% 20.1%,1.6% 14.7%,.7% 9.3%);
+      filter:sepia(.42) saturate(.84) contrast(.96) drop-shadow(8px 16px 16px #140d08a8)!important;
+      box-shadow:inset 0 0 0 4px #dfcda4,inset 0 0 0 8px #57482f,8px 16px 27px #160e09aa!important
+    }
+    body.home .home-table-map:after{position:absolute;inset:0;border:2px solid #ead9b0a8;clip-path:inherit;content:"";pointer-events:none}
+    body.home .home-photo-card,body.home .home-book-photo,body.home .home-map-scrap{transition:none!important;animation:none!important}
+    body.home .home-book-photo:hover{z-index:initial!important;transform:rotate(-5deg)!important;box-shadow:2px 5px 11px #21170e42!important}
+    body.home .home-book-photo-right:hover{transform:rotate(4deg)!important}
+    body.home .home-photo-upper{left:auto!important;right:2%!important;top:56%!important;bottom:auto!important;width:12%!important;height:16%!important;transform:rotate(5deg)!important}
+    body.home .home-photo-lower{left:4%!important;top:5%!important;right:auto!important;bottom:auto!important;width:13%!important;height:18%!important;transform:rotate(-8deg)!important}
+    body.home .home-book-photo-left{left:-7%!important;bottom:5%!important;width:22%!important;height:20%!important;transform:rotate(-5deg)!important}
+    body.home .home-book-photo-right{right:-8%!important;bottom:4%!important;width:29%!important;height:24%!important;transform:rotate(4deg)!important}
+    body.home .home-map-scrap{left:4%!important;bottom:2%!important;width:18%!important;height:25%!important;transform:rotate(-6deg)!important}
+    body.home .home-friends-message{margin:0 0 8px!important}
+    body.home .home-friends-message:empty{display:none!important}
+    /* Quelques lucioles suivent chacune une trajectoire libre et quittent parfois le cadre. */
+    .home-firefly{position:fixed;z-index:1300;width:4px;height:4px;border-radius:50%;background:#ffd18a;box-shadow:0 0 5px 1px #ffca7bba,0 0 13px 3px #e9903d66;opacity:0;pointer-events:none;will-change:transform,opacity}
+    @keyframes home-firefly-flight{
+      0%{opacity:0;transform:translate3d(0,0,0) scale(.45)}
+      12%{opacity:.8;transform:translate3d(var(--flight-x1),var(--flight-y1),0) scale(.8)}
+      32%{opacity:.32;transform:translate3d(var(--flight-x2),var(--flight-y2),0) scale(.55)}
+      57%{opacity:.95;transform:translate3d(var(--flight-x3),var(--flight-y3),0) scale(1)}
+      79%{opacity:.48;transform:translate3d(var(--flight-x4),var(--flight-y4),0) scale(.68)}
+      100%{opacity:0;transform:translate3d(var(--flight-x5),var(--flight-y5),0) scale(.4)}
+    }
+    @media(max-width:760px){body.home .home-photo-upper{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:min(44%,260px)!important;height:170px!important;align-self:flex-end!important;margin:0 2% 0 0!important}body.home .home-photo-lower{position:relative!important;left:auto!important;top:auto!important;width:min(48%,300px)!important;height:190px!important;align-self:flex-start!important;margin:0 0 0 2%!important}body.home .home-book-photo-left,body.home .home-book-photo-right{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:min(70%,360px)!important;height:200px!important;margin:12px auto!important;transform:none!important}}
+    @media(prefers-reduced-motion:reduce){.home-firefly{display:none!important}}
     @media(max-width:760px){
       body.home{height:auto!important;min-height:100svh!important;overflow-x:hidden!important;overflow-y:auto!important}
       body.home>.site-shell-header{min-height:62px!important;padding:10px 15px!important}
@@ -490,7 +521,7 @@
         </article>
       </section>
       <article class="home-loose-sheet home-loose-right">
-        <p class="home-paper-kicker">Guilde · Présence</p><h2>Les Furries.</h2>
+        <h2>Amis</h2>
         <p id="home-friends-message" class="home-friends-message" aria-live="polite">Connecte-toi pour voir ta liste d’amis.</p><div id="home-friends-list" class="home-friends-list" aria-live="polite"></div><a href="amis.html">Ma liste d’amis ↗</a>
       </article>
       <article class="home-loose-sheet home-loose-bottom">
@@ -525,6 +556,35 @@
       window.setTimeout(flicker,350);
     }
   </script>
+  <script>
+    (()=>{
+      if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+      const random=(min,max)=>min+Math.random()*(max-min);
+      const fly=particle=>{
+        const width=window.innerWidth,height=window.innerHeight;
+        const startX=random(0,width),startY=random(0,height);
+        let endX=random(0,width),endY=random(0,height);
+        if(Math.random()<.38){endX=Math.random()<.5?-18:width+18;endY=random(-12,height+12)}
+        else if(Math.random()<.2){endX=random(-12,width+12);endY=Math.random()<.5?-18:height+18}
+        const dx=endX-startX,dy=endY-startY;
+        particle.style.left=`${startX}px`;particle.style.top=`${startY}px`;
+        for(const [key,fraction] of [[1,.14],[2,.32],[3,.55],[4,.79],[5,1]]){
+          particle.style.setProperty(`--flight-x${key}`,`${dx*fraction+random(-105,105)}px`);
+          particle.style.setProperty(`--flight-y${key}`,`${dy*fraction+random(-80,80)}px`);
+        }
+        const duration=random(17000,33000);
+        particle.style.animation="none";void particle.offsetWidth;
+        particle.style.animation=`home-firefly-flight ${duration}ms ease-in-out both`;
+      };
+      for(let index=0;index<7;index++){
+        const particle=document.createElement("span");
+        particle.className="home-firefly";particle.setAttribute("aria-hidden","true");
+        document.body.append(particle);
+        particle.addEventListener("animationend",()=>window.setTimeout(()=>fly(particle),random(500,4200)),{passive:true});
+        window.setTimeout(()=>fly(particle),random(0,12000));
+      }
+    })();
+  </script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script>
     (()=>{
@@ -533,7 +593,7 @@
       const client=window.supabase.createClient("https://bqqbciifmfbsjurkulfo.supabase.co","sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior");
       const lastSeen=value=>{if(!value)return"Dernière connexion inconnue";const date=new Date(value),now=new Date();if(Number.isNaN(date.valueOf()))return"Dernière connexion inconnue";const time=new Intl.DateTimeFormat("fr-FR",{hour:"2-digit",minute:"2-digit"}).format(date);if(date.toDateString()===now.toDateString())return`Vu aujourd’hui à ${time}`;const yesterday=new Date(now);yesterday.setDate(now.getDate()-1);if(date.toDateString()===yesterday.toDateString())return`Vu hier à ${time}`;return`Vu le ${new Intl.DateTimeFormat("fr-FR",{day:"2-digit",month:"2-digit",year:"numeric"}).format(date)}`};
       const showEmpty=text=>{list.replaceChildren();message.textContent=text};
-      const render=people=>{list.replaceChildren();const ordered=[...people].sort((a,b)=>Number(b.is_online)-Number(a.is_online)||(new Date(b.last_seen_at||0)-new Date(a.last_seen_at||0))).slice(0,8);message.textContent=ordered.length?`${ordered.length} ami${ordered.length>1?"s":""} affiché${ordered.length>1?"s":""} · connectés en premier`:"Aucun ami à afficher pour l’instant.";for(const person of ordered){const row=document.createElement("div");row.className="home-friend-row";const identity=document.createElement("div");identity.className="home-friend-identity";const name=document.createElement("strong");name.textContent=person.nickname||"Joueur Duskclaw";const seen=document.createElement("small");seen.textContent=person.is_online?"En ligne maintenant":lastSeen(person.last_seen_at);identity.append(name,seen);const status=document.createElement("span");status.className=`home-friend-status${person.is_online?" is-online":""}`;status.textContent=person.is_online?"En ligne":"Hors ligne";row.append(identity,status);list.append(row)}};
+      const render=people=>{list.replaceChildren();const ordered=[...people].sort((a,b)=>Number(b.is_online)-Number(a.is_online)||(new Date(b.last_seen_at||0)-new Date(a.last_seen_at||0))).slice(0,8);message.textContent=ordered.length?"":"Aucun ami à afficher pour l’instant.";for(const person of ordered){const row=document.createElement("div");row.className="home-friend-row";const identity=document.createElement("div");identity.className="home-friend-identity";const name=document.createElement("strong");name.textContent=person.nickname||"Joueur Duskclaw";const seen=document.createElement("small");seen.textContent=person.is_online?"En ligne maintenant":lastSeen(person.last_seen_at);identity.append(name,seen);const status=document.createElement("span");status.className=`home-friend-status${person.is_online?" is-online":""}`;status.textContent=person.is_online?"En ligne":"Hors ligne";row.append(identity,status);list.append(row)}};
       const refresh=async()=>{const {data,error}=await client.rpc("home_friends_presence");if(error){showEmpty("La présence des amis sera disponible après activation de la fonctionnalité.");return}render(data||[])};
       client.auth.getSession().then(({data})=>{if(!data.session?.user){showEmpty("Connecte-toi pour voir ta liste d’amis.");return}refresh()}).catch(()=>showEmpty("La liste d’amis est momentanément indisponible."));
       client.auth.onAuthStateChange((_event,session)=>{if(session?.user)refresh();else showEmpty("Connecte-toi pour voir ta liste d’amis.")});
