@@ -23,7 +23,10 @@
     @media(max-width:900px){.home-hero{grid-template-columns:1fr;min-height:0;padding-block:54px 65px}.home-copy{max-width:760px}.home-art{justify-self:center;width:min(100%,700px)}.home-section-head{align-items:flex-start;flex-direction:column}}
     @media(max-width:620px){.home-width{width:91%}.home-hero{gap:29px;padding-block:39px 58px}.home-title{font-size:clamp(3rem,13vw,4.5rem)}.home-art{width:96%;padding:10px}.home-art-mark{right:-11px;width:52px;height:52px;font-size:1.45rem}.home-intro-grid,.home-steps,.home-cycle-panes,.home-route-grid{grid-template-columns:1fr}.home-intro-item+.home-intro-item,.home-step+.home-step,.home-cycle-pane+.home-cycle-pane,.home-route+.home-route{border-top:1px solid var(--home-line);border-left:0}.home-step{min-height:0;padding:21px 20px}.home-step h3{margin-top:13px}.home-cycle{padding:26px 18px}.home-cycle-pane{padding-inline:3px}.home-route{min-height:0;padding:21px 18px}.home-mode{bottom:12px;left:12px}}
     /* Pages d’exploration : papier annoté, fiches inclinées et réserves d’illustrations. */
-    body.home{background:repeating-linear-gradient(0deg,#6d5c3a06 0 1px,transparent 1px 5px),var(--home-paper)}
+    body.home{background-color:var(--home-paper)!important;background-image:repeating-linear-gradient(0deg,#6d5c3a06 0 1px,transparent 1px 5px)!important;color:var(--home-ink)!important}
+    body.home[data-time="nuit"]{background-color:var(--home-paper)!important;background-image:repeating-linear-gradient(0deg,#d9d0e008 0 1px,transparent 1px 5px)!important}
+    .home-main{width:100%!important;max-width:none!important;margin:0 auto!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:var(--home-ink)!important}
+    .home-hero:before{display:none}
     .home-art{width:min(100%,690px);padding:10px;background:transparent;box-shadow:none;transform:rotate(-1.4deg)}
     .home-art:before{z-index:2;inset:auto auto auto 13%;top:-8px;width:106px;height:22px;border:0;background:#cbb77d9c;box-shadow:0 2px 5px #332b1e20;content:"";transform:rotate(-5deg)}
     .home-art:after{top:8%;left:auto;right:-8px;width:19px;height:82px;background:#d6c4919c;transform:rotate(3deg)}
@@ -77,7 +80,7 @@
     <div class="site-shell-actions"><a class="site-shell-support" href="soutenir.html">Soutenir</a><a id="account-nav-link" class="site-shell-account" href="mon-compte.html">Mon compte</a></div>
     <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert><a href="personnages.html">Cardex</a><a href="univers.html">Univers</a><a href="deck-builder.html">Deck Builder</a><a href="evenements.html">Événements</a><a href="faq.html">FAQ</a><a href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a href="amis.html">Amis</a></nav>
   </header>
-  <main class="home-main">
+  <main class="home-main dusk-main">
     <section class="home-hero home-width" aria-labelledby="home-title">
       <div class="home-copy">
         <p class="home-eyebrow" id="home-kicker">Jeu de cartes tactique · 2 joueurs</p>
