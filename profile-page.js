@@ -120,7 +120,7 @@
       relocateWorkshopNode(favorites, stage);
       relocateWorkshopNode(customizer, settings); customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
       customizer.querySelector(".tabs").classList.add("hidden"); customizer.querySelectorAll(".tab-panel").forEach((node) => node.classList.remove("active"));
-      const favoriteTools = document.createElement("div"); favoriteTools.className = "workshop-tools favorite-tools"; favoriteTools.innerHTML = '<p>Chaque choix met à jour l’aperçu de gauche immédiatement.</p><div class="workshop-choice-fields"></div>';
+      const favoriteTools = document.createElement("div"); favoriteTools.className = "workshop-tools favorite-tools"; favoriteTools.innerHTML = '<p>Ces préférences sont facultatives : tu peux les laisser vides et les choisir plus tard. Chaque choix met à jour l’aperçu de gauche immédiatement.</p><div class="workshop-choice-fields"></div>';
       const fields = favoriteTools.querySelector(".workshop-choice-fields");
       ["favorite-furry", "favorite-type", "favorite-terrain"].forEach((id) => relocateWorkshopNode($(id)?.closest("label"), fields));
       favoriteTools.append(createFrameControls("favorites", "des repères"));
@@ -451,7 +451,7 @@
     const tagline = $("tagline-input").value.trim().slice(0, 90); state.settings.tagline = tagline;
     return { user_id: state.user.id, nickname: $("welcome-name").textContent.trim(), banner_theme: state.theme, banner_color: state.settings.color, banner_settings: state.settings,
       featured_cards: state.featured, bio: $("profile-bio").value.trim(), community_role: $("community-role").value,
-      favorite_furry_id: $("favorite-furry").value ? Number($("favorite-furry").value) : null, favorite_type: $("favorite-type").value || null,
+      favorite_furry_id: $("favorite-furry").value ? Number($("favorite-furry").value) : null, favorite_type: $("favorite-type").value || "",
       profile_visibility: $("profile-visibility").value, collection_visibility: $("collection-visibility").value, wishlist_visibility: $("wishlist-visibility").value };
   }
   async function saveProfile() {
