@@ -4,7 +4,7 @@
   const ASSET_ROOT = "https://ieloreires.github.io/Duskclaw/";
   const client = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);
   const $ = (id) => document.getElementById(id);
-  const state = { user: null, profile: {}, collection: [], catalog: [], roster: [], featured: [], avatar: "", theme: "water", settings: {}, editingName: false, editingBio: false };
+  const state = { user: null, profile: {}, collection: [], catalog: [], roster: [], featured: [], avatar: "", pendingAvatarFile: null, pendingAvatarUrl: "", theme: "water", settings: {}, editingName: false, editingBio: false };
   const themes = {
     water: ["#257f93", "#163554"], plant: ["#63844d", "#17382f"], ice: ["#90b5d1", "#263e68"],
     rock: ["#b47d55", "#3b2d29"], wind: ["#a0b5b4", "#34495b"]
@@ -13,6 +13,20 @@
   const message = (text, error = false) => { say($("page-message"), text, error); $("page-message")?.classList.toggle("hidden", !text); };
   const esc = (value) => String(value ?? "");
   const displayDate = (date) => date ? new Intl.DateTimeFormat("fr-FR", { month: "short", year: "numeric" }).format(new Date(date)) : "2026";
+
+  function setEditMode(active) {
+    const panel = $("account-panel"), toggle = $("profile-edit-toggle");
+    panel.classList.toggle("is-editing", active);
+    $("customizer").classList.toggle("hidden", !active);
+    toggle.setAttribute("aria-expanded", String(active));
+    toggle.setAttribute("aria-label", active ? "Fermer les réglages" : "Modifier mon profil");
+    toggle.title = active ? "Fermer les réglages" : "Modifier mon profil";
+    toggle.querySelector("span").textContent = active ? "×" : "✎";
+    state.editingName = false; state.editingBio = false;
+    $("welcome-name").classList.remove("hidden"); $("edit-nickname").classList.remove("hidden"); $("nickname-input").classList.add("hidden");
+    $("bio-editor").classList.add("hidden"); $("bio-display").classList.remove("hidden");
+    if (active) requestAnimationFrame(() => $("customizer").scrollIntoView({ behavior: "smooth", block: "start" }));
+  }
 
   function setAvatar(url, fallback) {
     state.avatar = url || "";
@@ -70,7 +84,7 @@
     [["Rôle", role], ["Furry favori", furry?.displayName || "À choisir"], ["Type", type || "À choisir"]].forEach(([label, value]) => {
       const row = document.createElement("span"); row.className = "fact-row"; const b = document.createElement("strong"); row.textContent = label; b.textContent = value; row.append(b); $("profile-facts").append(row);
     });
-    $("hero-tagline").textContent = state.profile.banner_settings?.tagline || "Choisis ta voie, écris ton histoire.";
+    $("hero-tagline").textContent = state.profile.banner_settings?.tagline || "Une nouvelle aventure commence ici.";
   }
   function badge(title, note, icon) {
     const tile = document.createElement("article"); tile.className = "badge earned";
@@ -85,7 +99,7 @@
       ["Collectionneur", count >= 20, "20 cartes réunies", "❖"], ["Cartographe", state.profile.favorite_furry_id, "Furry favori choisi", "⌖"]
     ];
     known.filter((item) => item[1]).forEach((item) => badgeList.append(badge(item[0], item[2], item[3])));
-    if (!badgeList.children.length) badgeList.append(badge("À découvrir", "Tes premiers accomplissements apparaîtront ici", "✧"));
+    if (!badgeList.children.length) badgeList.append(badge("À découvrir", "Aucun badge pour le moment", "✧"));
     $("stat-badges").textContent = String(known.filter((item) => item[1]).length);
   }
   function cardTitle(card) { return card?.label?.replace(/^#\d+\s*·\s*/, "") || `Carte #${card?.id ?? "?"}`; }
@@ -103,7 +117,7 @@
   function renderFeatured() {
     const gallery = $("featured-gallery"); gallery.replaceChildren();
     const cards = state.featured.map((id) => state.catalog.find((card) => Number(card.id) === Number(id))).filter(Boolean);
-    if (!cards.length) { const empty = document.createElement("p"); empty.className = "empty-showcase"; empty.textContent = "Ta vitrine attend ses premières cartes."; gallery.append(empty); }
+    if (!cards.length) { const empty = document.createElement("p"); empty.className = "empty-showcase"; empty.textContent = "Aucune carte mise à l’honneur pour le moment."; gallery.append(empty); }
     cards.forEach((card) => gallery.append(cardNode(card, true)));
     $("add-featured").disabled = state.featured.length >= 3 || !state.collection.length;
   }
@@ -122,6 +136,8 @@
   async function loadProfile(user) {
     state.user = user;
     $("auth-panel").classList.add("hidden"); $("account-panel").classList.remove("hidden");
+    $("profile-main").classList.add("is-authenticated");
+    $("profile-edit-toggle").classList.remove("hidden");
     $("logout-button").classList.remove("hidden");
     $("profile-state").textContent = "Synchronisation";
     const [profileResult, collectionResult, rosterResult, cardsResult] = await Promise.all([
@@ -144,7 +160,7 @@
     const furrySelect = $("favorite-furry"); state.roster.filter((furry) => furry.stageIndex === 0).forEach((furry) => { const option = document.createElement("option"); option.value = String(furry.id); option.textContent = furry.displayName; furrySelect.append(option); });
     furrySelect.value = state.profile.favorite_furry_id || ""; $("favorite-type").value = state.profile.favorite_type || "";
     $("profile-visibility").value = state.profile.profile_visibility || "public"; $("collection-visibility").value = state.profile.collection_visibility || "private"; $("wishlist-visibility").value = state.profile.wishlist_visibility || "private";
-    $("profile-bio").value = state.profile.bio || ""; $("bio-display").textContent = state.profile.bio || "Ajoute quelques mots pour te présenter."; $("bio-display").classList.toggle("empty", !state.profile.bio); $("bio-count").value = String((state.profile.bio || "").length);
+    $("profile-bio").value = state.profile.bio || ""; $("bio-display").textContent = state.profile.bio || "Aucune présentation pour le moment."; $("bio-display").classList.toggle("empty", !state.profile.bio); $("bio-count").value = String((state.profile.bio || "").length);
     $("stat-cards").textContent = String(state.collection.length); $("stat-level").textContent = String(Math.max(1, Math.floor(state.collection.length / 5) + 1)).padStart(2, "0"); $("stat-since").textContent = displayDate(state.profile.community_since || user.created_at);
     setAvatar(await signedAvatar(state.profile.avatar_path), $("welcome-name").textContent);
     populateSettings(); renderFacts(); renderBadges(); renderFeatured();
@@ -152,6 +168,7 @@
     const { data: isModerator } = await client.rpc("is_site_moderator");
     if (isModerator === true) nav.classList.remove("hidden");
     $("profile-state").textContent = "Profil synchronisé";
+    setEditMode(false);
   }
   function collectPayload() {
     const tagline = $("tagline-input").value.trim().slice(0, 90); state.settings.tagline = tagline;
@@ -164,32 +181,48 @@
     if (!state.user) return;
     const button = $("save-profile"); button.disabled = true; say($("save-message"), "Enregistrement…");
     const payload = collectPayload();
+    let uploadedAvatarPath = "";
+    if (state.pendingAvatarFile) {
+      const file = state.pendingAvatarFile, ext = file.type === "image/jpeg" ? "jpg" : file.type.split("/")[1];
+      uploadedAvatarPath = `${state.user.id}/avatar-${Date.now()}.${ext}`;
+      const { error: uploadError } = await client.storage.from("user-avatars").upload(uploadedAvatarPath, file, { contentType: file.type });
+      if (uploadError) { button.disabled = false; say($("save-message"), uploadError.message || "La photo n’a pas pu être envoyée.", true); return; }
+      payload.avatar_path = uploadedAvatarPath;
+    }
     const { error } = await client.from("user_profiles").upsert(payload, { onConflict: "user_id" });
     button.disabled = false;
-    if (error) { say($("save-message"), error.message || "Impossible d’enregistrer le profil.", true); return; }
-    state.profile = { ...state.profile, ...payload }; renderFacts(); renderBadges(); say($("save-message"), "Profil enregistré.");
+    if (error) { if (uploadedAvatarPath) await client.storage.from("user-avatars").remove([uploadedAvatarPath]); say($("save-message"), error.message || "Impossible d’enregistrer le profil.", true); return; }
+    state.profile = { ...state.profile, ...payload }; renderFacts(); renderBadges();
+    if (uploadedAvatarPath) { state.profile.avatar_path = uploadedAvatarPath; setAvatar(await signedAvatar(uploadedAvatarPath), $("welcome-name").textContent); }
+    if (state.pendingAvatarUrl) URL.revokeObjectURL(state.pendingAvatarUrl);
+    state.pendingAvatarFile = null; state.pendingAvatarUrl = "";
+    say($("save-message"), "Profil enregistré."); setEditMode(false);
   }
   function setEditingName(active) { state.editingName = active; $("welcome-name").classList.toggle("hidden", active); $("edit-nickname").classList.toggle("hidden", active); $("nickname-input").classList.toggle("hidden", !active); if (active) { $("nickname-input").value = $("welcome-name").textContent; $("nickname-input").focus(); } }
   function finishName() { const value = $("nickname-input").value.trim(); if (value.length >= 2 && value.length <= 15) $("welcome-name").textContent = value; setEditingName(false); }
+  async function cancelEditing() {
+    setEditMode(false);
+    if (state.pendingAvatarUrl) URL.revokeObjectURL(state.pendingAvatarUrl);
+    state.pendingAvatarFile = null; state.pendingAvatarUrl = "";
+    say($("save-message"), "Modifications annulées.");
+    if (state.user) { try { await loadProfile(state.user); } catch (error) { console.error(error); } }
+  }
   async function uploadAvatar(file) {
     if (!file || !state.user) return;
     if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 10 * 1024 * 1024) { message("Choisis une image JPG, PNG ou WebP de 10 Mo maximum.", true); return; }
-    message("Mise à jour de la photo…");
-    const ext = file.type === "image/jpeg" ? "jpg" : file.type.split("/")[1]; const path = `${state.user.id}/avatar-${Date.now()}.${ext}`;
-    const { error: uploadError } = await client.storage.from("user-avatars").upload(path, file, { upsert: true, contentType: file.type });
-    if (uploadError) { message(uploadError.message || "Échec du téléversement.", true); return; }
-    const { error } = await client.from("user_profiles").upsert({ user_id: state.user.id, nickname: $("welcome-name").textContent.trim(), avatar_path: path }, { onConflict: "user_id" });
-    if (error) { message(error.message || "La photo n’a pas pu être associée au profil.", true); return; }
-    state.profile.avatar_path = path; const url = await signedAvatar(path); setAvatar(url, $("welcome-name").textContent); message("");
+    if (state.pendingAvatarUrl) URL.revokeObjectURL(state.pendingAvatarUrl);
+    state.pendingAvatarFile = file; state.pendingAvatarUrl = URL.createObjectURL(file); setAvatar(state.pendingAvatarUrl, $("welcome-name").textContent); message("");
   }
   function bind() {
-    $("avatar-edit").addEventListener("click", () => $("avatar-file").click()); $("avatar-pencil").addEventListener("click", () => $("avatar-file").click());
+    $("profile-edit-toggle").addEventListener("click", () => { if ($("account-panel").classList.contains("is-editing")) cancelEditing(); else setEditMode(true); });
+    $("cancel-edit").addEventListener("click", cancelEditing);
+    $("avatar-edit").addEventListener("click", () => { if ($("account-panel").classList.contains("is-editing")) $("avatar-file").click(); }); $("avatar-pencil").addEventListener("click", () => { if ($("account-panel").classList.contains("is-editing")) $("avatar-file").click(); });
     $("avatar-file").addEventListener("change", (event) => uploadAvatar(event.target.files?.[0]));
     $("edit-nickname").addEventListener("click", () => setEditingName(true)); $("nickname-input").addEventListener("keydown", (e) => { if (e.key === "Enter") finishName(); if (e.key === "Escape") setEditingName(false); }); $("nickname-input").addEventListener("blur", finishName);
-    $("tagline-setting").addEventListener("input", () => { $("tagline-input").value = $("tagline-setting").value; $("hero-tagline").textContent = $("tagline-setting").value || "Choisis ta voie, écris ton histoire."; });
-    $("tagline-input").addEventListener("input", () => { $("tagline-setting").value = $("tagline-input").value; $("hero-tagline").textContent = $("tagline-input").value || "Choisis ta voie, écris ton histoire."; });
-    $("toggle-bio").addEventListener("click", () => { state.editingBio = !state.editingBio; $("bio-editor").classList.toggle("hidden", !state.editingBio); $("bio-display").classList.toggle("hidden", state.editingBio); $("profile-bio").focus(); });
-    $("profile-bio").addEventListener("input", () => { $("bio-count").value = String($("profile-bio").value.length); $("bio-display").textContent = $("profile-bio").value || "Ajoute quelques mots pour te présenter."; $("bio-display").classList.toggle("empty", !$("profile-bio").value); });
+    $("tagline-setting").addEventListener("input", () => { $("tagline-input").value = $("tagline-setting").value; $("hero-tagline").textContent = $("tagline-setting").value || "Une nouvelle aventure commence ici."; });
+    $("tagline-input").addEventListener("input", () => { $("tagline-setting").value = $("tagline-input").value; $("hero-tagline").textContent = $("tagline-input").value || "Une nouvelle aventure commence ici."; });
+    $("toggle-bio").addEventListener("click", () => { state.editingBio = !state.editingBio; $("bio-editor").classList.toggle("hidden", !state.editingBio); $("bio-display").classList.toggle("hidden", state.editingBio); if (state.editingBio) $("profile-bio").focus(); });
+    $("profile-bio").addEventListener("input", () => { $("bio-count").value = String($("profile-bio").value.length); $("bio-display").textContent = $("profile-bio").value || "Aucune présentation pour le moment."; $("bio-display").classList.toggle("empty", !$("profile-bio").value); });
     $("add-featured").addEventListener("click", () => { renderPicker(); $("featured-dialog").showModal(); }); $("close-picker").addEventListener("click", () => $("featured-dialog").close()); $("featured-dialog").addEventListener("click", (e) => { if (e.target === $("featured-dialog")) $("featured-dialog").close(); });
     document.querySelectorAll(".tab[data-tab]").forEach((tab) => tab.addEventListener("click", () => { document.querySelectorAll(".tab[data-tab]").forEach((el) => { const active = el === tab; el.classList.toggle("active", active); el.setAttribute("aria-selected", String(active)); }); document.querySelectorAll(".tab-panel").forEach((el) => el.classList.toggle("active", el.id === `panel-${tab.dataset.tab}`)); }));
     document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => { state.theme = button.dataset.themeChoice; const [a, b] = themes[state.theme]; $("banner-color").value = a; $("banner-color2").value = b; readSettings(); document.querySelectorAll("[data-theme-choice]").forEach((el) => el.setAttribute("aria-pressed", String(el === button))); }));
@@ -208,7 +241,7 @@
     const { data: { session } } = await client.auth.getSession();
     if (session?.user) { try { await loadProfile(session.user); } catch (error) { console.error(error); $("profile-state").textContent = "Profil partiellement chargé"; message("Impossible de charger toutes les données du profil. Tes autres pages restent accessibles.", true); } }
     else { $("profile-state").textContent = "Non connecté"; $("auth-panel").classList.remove("hidden"); }
-    client.auth.onAuthStateChange((_event, sessionNext) => { if (sessionNext?.user && sessionNext.user.id !== state.user?.id) setTimeout(() => loadProfile(sessionNext.user).catch((error) => { console.error(error); message("Impossible de charger le profil.", true); }), 0); else if (!sessionNext?.user) { state.user = null; $("logout-button").classList.add("hidden"); $("account-panel").classList.add("hidden"); $("auth-panel").classList.remove("hidden"); $("profile-state").textContent = "Non connecté"; } });
+    client.auth.onAuthStateChange((_event, sessionNext) => { if (sessionNext?.user && sessionNext.user.id !== state.user?.id) setTimeout(() => loadProfile(sessionNext.user).catch((error) => { console.error(error); message("Impossible de charger le profil.", true); }), 0); else if (!sessionNext?.user) { state.user = null; $("profile-main").classList.remove("is-authenticated"); $("logout-button").classList.add("hidden"); $("account-panel").classList.add("hidden"); $("auth-panel").classList.remove("hidden"); $("profile-state").textContent = "Non connecté"; } });
   }
   document.addEventListener("DOMContentLoaded", start);
 })();
