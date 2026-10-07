@@ -193,6 +193,20 @@
     avatarClient.auth.getSession().then(async ({ data }) => {
       const user = data.session?.user;
       if (!user) return;
+      const { data: isModerator, error: moderatorError } = await avatarClient.rpc("is_site_moderator");
+      if (!moderatorError && isModerator === true) {
+        let moderatorLink = document.getElementById("moderation-nav-link");
+        if (!moderatorLink) {
+          moderatorLink = document.createElement("a");
+          moderatorLink.id = "moderation-nav-link";
+          moderatorLink.className = "site-shell-moderation";
+          moderatorLink.href = "moderation.html";
+          moderatorLink.textContent = "Modération";
+          actions.insertBefore(moderatorLink, accountLink);
+        }
+        moderatorLink.classList.remove("hidden");
+        moderatorLink.style.setProperty("display", "inline-flex", "important");
+      }
       const { data: profile } = await avatarClient.from("user_profiles")
         .select("nickname,avatar_path").eq("user_id", user.id).maybeSingle();
       const name = profile?.nickname?.trim() || "Mon compte";

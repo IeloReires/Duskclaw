@@ -80,6 +80,6 @@
     document.getElementById("deck-login").addEventListener("submit",async event=>{event.preventDefault();const form=new FormData(event.currentTarget);say("deck-login-message","Connexion…");const {error}=await client.auth.signInWithPassword({email:form.get("email"),password:form.get("password")});say("deck-login-message",error?error.message:"Connexion réussie.")});
     (async()=>{try{await loadCatalog();client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const {data}=await client.auth.getSession();user=data.session?.user||null;setVisible();if(user){await loadDecks();}else if(queryDeck){readonly=await loadShared();if(readonly)setVisible();else{setVisible();say("deck-login-message","Connecte-toi pour afficher ce deck. Il est privé ou réservé aux amis.")}}else{setVisible();}client.auth.onAuthStateChange(async(_event,session)=>{user=session?.user||null;if(user){setVisible();active=null;readonly=false;await loadDecks()}else{decks=[];active=null;readonly=false;setVisible()}});}catch(error){setup.hidden=false;setup.textContent=error.message||"Impossible de charger le Deck Builder.";}})();
   </script>
-  <script src="site-shell.js?v=20261007-home-header1"></script>
+  <script src="site-shell.js?v=20261007-moderator-access1"></script>
 </body>
 </html>
