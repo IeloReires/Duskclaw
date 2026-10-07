@@ -9,6 +9,7 @@
     water: ["#257f93", "#163554"], plant: ["#63844d", "#17382f"], ice: ["#90b5d1", "#263e68"],
     rock: ["#b47d55", "#3b2d29"], wind: ["#a0b5b4", "#34495b"]
   };
+  let activeSpread = 0, turning = false;
   const say = (node, message, error = false) => { if (node) { node.textContent = message || ""; node.classList.toggle("error", error); } };
   const message = (text, error = false) => { say($("page-message"), text, error); $("page-message")?.classList.toggle("hidden", !text); };
   const esc = (value) => String(value ?? "");
@@ -27,6 +28,69 @@
     $("welcome-name").classList.remove("hidden"); $("edit-nickname").classList.remove("hidden"); $("nickname-input").classList.add("hidden");
     $("bio-editor").classList.add("hidden"); $("bio-display").classList.remove("hidden");
     if (active) requestAnimationFrame(() => $("customizer").scrollIntoView({ behavior: "smooth", block: "start" }));
+  }
+
+  function buildProfileBook() {
+    const panel = $("account-panel");
+    if (panel.dataset.bookBuilt) return;
+    panel.dataset.bookBuilt = "true";
+    const layout = panel.querySelector(".profile-layout"), main = layout.querySelector(".main-column"), side = layout.querySelector(".side-column");
+    const [featured, about, badgeSurface, customizer] = [...main.children];
+    const quickLinks = side.querySelector(".quick-links");
+    const facts = side.querySelector(".side-facts");
+    const book = document.createElement("section"); book.className = "travel-book"; book.setAttribute("aria-label", "Carnet de voyage du joueur");
+    const toolbar = document.createElement("nav"); toolbar.className = "book-toolbar"; toolbar.setAttribute("aria-label", "Pages du carnet");
+    const prev = document.createElement("button"); prev.type = "button"; prev.className = "book-turn"; prev.dataset.turn = "previous"; prev.setAttribute("aria-label", "Feuillet précédent"); prev.textContent = "‹";
+    const counter = document.createElement("span"); counter.className = "book-page-counter"; counter.id = "book-page-counter";
+    const next = document.createElement("button"); next.type = "button"; next.className = "book-turn"; next.dataset.turn = "next"; next.setAttribute("aria-label", "Feuillet suivant"); next.textContent = "›";
+    toolbar.append(prev, counter, next);
+    const spread = document.createElement("div"); spread.className = "profile-book-spread"; spread.id = "profile-book-spread";
+    const pages = Array.from({ length: 4 }, (_, index) => { const page = document.createElement("article"); page.className = `profile-leaf profile-leaf-${index + 1}`; page.dataset.profilePage = String(index + 1); page.setAttribute("aria-label", `Page ${index + 1}`); spread.append(page); return page; });
+    const [one, two, three, four] = pages;
+    one.append(panel.querySelector(".profile-hero"), panel.querySelector(".stat-strip"), about);
+    const favoritePanel = document.createElement("section"); favoritePanel.className = "surface favorite-panel";
+    favoritePanel.innerHTML = '<div class="section-head"><div><small>TES REPÈRES</small><h3>Favoris de voyage</h3><p>Les compagnons, forces et paysages que tu préfères.</p></div></div><div class="favorite-portraits"><article class="favorite-furry"><div class="favorite-picture" id="favorite-furry-picture"><span>✦</span></div><div><small>FURRY FAVORI</small><strong id="favorite-furry-name">À choisir</strong><span id="favorite-furry-meta">Compagnon de route</span></div></article><article class="favorite-marker"><span class="type-mark" id="favorite-type-mark">✧</span><div><small>TYPE FAVORI</small><strong id="favorite-type-name">À choisir</strong></div></article><article class="favorite-marker terrain-marker"><span class="terrain-art" id="favorite-terrain-mark" data-terrain="unknown" aria-hidden="true">⌁</span><div><small>TERRAIN FAVORI</small><strong id="favorite-terrain-name">À choisir</strong></div></article></div>';
+    const featuredHead = featured.querySelector(".section-head");
+    const favoriteEdit = document.createElement("p"); favoriteEdit.className = "favorite-edit-hint"; favoriteEdit.textContent = "Ces préférences se modifient avec le crayon du carnet.";
+    favoritePanel.append(facts, favoriteEdit);
+    two.append(featured, favoritePanel);
+    three.append(badgeSurface);
+    const journal = document.createElement("section"); journal.className = "surface journey-page";
+    journal.innerHTML = '<div class="section-head"><div><small>NOTES DE ROUTE</small><h3>Les traces de ton passage</h3><p>Un aperçu de tes découvertes dans le monde de Duskclaw.</p></div></div><div class="journey-map"><img src="duskclaw-map-antique.png" alt="Carte ancienne du monde de Duskclaw"><span class="map-pin pin-one">✦</span><span class="map-pin pin-two">⌖</span><span class="map-pin pin-three">✧</span></div><div class="journey-records"><div><b id="journey-families">0</b><span>familles rencontrées</span></div><div><b id="journey-types">0</b><span>types explorés</span></div><div><b id="journey-rare">0</b><span>cartes rares ou plus</span></div></div><div class="journey-links"><h4>À portée de main</h4></div>';
+    if (quickLinks) journal.querySelector(".journey-links").append(quickLinks);
+    four.append(journal);
+    book.append(toolbar, spread);
+    layout.replaceWith(book);
+    book.after(customizer);
+    toolbar.addEventListener("click", (event) => { const button = event.target.closest("[data-turn]"); if (!button) return; turnSpread(button.dataset.turn === "next" ? 1 : -1); });
+    window.addEventListener("resize", updateSpread, { passive: true });
+    document.addEventListener("keydown", (event) => { if (!panel.classList.contains("hidden") && !event.altKey && !event.ctrlKey && !event.metaKey && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || "")) { if (event.key === "ArrowRight") turnSpread(1); if (event.key === "ArrowLeft") turnSpread(-1); } });
+    updateSpread();
+  }
+  function updateSpread() {
+    const pages = document.querySelectorAll(".profile-leaf");
+    const single = matchMedia("(max-width: 620px)").matches;
+    if (!single && activeSpread % 2) activeSpread -= 1;
+    pages.forEach((page, index) => { const visible = single ? index === activeSpread : Math.floor(index / 2) === Math.floor(activeSpread / 2); page.classList.toggle("is-visible", visible); page.setAttribute("aria-hidden", String(!visible)); });
+    const count = $("book-page-counter"); if (count) count.textContent = `${String(activeSpread + 1).padStart(2, "0")}${single ? "" : ` — ${String(activeSpread + 2).padStart(2, "0")}`} / 04`;
+    const previous = document.querySelector('[data-turn="previous"]'), next = document.querySelector('[data-turn="next"]');
+    if (previous) previous.disabled = activeSpread === 0 || turning;
+    if (next) next.disabled = activeSpread >= (single ? 3 : 2) || turning;
+  }
+  async function turnSpread(direction) {
+    const step = matchMedia("(max-width: 620px)").matches ? 1 : 2;
+    if (turning || activeSpread + direction * step < 0 || activeSpread + direction * step > 3) return;
+    turning = true; updateSpread();
+    const spread = $("profile-book-spread"), leaf = document.createElement("div");
+    leaf.className = `profile-turning-leaf ${direction > 0 ? "turn-forward" : "turn-back"}`; leaf.setAttribute("aria-hidden", "true"); spread.append(leaf);
+    const duration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 360;
+    try {
+      await leaf.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration, easing: "cubic-bezier(.4,0,.2,1)", fill: "forwards" }).finished;
+      activeSpread += direction * step; updateSpread();
+      leaf.style.transformOrigin = direction > 0 ? "left center" : "right center";
+      await leaf.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration, easing: "cubic-bezier(.4,0,.2,1)", fill: "forwards" }).finished;
+    } catch { updateSpread(); }
+    leaf.remove(); turning = false; updateSpread();
   }
 
   function setAvatar(url, fallback) {
@@ -80,9 +144,35 @@
     const type = state.profile.favorite_type || "";
     $("side-role").textContent = role; $("side-furry").textContent = furry?.displayName || "À choisir"; $("side-type").textContent = type || "À choisir";
     $("hero-tagline").textContent = state.profile.banner_settings?.tagline || "Une nouvelle aventure commence ici.";
+    renderFavorites();
   }
-  function badge(title, note, icon, earned, number) {
-    const tile = document.createElement("article"); tile.className = `badge ${earned ? "earned" : "locked"}`; tile.title = `${title} — ${note}`;
+  function renderFavorites() {
+    const furry = state.roster.find((item) => String(item.id) === String(state.profile.favorite_furry_id));
+    const illustratedFurry = furry?.image ? furry : furry && state.roster.find((item) => Number(item.family) === Number(furry.family) && item.image);
+    const picture = $("favorite-furry-picture");
+    if (picture) {
+      picture.replaceChildren();
+      if (illustratedFurry?.image) { const image = document.createElement("img"); image.src = new URL(illustratedFurry.image, ASSET_ROOT).href; image.alt = furry?.displayName || "Furry favori"; picture.append(image); }
+      else { const fallback = document.createElement("span"); fallback.textContent = furry?.displayName?.slice(0, 1) || "✦"; picture.append(fallback); }
+    }
+    if ($("favorite-furry-name")) $("favorite-furry-name").textContent = furry?.displayName || "À choisir";
+    if ($("favorite-furry-meta")) $("favorite-furry-meta").textContent = furry ? `${furry.type} · ${furry.rarity}` : "Compagnon de route";
+    const type = state.profile.favorite_type || "";
+    const typeIcons = { Glace: "❄", Eau: "≈", Vent: "〰", Plante: "❧", Roche: "◈" };
+    if ($("favorite-type-name")) $("favorite-type-name").textContent = type || "À choisir";
+    if ($("favorite-type-mark")) { $("favorite-type-mark").textContent = typeIcons[type] || "✧"; $("favorite-type-mark").dataset.type = type; }
+    const terrain = state.settings.favorite_terrain || "";
+    if ($("favorite-terrain-name")) $("favorite-terrain-name").textContent = terrain || "À choisir";
+    const terrainCode = { Prairie: "prairie", Forêt: "forest", "Pinède nordique": "forest", Rivière: "water", Lac: "water", Fjord: "water", "Lac gelé": "ice", Roche: "rock", Montagne: "mountain", Glace: "ice", "Ruine nordique": "ruins", "Pierre runique": "rune", "Maison longue": "hall", Vent: "wind" };
+    if ($("favorite-terrain-mark")) $("favorite-terrain-mark").dataset.terrain = terrainCode[terrain] || "unknown";
+    const owned = new Set(state.collection.map((row) => Number(row.card_number)));
+    const cards = state.catalog.filter((card) => owned.has(Number(card.id)));
+    if ($("journey-families")) $("journey-families").textContent = String(new Set(cards.map((card) => card.family)).size);
+    if ($("journey-types")) $("journey-types").textContent = String(new Set(cards.map((card) => card.type).filter(Boolean)).size);
+    if ($("journey-rare")) $("journey-rare").textContent = String(cards.filter((card) => ["Rare", "Épique", "Légendaire"].includes(card.rarity)).length);
+  }
+  function badge(title, note, icon, earned, number, tier = "bronze") {
+    const tile = document.createElement("article"); tile.className = `badge ${earned ? "earned" : "locked"} badge-${tier}`; tile.title = `${title} — ${note}`;
     const seal = document.createElement("span"); seal.className = "badge-seal"; seal.textContent = earned ? icon : "◇";
     const copy = document.createElement("div"); const strong = document.createElement("b"); strong.textContent = title;
     const small = document.createElement("small"); small.textContent = earned ? "Obtenu" : note;
@@ -93,38 +183,31 @@
     const owned = new Set(state.collection.map((row) => Number(row.card_number)));
     const cards = state.catalog.filter((card) => owned.has(Number(card.id)));
     const total = Math.min(75, owned.size), families = new Set(cards.map((card) => card.family)).size;
-    const types = new Set(cards.map((card) => card.type).filter(Boolean));
-    const rare = cards.some((card) => card.rarity && card.rarity !== "Commun");
-    const profile = state.profile, bio = profile.bio || "", tagline = profile.banner_settings?.tagline || "";
+    const raritySet = new Set(cards.map((card) => card.rarity).filter(Boolean));
+    const profile = state.profile;
     const milestones = [
-      ["Première empreinte", "Obtenir une carte", "✦", total >= 1], ["Un petit bestiaire", "Réunir 3 familles", "❖", families >= 3],
-      ["Pièce rare", "Trouver une carte peu commune ou rare", "✧", rare], ["Voyageur", "Explorer 3 types différents", "⌖", types.size >= 3],
-      ["Par-delà le givre", "Posséder une carte Glace", "❄", types.has("Glace")], ["Par-delà les flots", "Posséder une carte Eau", "≈", types.has("Eau")],
-      ["Choisir son clan", "Choisir un type favori", "◈", !!profile.favorite_type], ["Furry de cœur", "Choisir un Furry favori", "♡", !!profile.favorite_furry_id],
-      ["Quelques mots", "Écrire une présentation", "✎", bio.trim().length >= 20], ["Une voix", "Ajouter une phrase de profil", "〰", !!tagline.trim()],
-      ["Collectionneur", "Réunir 10 cartes", "▣", total >= 10], ["Gardien du Cardex", "Réunir 25 cartes", "⌑", total >= 25],
-      ["Grand archiviste", "Réunir 50 cartes", "⌘", total >= 50], ["Collection complète", "Réunir 75 cartes", "✺", total >= 75],
-      ["Créateur de decks", "Choisir le rôle Créateur de decks", "⚒", profile.community_role === "Créateur de decks"]
+      ["Bronze · Éclaireur", "Réunir 25 cartes", "✦", total >= 25, "bronze"],
+      ["Argent · Cartographe", "Réunir 50 cartes", "✦", total >= 50, "silver"],
+      ["Or · Grand voyage", "Réunir 75 cartes", "✦", total >= 75, "gold"],
+      ["Platine · Maître du Cardex", "Compléter les 75 cartes et découvrir les cinq raretés", "✦", total >= 75 && ["Commun", "Peu commun", "Rare", "Épique", "Légendaire"].every((rarity) => raritySet.has(rarity)), "platinum"]
     ];
-    state.badges = milestones.map(([name, note, icon, earned], index) => ({ name, note, icon, earned: !!earned, number: index + 1 }));
-    const icons = ["✦", "❖", "✧", "⌖", "❄", "≈", "◈", "♡", "✎", "〰", "▣", "⌑", "⌘", "✺", "⚒"];
-    for (let index = 15; index < 75; index += 1) {
-      const threshold = Math.ceil(((index - 14) / 60) * 75);
-      state.badges.push({ name: `Éclat d’expédition ${String(index - 14).padStart(2, "0")}`, note: `Réunir ${threshold} carte${threshold > 1 ? "s" : ""}`, icon: icons[index % icons.length], earned: total >= threshold, number: index + 1 });
-    }
+    state.badges = milestones.map(([name, note, icon, earned, tier], index) => ({ name, note, icon, earned: !!earned, number: index + 1, tier }));
     const earnedCount = state.badges.filter((item) => item.earned).length;
-    $("stat-badges").textContent = `${earnedCount}/75`; $("badge-count-inline").textContent = `${earnedCount}/75`;
+    $("stat-badges").textContent = `${earnedCount}/4`; $("badge-count-inline").textContent = `${earnedCount}/4`;
     const badgeList = $("badge-list"); badgeList.replaceChildren();
     const preview = [...state.badges.filter((item) => item.earned), ...state.badges.filter((item) => !item.earned)].slice(0, 6);
-    preview.forEach((item) => badgeList.append(badge(item.name, item.note, item.icon, item.earned, item.number)));
+    preview.forEach((item) => badgeList.append(badge(item.name, item.note, item.icon, item.earned, item.number, item.tier)));
     const all = $("all-badges"); all.replaceChildren();
-    state.badges.forEach((item) => all.append(badge(item.name, item.note, item.icon, item.earned, item.number)));
-    $("badge-dialog-count").textContent = `${earnedCount}/75 obtenus`;
+    state.badges.forEach((item) => all.append(badge(item.name, item.note, item.icon, item.earned, item.number, item.tier)));
+    $("badge-dialog-count").textContent = `${earnedCount}/4 obtenus`;
   }
   function cardTitle(card) { return card?.label?.replace(/^#\d+\s*·\s*/, "") || `Carte #${card?.id ?? "?"}`; }
   function cardNode(card, remove = false) {
     const item = document.createElement("article"); item.className = "featured-card";
     const art = document.createElement("div"); art.className = "showcase-art"; art.dataset.type = card.type || "";
+    const stage = card.level === "Niveau 2" ? 2 : card.level === "Niveau 1" ? 1 : 0;
+    const illustration = state.roster.find((entry) => Number(entry.family) === Number(card.family) && entry.stageIndex === stage && entry.image);
+    if (illustration) { const image = document.createElement("img"); image.className = "card-art-image"; image.src = new URL(illustration.image, ASSET_ROOT).href; image.alt = ""; image.loading = "lazy"; art.append(image); }
     const number = document.createElement("small"); number.className = "card-number"; number.textContent = `#${String(card.id).padStart(2, "0")}`;
     const emblem = document.createElement("span"); emblem.className = "card-emblem"; emblem.textContent = ({ Glace: "❄", Eau: "≈", Vent: "〰", Plante: "❧", Roche: "◈" })[card.type] || "✦";
     const title = document.createElement("strong"); title.textContent = cardTitle(card);
@@ -178,7 +261,7 @@
     const tagline = state.settings.tagline || ""; $("tagline-setting").value = tagline; $("tagline-input").value = tagline;
     $("community-role").value = state.profile.community_role || "Joueur";
     const furrySelect = $("favorite-furry"); state.roster.filter((furry) => furry.stageIndex === 0).forEach((furry) => { const option = document.createElement("option"); option.value = String(furry.id); option.textContent = furry.displayName; furrySelect.append(option); });
-    furrySelect.value = state.profile.favorite_furry_id || ""; $("favorite-type").value = state.profile.favorite_type || "";
+    furrySelect.value = state.profile.favorite_furry_id || ""; $("favorite-type").value = state.profile.favorite_type || ""; $("favorite-terrain").value = state.settings.favorite_terrain || "";
     $("profile-visibility").value = state.profile.profile_visibility || "public"; $("collection-visibility").value = state.profile.collection_visibility || "private"; $("wishlist-visibility").value = state.profile.wishlist_visibility || "private";
     $("profile-bio").value = state.profile.bio || ""; $("bio-display").textContent = state.profile.bio || "Aucune présentation pour le moment."; $("bio-display").classList.toggle("empty", !state.profile.bio); $("bio-count").value = String((state.profile.bio || "").length);
     $("stat-cards").textContent = `${Math.min(75, new Set(state.collection.map((row) => Number(row.card_number))).size)}/75`; $("stat-since").textContent = displayDate(state.profile.community_since || user.created_at);
@@ -249,7 +332,7 @@
     document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => { state.theme = button.dataset.themeChoice; const [a, b] = themes[state.theme]; $("banner-color").value = a; $("banner-color2").value = b; readSettings(); document.querySelectorAll("[data-theme-choice]").forEach((el) => el.setAttribute("aria-pressed", String(el === button))); }));
     ["banner-color", "banner-color2", "banner-glow-color", "accent-color", "banner-pattern", "profile-layout"].forEach((id) => $(id).addEventListener("input", readSettings));
     document.querySelectorAll("[data-setting]").forEach((input) => input.addEventListener("input", () => { updateRange(input); readSettings(); }));
-    $("community-role").addEventListener("change", () => { state.profile.community_role = $("community-role").value; renderFacts(); }); $("favorite-furry").addEventListener("change", () => { state.profile.favorite_furry_id = $("favorite-furry").value; renderFacts(); renderBadges(); }); $("favorite-type").addEventListener("change", () => { state.profile.favorite_type = $("favorite-type").value; renderFacts(); });
+    $("community-role").addEventListener("change", () => { state.profile.community_role = $("community-role").value; renderFacts(); }); $("favorite-furry").addEventListener("change", () => { state.profile.favorite_furry_id = $("favorite-furry").value; renderFacts(); renderBadges(); }); $("favorite-type").addEventListener("change", () => { state.profile.favorite_type = $("favorite-type").value; renderFacts(); }); $("favorite-terrain").addEventListener("change", () => { state.settings.favorite_terrain = $("favorite-terrain").value; renderFavorites(); });
     $("save-profile").addEventListener("click", saveProfile);
     $("logout-button").addEventListener("click", async () => { await client.auth.signOut(); });
     $("login-form").addEventListener("submit", async (event) => { event.preventDefault(); say($("login-message"), "Connexion…"); const form = new FormData(event.currentTarget); const { error } = await client.auth.signInWithPassword({ email: form.get("email"), password: form.get("password") }); say($("login-message"), error?.message || "", !!error); if (!error) { const redirect = new URLSearchParams(location.search).get("redirect"); if (redirect && /^[a-z0-9-]+\.html$/i.test(redirect)) location.assign(redirect); } });
@@ -258,7 +341,7 @@
   }
   async function start() {
     if (!client) { $("profile-state").textContent = "Connexion indisponible"; message("Le service de compte n’est pas disponible pour le moment.", true); return; }
-    bind();
+    buildProfileBook(); bind();
     const { data: { session } } = await client.auth.getSession();
     if (session?.user) { try { await loadProfile(session.user); } catch (error) { console.error(error); $("profile-state").textContent = "Profil partiellement chargé"; message("Impossible de charger toutes les données du profil. Tes autres pages restent accessibles.", true); } }
     else { $("profile-state").textContent = "Non connecté"; $("auth-panel").classList.remove("hidden"); }
