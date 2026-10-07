@@ -228,6 +228,7 @@
       ["mon-compte.html", "Profil", "profile-menu-first"],
       ["regles.html", "Les règles"],
       ["personnages.html", "Cardex"],
+      ["amis.html", "Amis"],
       ["univers.html", "Univers"],
       ["deck-builder.html", "Deck Builder"],
       ["evenements.html", "Événements"],

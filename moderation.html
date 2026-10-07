@@ -85,7 +85,7 @@
     (async()=>{const {data,error}=await client.auth.getSession();if(error||!data.session?.user){location.replace('mon-compte.html');return}const {data:isMod,error:roleError}=await client.rpc('is_site_moderator');if(roleError||isMod!==true){say('Accès réservé au compte modérateur.',true);return}try{await loadUsers()}catch(e){say(e.message,true)}})();
   </script>
 <script src="account-nav.js?v=20261007-profile-avatar1"></script>
-<script src="site-shell.js?v=20261007-profile-avatar1"></script>
+<script src="site-shell.js?v=20261007-profile-avatar2"></script>
 </body>
 </html>
 
