@@ -354,25 +354,19 @@
     };
     let supabaseClient = null;
     let currentUserId = null;
-    let currentPawCursorColor = "#d4b46d";
+    let currentMagicColor = "#d4b46d";
     let rows = [];
     let realtimeChannel = null;
     const notebookColorKey = userId => `duskclaw-notebook-color:${userId}`;
     const validNotebookColor = color => /^#[\da-f]{6}$/i.test(String(color || ""));
-    const pawCursorKey = userId => `duskclaw-paw-cursor:${userId}`;
-    const pawSvgMarkup = color => `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g fill="${color}" stroke="#352719" stroke-width="1.4" stroke-linejoin="round"><ellipse cx="8.5" cy="12" rx="4.1" ry="5.5"/><ellipse cx="17" cy="7.5" rx="4.1" ry="5.5"/><ellipse cx="26" cy="8.5" rx="4.1" ry="5.5"/><ellipse cx="33" cy="14" rx="3.6" ry="4.8"/><path d="M4.8 27.3c0-5.4 4.1-9.1 9.1-9.1 2.7 0 4.4 1.6 6.4 1.6 2.2 0 3.8-1.6 6.4-1.6 4 0 7.1 3.1 7.1 7.4 0 6.2-6.5 10.2-14.2 10.2-8.2 0-14.8-3-14.8-8.5z"/></g></svg>`;
-    const pawSvgCursor = color => {
+    const magicSparkMarkup = color => `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><g fill="${color}" stroke="#fff1c8" stroke-width=".8" stroke-linejoin="round"><path d="M18 2.5 21.2 14.8 33.5 18l-12.3 3.2L18 33.5l-3.2-12.3L2.5 18l12.3-3.2z"/><path d="m29 3 .9 3.1L33 7l-3.1.9L29 11l-.9-3.1L25 7l3.1-.9z"/><circle cx="6" cy="28" r="1.8"/><circle cx="30" cy="28" r="1.2"/></g></svg>`;
+    const setClickMagicColor = (color, userId = currentUserId) => {
       if (!validNotebookColor(color)) return;
-      return `url("data:image/svg+xml,${encodeURIComponent(pawSvgMarkup(color))}") 12 10, auto`;
+      currentMagicColor = color;
+      document.documentElement.style.setProperty("--duskclaw-click-magic-color", color);
+      if (userId) { try { localStorage.setItem(`duskclaw-click-magic:${userId}`, color); } catch (_) {} }
     };
-    const setPawCursor = (color, userId = currentUserId) => {
-      const cursor = pawSvgCursor(color);
-      if (!cursor) return;
-      currentPawCursorColor = color;
-      document.documentElement.style.setProperty("--duskclaw-paw-cursor", cursor);
-      if (userId) { try { localStorage.setItem(pawCursorKey(userId), color); } catch (_) {} }
-    };
-    window.setDuskclawPawCursor = setPawCursor;
+    window.setDuskclawClickMagicColor = setClickMagicColor;
     const setNotebookColor = (color, userId = currentUserId) => {
       if (!validNotebookColor(color)) return;
       document.documentElement.style.setProperty("--duskclaw-book-color", color);
@@ -381,15 +375,14 @@
     window.setDuskclawNotebookColor = setNotebookColor;
     window.addEventListener("storage", event => {
       if (currentUserId && event.key === notebookColorKey(currentUserId) && validNotebookColor(event.newValue)) setNotebookColor(event.newValue, currentUserId);
-      if (currentUserId && event.key === pawCursorKey(currentUserId) && validNotebookColor(event.newValue)) setPawCursor(event.newValue, currentUserId);
+      if (currentUserId && event.key === `duskclaw-click-magic:${currentUserId}` && validNotebookColor(event.newValue)) setClickMagicColor(event.newValue, currentUserId);
     });
     const installNotebookColorRules = () => {
       if (document.getElementById("duskclaw-book-color-rules")) return;
       const style = document.createElement("style"); style.id = "duskclaw-book-color-rules";
       style.textContent = `
-        :root{--duskclaw-book-color:#203b61;--duskclaw-paw-cursor:${pawSvgCursor("#d4b46d")}}
-        body,body *{cursor:var(--duskclaw-paw-cursor)!important}input,textarea,[contenteditable="true"]{cursor:text!important}
-        .duskclaw-paw-tap{position:fixed;z-index:2147483000;width:27px;height:27px;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 2px 2px #28180d66);animation:duskclaw-paw-tap .52s cubic-bezier(.2,.75,.3,1) forwards}.duskclaw-paw-tap img{display:block;width:100%;height:100%;object-fit:contain}@keyframes duskclaw-paw-tap{0%{opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-12deg)}18%{opacity:.82;transform:translate(-50%,-50%) scale(1.08) rotate(4deg)}38%{opacity:.62;transform:translate(-50%,-50%) scale(.92) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(.78) rotate(0)}}
+        :root{--duskclaw-book-color:#203b61;--duskclaw-click-magic-color:#d4b46d}
+        .duskclaw-click-spark{position:fixed;z-index:2147483000;width:25px;height:25px;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--duskclaw-click-magic-color) 70%,transparent));animation:duskclaw-click-spark .48s ease-out forwards}.duskclaw-click-spark img{display:block;width:100%;height:100%;object-fit:contain}@keyframes duskclaw-click-spark{0%{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-20deg)}22%{opacity:.85;transform:translate(-50%,-50%) scale(1.05) rotate(8deg)}100%{opacity:0;transform:translate(-50%,-50%) scale(.72) rotate(24deg)}}
         body.home .home-open-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 68%,#d0ad5e)!important;background:linear-gradient(90deg,color-mix(in srgb,var(--duskclaw-book-color) 58%,#d0ad5e),color-mix(in srgb,var(--duskclaw-book-color) 80%,#101b2d) 24%,var(--duskclaw-book-color) 58%,color-mix(in srgb,var(--duskclaw-book-color) 76%,#101b2d))!important}
         main.cardex-page,main.rules-page,main.family-page,main.dusk-main:not(.home-main),html body:not(.home):not(.dual-page)>main:not(.family-page):not(.dusk-main){border-color:var(--duskclaw-book-color)!important;outline-color:color-mix(in srgb,var(--duskclaw-book-color) 64%,#d4b46d)!important}
         .travel-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 66%,#d2ad5e)!important;background:linear-gradient(135deg,color-mix(in srgb,var(--duskclaw-book-color) 78%,#fff) 0%,var(--duskclaw-book-color) 44%,color-mix(in srgb,var(--duskclaw-book-color) 68%,#080f19) 100%)!important}
@@ -400,22 +393,22 @@
       installNotebookColorRules();
       if (!currentUserId || !supabaseClient) { document.documentElement.style.setProperty("--duskclaw-book-color", "#203b61"); return; }
       try { const cached = localStorage.getItem(notebookColorKey(currentUserId)); if (validNotebookColor(cached)) setNotebookColor(cached, currentUserId); } catch (_) {}
-      try { const cachedPaw = localStorage.getItem(pawCursorKey(currentUserId)); if (validNotebookColor(cachedPaw)) setPawCursor(cachedPaw, currentUserId); } catch (_) {}
+      try { const cachedMagic = localStorage.getItem(`duskclaw-click-magic:${currentUserId}`); if (validNotebookColor(cachedMagic)) setClickMagicColor(cachedMagic, currentUserId); } catch (_) {}
       try {
         const { data } = await supabaseClient.from("user_profiles").select("banner_settings").eq("user_id", currentUserId).maybeSingle();
         const color = data?.banner_settings?.book_color;
         if (validNotebookColor(color)) setNotebookColor(color, currentUserId);
-        const pawColor = data?.banner_settings?.paw_cursor_color;
-        if (validNotebookColor(pawColor)) setPawCursor(pawColor, currentUserId);
+        const magicColor = data?.banner_settings?.click_magic_color || data?.banner_settings?.paw_cursor_color;
+        if (validNotebookColor(magicColor)) setClickMagicColor(magicColor, currentUserId);
       } catch (_) {}
     };
     installNotebookColorRules();
     document.addEventListener("click", event => {
       if (!Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return;
-      const mark = document.createElement("span"); mark.className = "duskclaw-paw-tap";
+      const mark = document.createElement("span"); mark.className = "duskclaw-click-spark";
       mark.style.left = `${event.clientX}px`; mark.style.top = `${event.clientY}px`;
-      const image = document.createElement("img"); image.alt = ""; image.src = `data:image/svg+xml,${encodeURIComponent(pawSvgMarkup(currentPawCursorColor))}`;
-      mark.append(image); document.body.append(mark); window.setTimeout(() => mark.remove(), 560);
+      const image = document.createElement("img"); image.alt = ""; image.src = `data:image/svg+xml,${encodeURIComponent(magicSparkMarkup(currentMagicColor))}`;
+      mark.append(image); document.body.append(mark); window.setTimeout(() => mark.remove(), 500);
     }, true);
     const updateCount = () => {
       const unread = rows.filter(row => !row.read_at).length;

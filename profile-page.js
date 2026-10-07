@@ -51,13 +51,9 @@
     const bookColor = state.settings.book_color || "#203b61";
     document.documentElement.style.setProperty("--duskclaw-book-color", bookColor);
     window.setDuskclawNotebookColor?.(bookColor, state.user?.id);
-    const pawColor = state.settings.paw_cursor_color || "#d4b46d";
-    document.documentElement.style.setProperty("--duskclaw-paw-cursor", pawCursor(pawColor));
-    window.setDuskclawPawCursor?.(pawColor, state.user?.id);
-  }
-  function pawCursor(color) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g fill="${color}" stroke="#352719" stroke-width="1.4" stroke-linejoin="round"><ellipse cx="8.5" cy="12" rx="4.1" ry="5.5"/><ellipse cx="17" cy="7.5" rx="4.1" ry="5.5"/><ellipse cx="26" cy="8.5" rx="4.1" ry="5.5"/><ellipse cx="33" cy="14" rx="3.6" ry="4.8"/><path d="M4.8 27.3c0-5.4 4.1-9.1 9.1-9.1 2.7 0 4.4 1.6 6.4 1.6 2.2 0 3.8-1.6 6.4-1.6 4 0 7.1 3.1 7.1 7.4 0 6.2-6.5 10.2-14.2 10.2-8.2 0-14.8-3-14.8-8.5z"/></g></svg>`;
-    return `url("data:image/svg+xml,${encodeURIComponent(svg)}") 12 10, auto`;
+    const magicColor = state.settings.click_magic_color || "#d4b46d";
+    document.documentElement.style.setProperty("--duskclaw-click-magic-color", magicColor);
+    window.setDuskclawClickMagicColor?.(magicColor, state.user?.id);
   }
   function makeElementResetButton(key) {
     const button = document.createElement("button"); button.type = "button"; button.className = "subtle-button reset-element-button"; button.dataset.resetElement = key;
@@ -65,7 +61,7 @@
   }
   function resetElementSettings(key) {
     if (key === "book") { state.settings.book_color = "#203b61"; const input = workshop?.querySelector("[data-book-color]"); if (input) input.value = state.settings.book_color; applyFrameStyles(); return; }
-    if (key === "paw") { state.settings.paw_cursor_color = "#d4b46d"; const input = workshop?.querySelector("[data-paw-color]"); if (input) input.value = state.settings.paw_cursor_color; applyFrameStyles(); return; }
+    if (key === "magic") { state.settings.click_magic_color = "#d4b46d"; const input = workshop?.querySelector("[data-magic-color]"); if (input) input.value = state.settings.click_magic_color; applyFrameStyles(); return; }
     delete state.settings[`frame_${key}_style`]; delete state.settings[`frame_${key}_color`];
     if (key === "banner") {
       state.theme = "water";
@@ -88,8 +84,8 @@
       if (control.matches("[data-frame-style]")) state.settings[`frame_${control.dataset.frameStyle}_style`] = control.value;
       if (control.matches("[data-frame-color]")) state.settings[`frame_${control.dataset.frameColor}_color`] = control.value;
       if (control.matches("[data-book-color]")) state.settings.book_color = control.value;
-      if (control.matches("[data-paw-color]")) state.settings.paw_cursor_color = control.value;
-      if (control.matches("[data-frame-style],[data-frame-color],[data-book-color],[data-paw-color]")) applyFrameStyles();
+      if (control.matches("[data-magic-color]")) state.settings.click_magic_color = control.value;
+      if (control.matches("[data-frame-style],[data-frame-color],[data-book-color],[data-magic-color]")) applyFrameStyles();
     });
     workshop.addEventListener("click", (event) => { const reset = event.target.closest("[data-reset-element]"); if (reset) resetElementSettings(reset.dataset.resetElement); });
     return workshop;
@@ -135,10 +131,10 @@
       customizer.querySelector(".tabs").classList.add("hidden"); customizer.querySelectorAll(".tab-panel").forEach((node) => node.classList.remove("active"));
       const identityTools = document.createElement("div"); identityTools.className = "workshop-tools profile-tools"; identityTools.innerHTML = '<p>Modifie ton rôle et ta phrase de profil. Les réglages de visibilité restent accessibles ci-dessous.</p><div class="workshop-identity-fields"></div>';
       const fields = identityTools.querySelector(".workshop-identity-fields");
-      const pawControls = document.createElement("section"); pawControls.className = "frame-control-group paw-cursor-controls";
-      pawControls.innerHTML = '<h4>Curseur patte de chat</h4><div class="frame-control-fields"><label>Couleur de la patte<input type="color" data-paw-color value="#d4b46d"></label></div><button type="button" class="subtle-button reset-element-button" data-reset-element="paw">Réinitialiser la patte</button><small>La couleur choisie suit ton profil sur toutes les pages.</small>';
-      pawControls.querySelector("[data-paw-color]").value = state.settings.paw_cursor_color || "#d4b46d";
-      identityTools.append(pawControls);
+      const magicControls = document.createElement("section"); magicControls.className = "frame-control-group click-magic-controls";
+      magicControls.innerHTML = '<h4>Éclat magique au clic</h4><div class="frame-control-fields"><label>Couleur de l’éclat<input type="color" data-magic-color value="#d4b46d"></label></div><button type="button" class="subtle-button reset-element-button" data-reset-element="magic">Réinitialiser l’effet</button><small>Un petit éclat apparaît brièvement quand tu cliques.</small>';
+      magicControls.querySelector("[data-magic-color]").value = state.settings.click_magic_color || state.settings.paw_cursor_color || "#d4b46d";
+      identityTools.append(magicControls);
       [$("tagline-input")?.closest("label"), $("community-role")?.closest("label")].forEach((node) => relocateWorkshopNode(node, fields));
       settings.insertBefore(identityTools, customizer);
       [$("profile-visibility"), $("collection-visibility"), $("wishlist-visibility")].forEach((select) => relocateWorkshopNode(select?.closest("label"), fields));
@@ -429,6 +425,8 @@
     state.featured = Array.isArray(state.profile.featured_cards) ? [...new Set(state.profile.featured_cards.map(Number))].filter((id) => state.collection.some((row) => Number(row.card_number) === id)).slice(0, 3) : [];
     state.theme = themes[state.profile.banner_theme] ? state.profile.banner_theme : "water";
     state.settings = { ...(state.profile.banner_settings || {}) };
+    state.settings.click_magic_color = state.settings.click_magic_color || state.settings.paw_cursor_color || "#d4b46d";
+    delete state.settings.paw_cursor_color;
     if (state.profile.banner_color) state.settings.color = state.profile.banner_color;
     $("welcome-name").textContent = state.profile.nickname || user.user_metadata?.nickname || user.email?.split("@")[0] || "Joueur";
     $("nickname-input").value = $("welcome-name").textContent;
