@@ -4,7 +4,7 @@
   const ASSET_ROOT = "https://ieloreires.github.io/Duskclaw/";
   const client = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);
   const $ = (id) => document.getElementById(id);
-  const state = { user: null, profile: {}, collection: [], catalog: [], roster: [], featured: [], avatar: "", pendingAvatarFile: null, pendingAvatarUrl: "", theme: "water", settings: {}, editingName: false, editingBio: false };
+  const state = { user: null, profile: {}, collection: [], catalog: [], roster: [], featured: [], badges: [], avatar: "", pendingAvatarFile: null, pendingAvatarUrl: "", theme: "water", settings: {}, editingName: false, editingBio: false };
   const themes = {
     water: ["#257f93", "#163554"], plant: ["#63844d", "#17382f"], ice: ["#90b5d1", "#263e68"],
     rock: ["#b47d55", "#3b2d29"], wind: ["#a0b5b4", "#34495b"]
@@ -17,6 +17,7 @@
   function setEditMode(active) {
     const panel = $("account-panel"), toggle = $("profile-edit-toggle");
     panel.classList.toggle("is-editing", active);
+    document.body.classList.toggle("is-profile-editing", active);
     $("customizer").classList.toggle("hidden", !active);
     toggle.setAttribute("aria-expanded", String(active));
     toggle.setAttribute("aria-label", active ? "Fermer les réglages" : "Modifier mon profil");
@@ -53,8 +54,6 @@
     hero.style.setProperty("--glow-strength", `${Number(s.glow ?? 35)}%`);
     hero.style.setProperty("--glow-x", `${s.glow_x ?? 78}%`);
     hero.style.setProperty("--glow-y", `${s.glow_y ?? 18}%`);
-    const chips = $("hero-chips"); chips.replaceChildren();
-    [state.profile.community_role, state.profile.favorite_type].filter(Boolean).forEach((label) => { const chip = document.createElement("span"); chip.className = "hero-chip"; chip.textContent = label; chips.append(chip); });
   }
   function populateSettings() {
     const s = state.settings || {};
@@ -80,27 +79,47 @@
     const furry = state.roster.find((item) => String(item.id) === String(state.profile.favorite_furry_id));
     const type = state.profile.favorite_type || "";
     $("side-role").textContent = role; $("side-furry").textContent = furry?.displayName || "À choisir"; $("side-type").textContent = type || "À choisir";
-    $("profile-facts").replaceChildren();
-    [["Rôle", role], ["Furry favori", furry?.displayName || "À choisir"], ["Type", type || "À choisir"]].forEach(([label, value]) => {
-      const row = document.createElement("span"); row.className = "fact-row"; const b = document.createElement("strong"); row.textContent = label; b.textContent = value; row.append(b); $("profile-facts").append(row);
-    });
     $("hero-tagline").textContent = state.profile.banner_settings?.tagline || "Une nouvelle aventure commence ici.";
   }
-  function badge(title, note, icon) {
-    const tile = document.createElement("article"); tile.className = "badge earned";
-    const seal = document.createElement("span"); seal.textContent = icon; const copy = document.createElement("div");
-    const strong = document.createElement("b"); strong.textContent = title; const small = document.createElement("small"); small.textContent = note;
-    copy.append(strong, small); tile.append(seal, copy); return tile;
+  function badge(title, note, icon, earned, number) {
+    const tile = document.createElement("article"); tile.className = `badge ${earned ? "earned" : "locked"}`; tile.title = `${title} — ${note}`;
+    const seal = document.createElement("span"); seal.className = "badge-seal"; seal.textContent = earned ? icon : "◇";
+    const copy = document.createElement("div"); const strong = document.createElement("b"); strong.textContent = title;
+    const small = document.createElement("small"); small.textContent = earned ? "Obtenu" : note;
+    const serial = document.createElement("i"); serial.textContent = String(number).padStart(2, "0");
+    copy.append(strong, small); tile.append(serial, seal, copy); return tile;
   }
   function renderBadges() {
-    const count = state.collection.length, badgeList = $("badge-list"); badgeList.replaceChildren();
-    const known = [
-      ["Premier pas", count > 0, "Première carte obtenue", "✦"], ["Curiosité", count >= 5, "5 cartes réunies", "⌕"],
-      ["Collectionneur", count >= 20, "20 cartes réunies", "❖"], ["Cartographe", state.profile.favorite_furry_id, "Furry favori choisi", "⌖"]
+    const owned = new Set(state.collection.map((row) => Number(row.card_number)));
+    const cards = state.catalog.filter((card) => owned.has(Number(card.id)));
+    const total = Math.min(75, owned.size), families = new Set(cards.map((card) => card.family)).size;
+    const types = new Set(cards.map((card) => card.type).filter(Boolean));
+    const rare = cards.some((card) => card.rarity && card.rarity !== "Commun");
+    const profile = state.profile, bio = profile.bio || "", tagline = profile.banner_settings?.tagline || "";
+    const milestones = [
+      ["Première empreinte", "Obtenir une carte", "✦", total >= 1], ["Un petit bestiaire", "Réunir 3 familles", "❖", families >= 3],
+      ["Pièce rare", "Trouver une carte peu commune ou rare", "✧", rare], ["Voyageur", "Explorer 3 types différents", "⌖", types.size >= 3],
+      ["Par-delà le givre", "Posséder une carte Glace", "❄", types.has("Glace")], ["Par-delà les flots", "Posséder une carte Eau", "≈", types.has("Eau")],
+      ["Choisir son clan", "Choisir un type favori", "◈", !!profile.favorite_type], ["Furry de cœur", "Choisir un Furry favori", "♡", !!profile.favorite_furry_id],
+      ["Quelques mots", "Écrire une présentation", "✎", bio.trim().length >= 20], ["Une voix", "Ajouter une phrase de profil", "〰", !!tagline.trim()],
+      ["Collectionneur", "Réunir 10 cartes", "▣", total >= 10], ["Gardien du Cardex", "Réunir 25 cartes", "⌑", total >= 25],
+      ["Grand archiviste", "Réunir 50 cartes", "⌘", total >= 50], ["Collection complète", "Réunir 75 cartes", "✺", total >= 75],
+      ["Créateur de decks", "Choisir le rôle Créateur de decks", "⚒", profile.community_role === "Créateur de decks"]
     ];
-    known.filter((item) => item[1]).forEach((item) => badgeList.append(badge(item[0], item[2], item[3])));
-    if (!badgeList.children.length) badgeList.append(badge("À découvrir", "Aucun badge pour le moment", "✧"));
-    $("stat-badges").textContent = String(known.filter((item) => item[1]).length);
+    state.badges = milestones.map(([name, note, icon, earned], index) => ({ name, note, icon, earned: !!earned, number: index + 1 }));
+    const icons = ["✦", "❖", "✧", "⌖", "❄", "≈", "◈", "♡", "✎", "〰", "▣", "⌑", "⌘", "✺", "⚒"];
+    for (let index = 15; index < 75; index += 1) {
+      const threshold = Math.ceil(((index - 14) / 60) * 75);
+      state.badges.push({ name: `Éclat d’expédition ${String(index - 14).padStart(2, "0")}`, note: `Réunir ${threshold} carte${threshold > 1 ? "s" : ""}`, icon: icons[index % icons.length], earned: total >= threshold, number: index + 1 });
+    }
+    const earnedCount = state.badges.filter((item) => item.earned).length;
+    $("stat-badges").textContent = `${earnedCount}/75`; $("badge-count-inline").textContent = `${earnedCount}/75`;
+    const badgeList = $("badge-list"); badgeList.replaceChildren();
+    const preview = [...state.badges.filter((item) => item.earned), ...state.badges.filter((item) => !item.earned)].slice(0, 6);
+    preview.forEach((item) => badgeList.append(badge(item.name, item.note, item.icon, item.earned, item.number)));
+    const all = $("all-badges"); all.replaceChildren();
+    state.badges.forEach((item) => all.append(badge(item.name, item.note, item.icon, item.earned, item.number)));
+    $("badge-dialog-count").textContent = `${earnedCount}/75 obtenus`;
   }
   function cardTitle(card) { return card?.label?.replace(/^#\d+\s*·\s*/, "") || `Carte #${card?.id ?? "?"}`; }
   function cardNode(card, remove = false) {
@@ -137,6 +156,7 @@
     state.user = user;
     $("auth-panel").classList.add("hidden"); $("account-panel").classList.remove("hidden");
     $("profile-main").classList.add("is-authenticated");
+    document.body.classList.add("has-profile");
     $("profile-edit-toggle").classList.remove("hidden");
     $("logout-button").classList.remove("hidden");
     $("profile-state").textContent = "Synchronisation";
@@ -161,7 +181,7 @@
     furrySelect.value = state.profile.favorite_furry_id || ""; $("favorite-type").value = state.profile.favorite_type || "";
     $("profile-visibility").value = state.profile.profile_visibility || "public"; $("collection-visibility").value = state.profile.collection_visibility || "private"; $("wishlist-visibility").value = state.profile.wishlist_visibility || "private";
     $("profile-bio").value = state.profile.bio || ""; $("bio-display").textContent = state.profile.bio || "Aucune présentation pour le moment."; $("bio-display").classList.toggle("empty", !state.profile.bio); $("bio-count").value = String((state.profile.bio || "").length);
-    $("stat-cards").textContent = String(state.collection.length); $("stat-level").textContent = String(Math.max(1, Math.floor(state.collection.length / 5) + 1)).padStart(2, "0"); $("stat-since").textContent = displayDate(state.profile.community_since || user.created_at);
+    $("stat-cards").textContent = `${Math.min(75, new Set(state.collection.map((row) => Number(row.card_number))).size)}/75`; $("stat-since").textContent = displayDate(state.profile.community_since || user.created_at);
     setAvatar(await signedAvatar(state.profile.avatar_path), $("welcome-name").textContent);
     populateSettings(); renderFacts(); renderBadges(); renderFeatured();
     const nav = $("moderation-nav-link");
@@ -224,6 +244,7 @@
     $("toggle-bio").addEventListener("click", () => { state.editingBio = !state.editingBio; $("bio-editor").classList.toggle("hidden", !state.editingBio); $("bio-display").classList.toggle("hidden", state.editingBio); if (state.editingBio) $("profile-bio").focus(); });
     $("profile-bio").addEventListener("input", () => { $("bio-count").value = String($("profile-bio").value.length); $("bio-display").textContent = $("profile-bio").value || "Aucune présentation pour le moment."; $("bio-display").classList.toggle("empty", !$("profile-bio").value); });
     $("add-featured").addEventListener("click", () => { renderPicker(); $("featured-dialog").showModal(); }); $("close-picker").addEventListener("click", () => $("featured-dialog").close()); $("featured-dialog").addEventListener("click", (e) => { if (e.target === $("featured-dialog")) $("featured-dialog").close(); });
+    $("open-badges").addEventListener("click", () => $("badges-dialog").showModal()); $("close-badges").addEventListener("click", () => $("badges-dialog").close()); $("badges-dialog").addEventListener("click", (e) => { if (e.target === $("badges-dialog")) $("badges-dialog").close(); });
     document.querySelectorAll(".tab[data-tab]").forEach((tab) => tab.addEventListener("click", () => { document.querySelectorAll(".tab[data-tab]").forEach((el) => { const active = el === tab; el.classList.toggle("active", active); el.setAttribute("aria-selected", String(active)); }); document.querySelectorAll(".tab-panel").forEach((el) => el.classList.toggle("active", el.id === `panel-${tab.dataset.tab}`)); }));
     document.querySelectorAll("[data-theme-choice]").forEach((button) => button.addEventListener("click", () => { state.theme = button.dataset.themeChoice; const [a, b] = themes[state.theme]; $("banner-color").value = a; $("banner-color2").value = b; readSettings(); document.querySelectorAll("[data-theme-choice]").forEach((el) => el.setAttribute("aria-pressed", String(el === button))); }));
     ["banner-color", "banner-color2", "banner-glow-color", "accent-color", "banner-pattern", "profile-layout"].forEach((id) => $(id).addEventListener("input", readSettings));
@@ -241,7 +262,7 @@
     const { data: { session } } = await client.auth.getSession();
     if (session?.user) { try { await loadProfile(session.user); } catch (error) { console.error(error); $("profile-state").textContent = "Profil partiellement chargé"; message("Impossible de charger toutes les données du profil. Tes autres pages restent accessibles.", true); } }
     else { $("profile-state").textContent = "Non connecté"; $("auth-panel").classList.remove("hidden"); }
-    client.auth.onAuthStateChange((_event, sessionNext) => { if (sessionNext?.user && sessionNext.user.id !== state.user?.id) setTimeout(() => loadProfile(sessionNext.user).catch((error) => { console.error(error); message("Impossible de charger le profil.", true); }), 0); else if (!sessionNext?.user) { state.user = null; $("profile-main").classList.remove("is-authenticated"); $("logout-button").classList.add("hidden"); $("account-panel").classList.add("hidden"); $("auth-panel").classList.remove("hidden"); $("profile-state").textContent = "Non connecté"; } });
+    client.auth.onAuthStateChange((_event, sessionNext) => { if (sessionNext?.user && sessionNext.user.id !== state.user?.id) setTimeout(() => loadProfile(sessionNext.user).catch((error) => { console.error(error); message("Impossible de charger le profil.", true); }), 0); else if (!sessionNext?.user) { state.user = null; document.body.classList.remove("has-profile"); $("profile-main").classList.remove("is-authenticated"); $("logout-button").classList.add("hidden"); $("account-panel").classList.add("hidden"); $("auth-panel").classList.remove("hidden"); $("profile-state").textContent = "Non connecté"; } });
   }
   document.addEventListener("DOMContentLoaded", start);
 })();
