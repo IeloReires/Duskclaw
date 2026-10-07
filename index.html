@@ -679,6 +679,10 @@
       if(!Context){button.disabled=true;button.title="Audio indisponible";return}
       const audio=new Audio(new URL("assets/duskclaw-ambiance.mp3",document.baseURI));
       audio.loop=true;audio.preload="auto";
+      // Let playback-rate changes lower the pitch during the stop transition.
+      if("preservesPitch" in audio)audio.preservesPitch=false;
+      if("webkitPreservesPitch" in audio)audio.webkitPreservesPitch=false;
+      if("mozPreservesPitch" in audio)audio.mozPreservesPitch=false;
       let context=null,master=null,playing=false,variationTimer=0,variation=1,stopFrame=0;
       const logo=button.querySelector("svg");
       const setButton=()=>{button.setAttribute("aria-pressed",String(playing));button.setAttribute("aria-label",playing?"Arrêter la musique d’ambiance":"Lancer la musique d’ambiance");button.title=playing?"Arrêter la musique d’ambiance":"Lancer la musique d’ambiance"};
@@ -686,15 +690,6 @@
         const length=Math.floor(context.sampleRate*1.8),buffer=context.createBuffer(2,length,context.sampleRate);
         for(let channel=0;channel<2;channel++){const data=buffer.getChannelData(channel);for(let i=0;i<length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/length,3.2)}
         return buffer;
-      };
-      const playVinylRub=()=>{
-        if(!context)return;
-        const now=context.currentTime,duration=.62,length=Math.floor(context.sampleRate*duration),buffer=context.createBuffer(1,length,context.sampleRate),samples=buffer.getChannelData(0);
-        for(let i=0;i<length;i++){const t=i/context.sampleRate,pulse=.42+.58*Math.abs(Math.sin(2*Math.PI*10.5*t));samples[i]=(Math.random()*2-1)*(1-i/length)**1.45*pulse}
-        const source=context.createBufferSource();source.buffer=buffer;
-        const filter=context.createBiquadFilter();filter.type="bandpass";filter.Q.value=1.15;filter.frequency.setValueAtTime(1450,now);filter.frequency.exponentialRampToValueAtTime(3300,now+.12);filter.frequency.exponentialRampToValueAtTime(560,now+.29);filter.frequency.exponentialRampToValueAtTime(2100,now+.43);filter.frequency.exponentialRampToValueAtTime(430,now+.62);
-        const noiseGain=context.createGain();noiseGain.gain.setValueAtTime(.0001,now);noiseGain.gain.exponentialRampToValueAtTime(.105,now+.035);noiseGain.gain.exponentialRampToValueAtTime(.0001,now+duration);
-        source.connect(filter);filter.connect(noiseGain);noiseGain.connect(context.destination);source.start(now);source.stop(now+duration);
       };
       const buildSound=()=>{
         context=new Context();const source=context.createMediaElementSource(audio);
@@ -722,10 +717,10 @@
         else if(logo){const matrix=new DOMMatrixReadOnly(getComputedStyle(logo).transform);currentAngle=Math.atan2(matrix.b,matrix.a)*180/Math.PI}
         else currentAngle=0;
         const startAngle=((currentAngle%360)+360)%360;const normalizedAngle=startAngle>180?startAngle-360:startAngle;const targetAngle=normalizedAngle<0?0:360;
-        playing=false;window.clearTimeout(variationTimer);playVinylRub();if(master&&context)master.gain.setTargetAtTime(0,context.currentTime,.22);setButton();
+        playing=false;window.clearTimeout(variationTimer);if(master&&context)master.gain.setTargetAtTime(0,context.currentTime,.38);setButton();
         if(logo){logo.getAnimations().forEach(animation=>animation.cancel());const returnMotion=logo.animate([{transform:`rotate(${normalizedAngle}deg)`},{transform:`rotate(${targetAngle}deg)`}],{duration:520+((targetAngle-normalizedAngle)/360)*560,easing:"cubic-bezier(.25,.1,.25,1)",fill:"forwards"});returnMotion.onfinish=()=>returnMotion.cancel()}
-        const started=performance.now(),duration=780,initialRate=audio.playbackRate;cancelAnimationFrame(stopFrame);
-        const coast=now=>{const progress=Math.min(1,(now-started)/duration);audio.playbackRate=Math.max(.035,initialRate*(1-progress)**2);if(progress<1){stopFrame=requestAnimationFrame(coast)}else{audio.pause();audio.currentTime=0;audio.playbackRate=1}};
+        const started=performance.now(),duration=1050,initialRate=audio.playbackRate,finalRate=.58;cancelAnimationFrame(stopFrame);
+        const coast=now=>{const progress=Math.min(1,(now-started)/duration),eased=progress*progress*(3-2*progress);audio.playbackRate=initialRate+(finalRate-initialRate)*eased;if(progress<1){stopFrame=requestAnimationFrame(coast)}else{audio.pause();audio.currentTime=0;audio.playbackRate=1}};
         stopFrame=requestAnimationFrame(coast);
       };
       button.addEventListener("click",()=>{if(playing){pause();return}start().catch(()=>{pause();button.title="Musique indisponible"})});
