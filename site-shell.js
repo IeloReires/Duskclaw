@@ -1,4 +1,38 @@
 (() => {
+  const installUnifiedHeader = () => {
+    if (document.getElementById("site-shell-unified-header-style")) return;
+    const style = document.createElement("style");
+    style.id = "site-shell-unified-header-style";
+    style.textContent = `
+      body:not(.home) .site-shell-header{position:relative!important;z-index:1200!important;display:grid!important;grid-template-columns:1fr auto!important;grid-template-rows:1fr!important;align-items:center!important;width:100%!important;max-width:none!important;min-height:68px!important;margin:0 0 10px!important;padding:12px clamp(18px,2.3vw,44px)!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#f8efd9!important;backdrop-filter:none!important}
+      body:not(.home) .site-shell-header:after{display:none!important}
+      body:not(.home) .site-shell-brand{grid-column:1!important;grid-row:1!important;justify-self:start!important;color:#fff3d6!important;text-shadow:0 2px 8px #100b08c9!important}
+      body:not(.home) .site-shell-brand span{color:#e4bf70!important}
+      body:not(.home) .site-shell-menu-toggle,body:not(.home) .site-shell-actions>a.site-shell-support,body:not(.home) .site-shell-actions>a.site-shell-moderation{display:none!important}
+      body:not(.home) .site-shell-actions{grid-column:2!important;grid-row:1!important;justify-content:flex-end!important;gap:11px!important;margin:0!important}
+      body:not(.home) .site-shell-header .site-shell-actions>a.site-shell-account{display:inline-flex!important;min-width:0!important;min-height:0!important;width:48px!important;height:48px!important;padding:0!important;border:0!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important}
+      body .site-shell-header .site-shell-profile-wrap>a.site-shell-account{display:inline-flex!important;min-width:0!important;min-height:0!important;width:48px!important;height:48px!important;padding:0!important;border:0!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important}
+      body:not(.home) .site-shell-avatar{width:48px!important;height:48px!important;border:2px solid #e7c77d!important;border-radius:50%!important;background:#26374b!important;box-shadow:0 0 0 2px #1b26359c!important}
+      body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications{width:48px!important;height:48px!important;flex-basis:48px!important;border:1px solid #f0cd78!important;border-radius:50%!important;background:linear-gradient(145deg,#796039,#392d22)!important;color:#ffe8a8!important;box-shadow:0 0 0 3px #e8c66d24,0 4px 14px #0907068a,inset 0 1px #fff3c066!important;transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important}
+      body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications svg{width:23px!important;height:23px!important}
+      body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications:hover,body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications:focus-visible{transform:translateY(-2px)!important;background:linear-gradient(145deg,#947443,#483724)!important;box-shadow:0 0 0 4px #e8c66d30,0 7px 18px #090706a6,inset 0 1px #fff5ce88!important;outline:0!important}
+      body:not(.home) .site-shell-notification-count{border-color:#1e2838!important}
+      .site-shell-profile-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
+      .site-shell-profile-menu{position:absolute;top:calc(100% + 13px);right:0;z-index:1400;width:min(290px,calc(100vw - 24px));padding:9px;border:1px solid #c4a461;border-radius:5px;background:linear-gradient(145deg,#f6edda,#e8dcc0);color:#26354c;box-shadow:0 18px 44px #09070672;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-7px);transition:opacity .18s ease,transform .18s ease,visibility .18s}
+      .site-shell-profile-menu.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+      .site-shell-profile-menu a{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:39px;padding:7px 9px;border-bottom:1px solid #b8a77e55;color:#26354c;text-decoration:none;font:600 .88rem Georgia,'Times New Roman',serif}
+      .site-shell-profile-menu a:last-child{border-bottom:0}
+      .site-shell-profile-menu a:hover,.site-shell-profile-menu a:focus-visible{background:#d9c79755;outline:1px solid #ad8b4a}
+      .site-shell-profile-menu .profile-menu-number{color:#9a7245;font:italic 700 .72rem Georgia,serif}
+      .site-shell-profile-menu .profile-menu-arrow{color:#9a7245;font-size:.76rem}
+      .site-shell-profile-menu .profile-menu-first{margin-bottom:4px;border-bottom:1px solid #927747!important;font-weight:700}
+      @media(max-width:600px){body:not(.home) .site-shell-header{min-height:62px!important;padding:10px 15px!important}body:not(.home) .site-shell-header .site-shell-actions>a.site-shell-account,body:not(.home) .site-shell-avatar,body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications{width:42px!important;height:42px!important;flex-basis:42px!important}body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications svg{width:20px!important;height:20px!important}}
+      @media(prefers-reduced-motion:reduce){.site-shell-profile-menu{transition:none}}
+    `;
+    document.head.append(style);
+  };
+  installUnifiedHeader();
+
   const toggle = document.querySelector(".site-shell-menu-toggle");
   const menu = document.getElementById("site-shell-menu");
   if (menu) {
@@ -86,6 +120,77 @@
     panel.append(heading, list);
     wrap.append(bell, panel);
     actions.insertBefore(wrap, accountLink);
+
+    const profileWrap = document.createElement("div");
+    profileWrap.className = "site-shell-profile-wrap";
+    accountLink.parentNode.insertBefore(profileWrap, accountLink);
+    profileWrap.append(accountLink);
+    accountLink.setAttribute("aria-haspopup", "true");
+    accountLink.setAttribute("aria-expanded", "false");
+    accountLink.setAttribute("aria-controls", "site-shell-profile-menu");
+    const profileMenu = document.createElement("nav");
+    profileMenu.id = "site-shell-profile-menu";
+    profileMenu.className = "site-shell-profile-menu";
+    profileMenu.setAttribute("aria-label", "Menu du profil");
+    const profileItems = [
+      ["mon-compte.html", "Profil", "", "profile-menu-first"],
+      ["regles.html", "Les règles", "01"],
+      ["personnages.html", "Cardex", "02"],
+      ["univers.html", "Univers", "03"],
+      ["deck-builder.html", "Deck Builder", "04"],
+      ["evenements.html", "Événements", "05"],
+      ["faq.html", "FAQ", "06"],
+      ["soutenir.html", "Soutenir", "07"]
+    ];
+    profileItems.forEach(([href, label, number, extraClass]) => {
+      const link = document.createElement("a");
+      link.href = href;
+      if (extraClass) link.classList.add(extraClass);
+      if (number) {
+        const index = document.createElement("span");
+        index.className = "profile-menu-number";
+        index.textContent = number;
+        link.append(index);
+      } else {
+        const spacer = document.createElement("span");
+        spacer.className = "profile-menu-number";
+        spacer.setAttribute("aria-hidden", "true");
+        link.append(spacer);
+      }
+      const text = document.createElement("span");
+      text.textContent = label;
+      const arrow = document.createElement("span");
+      arrow.className = "profile-menu-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "↗";
+      link.append(text, arrow);
+      profileMenu.append(link);
+    });
+    profileWrap.append(profileMenu);
+    const closeProfileMenu = (returnFocus = false) => {
+      profileMenu.classList.remove("is-open");
+      accountLink.setAttribute("aria-expanded", "false");
+      profileMenu.inert = true;
+      if (returnFocus) accountLink.focus({ preventScroll: true });
+    };
+    profileMenu.inert = true;
+    accountLink.addEventListener("click", event => {
+      event.preventDefault();
+      const open = !profileMenu.classList.contains("is-open");
+      profileMenu.classList.toggle("is-open", open);
+      accountLink.setAttribute("aria-expanded", String(open));
+      profileMenu.inert = !open;
+      if (open) profileMenu.querySelector("a")?.focus({ preventScroll: true });
+    });
+    profileMenu.addEventListener("click", event => {
+      if (event.target.closest("a")) closeProfileMenu();
+    });
+    document.addEventListener("pointerdown", event => {
+      if (!profileWrap.contains(event.target)) closeProfileMenu();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && accountLink.getAttribute("aria-expanded") === "true") closeProfileMenu(true);
+    });
 
     const showMessage = text => {
       list.replaceChildren();

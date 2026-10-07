@@ -7,7 +7,7 @@
   <meta name="description" content="Rejoins les playtests Duskclaw et aide à faire évoluer le jeu de cartes physique.">
   <title>Playtests — Duskclaw</title>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
+  <link rel="stylesheet" href="site-shell.css?v=20261007-profile-menu-header1">
   <link rel="stylesheet" href="parchment-theme.css?v=20261007-tavern-pages1">
   <style>
     :root{--test-ink:#26364a;--test-muted:#716d61;--test-paper:#f1e8d2;--test-line:#b6a174;--test-accent:#a85c48}
@@ -71,6 +71,6 @@
     document.getElementById("admin-form").addEventListener("submit",async event=>{event.preventDefault();const formElement=event.currentTarget,form=new FormData(formElement),start=form.get("starts_at"),deadline=new Date(form.get("deadline"));if(Number.isNaN(deadline.valueOf()))return;const payload={created_by:user.id,title:String(form.get("title")).trim(),focus:String(form.get("focus")||"").trim(),format:form.get("format"),location:String(form.get("location")||"").trim(),starts_at:start?new Date(start).toISOString():null,deadline:deadline.toISOString(),description:String(form.get("description")||"").trim(),status:form.get("status")};const submit=document.getElementById("admin-submit");submit.disabled=true;const {data,error}=await client.from("playtest_calls").insert(payload).select("id,title,description,focus,format,location,starts_at,deadline,status,created_by,created_at").single();submit.disabled=false;const message=document.getElementById("admin-message");if(error){message.className="admin-message error";message.textContent="Appel non enregistré. Vérifie la configuration Supabase.";return}calls.unshift(data);formElement.reset();message.className="admin-message success";message.textContent="Appel enregistré.";await loadData()});
     (async()=>{try{const {data,error}=await client.auth.getSession();if(error)throw error;user=data.session?.user||null;if(user){const {data:mod}=await client.rpc("is_site_moderator");isModerator=mod===true;document.getElementById("admin-panel").hidden=!isModerator}await loadData();client.auth.onAuthStateChange(async(_event,session)=>{user=session?.user||null;applications=new Map();isModerator=false;if(user){const {data:mod}=await client.rpc("is_site_moderator");isModerator=mod===true;document.getElementById("admin-panel").hidden=!isModerator}await loadData()})}catch{noticeText("La page n’a pas pu se connecter au service. Recharge-la dans quelques instants.")}})();
   </script>
-  <script src="site-shell.js?v=20261007-notebook-color1"></script>
+  <script src="site-shell.js?v=20261007-profile-menu-header1"></script>
 </body>
 </html>
