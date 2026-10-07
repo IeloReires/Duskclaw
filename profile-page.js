@@ -26,6 +26,48 @@
     if (!workshopOrigins.has(node)) { const anchor = document.createComment("profile-editor-origin"); node.before(anchor); workshopOrigins.set(node, anchor); }
     target.append(node);
   }
+  const frameDefaults = { banner: "#17375d", collection: "#a78a57", favorites: "#1e3d61", profile: "#c3b38b" };
+  function createFrameControls(key, label, includeBook = false) {
+    const wrap = document.createElement("section"); wrap.className = "frame-control-group";
+    wrap.innerHTML = `<h4>Cadre de ${label}</h4><div class="frame-control-fields"><label>Forme du cadre<select class="control" data-frame-style="${key}"><option value="classic">Reliure classique</option><option value="square">Angles droits</option><option value="rounded">Coins arrondis</option></select></label><label>Couleur du cadre<input type="color" data-frame-color="${key}" value="#c5a45d"></label></div><button type="button" class="subtle-button reset-element-button" data-reset-element="${key}">Réinitialiser ${label}</button>`;
+    if (includeBook) wrap.insertAdjacentHTML("beforeend", '<div class="book-color-control"><label>Couleur du carnet<input type="color" data-book-color value="#203b61"></label><button type="button" class="subtle-button reset-element-button" data-reset-element="book">Réinitialiser la couleur du carnet</button><small>Cette couleur s’applique aux carnets sur toutes les pages du site.</small></div>');
+    wrap.querySelector(`[data-frame-style="${key}"]`).value = state.settings[`frame_${key}_style`] || "classic";
+    wrap.querySelector(`[data-frame-color="${key}"]`).value = state.settings[`frame_${key}_color`] || frameDefaults[key] || "#c5a45d";
+    if (includeBook) wrap.querySelector("[data-book-color]").value = state.settings.book_color || "#203b61";
+    return wrap;
+  }
+  function applyFrameStyles() {
+    const radius = { classic: { banner: "20px", collection: "2px", favorites: "2px", profile: "3px" }, square: { banner: "2px", collection: "0", favorites: "0", profile: "1px" }, rounded: { banner: "32px", collection: "16px", favorites: "18px", profile: "18px" } };
+    const setFrame = (node, key) => {
+      if (!node) return;
+      const color = state.settings[`frame_${key}_color`], shape = state.settings[`frame_${key}_style`];
+      if (color) { node.style.setProperty("border-color", color, "important"); node.style.setProperty("outline-color", color, "important"); } else { node.style.removeProperty("border-color"); node.style.removeProperty("outline-color"); }
+      if (shape) node.style.setProperty("border-radius", radius[shape]?.[key] || radius.classic[key], "important"); else node.style.removeProperty("border-radius");
+    };
+    setFrame($("profile-hero"), "banner");
+    document.querySelectorAll(".featured-card").forEach((node) => setFrame(node, "collection"));
+    document.querySelectorAll(".favorite-furry,.favorite-marker").forEach((node) => setFrame(node, "favorites"));
+    setFrame(document.querySelector(".about-surface"), "profile");
+    const bookColor = state.settings.book_color || "#203b61";
+    document.documentElement.style.setProperty("--duskclaw-book-color", bookColor);
+    window.setDuskclawNotebookColor?.(bookColor, state.user?.id);
+  }
+  function makeElementResetButton(key) {
+    const button = document.createElement("button"); button.type = "button"; button.className = "subtle-button reset-element-button"; button.dataset.resetElement = key;
+    button.textContent = key === "banner" ? "Réinitialiser la bannière" : key === "collection" ? "Réinitialiser les cadres des cartes" : key === "favorites" ? "Réinitialiser les cadres des repères" : "Réinitialiser le cadre du profil"; return button;
+  }
+  function resetElementSettings(key) {
+    if (key === "book") { state.settings.book_color = "#203b61"; const input = workshop?.querySelector("[data-book-color]"); if (input) input.value = state.settings.book_color; applyFrameStyles(); return; }
+    delete state.settings[`frame_${key}_style`]; delete state.settings[`frame_${key}_color`];
+    if (key === "banner") {
+      state.theme = "water";
+      Object.assign(state.settings, { color: "#257f93", color2: "#163554", glowColor: "#b8a6df", accent: "#9c8cff", pattern: "waves", layout: "classic", pattern_opacity: 28, pattern_size: 100, gradient_angle: 125, glow: 35, glow_x: 78, glow_y: 18 });
+      populateSettings();
+    }
+    workshop?.querySelectorAll(`[data-frame-style="${key}"]`).forEach((input) => input.value = "classic");
+    workshop?.querySelectorAll(`[data-frame-color="${key}"]`).forEach((input) => input.value = frameDefaults[key] || "#c5a45d");
+    applyBanner(); applyFrameStyles();
+  }
   function makeWorkshop() {
     if (workshop) return workshop;
     workshop = document.createElement("section"); workshop.className = "profile-workshop"; workshop.setAttribute("role", "dialog"); workshop.setAttribute("aria-modal", "true"); workshop.setAttribute("aria-label", "Atelier de personnalisation");
@@ -33,6 +75,14 @@
     document.body.append(workshop);
     workshop.querySelector(".workshop-close").addEventListener("click", cancelEditing);
     workshop.querySelectorAll("[data-workshop-category]").forEach((button) => button.addEventListener("click", () => showWorkshopCategory(button.dataset.workshopCategory)));
+    workshop.addEventListener("input", (event) => {
+      const control = event.target;
+      if (control.matches("[data-frame-style]")) state.settings[`frame_${control.dataset.frameStyle}_style`] = control.value;
+      if (control.matches("[data-frame-color]")) state.settings[`frame_${control.dataset.frameColor}_color`] = control.value;
+      if (control.matches("[data-book-color]")) state.settings.book_color = control.value;
+      if (control.matches("[data-frame-style],[data-frame-color],[data-book-color]")) applyFrameStyles();
+    });
+    workshop.addEventListener("click", (event) => { const reset = event.target.closest("[data-reset-element]"); if (reset) resetElementSettings(reset.dataset.resetElement); });
     return workshop;
   }
   function showWorkshopCategory(category) {
@@ -52,13 +102,15 @@
       customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
       customizer.querySelector(".tabs").classList.add("hidden");
       [identity, privacy].forEach((node) => node.classList.remove("active")); appearance.classList.add("active");
+      if (!appearance.querySelector(".banner-frame-controls")) { const controls = createFrameControls("banner", "la bannière", true); controls.classList.add("banner-frame-controls"); appearance.append(controls); }
+      if (!appearance.querySelector('[data-reset-element="banner"]')) appearance.append(makeElementResetButton("banner"));
     } else if (category === "collection") {
       relocateWorkshopNode(featured, stage);
       relocateWorkshopNode(customizer, settings); customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
       customizer.querySelector(".tabs").classList.add("hidden"); customizer.querySelectorAll(".tab-panel").forEach((node) => node.classList.remove("active"));
       const collectionTools = document.createElement("div"); collectionTools.className = "workshop-tools collection-tools";
       collectionTools.innerHTML = '<p>Les cartes sélectionnées restent visibles à gauche. Tu peux les retirer directement de la vitrine.</p><div class="workshop-add-slot"></div><p class="workshop-hint">Maximum : trois cartes. Seules les cartes de ta collection sont proposées.</p>';
-      relocateWorkshopNode($("add-featured"), collectionTools.querySelector(".workshop-add-slot")); settings.insertBefore(collectionTools, customizer);
+      relocateWorkshopNode($("add-featured"), collectionTools.querySelector(".workshop-add-slot")); collectionTools.append(createFrameControls("collection", "des cartes")); settings.insertBefore(collectionTools, customizer);
     } else if (category === "favorites") {
       relocateWorkshopNode(favorites, stage);
       relocateWorkshopNode(customizer, settings); customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
@@ -66,6 +118,7 @@
       const favoriteTools = document.createElement("div"); favoriteTools.className = "workshop-tools favorite-tools"; favoriteTools.innerHTML = '<p>Chaque choix met à jour l’aperçu de gauche immédiatement.</p><div class="workshop-choice-fields"></div>';
       const fields = favoriteTools.querySelector(".workshop-choice-fields");
       ["favorite-furry", "favorite-type", "favorite-terrain"].forEach((id) => relocateWorkshopNode($(id)?.closest("label"), fields));
+      favoriteTools.append(createFrameControls("favorites", "des repères"));
       settings.insertBefore(favoriteTools, customizer);
     } else {
       relocateWorkshopNode(about, stage);
@@ -76,6 +129,7 @@
       [$("tagline-input")?.closest("label"), $("community-role")?.closest("label")].forEach((node) => relocateWorkshopNode(node, fields));
       settings.insertBefore(identityTools, customizer);
       [$("profile-visibility"), $("collection-visibility"), $("wishlist-visibility")].forEach((select) => relocateWorkshopNode(select?.closest("label"), fields));
+      identityTools.append(createFrameControls("profile", "du profil"));
     }
     const saveRow = customizer.querySelector(".save-row"); if (saveRow) saveRow.classList.remove("hidden");
     shell.classList.add("is-open"); shell.dataset.category = category;
@@ -203,7 +257,7 @@
     const role = state.profile.community_role || "Joueur";
     const furry = state.roster.find((item) => String(item.id) === String(state.profile.favorite_furry_id));
     const type = state.profile.favorite_type || "";
-    $("side-role").textContent = role; $("side-furry").textContent = furry?.displayName || "À choisir"; $("side-type").textContent = type || "À choisir";
+    $("side-role").textContent = role; $("side-furry").textContent = furry ? `${furry.displayName} · ${furry.level}` : "À choisir"; $("side-type").textContent = type || "À choisir";
     $("hero-tagline").textContent = state.profile.banner_settings?.tagline || "Une nouvelle aventure commence ici.";
     renderFavorites();
   }
@@ -217,7 +271,7 @@
       else { const fallback = document.createElement("span"); fallback.textContent = furry?.displayName?.slice(0, 1) || "✦"; picture.append(fallback); }
     }
     if ($("favorite-furry-name")) $("favorite-furry-name").textContent = furry?.displayName || "À choisir";
-    if ($("favorite-furry-meta")) $("favorite-furry-meta").textContent = furry ? `${furry.type} · ${furry.rarity}` : "Compagnon de route";
+    if ($("favorite-furry-meta")) $("favorite-furry-meta").textContent = furry ? `${furry.level} · ${furry.type} · ${furry.rarity}` : "Compagnon de route";
     const type = state.profile.favorite_type || "";
     const typeIcons = { Glace: "❄", Eau: "≈", Vent: "〰", Plante: "❧", Roche: "◈" };
     if ($("favorite-type-name")) $("favorite-type-name").textContent = type || "À choisir";
@@ -316,6 +370,7 @@
     if (!cards.length) { const empty = document.createElement("p"); empty.className = "empty-showcase"; empty.textContent = "Aucune carte mise à l’honneur pour le moment."; gallery.append(empty); }
     cards.forEach((card) => gallery.append(cardNode(card, true)));
     $("add-featured").disabled = state.featured.length >= 3 || !state.collection.length;
+    applyFrameStyles();
   }
   function renderPicker() {
     const picker = $("card-picker"); picker.replaceChildren();
@@ -354,13 +409,15 @@
     $("nickname-input").value = $("welcome-name").textContent;
     const tagline = state.settings.tagline || ""; $("tagline-setting").value = tagline; $("tagline-input").value = tagline;
     $("community-role").value = state.profile.community_role || "Joueur";
-    const furrySelect = $("favorite-furry"); state.roster.filter((furry) => furry.stageIndex === 0).forEach((furry) => { const option = document.createElement("option"); option.value = String(furry.id); option.textContent = furry.displayName; furrySelect.append(option); });
+    const furrySelect = $("favorite-furry");
+    const families = new Map(); state.roster.forEach((furry) => { const familyKey = furry.family ?? furry.id; if (!families.has(familyKey)) families.set(familyKey, []); families.get(familyKey).push(furry); });
+    families.forEach((forms) => { const group = document.createElement("optgroup"); group.label = forms.find((form) => Number(form.stageIndex) === 0)?.displayName || forms[0].displayName; forms.forEach((furry) => { const option = document.createElement("option"); option.value = String(furry.id); option.textContent = `${furry.displayName} · ${furry.level || `Niveau ${furry.stageIndex || 0}`}`; group.append(option); }); furrySelect.append(group); });
     furrySelect.value = state.profile.favorite_furry_id || ""; $("favorite-type").value = state.profile.favorite_type || ""; $("favorite-terrain").value = state.settings.favorite_terrain || "";
     $("profile-visibility").value = state.profile.profile_visibility || "public"; $("collection-visibility").value = state.profile.collection_visibility || "private"; $("wishlist-visibility").value = state.profile.wishlist_visibility || "private";
     $("profile-bio").value = state.profile.bio || ""; $("bio-display").textContent = state.profile.bio || "Aucune présentation pour le moment."; $("bio-display").classList.toggle("empty", !state.profile.bio); $("bio-count").value = String((state.profile.bio || "").length);
     $("stat-cards").textContent = `${Math.min(75, new Set(state.collection.map((row) => Number(row.card_number))).size)}/75`; $("stat-since").textContent = displayDate(state.profile.community_since || user.created_at);
     setAvatar(await signedAvatar(state.profile.avatar_path), $("welcome-name").textContent);
-    populateSettings(); renderFacts(); renderBadges(); renderFeatured();
+    populateSettings(); renderFacts(); renderBadges(); renderFeatured(); applyFrameStyles();
     const nav = $("moderation-nav-link");
     const { data: isModerator } = await client.rpc("is_site_moderator");
     if (isModerator === true) nav.classList.remove("hidden");

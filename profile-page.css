@@ -238,3 +238,13 @@ body.workshop-active{overflow:hidden!important}
 @keyframes workshop-slide-in{from{opacity:0;transform:translateX(74px) scale(.97);filter:blur(3px)}to{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}}
 @media(max-width:760px){.profile-workshop{gap:9px;padding:12px}.workshop-body{grid-template-columns:1fr;grid-template-rows:minmax(180px,.75fr) minmax(0,1.25fr);gap:10px}.workshop-preview,.workshop-settings{padding:13px}.workshop-stage>.profile-hero{min-height:180px!important}.workshop-stage .featured-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.workshop-stage .featured-card{min-height:120px}.workshop-sections{gap:3px}.workshop-sections button{padding:4px 2px;font-size:.68rem}.workshop-customizer .theme-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.profile-workshop,.workshop-sections button{transition:none}.workshop-stage,.profile-workshop.is-ready .workshop-stage{animation:none}}
+.frame-control-group{display:grid;gap:9px;padding:13px;border:1px solid #c5b48d;background:linear-gradient(135deg,#f7efd9,#eee2c6);box-shadow:inset 0 0 0 2px #fff7e5}
+.frame-control-group h4{margin:0;color:#354862;font:600 .95rem Georgia,serif}
+.frame-control-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(110px,.65fr);gap:10px}
+.frame-control-fields label,.book-color-control label{display:grid;gap:6px;color:#685a42;font-size:.72rem;font-weight:700}
+.frame-control-fields input[type=color],.book-color-control input[type=color]{width:100%;height:40px;padding:3px;border:1px solid #bba77b;background:#fff8e8}
+.book-color-control{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px;padding-top:10px;border-top:1px solid #cbb990}
+.book-color-control small{grid-column:1/-1;color:#7a6b50;font-size:.68rem;line-height:1.4}
+.reset-element-button{justify-self:start;min-height:34px;padding:6px 10px;font-size:.72rem}
+.workshop-customizer .frame-control-group{margin-top:2px}
+@media(max-width:760px){.frame-control-fields{grid-template-columns:1fr}.book-color-control{grid-template-columns:1fr}.book-color-control small{grid-column:auto}}

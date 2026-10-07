@@ -79,7 +79,7 @@
     .global-mode-switch input:checked + .global-mode-track::before { transform: translateX(19px); background: #e5dcf5; }
     .global-mode-switch input:focus-visible + .global-mode-track { outline: 2px solid var(--dusk-accent); outline-offset: 3px; }
     @media (max-width: 560px) { .global-mode-switch { bottom: 14px; left: 14px; } }
-      @media (max-width: 560px) {
+    @media (max-width: 560px) {
       .global-mode-switch, .dusk-mode-switch, .bouton-mode {
         position: static !important;
         inset: auto !important;
@@ -97,6 +97,44 @@
         margin-inline: auto;
       }
     }
+    /* Carnet de règles assorti au registre du Cardex. */
+    main.rules-page{box-sizing:border-box!important;position:relative!important;width:min(1600px,96%)!important;margin:22px auto 64px!important;padding:clamp(14px,2.2vw,34px)!important;border:20px solid #304967!important;border-radius:19px!important;outline:2px solid #d0b66c!important;outline-offset:-9px!important;background:linear-gradient(100deg,#f3eddd,#e9e1cc)!important;color:#26364a!important;box-shadow:1px 2px 0 #f7f0df,3px 4px 0 #ad9b73,5px 6px 0 #f2e9d4,7px 8px 0 #88764f,0 18px 32px #10203a55,inset 0 0 0 3px #8293a7,inset 0 0 0 6px #d4b66d,inset 0 0 0 8px #344d6c,inset 0 0 0 11px #d5c38f,inset 0 0 0 13px #f7efd9!important}
+    .rules-page .rules-hero{padding:12px clamp(10px,2vw,30px) 20px!important;border-color:#b6a57f!important}
+    .rules-page .rules-hero h1{margin:8px 0 10px!important;color:#26364a!important;font-size:clamp(2.3rem,4.4vw,4.2rem)!important;line-height:.98!important}
+    .rules-page .rules-lead{max-width:850px!important;margin:0!important;color:#625c4e!important;font:400 clamp(.9rem,1.2vw,1.05rem)/1.65 Arial,sans-serif!important}
+    .rules-page .rules-toc{margin:18px 8px 26px!important;padding:12px 18px!important;border:1px solid #b49a68!important;border-radius:4px!important;background:linear-gradient(110deg,#f6efdd,#e9dfc7)!important;color:#30435d!important;box-shadow:inset 0 0 0 2px #fff8e7,0 3px 0 #c4b48e!important}
+    .rules-page .rules-toc summary{color:#304967!important;font:700 .9rem Georgia,serif!important}
+    .rules-page .rules-toc[open] ol{max-height:260px;overflow:auto;columns:3;column-gap:28px;margin-top:12px}
+    .rules-page .rules-toc li{color:#645c4c!important;font:400 .78rem/1.45 Arial,sans-serif!important}
+    .rules-page .rules-toc a{color:inherit!important;text-decoration-color:#b19a6a;text-underline-offset:2px}
+    .rules-page .rules-book.cardex-open-spread{position:relative!important;height:clamp(600px,74vh,980px)!important;min-height:600px!important;overflow:hidden!important;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr)!important;border:1px solid #b6a57f!important;border-radius:3px!important;background-color:#eee9d8!important;background-image:linear-gradient(90deg,#d1c39f 0,#f6efdc 1%,transparent 3%,transparent 49.55%,#d7c9a8 49.8%,#8b7954 50%,#fff8e6 50.18%,#d7c9a8 50.45%,transparent 51%,transparent 97%,#f6efdc 99%,#d1c39f 100%),repeating-linear-gradient(0deg,#71634408 0 1px,transparent 1px 6px),linear-gradient(100deg,#f2ecd9,#e8e0c9)!important;box-shadow:inset 0 1px 0 #fff9e8,inset 0 0 0 1px #b6a57f,inset 0 8px 18px #73634414,inset 0 -7px 12px #75644318!important}
+    .rules-book .rules-leaf.cardex-leaf{position:relative!important;z-index:1!important;display:block!important;min-width:0!important;min-height:0!important;padding:clamp(24px,3vw,46px)!important;overflow-y:auto!important;background:radial-gradient(ellipse at 50% 48%,#fff9e355,transparent 78%),repeating-linear-gradient(0deg,#71634408 0 1px,transparent 1px 7px),linear-gradient(100deg,#f3eddd,#e9e1cc)!important;color:#26364a!important;scrollbar-color:#b49a68 #eee5d0;scrollbar-width:thin}
+    .rules-book .rules-leaf-left{box-shadow:inset 7px 0 9px #5b4a2a12,inset -10px 0 16px #6e57321a!important}
+    .rules-book .rules-leaf-right{box-shadow:inset 10px 0 16px #6e57321a,inset -7px 0 9px #5b4a2a12!important}
+    .rules-book .rule-chapter{max-height:100%;margin:0!important;padding:2px 8px 24px!important;overflow-y:auto!important;border:0!important;border-bottom:0!important;scroll-margin-top:18px;scrollbar-color:#b49a68 #eee5d0;scrollbar-width:thin}
+    .rules-book .rule-chapter h2{margin:0 0 20px!important;padding:0 0 13px!important;border-bottom:1px solid #b8a982!important;color:#293b55!important;font:500 clamp(1.6rem,2.8vw,2.65rem)/1.08 Georgia,serif!important;letter-spacing:-.025em}
+    .rules-book .rule-chapter h3{margin:25px 0 9px!important;color:#8b6144!important;font:600 clamp(1.08rem,1.7vw,1.45rem)/1.2 Georgia,serif!important}
+    .rules-book .rule-chapter h4{margin:19px 0 8px!important;color:#344963!important;font:700 1rem/1.3 Georgia,serif!important}
+    .rules-book .rule-chapter p,.rules-book .rule-chapter li{color:#5f5a4e!important;font:400 .91rem/1.7 Arial,sans-serif!important}
+    .rules-book .rule-chapter p{margin:12px 0!important}
+    .rules-book .rule-chapter strong{color:#293b55!important}
+    .rules-book .rule-chapter a{color:#344963!important;text-underline-offset:3px}
+    .rules-book .rule-chapter .rule-list{padding-left:22px!important}
+    .rules-book .rule-chapter .table-wrap{margin:18px 0!important}
+    .rules-book .rule-chapter table{border-collapse:collapse!important;background:#f6efdf!important}
+    .rules-book .rule-chapter th,.rules-book .rule-chapter td{padding:10px 12px!important;border:1px solid #c4b48e!important;text-align:left!important}
+    .rules-book .rule-chapter th{background:#e5dbc2!important;color:#344963!important;font:700 .83rem/1.4 Georgia,serif!important}
+    .rules-book .rule-chapter td{color:#5f5a4e!important;font:400 .82rem/1.5 Arial,sans-serif!important}
+    .rules-book .rules-gutter{position:relative;z-index:2;background:linear-gradient(90deg,#d7c9a8 0%,#f6efdc 30%,#82704c 49%,#6c5b3a 50%,#e3d6b5 70%,#f6efdc 100%)!important;box-shadow:0 0 10px #57472a24!important}
+    .rules-book-navigation{display:flex;align-items:center;justify-content:center;gap:clamp(16px,3vw,42px);margin:18px auto 0;color:#716447;font:italic .78rem Georgia,serif}
+    .rules-book-navigation button{min-width:126px;padding:9px 14px;border:1px solid #b9a77e;border-radius:3px;background:linear-gradient(#f7f1df,#e6dbc0);color:#34465e;font:700 .8rem Georgia,serif;cursor:pointer;box-shadow:0 2px 0 #b5a47d;transition:transform .18s ease,background .18s ease}
+    .rules-book-navigation button:hover:not(:disabled),.rules-book-navigation button:focus-visible{transform:translateY(-1px);background:#e5d4aa}
+    .rules-book-navigation button:disabled{opacity:.43;cursor:default;box-shadow:none}
+    .rules-book-navigation output{min-width:110px;text-align:center;font-style:normal;letter-spacing:.04em}
+    .rules-page .rules-footer{padding-top:28px!important}
+    .rules-page .rules-content[hidden]{display:none!important}
+    @media(max-width:760px){main.rules-page{width:calc(100% - 14px)!important;margin:10px auto 30px!important;padding:14px 12px 24px!important;border-width:12px!important;border-radius:11px!important;outline-offset:-6px!important}.rules-page .rules-hero{padding:10px 8px 16px!important}.rules-page .rules-hero h1{font-size:clamp(2.2rem,10vw,3.3rem)!important}.rules-page .rules-toc{margin:14px 2px 22px!important;padding:11px 13px!important}.rules-page .rules-toc[open] ol{columns:1;max-height:240px}.rules-page .rules-book.cardex-open-spread{height:auto!important;min-height:0!important;overflow:visible!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto 14px auto!important;background-image:linear-gradient(180deg,#d1c39f 0,#f6efdc 1%,transparent 3%,transparent 97%,#f6efdc 99%,#d1c39f 100%),repeating-linear-gradient(0deg,#71634408 0 1px,transparent 1px 6px),linear-gradient(100deg,#f2ecd9,#e8e0c9)!important}.rules-book .rules-leaf.cardex-leaf{min-height:300px!important;padding:27px 22px!important;overflow:visible!important}.rules-book .rules-leaf-left{grid-column:1!important;grid-row:1!important}.rules-book .rules-leaf-right{grid-column:1!important;grid-row:3!important}.rules-book .rules-gutter{grid-column:1!important;grid-row:2!important;width:auto!important;height:14px!important;background:linear-gradient(180deg,#d7c9a8 0%,#f6efdc 30%,#82704c 49%,#6c5b3a 50%,#e3d6b5 70%,#f6efdc 100%)!important}.rules-book .rule-chapter{max-height:none!important;overflow:visible!important;padding:0 2px 18px!important}.rules-book .rule-chapter p,.rules-book .rule-chapter li{font-size:.88rem!important}.rules-book-navigation{gap:8px;margin-top:13px}.rules-book-navigation button{min-width:0;padding:8px 10px;font-size:.72rem}.rules-book-navigation output{min-width:78px;font-size:.68rem}}
+    @media(prefers-reduced-motion:reduce){.rules-book-navigation button{transition:none!important}}
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
   <link rel="stylesheet" href="parchment-theme.css?v=20261007-tavern-pages1">
@@ -120,14 +158,14 @@
     <a href="regles.html">Les règles <span aria-hidden="true">↗</span></a>
   <a href="amis.html">Amis</a></nav>
 </header>
-  <main class="rules-page">
+  <main class="rules-page cardex-page">
     <section class="rules-hero">
       <p class="eyebrow">GUIDE DU JOUEUR</p>
       <h1>Les règles<br><span style="color:var(--accent)">de Duskclaw.</span></h1>
       <p class="rules-lead">Le guide complet du jeu : prépare ton deck, déploie tes Furries et maîtrise le plateau au fil du Jour et de la Nuit.</p>
     </section>
-    <details class="rules-toc" open>
-      <summary>Sommaire — 49 chapitres</summary>
+    <details class="rules-toc">
+      <summary>Sommaire du carnet · 49 règles</summary>
       <ol><li><a href="#chapter-1-pr-sentation-du-jeu">Présentation du jeu</a></li>
 <li><a href="#chapter-2-but-de-la-partie">But de la partie</a></li>
 <li><a href="#chapter-3-mat-riel-n-cessaire">Matériel nécessaire</a></li>
@@ -1603,9 +1641,131 @@ Nuit : 🌱</code></pre>
     globalThemeSwitch.addEventListener("change", () => applySiteTheme(globalThemeSwitch.checked ? "nuit" : "jour", true));
     applySiteTheme(localStorage.getItem("duskclaw-time") === "nuit" ? "nuit" : "jour");
   </script>
+<script>
+  (() => {
+    const main = document.querySelector("main.rules-page");
+    const content = main?.querySelector(".rules-content");
+    const toc = main?.querySelector(".rules-toc");
+    const chapters = content ? [...content.querySelectorAll(":scope > .rule-chapter")] : [];
+    if (!main || !content || !chapters.length) return;
+
+    const book = document.createElement("section");
+    book.className = "rules-book cardex-open-spread";
+    book.setAttribute("aria-label", "Carnet des règles de Duskclaw");
+    const hardware = document.createElement("div");
+    hardware.className = "notebook-hardware";
+    hardware.setAttribute("aria-hidden", "true");
+    for (const corner of ["corner-tl", "corner-tr", "corner-bl", "corner-br"]) {
+      const detail = document.createElement("i");
+      detail.className = `hardware-corner ${corner}`;
+      hardware.append(detail);
+    }
+    const leftPage = document.createElement("article");
+    leftPage.className = "rules-leaf cardex-leaf cardex-leaf-left";
+    leftPage.setAttribute("aria-label", "Feuillet gauche");
+    const gutter = document.createElement("div");
+    gutter.className = "rules-gutter cardex-gutter";
+    gutter.setAttribute("aria-hidden", "true");
+    const rightPage = document.createElement("article");
+    rightPage.className = "rules-leaf cardex-leaf cardex-leaf-right";
+    rightPage.setAttribute("aria-label", "Feuillet droit");
+    book.append(hardware, leftPage, gutter, rightPage);
+
+    const navigation = document.createElement("nav");
+    navigation.className = "rules-book-navigation";
+    navigation.setAttribute("aria-label", "Tourner les pages du carnet");
+    const previous = document.createElement("button");
+    previous.type = "button";
+    previous.textContent = "‹ Précédent";
+    previous.setAttribute("aria-label", "Tourner vers les règles précédentes");
+    const progress = document.createElement("output");
+    progress.setAttribute("aria-live", "polite");
+    const next = document.createElement("button");
+    next.type = "button";
+    next.textContent = "Suivant ›";
+    next.setAttribute("aria-label", "Tourner vers les règles suivantes");
+    navigation.append(previous, progress, next);
+    content.before(book, navigation);
+
+    const spreadCount = Math.ceil(chapters.length / 2);
+    let currentSpread = -1;
+    let isTurning = false;
+    const updateControls = () => {
+      const first = currentSpread * 2 + 1;
+      const last = Math.min(first + 1, chapters.length);
+      progress.textContent = first === last ? `Feuillet ${first} sur ${chapters.length}` : `Feuillets ${first}–${last} sur ${chapters.length}`;
+      previous.disabled = isTurning || currentSpread <= 0;
+      next.disabled = isTurning || currentSpread >= spreadCount - 1;
+    };
+    const renderSpread = spreadIndex => {
+      currentSpread = Math.max(0, Math.min(spreadCount - 1, spreadIndex));
+      const first = currentSpread * 2;
+      chapters[first].scrollTop = 0;
+      leftPage.replaceChildren(chapters[first]);
+      if (chapters[first + 1]) {
+        chapters[first + 1].scrollTop = 0;
+        rightPage.replaceChildren(chapters[first + 1]);
+      }
+      else rightPage.replaceChildren();
+      updateControls();
+    };
+    const turnTo = async (spreadIndex, direction) => {
+      if (isTurning || spreadIndex < 0 || spreadIndex >= spreadCount || spreadIndex === currentSpread) return;
+      if (!direction) return renderSpread(spreadIndex);
+      isTurning = true;
+      updateControls();
+      const veil = document.createElement("div");
+      veil.className = `cardex-page-transition ${direction}`;
+      veil.setAttribute("aria-hidden", "true");
+      veil.inert = true;
+      veil.style.transformOrigin = direction === "next" ? "right center" : "left center";
+      book.append(veil);
+      const duration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 310;
+      const options = { duration, easing: "cubic-bezier(.4,0,.2,1)", fill: "forwards" };
+      try {
+        await veil.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], options).finished;
+        renderSpread(spreadIndex);
+        veil.style.transformOrigin = direction === "next" ? "left center" : "right center";
+        await veil.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], options).finished;
+      } catch {
+        renderSpread(spreadIndex);
+      } finally {
+        veil.remove();
+        isTurning = false;
+        updateControls();
+      }
+    };
+
+    previous.addEventListener("click", () => turnTo(currentSpread - 1, "previous"));
+    next.addEventListener("click", () => turnTo(currentSpread + 1, "next"));
+    toc?.addEventListener("click", event => {
+      const link = event.target.closest('a[href^="#chapter-"]');
+      if (!link) return;
+      const targetId = decodeURIComponent(link.hash.slice(1));
+      const targetIndex = chapters.findIndex(chapter => chapter.id === targetId);
+      if (targetIndex < 0) return;
+      event.preventDefault();
+      history.pushState({ ruleIndex: targetIndex }, "", link.hash);
+      const destination = Math.floor(targetIndex / 2);
+      turnTo(destination, currentSpread < destination ? "next" : "previous");
+      book.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      toc.open = false;
+    });
+    window.addEventListener("popstate", () => {
+      const targetId = decodeURIComponent(location.hash.slice(1));
+      const targetIndex = chapters.findIndex(chapter => chapter.id === targetId);
+      if (targetIndex >= 0) turnTo(Math.floor(targetIndex / 2), currentSpread < Math.floor(targetIndex / 2) ? "next" : "previous");
+    });
+
+    const initialId = decodeURIComponent(location.hash.slice(1));
+    const initialIndex = chapters.findIndex(chapter => chapter.id === initialId);
+    renderSpread(initialIndex < 0 ? 0 : Math.floor(initialIndex / 2));
+    content.hidden = true;
+  })();
+</script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="account-nav.js?v=20261004-2215"></script>
-<script src="site-shell.js?v=20261005-header-unified2"></script>
+<script src="site-shell.js?v=20261007-notebook-color1"></script>
 </body>
 </html>
 

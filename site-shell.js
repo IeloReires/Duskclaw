@@ -109,6 +109,39 @@
     let currentUserId = null;
     let rows = [];
     let realtimeChannel = null;
+    const notebookColorKey = userId => `duskclaw-notebook-color:${userId}`;
+    const validNotebookColor = color => /^#[\da-f]{6}$/i.test(String(color || ""));
+    const setNotebookColor = (color, userId = currentUserId) => {
+      if (!validNotebookColor(color)) return;
+      document.documentElement.style.setProperty("--duskclaw-book-color", color);
+      if (userId) { try { localStorage.setItem(notebookColorKey(userId), color); } catch (_) {} }
+    };
+    window.setDuskclawNotebookColor = setNotebookColor;
+    window.addEventListener("storage", event => {
+      if (currentUserId && event.key === notebookColorKey(currentUserId) && validNotebookColor(event.newValue)) setNotebookColor(event.newValue, currentUserId);
+    });
+    const installNotebookColorRules = () => {
+      if (document.getElementById("duskclaw-book-color-rules")) return;
+      const style = document.createElement("style"); style.id = "duskclaw-book-color-rules";
+      style.textContent = `
+        :root{--duskclaw-book-color:#203b61}
+        body.home .home-open-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 68%,#d0ad5e)!important;background:linear-gradient(90deg,color-mix(in srgb,var(--duskclaw-book-color) 58%,#d0ad5e),color-mix(in srgb,var(--duskclaw-book-color) 80%,#101b2d) 24%,var(--duskclaw-book-color) 58%,color-mix(in srgb,var(--duskclaw-book-color) 76%,#101b2d))!important}
+        main.cardex-page,main.rules-page,main.family-page,main.dusk-main:not(.home-main),html body:not(.home):not(.dual-page)>main:not(.family-page):not(.dusk-main){border-color:var(--duskclaw-book-color)!important;outline-color:color-mix(in srgb,var(--duskclaw-book-color) 64%,#d4b46d)!important}
+        .travel-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 66%,#d2ad5e)!important;background:linear-gradient(135deg,color-mix(in srgb,var(--duskclaw-book-color) 78%,#fff) 0%,var(--duskclaw-book-color) 44%,color-mix(in srgb,var(--duskclaw-book-color) 68%,#080f19) 100%)!important}
+      `;
+      document.head.append(style);
+    };
+    const syncNotebookColor = async () => {
+      installNotebookColorRules();
+      if (!currentUserId || !supabaseClient) { document.documentElement.style.setProperty("--duskclaw-book-color", "#203b61"); return; }
+      try { const cached = localStorage.getItem(notebookColorKey(currentUserId)); if (validNotebookColor(cached)) setNotebookColor(cached, currentUserId); } catch (_) {}
+      try {
+        const { data } = await supabaseClient.from("user_profiles").select("banner_settings").eq("user_id", currentUserId).maybeSingle();
+        const color = data?.banner_settings?.book_color;
+        if (validNotebookColor(color)) setNotebookColor(color, currentUserId);
+      } catch (_) {}
+    };
+    installNotebookColorRules();
     const updateCount = () => {
       const unread = rows.filter(row => !row.read_at).length;
       count.textContent = "";
@@ -260,10 +293,12 @@
       };
       supabaseClient.auth.getSession().then(({ data }) => {
         currentUserId = data.session?.user?.id || null;
+        syncNotebookColor();
         if (currentUserId) { loadNotifications(); sendPresence(); }
       }).catch(() => {});
       supabaseClient.auth.onAuthStateChange((_event, session) => {
         currentUserId = session?.user?.id || null;
+        syncNotebookColor();
         rows = [];
         if (currentUserId) { loadNotifications(); sendPresence(); } else { updateCount(); if (!panel.hidden) renderRows(); }
       });
