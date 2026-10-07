@@ -20,18 +20,79 @@
       .site-shell-profile-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
       .site-shell-profile-menu{position:absolute;top:calc(100% + 13px);right:0;z-index:1400;width:min(290px,calc(100vw - 24px));padding:9px;border:1px solid #c4a461;border-radius:5px;background:linear-gradient(145deg,#f6edda,#e8dcc0);color:#26354c;box-shadow:0 18px 44px #09070672;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-7px);transition:opacity .18s ease,transform .18s ease,visibility .18s}
       .site-shell-profile-menu.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
-      .site-shell-profile-menu a{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:39px;padding:7px 9px;border-bottom:1px solid #b8a77e55;color:#26354c;text-decoration:none;font:600 .88rem Georgia,'Times New Roman',serif}
+      .site-shell-profile-menu a{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;min-height:39px;padding:7px 9px;border-bottom:1px solid #b8a77e55;color:#26354c;text-decoration:none;font:600 .88rem Georgia,'Times New Roman',serif}
       .site-shell-profile-menu a:last-child{border-bottom:0}
       .site-shell-profile-menu a:hover,.site-shell-profile-menu a:focus-visible{background:#d9c79755;outline:1px solid #ad8b4a}
-      .site-shell-profile-menu .profile-menu-number{color:#9a7245;font:italic 700 .72rem Georgia,serif}
       .site-shell-profile-menu .profile-menu-arrow{color:#9a7245;font-size:.76rem}
       .site-shell-profile-menu .profile-menu-first{margin-bottom:4px;border-bottom:1px solid #927747!important;font-weight:700}
+      body:not(.home){background-color:#23180f!important;background-image:linear-gradient(118deg,#64517818 0%,transparent 38%,#b0804312 67%,#4d675219 100%),linear-gradient(#170f0a9c,#170f0a9c),url("duskclaw-tavern-wood.png")!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important}
+      body:not(.home) .site-global-candle-glow{position:fixed;z-index:1000;inset:0;pointer-events:none;background:radial-gradient(ellipse 48% 55% at 7% 0%,#ff8a3975 0%,#f36f2c52 28%,#d9562028 58%,transparent 100%),radial-gradient(ellipse 82% 78% at 8% 4%,#e86a2928 0%,#ca4e1b14 48%,transparent 100%),radial-gradient(ellipse 112% 98% at 10% 9%,#bb42100b 0%,transparent 100%);mix-blend-mode:screen;filter:blur(14px) saturate(1.1)}
+      body:not(.home) .site-global-candle-glow:before{position:absolute;inset:0;background:radial-gradient(ellipse 53% 43% at 8% 2%,#ff9b524d 0%,#ef712920 44%,transparent 100%),radial-gradient(ellipse 72% 68% at 17% 14%,#dc5e2118 0%,transparent 100%);content:"";mix-blend-mode:screen}
+      body:not(.home) .site-global-candle-glow.is-random-flicker{mix-blend-mode:normal!important;opacity:var(--flame-strength,.62);filter:blur(var(--flame-blur,14px)) saturate(var(--flame-saturation,1.1)) brightness(var(--flame-brightness,1.06));transition:opacity var(--flame-transition,650ms) ease-in-out,filter var(--flame-transition,650ms) ease-in-out}
+      body:not(.home) .site-global-candle-glow.is-random-flicker:before{mix-blend-mode:normal!important;opacity:var(--flame-reflection,.4);transition:opacity var(--flame-transition,650ms) ease-in-out}
+      .site-global-firefly{position:fixed;z-index:1300;width:5px;height:5px;border-radius:50%;background:#ffd18a;box-shadow:0 0 7px 2px #ffca7bcc,0 0 17px 5px #e9903d75;opacity:0;pointer-events:none;will-change:transform,opacity}
+      @keyframes home-firefly-flight{0%{opacity:0;transform:translate3d(0,0,0) scale(.45)}12%{opacity:.8;transform:translate3d(var(--flight-x1),var(--flight-y1),0) scale(.8)}32%{opacity:.32;transform:translate3d(var(--flight-x2),var(--flight-y2),0) scale(.55)}57%{opacity:.95;transform:translate3d(var(--flight-x3),var(--flight-y3),0) scale(1)}79%{opacity:.48;transform:translate3d(var(--flight-x4),var(--flight-y4),0) scale(.68)}100%{opacity:0;transform:translate3d(var(--flight-x5),var(--flight-y5),0) scale(.4)}}
+      body.home .home-index-links a{grid-template-columns:minmax(0,1fr) auto!important}.home-index-links a>span{display:none!important}
+      body:not(.home)::before{display:none!important}
+      @media(prefers-reduced-motion:reduce){.site-global-candle-glow.is-random-flicker,.site-global-candle-glow.is-random-flicker:before{transition:none!important}.site-global-firefly{display:none!important}}
+      @media(max-width:760px){body:not(.home){background-image:url("duskclaw-tavern-wood.png")!important}}
       @media(max-width:600px){body:not(.home) .site-shell-header{min-height:62px!important;padding:10px 15px!important}body:not(.home) .site-shell-header .site-shell-actions>a.site-shell-account,body:not(.home) .site-shell-avatar,body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications{width:42px!important;height:42px!important;flex-basis:42px!important}body:not(.home) .site-shell-header .site-shell-actions .site-shell-notifications svg{width:20px!important;height:20px!important}}
       @media(prefers-reduced-motion:reduce){.site-shell-profile-menu{transition:none}}
     `;
     document.head.append(style);
   };
   installUnifiedHeader();
+
+  const installSharedAtmosphere = () => {
+    if (document.body.classList.contains("home")) return;
+    if (!document.querySelector(".site-global-candle-glow")) {
+      const glow = document.createElement("div");
+      glow.className = "site-global-candle-glow";
+      glow.setAttribute("aria-hidden", "true");
+      document.body.append(glow);
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        glow.classList.add("is-random-flicker");
+        const flicker = () => {
+          glow.style.setProperty("--flame-strength", (.4 + Math.random() * .31).toFixed(2));
+          glow.style.setProperty("--flame-reflection", (.24 + Math.random() * .3).toFixed(2));
+          glow.style.setProperty("--flame-brightness", (1.08 + Math.random() * .22).toFixed(2));
+          glow.style.setProperty("--flame-saturation", (1.04 + Math.random() * .12).toFixed(2));
+          glow.style.setProperty("--flame-blur", `${12 + Math.random() * 5}px`);
+          glow.style.setProperty("--flame-transition", `${(420 + Math.random() * 680) | 0}ms`);
+          window.setTimeout(flicker, 420 + Math.random() * 1050);
+        };
+        window.setTimeout(flicker, 350);
+      }
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const random = (min, max) => min + Math.random() * (max - min);
+    const fly = particle => {
+      const width = window.innerWidth, height = window.innerHeight;
+      const startX = random(0, width), startY = random(0, height);
+      let endX = random(0, width), endY = random(0, height);
+      if (Math.random() < .38) { endX = Math.random() < .5 ? -18 : width + 18; endY = random(-12, height + 12); }
+      else if (Math.random() < .2) { endX = random(-12, width + 12); endY = Math.random() < .5 ? -18 : height + 18; }
+      const dx = endX - startX, dy = endY - startY;
+      particle.style.left = `${startX}px`; particle.style.top = `${startY}px`;
+      for (const [key, fraction] of [[1, .14], [2, .32], [3, .55], [4, .79], [5, 1]]) {
+        particle.style.setProperty(`--flight-x${key}`, `${dx * fraction + random(-105, 105)}px`);
+        particle.style.setProperty(`--flight-y${key}`, `${dy * fraction + random(-80, 80)}px`);
+      }
+      const duration = random(17000, 33000);
+      particle.style.animation = "none"; void particle.offsetWidth;
+      particle.style.animation = `home-firefly-flight ${duration}ms ease-in-out both`;
+    };
+    for (let index = 0; index < 8; index++) {
+      const particle = document.createElement("span");
+      particle.className = "site-global-firefly";
+      particle.setAttribute("aria-hidden", "true");
+      const size = random(4, 7); particle.style.width = `${size}px`; particle.style.height = `${size}px`;
+      document.body.append(particle);
+      particle.addEventListener("animationend", () => window.setTimeout(() => fly(particle), random(500, 4200)), { passive: true });
+      window.setTimeout(() => fly(particle), random(0, 12000));
+    }
+  };
+  installSharedAtmosphere();
 
   const toggle = document.querySelector(".site-shell-menu-toggle");
   const menu = document.getElementById("site-shell-menu");
@@ -133,30 +194,19 @@
     profileMenu.className = "site-shell-profile-menu";
     profileMenu.setAttribute("aria-label", "Menu du profil");
     const profileItems = [
-      ["mon-compte.html", "Profil", "", "profile-menu-first"],
-      ["regles.html", "Les règles", "01"],
-      ["personnages.html", "Cardex", "02"],
-      ["univers.html", "Univers", "03"],
-      ["deck-builder.html", "Deck Builder", "04"],
-      ["evenements.html", "Événements", "05"],
-      ["faq.html", "FAQ", "06"],
-      ["soutenir.html", "Soutenir", "07"]
+      ["mon-compte.html", "Profil", "profile-menu-first"],
+      ["regles.html", "Les règles"],
+      ["personnages.html", "Cardex"],
+      ["univers.html", "Univers"],
+      ["deck-builder.html", "Deck Builder"],
+      ["evenements.html", "Événements"],
+      ["faq.html", "FAQ"],
+      ["soutenir.html", "Soutenir"]
     ];
-    profileItems.forEach(([href, label, number, extraClass]) => {
+    profileItems.forEach(([href, label, extraClass]) => {
       const link = document.createElement("a");
       link.href = href;
       if (extraClass) link.classList.add(extraClass);
-      if (number) {
-        const index = document.createElement("span");
-        index.className = "profile-menu-number";
-        index.textContent = number;
-        link.append(index);
-      } else {
-        const spacer = document.createElement("span");
-        spacer.className = "profile-menu-number";
-        spacer.setAttribute("aria-hidden", "true");
-        link.append(spacer);
-      }
       const text = document.createElement("span");
       text.textContent = label;
       const arrow = document.createElement("span");
