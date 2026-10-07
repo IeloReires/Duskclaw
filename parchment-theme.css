@@ -435,3 +435,50 @@ html body:not(.home):not(.dual-page) dialog{border:8px solid #263e5c!important;b
 html body:not(.home):not(.dual-page) dialog::backdrop{background:#120d09b8!important;backdrop-filter:blur(3px)}
 @media(max-width:760px){html body:not(.home):not(.dual-page)>main:not(.cardex-page):not(.family-page):not(.dusk-main):not(.friends-page){margin-top:10px!important;margin-bottom:24px!important;padding:18px 14px!important;border-width:10px!important;border-radius:8px!important;outline-offset:-6px!important}html body:not(.home):not(.dual-page)>main.dusk-main:not(.home-main){border-width:10px!important;outline-offset:-6px!important}}
 @media print{html body:not(.home):not(.dual-page){min-height:0!important;background:#fff!important;background-image:none!important;color:#26364a!important}html body:not(.home):not(.dual-page)>main:not(.cardex-page):not(.family-page):not(.dusk-main):not(.friends-page),html body:not(.home):not(.dual-page)>main.dusk-main:not(.home-main){border:0!important;outline:0!important;background:#fff!important;box-shadow:none!important}}
+
+/* Cardex desktop repair: keep the established open-book layout inside one viewport. */
+@media (min-width: 761px) {
+  html:has(main.cardex-page),
+  body:has(main.cardex-page) {
+    height: 100dvh !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+  body:has(main.cardex-page) > .site-shell-header {
+    width: min(1320px, 92%) !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    margin: 0 auto 5px !important;
+    padding: 4px 0 !important;
+  }
+  body:has(main.cardex-page) > .cardex-filters {
+    width: calc(100% - 32px) !important;
+    margin: 0 auto 7px !important;
+  }
+  body:has(main.cardex-page) > main.cardex-page.character-record {
+    box-sizing: border-box !important;
+    width: min(2000px, 96vw) !important;
+    max-width: 2000px !important;
+    height: calc(100dvh - 145px) !important;
+    min-height: 0 !important;
+    max-height: calc(100dvh - 145px) !important;
+    margin: 0 auto 8px !important;
+    padding: 18px !important;
+    overflow: hidden !important;
+  }
+  body:has(main.cardex-page) #cardex-grid {
+    display: block !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+  body:has(main.cardex-page) .cardex-open-spread {
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+  }
+  body:has(main.cardex-page) .cardex-leaf {
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+}

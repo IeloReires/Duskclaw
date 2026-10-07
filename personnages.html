@@ -106,7 +106,23 @@
     @media (max-width:560px) { .dusk-footer { align-items:flex-start; flex-direction:column; } }
     </style>
   <link rel="stylesheet" href="site-shell.css?v=20261007-profile-menu-header1">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261007-tavern-pages1">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261007-cardex-viewport2">
+  <style id="cardex-viewport-layout">
+    @media (min-width: 761px) {
+      html:has(main.cardex-page), body:has(main.cardex-page) { height: 100dvh !important; min-height: 0 !important; overflow: hidden !important; }
+      body:has(main.cardex-page) > .site-shell-header { height: 66px !important; min-height: 66px !important; margin: 0 auto 5px !important; padding-block: 4px !important; }
+      body:has(main.cardex-page) > .cardex-filters { margin-bottom: 7px !important; }
+      body:has(main.cardex-page) > main.cardex-page.character-record {
+        display: flex !important; flex-direction: column !important; box-sizing: border-box !important;
+        width: min(2000px, 96vw) !important; max-width: 2000px !important;
+        height: calc(100dvh - 145px) !important; min-height: 0 !important; max-height: calc(100dvh - 145px) !important;
+        margin: 0 auto 8px !important; padding: 18px !important; overflow: hidden !important;
+      }
+      body:has(main.cardex-page) #cardex-grid { display: block !important; flex: 1 1 auto !important; height: 100% !important; min-height: 0 !important; padding: 0 !important; }
+      body:has(main.cardex-page) .cardex-open-spread { height: 100% !important; min-height: 0 !important; max-height: 100% !important; }
+      body:has(main.cardex-page) .cardex-leaf { min-height: 0 !important; overflow: hidden !important; }
+    }
+  </style>
 </head>
 <body data-time="jour">
   <header class="site-shell-header">
