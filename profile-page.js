@@ -4,7 +4,7 @@
   const ASSET_ROOT = "https://ieloreires.github.io/Duskclaw/";
   const client = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);
   const $ = (id) => document.getElementById(id);
-  const state = { user: null, profile: {}, collection: [], catalog: [], roster: [], featured: [], badges: [], avatar: "", pendingAvatarFile: null, pendingAvatarUrl: "", theme: "water", settings: {}, editingName: false, editingBio: false };
+  const state = { user: null, profile: {}, collection: [], catalog: [], roster: [], featured: [], moderatorBadges: [], badges: [], avatar: "", pendingAvatarFile: null, pendingAvatarUrl: "", theme: "water", settings: {}, editingName: false, editingBio: false };
   const themes = {
     water: ["#257f93", "#163554"], plant: ["#63844d", "#17382f"], ice: ["#90b5d1", "#263e68"],
     rock: ["#b47d55", "#3b2d29"], wind: ["#a0b5b4", "#34495b"]
@@ -305,7 +305,7 @@
       const item = document.createElement('div'); item.className = count ? 'type-discovered' : 'type-undiscovered'; item.title = `${type} · ${count} carte${count === 1 ? '' : 's'}`;
       const glyph = document.createElement('i'); glyph.textContent = symbol; const label = document.createElement('span'); label.textContent = type; item.append(glyph, label); typeHost.append(item);
     });
-    const next = state.badges.find((item) => !item.earned);
+    const next = state.badges.find((item) => !item.earned && !item.manual);
     $('journey-next').textContent = next ? `Prochaine inscription : ${next.name} — ${next.note}.` : 'Toutes les étapes du registre sont complétées. La carte est à toi.';
   }
   function badge(title, note, icon, earned, number, tier = "bronze") {
@@ -316,6 +316,11 @@
     const serial = document.createElement("i"); serial.textContent = String(number).padStart(2, "0");
     copy.append(strong, small); tile.append(serial, seal, copy); return tile;
   }
+  const moderatorBadgeCatalog = {
+    founder: ["Fondateur", "✦", "platinum"], pioneer: ["Pionnier", "✨", "gold"],
+    ally: ["Allié", "🤝", "silver"], artist: ["Artiste", "🎨", "platinum"],
+    playtester: ["Testeur", "🛡️", "gold"], community: ["Esprit de communauté", "🐾", "bronze"]
+  };
   function renderBadges() {
     const owned = new Set(state.collection.map((row) => Number(row.card_number)));
     const cards = state.catalog.filter((card) => owned.has(Number(card.id)));
@@ -339,6 +344,11 @@
       ["Maître du Cardex", "Compléter les 75 cartes et les cinq raretés", "✦", total >= 75 && ["Commun", "Peu commun", "Rare", "Épique", "Légendaire"].every((rarity) => raritySet.has(rarity)), "platinum"]
     ];
     state.badges = milestones.map(([name, note, icon, earned, tier], index) => ({ name, note, icon, earned: !!earned, number: index + 1, tier }));
+    const awardedKeys = new Set(state.moderatorBadges);
+    Object.entries(moderatorBadgeCatalog).forEach(([key, [name, icon, tier]]) => {
+      const earned = awardedKeys.has(key);
+      state.badges.push({ name, note: "Attribué par l’équipe de modération", icon, earned, number: state.badges.length + 1, tier, manual: true });
+    });
     const earnedCount = state.badges.filter((item) => item.earned).length;
     $("stat-badges").textContent = `${earnedCount}/${state.badges.length}`; $("badge-count-inline").textContent = `${earnedCount}/${state.badges.length}`;
     const badgeList = $("badge-list"); badgeList.replaceChildren();
@@ -392,15 +402,17 @@
     $("profile-edit-toggle").classList.remove("hidden");
     $("logout-button").classList.remove("hidden");
     $("profile-state").textContent = "Synchronisation";
-    const [profileResult, collectionResult, rosterResult, cardsResult] = await Promise.all([
+    const [profileResult, collectionResult, rosterResult, cardsResult, badgesResult] = await Promise.all([
       client.from("user_profiles").select("nickname,avatar_path,banner_theme,banner_color,banner_settings,featured_cards,bio,community_role,favorite_furry_id,favorite_type,profile_visibility,collection_visibility,wishlist_visibility,community_since").eq("user_id", user.id).maybeSingle(),
       client.from("user_collection").select("card_number").eq("user_id", user.id),
       fetch(`${ASSET_ROOT}character-roster.json`).then((r) => r.ok ? r.json() : []),
-      fetch(`${ASSET_ROOT}collection-cards.json`).then((r) => r.ok ? r.json() : [])
+      fetch(`${ASSET_ROOT}collection-cards.json`).then((r) => r.ok ? r.json() : []),
+      client.from("user_badges").select("badge_key").eq("user_id", user.id)
     ]);
     if (profileResult.error) throw profileResult.error;
     state.profile = profileResult.data || {};
     state.collection = collectionResult.data || []; state.roster = Array.isArray(rosterResult) ? rosterResult : []; state.catalog = Array.isArray(cardsResult) ? cardsResult : [];
+    state.moderatorBadges = badgesResult.error ? [] : (badgesResult.data || []).map((row) => row.badge_key).filter(Boolean);
     state.featured = Array.isArray(state.profile.featured_cards) ? [...new Set(state.profile.featured_cards.map(Number))].filter((id) => state.collection.some((row) => Number(row.card_number) === id)).slice(0, 3) : [];
     state.theme = themes[state.profile.banner_theme] ? state.profile.banner_theme : "water";
     state.settings = { ...(state.profile.banner_settings || {}) };
