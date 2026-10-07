@@ -1,4 +1,50 @@
 (() => {
+  // The viewport is more reliable than user-agent sniffing: it also adapts
+  // when a window is resized or a tablet rotates between portrait/landscape.
+  const installPortableLayout = () => {
+    const root = document.documentElement;
+    const coarsePointer = window.matchMedia("(hover: none) and (pointer: coarse)");
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const width = window.innerWidth || root.clientWidth;
+        const mobileBrowser = navigator.userAgentData?.mobile === true || /Android|iPhone|iPod|IEMobile|Windows Phone|Mobile/i.test(navigator.userAgent);
+        const portable = mobileBrowser || (coarsePointer.matches && width <= 1024);
+        root.dataset.device = portable ? "portable" : "desktop";
+        root.classList.toggle("is-portable", portable);
+      });
+    };
+    update();
+    window.addEventListener("resize", update, { passive: true });
+    window.addEventListener("orientationchange", update, { passive: true });
+    coarsePointer.addEventListener?.("change", update);
+
+    if (!document.getElementById("site-portable-layout-style")) {
+      const style = document.createElement("style");
+      style.id = "site-portable-layout-style";
+      style.textContent = `
+        html[data-device="portable"]{overflow-x:hidden!important;scrollbar-gutter:auto!important}
+        html[data-device="portable"] body{box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;overflow-x:hidden!important}
+        html[data-device="portable"] body *{min-width:0}
+        html[data-device="portable"] body img,html[data-device="portable"] body video,html[data-device="portable"] body canvas,html[data-device="portable"] body svg{max-width:100%}
+        html[data-device="portable"] body:not(.home)>.site-shell-header{box-sizing:border-box!important;width:100%!important;max-width:none!important;margin:0 0 8px!important;padding-inline:clamp(12px,4vw,22px)!important}
+        html[data-device="portable"] body>main:not(.home-main):not(.cardex-page):not(.family-page){box-sizing:border-box!important;width:calc(100% - 16px)!important;max-width:100%!important;margin:10px auto 24px!important;padding:clamp(14px,4vw,24px)!important}
+        html[data-device="portable"] body .friends-layout,html[data-device="portable"] body .deck-workspace,html[data-device="portable"] body .collection-layout,html[data-device="portable"] body .auth-grid,html[data-device="portable"] body .profile-layout,html[data-device="portable"] body .contact-options,html[data-device="portable"] body .shop-products{grid-template-columns:minmax(0,1fr)!important}
+        html[data-device="portable"] body .friends-layout,html[data-device="portable"] body .deck-workspace,html[data-device="portable"] body .collection-layout,html[data-device="portable"] body .auth-grid{width:100%!important;max-width:100%!important}
+        html[data-device="portable"] body input,html[data-device="portable"] body select,html[data-device="portable"] body textarea{box-sizing:border-box!important;max-width:100%}
+        html[data-device="portable"] body table{max-width:100%;font-size:.86em}
+        html[data-device="portable"] body :where(.table-wrap,.table-scroll,.data-table-wrap){max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+        html[data-device="portable"] body dialog{box-sizing:border-box!important;max-width:calc(100vw - 20px)!important;max-height:calc(100dvh - 20px)!important;overflow:auto!important}
+        html[data-device="portable"] body .site-shell-footer{box-sizing:border-box!important;width:calc(100% - 24px)!important;max-width:none!important;flex-wrap:wrap!important;margin-top:24px!important}
+        @media(max-width:560px){html[data-device="portable"] body>main:not(.home-main):not(.cardex-page):not(.family-page){width:calc(100% - 12px)!important;margin:8px auto 20px!important;padding:14px 11px!important}html[data-device="portable"] body .site-shell-mode{bottom:10px!important;left:10px!important}}
+        @media(prefers-reduced-motion:reduce){html[data-device="portable"] body *{scroll-behavior:auto!important}}
+      `;
+      document.head.append(style);
+    }
+  };
+  installPortableLayout();
+
   const installUnifiedHeader = () => {
     if (document.getElementById("site-shell-unified-header-style")) return;
     const style = document.createElement("style");
