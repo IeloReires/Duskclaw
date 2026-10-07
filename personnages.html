@@ -110,12 +110,12 @@
   <style id="cardex-viewport-layout">
     @media (min-width: 761px) {
       html:has(main.cardex-page), body:has(main.cardex-page) { height: 100dvh !important; min-height: 0 !important; overflow: hidden !important; }
-      body:has(main.cardex-page) > .site-shell-header { height: 66px !important; min-height: 66px !important; margin: 0 auto 5px !important; padding-block: 4px !important; }
+      body:has(main.cardex-page) > .site-shell-header { width: min(1320px, 92%) !important; height: 84px !important; min-height: 84px !important; margin: 0 auto 8px !important; padding: 12px 0 !important; }
       body:has(main.cardex-page) > .cardex-filters { margin-bottom: 7px !important; }
       body:has(main.cardex-page) > main.cardex-page.character-record {
         display: flex !important; flex-direction: column !important; box-sizing: border-box !important;
         width: min(2000px, 96vw) !important; max-width: 2000px !important;
-        height: calc(100dvh - 145px) !important; min-height: 0 !important; max-height: calc(100dvh - 145px) !important;
+        height: calc(100dvh - 170px) !important; min-height: 0 !important; max-height: calc(100dvh - 170px) !important;
         margin: 0 auto 8px !important; padding: 18px !important; overflow: hidden !important;
       }
       body:has(main.cardex-page) #cardex-grid { display: block !important; flex: 1 1 auto !important; height: 100% !important; min-height: 0 !important; padding: 0 !important; }
@@ -628,7 +628,7 @@
 </footer>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="account-nav.js?v=20261007-profile-avatar1"></script>
-<script src="site-shell.js?v=20261007-portable-layout2"></script>
+<script src="site-shell.js?v=20261007-home-header1"></script>
 </body>
 </html>
 

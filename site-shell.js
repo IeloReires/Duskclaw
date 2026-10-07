@@ -50,7 +50,7 @@
     const style = document.createElement("style");
     style.id = "site-shell-unified-header-style";
     style.textContent = `
-      body:not(.home) .site-shell-header{position:relative!important;z-index:1200!important;display:grid!important;grid-template-columns:1fr auto!important;grid-template-rows:1fr!important;align-items:center!important;width:100%!important;max-width:none!important;min-height:68px!important;margin:0 0 10px!important;padding:12px clamp(18px,2.3vw,44px)!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#f8efd9!important;backdrop-filter:none!important}
+      body:not(.home) .site-shell-header{position:relative!important;z-index:1200!important;display:grid!important;grid-template-columns:1fr auto!important;grid-template-rows:1fr!important;align-items:center!important;width:min(1320px,92%)!important;max-width:1320px!important;min-height:84px!important;margin:0 auto 8px!important;padding:12px 0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#f8efd9!important;backdrop-filter:none!important}
       body:not(.home) .site-shell-header:after{display:none!important}
       body:not(.home) .site-shell-brand{grid-column:1!important;grid-row:1!important;justify-self:start!important;color:#fff3d6!important;text-shadow:0 2px 8px #100b08c9!important}
       body:not(.home) .site-shell-brand span{color:#e4bf70!important}
