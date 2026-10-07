@@ -39,7 +39,7 @@
     const quickLinks = side.querySelector(".quick-links");
     const facts = side.querySelector(".side-facts");
     const book = document.createElement("section"); book.className = "travel-book"; book.setAttribute("aria-label", "Carnet de voyage du joueur");
-    const toolbar = document.createElement("nav"); toolbar.className = "book-toolbar"; toolbar.setAttribute("aria-label", "Pages du carnet");
+    const toolbar = document.createElement("nav"); toolbar.className = "book-toolbar cardex-pagination"; toolbar.setAttribute("aria-label", "Pages du carnet");
     const prev = document.createElement("button"); prev.type = "button"; prev.className = "book-turn"; prev.dataset.turn = "previous"; prev.setAttribute("aria-label", "Feuillet précédent"); prev.textContent = "‹";
     const counter = document.createElement("span"); counter.className = "book-page-counter"; counter.id = "book-page-counter";
     const next = document.createElement("button"); next.type = "button"; next.className = "book-turn"; next.dataset.turn = "next"; next.setAttribute("aria-label", "Feuillet suivant"); next.textContent = "›";
@@ -56,10 +56,10 @@
     two.append(featured, favoritePanel);
     three.append(badgeSurface);
     const journal = document.createElement("section"); journal.className = "surface journey-page";
-    journal.innerHTML = '<div class="section-head"><div><small>NOTES DE ROUTE</small><h3>Les traces de ton passage</h3><p>Un aperçu de tes découvertes dans le monde de Duskclaw.</p></div></div><div class="journey-map"><img src="duskclaw-map-antique.png" alt="Carte ancienne du monde de Duskclaw"><span class="map-pin pin-one">✦</span><span class="map-pin pin-two">⌖</span><span class="map-pin pin-three">✧</span></div><div class="journey-records"><div><b id="journey-families">0</b><span>familles rencontrées</span></div><div><b id="journey-types">0</b><span>types explorés</span></div><div><b id="journey-rare">0</b><span>cartes rares ou plus</span></div></div><div class="journey-links"><h4>À portée de main</h4></div>';
+    journal.innerHTML = '<div class="section-head"><div><small>REGISTRE DES TROUVAILLES</small><h3>Atlas de collection</h3><p>Les familles, les types et les raretés déjà découverts.</p></div></div><div class="ledger-cover"><img src="duskclaw-map-antique.png" alt="Carte ancienne de Duskclaw"><div><small>COLLECTION PERSONNELLE</small><strong id="journey-total">0 / 75</strong><span>cartes découvertes</span></div></div><div class="journey-meter"><span id="journey-meter-fill"></span></div><div class="ledger-lower"><section class="ledger-section"><h4>Raretés trouvées</h4><div class="rarity-ledger" id="rarity-ledger"></div></section><section class="ledger-section"><h4>Types explorés</h4><div class="type-ledger" id="type-ledger"></div></section></div><p class="next-insignia" id="journey-next">La prochaine étape commence avec ta première carte.</p><div class="journey-links"><h4>Continuer l’exploration</h4></div>';
     if (quickLinks) journal.querySelector(".journey-links").append(quickLinks);
     four.append(journal);
-    book.append(toolbar, spread);
+    book.append(spread, toolbar);
     layout.replaceWith(book);
     book.after(customizer);
     toolbar.addEventListener("click", (event) => { const button = event.target.closest("[data-turn]"); if (!button) return; turnSpread(button.dataset.turn === "next" ? 1 : -1); });
@@ -72,7 +72,8 @@
     const single = matchMedia("(max-width: 620px)").matches;
     if (!single && activeSpread % 2) activeSpread -= 1;
     pages.forEach((page, index) => { const visible = single ? index === activeSpread : Math.floor(index / 2) === Math.floor(activeSpread / 2); page.classList.toggle("is-visible", visible); page.setAttribute("aria-hidden", String(!visible)); });
-    const count = $("book-page-counter"); if (count) count.textContent = `${String(activeSpread + 1).padStart(2, "0")}${single ? "" : ` — ${String(activeSpread + 2).padStart(2, "0")}`} / 04`;
+    const firstPage = single ? activeSpread + 1 : Math.floor(activeSpread / 2) * 2 + 1;
+    const count = $("book-page-counter"); if (count) count.textContent = `${String(firstPage).padStart(2, "0")}${single ? "" : ` — ${String(firstPage + 1).padStart(2, "0")}`} / 04`;
     const previous = document.querySelector('[data-turn="previous"]'), next = document.querySelector('[data-turn="next"]');
     if (previous) previous.disabled = activeSpread === 0 || turning;
     if (next) next.disabled = activeSpread >= (single ? 3 : 2) || turning;
@@ -165,11 +166,33 @@
     if ($("favorite-terrain-name")) $("favorite-terrain-name").textContent = terrain || "À choisir";
     const terrainCode = { Prairie: "prairie", Forêt: "forest", "Pinède nordique": "forest", Rivière: "water", Lac: "water", Fjord: "water", "Lac gelé": "ice", Roche: "rock", Montagne: "mountain", Glace: "ice", "Ruine nordique": "ruins", "Pierre runique": "rune", "Maison longue": "hall", Vent: "wind" };
     if ($("favorite-terrain-mark")) $("favorite-terrain-mark").dataset.terrain = terrainCode[terrain] || "unknown";
+    renderCollectionLedger();
+  }
+  function renderCollectionLedger() {
+    if (!$('rarity-ledger')) return;
     const owned = new Set(state.collection.map((row) => Number(row.card_number)));
     const cards = state.catalog.filter((card) => owned.has(Number(card.id)));
-    if ($("journey-families")) $("journey-families").textContent = String(new Set(cards.map((card) => card.family)).size);
-    if ($("journey-types")) $("journey-types").textContent = String(new Set(cards.map((card) => card.type).filter(Boolean)).size);
-    if ($("journey-rare")) $("journey-rare").textContent = String(cards.filter((card) => ["Rare", "Épique", "Légendaire"].includes(card.rarity)).length);
+    const total = Math.min(75, owned.size);
+    $('journey-total').textContent = `${total} / 75`;
+    $('journey-meter-fill').style.width = `${total / 75 * 100}%`;
+    const rarityHost = $('rarity-ledger'); rarityHost.replaceChildren();
+    ["Commun", "Peu commun", "Rare", "Épique", "Légendaire"].forEach((rarity, index) => {
+      const count = cards.filter((card) => card.rarity === rarity).length;
+      const row = document.createElement('div'); row.className = 'rarity-row'; row.dataset.rarity = String(index);
+      const label = document.createElement('span'); label.textContent = rarity;
+      const track = document.createElement('i'); const fill = document.createElement('b'); fill.style.width = `${Math.min(100, count / 75 * 100)}%`; track.append(fill);
+      const value = document.createElement('strong'); value.textContent = String(count);
+      row.append(label, track, value); rarityHost.append(row);
+    });
+    const typeHost = $('type-ledger'); typeHost.replaceChildren();
+    const symbols = { Glace: '❄', Eau: '≈', Vent: '〰', Plante: '❧', Roche: '◈' };
+    Object.entries(symbols).forEach(([type, symbol]) => {
+      const count = cards.filter((card) => card.type === type).length;
+      const item = document.createElement('div'); item.className = count ? 'type-discovered' : 'type-undiscovered'; item.title = `${type} · ${count} carte${count === 1 ? '' : 's'}`;
+      const glyph = document.createElement('i'); glyph.textContent = symbol; const label = document.createElement('span'); label.textContent = type; item.append(glyph, label); typeHost.append(item);
+    });
+    const next = state.badges.find((item) => !item.earned);
+    $('journey-next').textContent = next ? `Prochaine inscription : ${next.name} — ${next.note}.` : 'Toutes les étapes du registre sont complétées. La carte est à toi.';
   }
   function badge(title, note, icon, earned, number, tier = "bronze") {
     const tile = document.createElement("article"); tile.className = `badge ${earned ? "earned" : "locked"} badge-${tier}`; tile.title = `${title} — ${note}`;
@@ -184,22 +207,33 @@
     const cards = state.catalog.filter((card) => owned.has(Number(card.id)));
     const total = Math.min(75, owned.size), families = new Set(cards.map((card) => card.family)).size;
     const raritySet = new Set(cards.map((card) => card.rarity).filter(Boolean));
+    const types = new Set(cards.map((card) => card.type).filter(Boolean));
     const profile = state.profile;
     const milestones = [
-      ["Bronze · Éclaireur", "Réunir 25 cartes", "✦", total >= 25, "bronze"],
-      ["Argent · Cartographe", "Réunir 50 cartes", "✦", total >= 50, "silver"],
-      ["Or · Grand voyage", "Réunir 75 cartes", "✦", total >= 75, "gold"],
-      ["Platine · Maître du Cardex", "Compléter les 75 cartes et découvrir les cinq raretés", "✦", total >= 75 && ["Commun", "Peu commun", "Rare", "Épique", "Légendaire"].every((rarity) => raritySet.has(rarity)), "platinum"]
+      ["Première trouvaille", "Obtenir une carte", "✦", total >= 1, "bronze"],
+      ["Poche de voyage", "Réunir 10 cartes", "✦", total >= 10, "bronze"],
+      ["Éclaireur", "Réunir 25 cartes", "✦", total >= 25, "bronze"],
+      ["Archiviste", "Réunir 50 cartes", "✦", total >= 50, "silver"],
+      ["Cardex complet", "Réunir 75 cartes", "✦", total >= 75, "gold"],
+      ["Petit bestiaire", "Découvrir 5 familles", "✦", families >= 5, "bronze"],
+      ["Grand bestiaire", "Découvrir 15 familles", "✦", families >= 15, "silver"],
+      ["Collection des éléments", "Trouver une carte de chaque type", "✦", ["Glace", "Eau", "Vent", "Plante", "Roche"].every((type) => types.has(type)), "gold"],
+      ["Éclat rare", "Trouver une carte Rare", "✦", raritySet.has("Rare") || raritySet.has("Épique") || raritySet.has("Légendaire"), "silver"],
+      ["Trophée épique", "Trouver une carte Épique", "✦", raritySet.has("Épique") || raritySet.has("Légendaire"), "gold"],
+      ["Légende retrouvée", "Trouver une carte Légendaire", "✦", raritySet.has("Légendaire"), "platinum"],
+      ["Palette complète", "Découvrir les cinq raretés", "✦", ["Commun", "Peu commun", "Rare", "Épique", "Légendaire"].every((rarity) => raritySet.has(rarity)), "platinum"],
+      ["Maître du Cardex", "Compléter les 75 cartes et les cinq raretés", "✦", total >= 75 && ["Commun", "Peu commun", "Rare", "Épique", "Légendaire"].every((rarity) => raritySet.has(rarity)), "platinum"]
     ];
     state.badges = milestones.map(([name, note, icon, earned, tier], index) => ({ name, note, icon, earned: !!earned, number: index + 1, tier }));
     const earnedCount = state.badges.filter((item) => item.earned).length;
-    $("stat-badges").textContent = `${earnedCount}/4`; $("badge-count-inline").textContent = `${earnedCount}/4`;
+    $("stat-badges").textContent = `${earnedCount}/${state.badges.length}`; $("badge-count-inline").textContent = `${earnedCount}/${state.badges.length}`;
     const badgeList = $("badge-list"); badgeList.replaceChildren();
-    const preview = [...state.badges.filter((item) => item.earned), ...state.badges.filter((item) => !item.earned)].slice(0, 6);
+    const preview = [...state.badges.filter((item) => item.earned), ...state.badges.filter((item) => !item.earned)];
     preview.forEach((item) => badgeList.append(badge(item.name, item.note, item.icon, item.earned, item.number, item.tier)));
     const all = $("all-badges"); all.replaceChildren();
     state.badges.forEach((item) => all.append(badge(item.name, item.note, item.icon, item.earned, item.number, item.tier)));
-    $("badge-dialog-count").textContent = `${earnedCount}/4 obtenus`;
+    $("badge-dialog-count").textContent = `${earnedCount}/${state.badges.length} obtenus`;
+    renderCollectionLedger();
   }
   function cardTitle(card) { return card?.label?.replace(/^#\d+\s*·\s*/, "") || `Carte #${card?.id ?? "?"}`; }
   function cardNode(card, remove = false) {
