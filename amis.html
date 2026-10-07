@@ -49,7 +49,7 @@
     .friends-page::before{display:none!important;content:none!important}
     .friends-page>.friends-hero{display:none!important}
     .friends-page:has(.profile-open){width:min(1900px,calc(100vw - 76px))!important}
-    .friends-page.profile-open{box-sizing:border-box!important;display:grid!important;grid-template-columns:480px minmax(0,1fr)!important;align-items:center!important;gap:28px!important;width:min(2200px,calc(100vw - 48px))!important;height:calc(100svh - 68px)!important;max-width:none!important;min-height:0!important;margin:0 auto!important;padding:8px 0 10px!important}
+    .friends-page.profile-open{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(380px,480px) minmax(0,1400px)!important;justify-content:center!important;align-items:center!important;gap:28px!important;width:min(1908px,calc(100vw - 48px))!important;height:calc(100svh - 68px)!important;max-width:none!important;min-height:0!important;margin:0 auto!important;padding:8px 0 10px!important}
     .friends-page.profile-open #friends-app{display:contents!important}
     .friends-page.profile-open .friends-layout{grid-column:1!important;grid-row:1!important;display:flex!important;flex-direction:column!important;gap:20px!important;width:100%!important;margin:0!important}
     .friends-page.profile-open .panel{padding:20px!important}
@@ -64,6 +64,8 @@
     .friends-page.profile-open .public-book-nav span{display:none!important}
     .friends-page.profile-open .public-book-nav button{width:36px!important;height:36px!important;pointer-events:auto!important}
     .friends-page.profile-open .public-book-spread{width:100%!important;height:100%!important;min-height:0!important;padding:12px!important}
+    .friends-page.profile-open .public-book-spread{position:relative!important;overflow:hidden!important;isolation:isolate!important}
+    .friends-page.profile-open .public-book{width:100%!important;max-width:none!important}
     .friends-page.profile-open .public-book-leaf{height:100%!important;min-height:0!important;overflow:hidden!important;padding:clamp(18px,2vw,30px)!important}
     .friends-page.profile-open #page-message{grid-column:1!important;grid-row:2!important}
     @media(min-width:1001px){body:has(>main.friends-page.profile-open)>.site-shell-header{height:68px!important;min-height:68px!important;margin-bottom:0!important}body:has(>main.friends-page.profile-open)>.site-shell-footer{display:none!important}}
@@ -240,9 +242,19 @@
 
         const pageFour=makePublicBookLeaf();bookSectionTitle(pageFour,"REGISTRE DES TROUVAILLES","Atlas de collection","Un aperçu de son chemin à travers le Cardex.");const map=document.createElement("div");map.className="public-book-map";map.setAttribute("role","img");map.setAttribute("aria-label","Carte de Duskclaw, atlas du voyageur");pageFour.append(map);
         const journal=document.createElement("section");journal.className="public-book-paper";bookSectionTitle(journal,"JOURNAL DE ROUTE","Étapes parcourues");journal.append(bookText("p","public-book-copy",profile.can_view_collection?`${profile.collection_owned||0} cartes réunies sur ${profile.collection_total||75}.`:"La collection est privée."));journal.append(bookText("p","public-book-copy",`${(profile.badges||[]).length} insigne${(profile.badges||[]).length===1?"":"s"} obtenu${(profile.badges||[]).length===1?"":"s"} · Depuis ${since}.`));pageFour.append(journal);
-        const pages=[[pageOne,pageTwo],[pageThree,pageFour]];let spreadIndex=0;
-        const paintSpread=(direction="forward")=>{book.classList.remove("spread-forward","spread-back");book.classList.add(direction==="back"?"spread-back":"spread-forward");spread.replaceChildren(...pages[spreadIndex]);label.textContent=spreadIndex===0?"01 — 02":"03 — 04";prev.disabled=spreadIndex===0;next.disabled=spreadIndex===1;book.dataset.spread=String(spreadIndex+1);};
-        prev.addEventListener("click",()=>{if(spreadIndex){spreadIndex=0;paintSpread("back");}});next.addEventListener("click",()=>{if(!spreadIndex){spreadIndex=1;paintSpread("forward");}});paintSpread();book.append(heading,nav,spread);return book;
+        const pages=[[pageOne,pageTwo],[pageThree,pageFour]];let spreadIndex=0,isTurning=false;
+        const paintSpread=(direction="")=>{
+          if(direction&&isTurning)return;
+          const targetPages=pages[spreadIndex];
+          spread.querySelectorAll(".cardex-page-transition").forEach(veil=>veil.remove());
+          const update=(veil=null)=>{spread.replaceChildren(...targetPages);if(veil)spread.append(veil);label.textContent=spreadIndex===0?"01 — 02":"03 — 04";book.dataset.spread=String(spreadIndex+1);};
+          if(!direction){update();prev.disabled=true;next.disabled=spreadIndex===1;return;}
+          isTurning=true;prev.disabled=true;next.disabled=true;
+          const veil=document.createElement("div");veil.className="cardex-page-transition";veil.setAttribute("aria-hidden","true");veil.inert=true;veil.style.transformOrigin=direction==="next"?"right center":"left center";spread.append(veil);
+          const duration=matchMedia("(prefers-reduced-motion: reduce)").matches?1:300;const options={duration,easing:"cubic-bezier(.4,0,.2,1)",fill:"forwards"};
+          (async()=>{try{await veil.animate([{transform:"scaleX(0)"},{transform:"scaleX(1)"}],options).finished;if(!veil.isConnected)return;update(veil);veil.style.transformOrigin=direction==="next"?"left center":"right center";await veil.animate([{transform:"scaleX(1)"},{transform:"scaleX(0)"}],options).finished;if(!veil.isConnected)return;veil.remove();isTurning=false;prev.disabled=spreadIndex===0;next.disabled=spreadIndex===1;}catch{if(!veil.isConnected)return;update(veil);veil.remove();isTurning=false;prev.disabled=spreadIndex===0;next.disabled=spreadIndex===1;}})();
+        };
+        prev.addEventListener("click",()=>{if(spreadIndex&&!isTurning){spreadIndex=0;paintSpread("previous");}});next.addEventListener("click",()=>{if(!spreadIndex&&!isTurning){spreadIndex=1;paintSpread("next");}});paintSpread();book.append(heading,nav,spread);return book;
       }
       function closeFriendProfile(){const section=$("friend-profile");section.classList.add("hidden");section.replaceChildren();$("friends-page")?.classList.remove("profile-open");document.querySelector(".friends-page")?.classList.remove("profile-open");}
       async function loadFriendProfile(person) {
