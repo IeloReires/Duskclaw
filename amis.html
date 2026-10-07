@@ -66,6 +66,7 @@
     .friends-page.profile-open .public-book-spread{width:100%!important;height:100%!important;min-height:0!important;padding:12px!important}
     .friends-page.profile-open .public-book-spread{position:relative!important;overflow:hidden!important;isolation:isolate!important}
     .friends-page.profile-open .public-book{width:100%!important;max-width:none!important}
+    @media(min-width:1001px){.friends-page:not(.profile-open){display:grid!important;align-content:center!important;width:min(1160px,calc(100vw - 48px))!important;min-height:calc(100svh - 68px)!important;margin:0 auto!important;padding:24px 0!important}.friends-page:not(.profile-open) .friends-layout{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;align-items:stretch!important;margin:0!important}}
     .friends-page.profile-open .public-book-leaf{height:100%!important;min-height:0!important;overflow:hidden!important;padding:clamp(18px,2vw,30px)!important}
     .friends-page.profile-open #page-message{grid-column:1!important;grid-row:2!important}
     @media(min-width:1001px){body:has(>main.friends-page.profile-open)>.site-shell-header{height:68px!important;min-height:68px!important;margin-bottom:0!important}body:has(>main.friends-page.profile-open)>.site-shell-footer{display:none!important}}
@@ -117,6 +118,7 @@
       let directory = [];
       let catalog = [];
       let roster = [];
+      let requestedFriendOpened = "";
       const badgeData = {
         "first-card":["✦","Premier pas","bronze"],"ten-cards":["▤","Collectionneur","silver"],"twenty-five":["⌑","Archiviste","gold"],"fifty-cards":["✧","Grand archiviste","platinum"],"all-types":["◈","Tous les horizons","gold"],epic:["★","Chasseur d’épiques","gold"],"rare-set":["❖","Œil du collectionneur","silver"],"full-family":["⟡","Lignée réunie","platinum"],"ten-families":["⌘","Voyageur","gold"],"twenty-families":["⚝","Connaisseur des terres","platinum"],
         founder:["✦","Fondateur","platinum"],pioneer:["✨","Pionnier","gold"],ally:["🤝","Allié","silver"],artist:["🎨","Artiste","platinum"],playtester:["🛡️","Testeur","gold"],community:["🐾","Esprit de communauté","bronze"]
@@ -256,13 +258,14 @@
         };
         prev.addEventListener("click",()=>{if(spreadIndex&&!isTurning){spreadIndex=0;paintSpread("previous");}});next.addEventListener("click",()=>{if(!spreadIndex&&!isTurning){spreadIndex=1;paintSpread("next");}});paintSpread();book.append(heading,nav,spread);return book;
       }
-      function closeFriendProfile(){const section=$("friend-profile");section.classList.add("hidden");section.replaceChildren();$("friends-page")?.classList.remove("profile-open");document.querySelector(".friends-page")?.classList.remove("profile-open");}
+      function closeFriendProfile(){const section=$("friend-profile");section.classList.add("hidden");section.replaceChildren();$("friends-page")?.classList.remove("profile-open");document.querySelector(".friends-page")?.classList.remove("profile-open");requestedFriendOpened="";const url=new URL(location.href);url.searchParams.delete("friend");history.replaceState(null,"",url);}
       async function loadFriendProfile(person) {
         const section=$("friend-profile"),page=document.querySelector(".friends-page");page.classList.add("profile-open");section.classList.remove("hidden");section.replaceChildren();
         const loading=document.createElement("p");loading.className="empty";loading.textContent="Ouverture du carnet de voyage…";section.append(loading);
         try {const profile=await fetchPublicProfile(person.user_id);if(!profile.can_view_profile){section.replaceChildren();const note=document.createElement("p");note.className="message";note.textContent="Ce profil n’est plus accessible avec ses réglages de confidentialité.";section.append(note);return;}section.replaceChildren(makeFriendTravelBook(person,profile));}
         catch(error){section.replaceChildren();const note=document.createElement("p");note.className="message error";note.textContent=error.message||"Impossible d’ouvrir ce profil. Vérifie la configuration des profils partagés dans Supabase.";section.append(note);}
       }
+      async function openRequestedFriend(){const nickname=new URLSearchParams(location.search).get("friend");if(!nickname||requestedFriendOpened===nickname)return;const person=directory.find(item=>item.relationship==="friend"&&(item.nickname||"").toLocaleLowerCase("fr-FR")===nickname.toLocaleLowerCase("fr-FR"));if(!person){setMessage("page-message","Cet ami n’est pas disponible dans ta liste.","error");return;}requestedFriendOpened=nickname;await loadFriendProfile(person);}
       $("search-form").addEventListener("submit",async event=>{
         event.preventDefault();
         const term=$("search-input").value.trim();
@@ -283,8 +286,8 @@
           }
         }catch{setMessage("search-message",errorText,"error");}
       }
-      async function start(){const {data:{session}}=await client.auth.getSession();currentUser=session?.user||null;if(!currentUser){$("signed-out").classList.remove("hidden");return;}$("friends-app").classList.remove("hidden");try{await refreshDirectory();}catch{setMessage("page-message",errorText,"error");}}
-      client.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;if(currentUser){$("signed-out").classList.add("hidden");$("friends-app").classList.remove("hidden");refreshDirectory().catch(()=>setMessage("page-message",errorText,"error"));}else{ $("friends-app").classList.add("hidden");$("signed-out").classList.remove("hidden"); }});
+      async function start(){const {data:{session}}=await client.auth.getSession();currentUser=session?.user||null;if(!currentUser){$("signed-out").classList.remove("hidden");return;}$("friends-app").classList.remove("hidden");try{await refreshDirectory();await openRequestedFriend();}catch{setMessage("page-message",errorText,"error");}}
+      client.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;if(currentUser){$("signed-out").classList.add("hidden");$("friends-app").classList.remove("hidden");refreshDirectory().then(openRequestedFriend).catch(()=>setMessage("page-message",errorText,"error"));}else{ $("friends-app").classList.add("hidden");$("signed-out").classList.remove("hidden"); }});
       start().catch(()=>setMessage("page-message",errorText,"error"));
     })();
   </script>
