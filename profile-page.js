@@ -10,24 +10,85 @@
     rock: ["#b47d55", "#3b2d29"], wind: ["#a0b5b4", "#34495b"]
   };
   let activeSpread = 0, turning = false;
+  let workshop = null, workshopCategory = "banner";
+  const workshopOrigins = new Map();
   const say = (node, message, error = false) => { if (node) { node.textContent = message || ""; node.classList.toggle("error", error); } };
   const message = (text, error = false) => { say($("page-message"), text, error); $("page-message")?.classList.toggle("hidden", !text); };
   const esc = (value) => String(value ?? "");
   const displayDate = (date) => date ? new Intl.DateTimeFormat("fr-FR", { month: "short", year: "numeric" }).format(new Date(date)) : "2026";
 
+  function restoreWorkshopNodes() {
+    [...workshopOrigins.entries()].reverse().forEach(([node, anchor]) => { if (anchor.parentNode) anchor.replaceWith(node); });
+    workshopOrigins.clear();
+  }
+  function relocateWorkshopNode(node, target) {
+    if (!node || !target) return;
+    if (!workshopOrigins.has(node)) { const anchor = document.createComment("profile-editor-origin"); node.before(anchor); workshopOrigins.set(node, anchor); }
+    target.append(node);
+  }
+  function makeWorkshop() {
+    if (workshop) return workshop;
+    workshop = document.createElement("section"); workshop.className = "profile-workshop"; workshop.setAttribute("role", "dialog"); workshop.setAttribute("aria-modal", "true"); workshop.setAttribute("aria-label", "Atelier de personnalisation");
+    workshop.innerHTML = '<header class="workshop-head"><div><small>ATELIER DU PROFIL</small><h2>Personnaliser ma page</h2></div><button type="button" class="workshop-close" aria-label="Fermer l’atelier">×</button></header><nav class="workshop-sections" aria-label="Éléments à modifier"><button type="button" data-workshop-category="banner">Bannière</button><button type="button" data-workshop-category="collection">Collection</button><button type="button" data-workshop-category="favorites">Repères</button><button type="button" data-workshop-category="profile">Profil</button></nav><div class="workshop-body"><div class="workshop-preview"><p class="workshop-kicker">APERÇU EN DIRECT</p><div class="workshop-stage"></div></div><div class="workshop-settings"><div class="workshop-category-content"></div></div></div>';
+    document.body.append(workshop);
+    workshop.querySelector(".workshop-close").addEventListener("click", cancelEditing);
+    workshop.querySelectorAll("[data-workshop-category]").forEach((button) => button.addEventListener("click", () => showWorkshopCategory(button.dataset.workshopCategory)));
+    return workshop;
+  }
+  function showWorkshopCategory(category) {
+    const panel = $("account-panel"), shell = makeWorkshop(), stage = shell.querySelector(".workshop-stage"), settings = shell.querySelector(".workshop-category-content");
+    shell.classList.remove("is-ready");
+    restoreWorkshopNodes(); stage.replaceChildren(); settings.replaceChildren(); workshopCategory = category;
+    shell.querySelectorAll("[data-workshop-category]").forEach((button) => { const selected = button.dataset.workshopCategory === category; button.classList.toggle("active", selected); button.setAttribute("aria-current", selected ? "page" : "false"); });
+    const customizer = $("customizer"), appearance = $("panel-appearance"), identity = $("panel-identity"), privacy = $("panel-privacy");
+    const featured = $("featured-gallery")?.closest(".surface"), banner = $("profile-hero"), favorites = document.querySelector(".favorite-panel"), about = document.querySelector(".about-surface");
+    const title = document.createElement("div"); title.className = "workshop-panel-title";
+    const heading = { banner: ["Bannière", "Compose les couleurs, le motif et l’ambiance de ta bannière."], collection: ["Cartes à l’honneur", "Choisis jusqu’à trois cartes de ta collection à mettre en vitrine."], favorites: ["Tes repères", "Choisis le compagnon, le type et le terrain affichés sur ton profil."], profile: ["Identité et confidentialité", "Ajuste les informations visibles sur ta fiche de joueur."] }[category];
+    title.innerHTML = `<small>RÉGLAGES</small><h3>${heading[0]}</h3><p>${heading[1]}</p>`; settings.append(title);
+    if (category === "banner") {
+      banner.classList.add("is-editing");
+      relocateWorkshopNode(banner, stage);
+      relocateWorkshopNode(customizer, settings);
+      customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
+      customizer.querySelector(".tabs").classList.add("hidden");
+      [identity, privacy].forEach((node) => node.classList.remove("active")); appearance.classList.add("active");
+    } else if (category === "collection") {
+      relocateWorkshopNode(featured, stage);
+      relocateWorkshopNode(customizer, settings); customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
+      customizer.querySelector(".tabs").classList.add("hidden"); customizer.querySelectorAll(".tab-panel").forEach((node) => node.classList.remove("active"));
+      const collectionTools = document.createElement("div"); collectionTools.className = "workshop-tools collection-tools";
+      collectionTools.innerHTML = '<p>Les cartes sélectionnées restent visibles à gauche. Tu peux les retirer directement de la vitrine.</p><div class="workshop-add-slot"></div><p class="workshop-hint">Maximum : trois cartes. Seules les cartes de ta collection sont proposées.</p>';
+      relocateWorkshopNode($("add-featured"), collectionTools.querySelector(".workshop-add-slot")); settings.insertBefore(collectionTools, customizer);
+    } else if (category === "favorites") {
+      relocateWorkshopNode(favorites, stage);
+      relocateWorkshopNode(customizer, settings); customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
+      customizer.querySelector(".tabs").classList.add("hidden"); customizer.querySelectorAll(".tab-panel").forEach((node) => node.classList.remove("active"));
+      const favoriteTools = document.createElement("div"); favoriteTools.className = "workshop-tools favorite-tools"; favoriteTools.innerHTML = '<p>Chaque choix met à jour l’aperçu de gauche immédiatement.</p><div class="workshop-choice-fields"></div>';
+      const fields = favoriteTools.querySelector(".workshop-choice-fields");
+      ["favorite-furry", "favorite-type", "favorite-terrain"].forEach((id) => relocateWorkshopNode($(id)?.closest("label"), fields));
+      settings.insertBefore(favoriteTools, customizer);
+    } else {
+      relocateWorkshopNode(about, stage);
+      relocateWorkshopNode(customizer, settings); customizer.classList.remove("hidden"); customizer.classList.add("workshop-customizer");
+      customizer.querySelector(".tabs").classList.add("hidden"); customizer.querySelectorAll(".tab-panel").forEach((node) => node.classList.remove("active"));
+      const identityTools = document.createElement("div"); identityTools.className = "workshop-tools profile-tools"; identityTools.innerHTML = '<p>Modifie ton rôle et ta phrase de profil. Les réglages de visibilité restent accessibles ci-dessous.</p><div class="workshop-identity-fields"></div>';
+      const fields = identityTools.querySelector(".workshop-identity-fields");
+      [$("tagline-input")?.closest("label"), $("community-role")?.closest("label")].forEach((node) => relocateWorkshopNode(node, fields));
+      settings.insertBefore(identityTools, customizer);
+      [$("profile-visibility"), $("collection-visibility"), $("wishlist-visibility")].forEach((select) => relocateWorkshopNode(select?.closest("label"), fields));
+    }
+    const saveRow = customizer.querySelector(".save-row"); if (saveRow) saveRow.classList.remove("hidden");
+    shell.classList.add("is-open"); shell.dataset.category = category;
+    requestAnimationFrame(() => shell.classList.add("is-ready"));
+  }
   function setEditMode(active) {
     const panel = $("account-panel"), toggle = $("profile-edit-toggle");
-    panel.classList.toggle("is-editing", active);
-    document.body.classList.toggle("is-profile-editing", active);
-    $("customizer").classList.toggle("hidden", !active);
-    toggle.setAttribute("aria-expanded", String(active));
-    toggle.setAttribute("aria-label", active ? "Fermer les réglages" : "Modifier mon profil");
-    toggle.title = active ? "Fermer les réglages" : "Modifier mon profil";
-    toggle.querySelector("span").textContent = active ? "×" : "✎";
+    panel.classList.toggle("is-editing", active); document.body.classList.toggle("is-profile-editing", active);
+    toggle.setAttribute("aria-expanded", String(active)); toggle.setAttribute("aria-label", active ? "Fermer les réglages" : "Modifier mon profil"); toggle.title = active ? "Fermer les réglages" : "Modifier mon profil"; toggle.querySelector("span").textContent = active ? "×" : "✎";
     state.editingName = false; state.editingBio = false;
-    $("welcome-name").classList.remove("hidden"); $("edit-nickname").classList.remove("hidden"); $("nickname-input").classList.add("hidden");
-    $("bio-editor").classList.add("hidden"); $("bio-display").classList.remove("hidden");
-    if (active) requestAnimationFrame(() => $("customizer").scrollIntoView({ behavior: "smooth", block: "start" }));
+    $("welcome-name").classList.remove("hidden"); $("edit-nickname").classList.remove("hidden"); $("nickname-input").classList.add("hidden"); $("bio-editor").classList.add("hidden"); $("bio-display").classList.remove("hidden");
+    if (active) { const shell = makeWorkshop(); shell.classList.remove("is-ready"); showWorkshopCategory("banner"); document.body.classList.add("workshop-active"); }
+    else { document.body.classList.remove("workshop-active"); if (workshop) { workshop.classList.remove("is-ready", "is-open"); } restoreWorkshopNodes(); $("profile-hero").classList.remove("is-editing"); $("customizer").classList.add("hidden"); $("customizer").classList.remove("workshop-customizer"); $("customizer .tabs")?.classList.remove("hidden"); $("customizer .tab[data-tab=appearance]")?.click(); }
   }
 
   function buildProfileBook() {
@@ -63,7 +124,7 @@
     book.after(customizer);
     toolbar.addEventListener("click", (event) => { const button = event.target.closest("[data-turn]"); if (!button) return; turnSpread(button.dataset.turn === "next" ? 1 : -1); });
     window.addEventListener("resize", updateSpread, { passive: true });
-    document.addEventListener("keydown", (event) => { if (!panel.classList.contains("hidden") && !event.altKey && !event.ctrlKey && !event.metaKey && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || "")) { if (event.key === "ArrowRight") turnSpread(1); if (event.key === "ArrowLeft") turnSpread(-1); } });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape" && panel.classList.contains("is-editing")) { event.preventDefault(); cancelEditing(); return; } if (!panel.classList.contains("hidden") && !event.altKey && !event.ctrlKey && !event.metaKey && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || "")) { if (event.key === "ArrowRight") turnSpread(1); if (event.key === "ArrowLeft") turnSpread(-1); } });
     updateSpread();
   }
   function updateSpread() {
