@@ -41,9 +41,8 @@
     const book = document.createElement("section"); book.className = "travel-book"; book.setAttribute("aria-label", "Carnet de voyage du joueur");
     const toolbar = document.createElement("nav"); toolbar.className = "book-toolbar cardex-pagination"; toolbar.setAttribute("aria-label", "Pages du carnet");
     const prev = document.createElement("button"); prev.type = "button"; prev.className = "book-turn"; prev.dataset.turn = "previous"; prev.setAttribute("aria-label", "Feuillet précédent"); prev.textContent = "‹";
-    const counter = document.createElement("span"); counter.className = "book-page-counter"; counter.id = "book-page-counter";
     const next = document.createElement("button"); next.type = "button"; next.className = "book-turn"; next.dataset.turn = "next"; next.setAttribute("aria-label", "Feuillet suivant"); next.textContent = "›";
-    toolbar.append(prev, counter, next);
+    toolbar.append(prev, next);
     const spread = document.createElement("div"); spread.className = "profile-book-spread"; spread.id = "profile-book-spread";
     const pages = Array.from({ length: 4 }, (_, index) => { const page = document.createElement("article"); page.className = `profile-leaf profile-leaf-${index + 1}`; page.dataset.profilePage = String(index + 1); page.setAttribute("aria-label", `Page ${index + 1}`); spread.append(page); return page; });
     const [one, two, three, four] = pages;

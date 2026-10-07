@@ -201,3 +201,14 @@ body.profile-page.has-profile .profile-leaf-2 .empty-showcase{height:auto!import
 @media(max-width:999px){.travel-book{width:min(1500px,100%);margin:0 auto 18px}.book-toolbar{position:relative;display:flex;justify-content:space-between;min-height:0;margin:0;pointer-events:none}.book-turn{position:absolute;z-index:7;top:50%;width:38px;height:38px;transform:translateY(-50%);pointer-events:auto}.book-turn:hover:not(:disabled){transform:translateY(calc(-50% - 1px))}.book-toolbar [data-turn="previous"]{left:-11px}.book-toolbar [data-turn="next"]{right:-11px}.book-page-counter{display:none}.profile-leaf-2 .favorite-portraits{grid-template-columns:1fr}.profile-leaf-2 .featured-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-height:740px) and (min-width:1000px){body.profile-page.has-profile .travel-book{padding-block:10px}body.profile-page.has-profile .profile-book-spread{padding:8px}.profile-leaf .profile-hero{min-height:175px;padding:16px}.profile-leaf .hero-inner{min-height:112px}.profile-leaf .about-surface{min-height:95px}.profile-leaf-2 .favorite-furry,.profile-leaf-2 .favorite-marker{min-height:78px}.profile-leaf-2 .featured-card{min-height:125px}.profile-leaf-2 .showcase-art{min-height:108px}.profile-leaf-3 .badge-grid .badge{min-height:67px}.ledger-cover{min-height:105px}.ledger-lower{gap:8px}.ledger-section{padding:8px}.journey-links .quick-links a{padding:6px 9px}}
 @media(max-width:620px){.profile-leaf-2 .featured-card{min-height:125px}.profile-leaf-2 .showcase-art{min-height:108px}.profile-leaf-2 .favorite-portraits{grid-template-columns:1fr}.profile-leaf-2 .favorite-furry,.profile-leaf-2 .favorite-marker{min-height:76px}}
+
+/* Ajustements demandés : format proche du carnet d’accueil, commandes discrètes. */
+@media(min-width:1000px){
+  body.profile-page.has-profile .profile-app{display:flex;align-items:center;justify-content:center}
+  body.profile-page.has-profile .travel-book{width:min(1400px,96%);height:92%;flex:none}
+  body.profile-page.has-profile .book-turn{width:36px;height:36px;border-color:#9e895e;background:linear-gradient(145deg,#e9ddbd,#cdb98c);font-size:1.45rem;opacity:.78;box-shadow:0 2px 5px #1c140d30,inset 0 0 0 1px #f8efd9}
+  body.profile-page.has-profile .book-turn:hover:not(:disabled){opacity:1}
+  body.profile-page.has-profile .book-turn:disabled{opacity:.32}
+  body.profile-page.has-profile .book-page-counter{display:none!important}
+}
+.profile-hero .hero-label{display:none!important}
