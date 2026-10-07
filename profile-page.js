@@ -51,6 +51,13 @@
     const bookColor = state.settings.book_color || "#203b61";
     document.documentElement.style.setProperty("--duskclaw-book-color", bookColor);
     window.setDuskclawNotebookColor?.(bookColor, state.user?.id);
+    const pawColor = state.settings.paw_cursor_color || "#d4b46d";
+    document.documentElement.style.setProperty("--duskclaw-paw-cursor", pawCursor(pawColor));
+    window.setDuskclawPawCursor?.(pawColor, state.user?.id);
+  }
+  function pawCursor(color) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="${color}" stroke="#352719" stroke-width="1.15" stroke-linejoin="round"><ellipse cx="8" cy="10" rx="3.2" ry="4.4"/><ellipse cx="15.5" cy="6.5" rx="3.2" ry="4.4"/><ellipse cx="23" cy="8" rx="3.2" ry="4.4"/><ellipse cx="27" cy="14" rx="2.8" ry="3.8"/><path d="M5.1 22.4c0-4.2 3.3-7.5 7.4-7.5 2.4 0 3.8 1.2 5.4 1.2 1.8 0 3.1-1.3 5.2-1.3 3.1 0 5.4 2.5 5.4 5.8 0 5.1-5.4 8.5-11.7 8.5-6.6 0-11.7-2.4-11.7-6.7z"/></g></svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}") 16 16, auto`;
   }
   function makeElementResetButton(key) {
     const button = document.createElement("button"); button.type = "button"; button.className = "subtle-button reset-element-button"; button.dataset.resetElement = key;
@@ -58,6 +65,7 @@
   }
   function resetElementSettings(key) {
     if (key === "book") { state.settings.book_color = "#203b61"; const input = workshop?.querySelector("[data-book-color]"); if (input) input.value = state.settings.book_color; applyFrameStyles(); return; }
+    if (key === "paw") { state.settings.paw_cursor_color = "#d4b46d"; const input = workshop?.querySelector("[data-paw-color]"); if (input) input.value = state.settings.paw_cursor_color; applyFrameStyles(); return; }
     delete state.settings[`frame_${key}_style`]; delete state.settings[`frame_${key}_color`];
     if (key === "banner") {
       state.theme = "water";
@@ -80,7 +88,8 @@
       if (control.matches("[data-frame-style]")) state.settings[`frame_${control.dataset.frameStyle}_style`] = control.value;
       if (control.matches("[data-frame-color]")) state.settings[`frame_${control.dataset.frameColor}_color`] = control.value;
       if (control.matches("[data-book-color]")) state.settings.book_color = control.value;
-      if (control.matches("[data-frame-style],[data-frame-color],[data-book-color]")) applyFrameStyles();
+      if (control.matches("[data-paw-color]")) state.settings.paw_cursor_color = control.value;
+      if (control.matches("[data-frame-style],[data-frame-color],[data-book-color],[data-paw-color]")) applyFrameStyles();
     });
     workshop.addEventListener("click", (event) => { const reset = event.target.closest("[data-reset-element]"); if (reset) resetElementSettings(reset.dataset.resetElement); });
     return workshop;
@@ -126,6 +135,10 @@
       customizer.querySelector(".tabs").classList.add("hidden"); customizer.querySelectorAll(".tab-panel").forEach((node) => node.classList.remove("active"));
       const identityTools = document.createElement("div"); identityTools.className = "workshop-tools profile-tools"; identityTools.innerHTML = '<p>Modifie ton rôle et ta phrase de profil. Les réglages de visibilité restent accessibles ci-dessous.</p><div class="workshop-identity-fields"></div>';
       const fields = identityTools.querySelector(".workshop-identity-fields");
+      const pawControls = document.createElement("section"); pawControls.className = "frame-control-group paw-cursor-controls";
+      pawControls.innerHTML = '<h4>Curseur patte de chat</h4><div class="frame-control-fields"><label>Couleur de la patte<input type="color" data-paw-color value="#d4b46d"></label></div><button type="button" class="subtle-button reset-element-button" data-reset-element="paw">Réinitialiser la patte</button><small>La couleur choisie suit ton profil sur toutes les pages.</small>';
+      pawControls.querySelector("[data-paw-color]").value = state.settings.paw_cursor_color || "#d4b46d";
+      identityTools.append(pawControls);
       [$("tagline-input")?.closest("label"), $("community-role")?.closest("label")].forEach((node) => relocateWorkshopNode(node, fields));
       settings.insertBefore(identityTools, customizer);
       [$("profile-visibility"), $("collection-visibility"), $("wishlist-visibility")].forEach((select) => relocateWorkshopNode(select?.closest("label"), fields));

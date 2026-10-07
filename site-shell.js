@@ -358,6 +358,19 @@
     let realtimeChannel = null;
     const notebookColorKey = userId => `duskclaw-notebook-color:${userId}`;
     const validNotebookColor = color => /^#[\da-f]{6}$/i.test(String(color || ""));
+    const pawCursorKey = userId => `duskclaw-paw-cursor:${userId}`;
+    const pawSvgCursor = color => {
+      if (!validNotebookColor(color)) return;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="${color}" stroke="#352719" stroke-width="1.15" stroke-linejoin="round"><ellipse cx="8" cy="10" rx="3.2" ry="4.4"/><ellipse cx="15.5" cy="6.5" rx="3.2" ry="4.4"/><ellipse cx="23" cy="8" rx="3.2" ry="4.4"/><ellipse cx="27" cy="14" rx="2.8" ry="3.8"/><path d="M5.1 22.4c0-4.2 3.3-7.5 7.4-7.5 2.4 0 3.8 1.2 5.4 1.2 1.8 0 3.1-1.3 5.2-1.3 3.1 0 5.4 2.5 5.4 5.8 0 5.1-5.4 8.5-11.7 8.5-6.6 0-11.7-2.4-11.7-6.7z"/></g></svg>`;
+      return `url("data:image/svg+xml,${encodeURIComponent(svg)}") 16 16, auto`;
+    };
+    const setPawCursor = (color, userId = currentUserId) => {
+      const cursor = pawSvgCursor(color);
+      if (!cursor) return;
+      document.documentElement.style.setProperty("--duskclaw-paw-cursor", cursor);
+      if (userId) { try { localStorage.setItem(pawCursorKey(userId), color); } catch (_) {} }
+    };
+    window.setDuskclawPawCursor = setPawCursor;
     const setNotebookColor = (color, userId = currentUserId) => {
       if (!validNotebookColor(color)) return;
       document.documentElement.style.setProperty("--duskclaw-book-color", color);
@@ -366,12 +379,14 @@
     window.setDuskclawNotebookColor = setNotebookColor;
     window.addEventListener("storage", event => {
       if (currentUserId && event.key === notebookColorKey(currentUserId) && validNotebookColor(event.newValue)) setNotebookColor(event.newValue, currentUserId);
+      if (currentUserId && event.key === pawCursorKey(currentUserId) && validNotebookColor(event.newValue)) setPawCursor(event.newValue, currentUserId);
     });
     const installNotebookColorRules = () => {
       if (document.getElementById("duskclaw-book-color-rules")) return;
       const style = document.createElement("style"); style.id = "duskclaw-book-color-rules";
       style.textContent = `
-        :root{--duskclaw-book-color:#203b61}
+        :root{--duskclaw-book-color:#203b61;--duskclaw-paw-cursor:${pawSvgCursor("#d4b46d")}}
+        body,body *{cursor:var(--duskclaw-paw-cursor)!important}input,textarea,[contenteditable="true"]{cursor:text!important}
         body.home .home-open-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 68%,#d0ad5e)!important;background:linear-gradient(90deg,color-mix(in srgb,var(--duskclaw-book-color) 58%,#d0ad5e),color-mix(in srgb,var(--duskclaw-book-color) 80%,#101b2d) 24%,var(--duskclaw-book-color) 58%,color-mix(in srgb,var(--duskclaw-book-color) 76%,#101b2d))!important}
         main.cardex-page,main.rules-page,main.family-page,main.dusk-main:not(.home-main),html body:not(.home):not(.dual-page)>main:not(.family-page):not(.dusk-main){border-color:var(--duskclaw-book-color)!important;outline-color:color-mix(in srgb,var(--duskclaw-book-color) 64%,#d4b46d)!important}
         .travel-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 66%,#d2ad5e)!important;background:linear-gradient(135deg,color-mix(in srgb,var(--duskclaw-book-color) 78%,#fff) 0%,var(--duskclaw-book-color) 44%,color-mix(in srgb,var(--duskclaw-book-color) 68%,#080f19) 100%)!important}
@@ -382,10 +397,13 @@
       installNotebookColorRules();
       if (!currentUserId || !supabaseClient) { document.documentElement.style.setProperty("--duskclaw-book-color", "#203b61"); return; }
       try { const cached = localStorage.getItem(notebookColorKey(currentUserId)); if (validNotebookColor(cached)) setNotebookColor(cached, currentUserId); } catch (_) {}
+      try { const cachedPaw = localStorage.getItem(pawCursorKey(currentUserId)); if (validNotebookColor(cachedPaw)) setPawCursor(cachedPaw, currentUserId); } catch (_) {}
       try {
         const { data } = await supabaseClient.from("user_profiles").select("banner_settings").eq("user_id", currentUserId).maybeSingle();
         const color = data?.banner_settings?.book_color;
         if (validNotebookColor(color)) setNotebookColor(color, currentUserId);
+        const pawColor = data?.banner_settings?.paw_cursor_color;
+        if (validNotebookColor(pawColor)) setPawCursor(pawColor, currentUserId);
       } catch (_) {}
     };
     installNotebookColorRules();
