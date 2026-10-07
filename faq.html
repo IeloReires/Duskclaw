@@ -35,6 +35,16 @@
     .faq-answer ul { padding-left:22px; }
     .faq-answer li { margin:6px 0; }
     .faq-answer strong { color:var(--faq-ink); }
+    .faq-tools { display:grid; grid-template-columns:minmax(220px,1fr) auto; gap:14px; align-items:end; margin-top:34px; padding:16px; border:1px solid var(--faq-rule); background:var(--faq-paper); }
+    .faq-search-label { display:grid; gap:7px; color:var(--faq-muted); font-size:.78rem; font-weight:750; letter-spacing:.06em; text-transform:uppercase; }
+    .faq-search-label input { box-sizing:border-box; width:100%; min-height:46px; padding:10px 13px; border:1px solid var(--faq-rule); border-radius:2px; background:var(--faq-bg); color:var(--faq-ink); font:inherit; font-size:1rem; letter-spacing:normal; text-transform:none; }
+    .faq-count { margin:0; color:var(--faq-muted); font-size:.86rem; white-space:nowrap; }
+    .faq-categories { display:flex; flex-wrap:wrap; gap:8px; grid-column:1/-1; }
+    .faq-category { min-height:36px; padding:7px 12px; border:1px solid var(--faq-rule); background:transparent; color:var(--faq-muted); font:700 .82rem Arial,sans-serif; cursor:pointer; }
+    .faq-category[aria-pressed="true"] { border-color:var(--faq-accent); background:var(--faq-accent); color:#fff; }
+    .faq-category:focus-visible,.faq-search-label input:focus-visible { outline:2px solid var(--faq-accent); outline-offset:3px; }
+    .faq-list details[hidden] { display:none; }
+    .faq-empty { margin:0; padding:20px 2px; border-bottom:1px solid var(--faq-rule); color:var(--faq-muted); line-height:1.6; }
     .faq-cta { margin-top:48px; padding-top:28px; border-top:1px solid var(--faq-rule); color:var(--faq-muted); line-height:1.7; }
     .faq-cta a { display:inline-block; margin-top:8px; color:var(--faq-accent); font-weight:700; text-underline-offset:4px; }
     .faq-footer { display:flex; justify-content:space-between; gap:18px; padding:22px 0 30px; border-top:1px solid var(--faq-rule); color:var(--faq-muted); font-size:.82rem; }
@@ -50,12 +60,12 @@
     .faq-mode input:checked + .faq-track { background:#5e527f; }
     .faq-mode input:checked + .faq-track::before { transform:translateX(18px); background:#e5dcf5; }
     .faq-mode input:focus-visible + .faq-track { outline:2px solid var(--faq-accent); outline-offset:3px; }
-    @media(max-width:760px) { .faq-header { flex-wrap:wrap; padding-block:17px; } .faq-nav { order:3; width:100%; justify-content:space-between; gap:10px; } .faq-nav a { font-size:.8rem; } .faq-main { padding-top:38px; } }
+    @media(max-width:760px) { .faq-header { flex-wrap:wrap; padding-block:17px; } .faq-nav { order:3; width:100%; justify-content:space-between; gap:10px; } .faq-nav a { font-size:.8rem; } .faq-main { padding-top:38px; } .faq-tools { grid-template-columns:1fr; } .faq-count { white-space:normal; } }
     @media(max-width:560px) { .faq-mode { position:static; width:max-content; margin:0 auto 20px; box-shadow:none; } .faq-footer { flex-direction:column; } .dusk-footer { align-items:flex-start; flex-direction:column; } }
     @media(prefers-reduced-motion:reduce) { body { transition:none; } .faq-track::before { transition:none; } }
   </style>
   <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <link rel="stylesheet" href="parchment-theme.css?v=20261005-cardex-pages15">
+  <link rel="stylesheet" href="parchment-theme.css?v=20261007-tavern-pages1">
 </head>
 <body id="top" data-time="jour">
   <header class="site-shell-header">
@@ -82,35 +92,47 @@
     <h1>Questions<br>fréquentes.</h1>
     <p class="faq-lead">Quelques réponses pour découvrir Duskclaw et comprendre les premières étapes d’une partie. Les règles complètes restent la référence pour jouer.</p>
 
-    <section class="faq-list" aria-label="Questions fréquentes sur Duskclaw">
-      <details>
+    <section class="faq-tools" aria-label="Rechercher dans la FAQ">
+      <label class="faq-search-label" for="faq-search">Trouver une réponse<input id="faq-search" type="search" placeholder="Ex. évolution, Jour, Énergie…" autocomplete="off"></label>
+      <p id="faq-count" class="faq-count" aria-live="polite"></p>
+      <div class="faq-categories" role="group" aria-label="Filtrer les questions">
+        <button class="faq-category" type="button" data-filter="all" aria-pressed="true">Toutes</button>
+        <button class="faq-category" type="button" data-filter="debut" aria-pressed="false">Débuter</button>
+        <button class="faq-category" type="button" data-filter="tour" aria-pressed="false">Tour et actions</button>
+        <button class="faq-category" type="button" data-filter="cartes" aria-pressed="false">Cartes</button>
+        <button class="faq-category" type="button" data-filter="jour-nuit" aria-pressed="false">Jour et Nuit</button>
+      </div>
+    </section>
+    <section id="faq-list" class="faq-list" aria-label="Questions fréquentes sur Duskclaw">
+      <details data-category="debut">
         <summary>Qu’est-ce que Duskclaw&nbsp;?</summary>
         <div class="faq-answer"><p>Duskclaw est un jeu de cartes tactique pour deux joueurs. Chaque joueur dirige une équipe de Furries sur un plateau d’hexagones répartis sur plusieurs niveaux.</p></div>
       </details>
-      <details>
+      <details data-category="debut">
         <summary>Comment remporter la partie&nbsp;?</summary>
         <div class="faq-answer"><p>La partie s’arrête dès qu’un joueur remplit une condition de victoire&nbsp;:</p><ul><li>atteindre 6 points de domination&nbsp;;</li><li>mettre tous les Furries adverses K.O.&nbsp;;</li><li>forcer l’adversaire à piocher dans un deck vide&nbsp;;</li><li>contrôler l’objectif central pendant 3 fins de round consécutives&nbsp;;</li><li>l’adversaire ne contrôle plus de Furry et ne peut plus en déployer.</li></ul></div>
       </details>
-      <details>
+      <details data-category="debut">
         <summary>Comment commence une partie&nbsp;?</summary>
         <div class="faq-answer"><p>Chaque joueur mélange un deck de 40 cartes et pioche 7 cartes. Si sa main ne contient aucun Furry de base, il la reprend selon la procédure de nouvelle main des règles.</p><p>Chaque joueur déploie ensuite secrètement 1 Furry de base obligatoire et jusqu’à 3 Furries de base supplémentaires. Une pièce est lancée pour déterminer qui choisit le premier joueur.</p></div>
       </details>
-      <details>
+      <details data-category="tour">
         <summary>Que peut-on faire pendant son tour&nbsp;?</summary>
         <div class="faq-answer"><p>Le joueur actif pioche d’abord une carte. Pendant sa phase principale, il peut ensuite effectuer les actions autorisées dans l’ordre de son choix&nbsp;: attacher une Énergie, déployer ou déplacer un Furry, le faire évoluer, utiliser un Talent, jouer des cartes, attaquer ou interagir avec un objectif. Chaque action doit être résolue avant la suivante, et certaines actions ont une limite par tour.</p></div>
       </details>
-      <details>
+      <details data-category="cartes">
         <summary>Quand un Furry peut-il évoluer&nbsp;?</summary>
         <div class="faq-answer"><p>L’évolution doit correspondre à ce Furry. Il doit être en jeu depuis le début du tour et ne pas avoir déjà évolué pendant ce tour.</p></div>
       </details>
-      <details>
+      <details data-category="jour-nuit">
         <summary>Comment fonctionne le cycle Jour/Nuit&nbsp;?</summary>
         <div class="faq-answer"><p>La partie commence le Jour. Le Jour et la Nuit durent chacun 3 rounds. À la Nuit, les valeurs nocturnes s’appliquent et la visibilité normale est limitée à 3 cases. La capacité Vision nocturne permet d’ignorer cette limite.</p></div>
       </details>
-      <details>
+      <details data-category="cartes">
         <summary>Les Énergies sont-elles défaussées après une attaque&nbsp;?</summary>
         <div class="faq-answer"><p>En règle générale, les Énergies attachées ne sont pas défaussées après leur utilisation. Certaines cartes ou capacités peuvent préciser une règle différente.</p></div>
       </details>
+      <p id="faq-empty" class="faq-empty" hidden>Aucune réponse ne correspond à ta recherche. Essaie un autre mot ou <a href="contact.html">contacte-nous</a>.</p>
     </section>
 
     <div class="faq-cta">Besoin d’un détail de jeu ou d’une règle complète&nbsp;?<br><a href="regles.html">Consulter le guide complet des règles <span aria-hidden="true">→</span></a></div>
@@ -128,6 +150,23 @@
   </label>
   <script>
     const faqSwitch = document.getElementById("faq-mode-toggle");
+    const faqSearch = document.getElementById("faq-search");
+    const faqItems = [...document.querySelectorAll("#faq-list details")];
+    const faqFilters = [...document.querySelectorAll(".faq-category")];
+    let activeFaqFilter = "all";
+    function filterFaq() {
+      const term = faqSearch.value.trim().toLocaleLowerCase("fr");
+      let visible = 0;
+      faqItems.forEach(item => {
+        const matchesCategory = activeFaqFilter === "all" || item.dataset.category === activeFaqFilter;
+        const matchesSearch = !term || item.textContent.toLocaleLowerCase("fr").includes(term);
+        const show = matchesCategory && matchesSearch;
+        item.hidden = !show;
+        if (show) visible++;
+      });
+      document.getElementById("faq-count").textContent = `${visible} réponse${visible > 1 ? "s" : ""} sur ${faqItems.length}`;
+      document.getElementById("faq-empty").hidden = visible > 0;
+    }
     function setFaqTheme(night, save = false) {
       document.body.dataset.time = night ? "nuit" : "jour";
       faqSwitch.checked = night;
@@ -135,6 +174,13 @@
       if (save) localStorage.setItem("duskclaw-time", night ? "nuit" : "jour");
     }
     faqSwitch.addEventListener("change", () => setFaqTheme(faqSwitch.checked, true));
+    faqSearch.addEventListener("input", filterFaq);
+    faqFilters.forEach(button => button.addEventListener("click", () => {
+      activeFaqFilter = button.dataset.filter;
+      faqFilters.forEach(filter => filter.setAttribute("aria-pressed", String(filter === button)));
+      filterFaq();
+    }));
+    filterFaq();
     setFaqTheme(localStorage.getItem("duskclaw-time") === "nuit");
   </script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
