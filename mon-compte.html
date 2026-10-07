@@ -84,7 +84,7 @@
   <link rel="stylesheet" href="parchment-theme.css?v=20261007-tavern-pages1">
   <style>
     /* A field dossier for the player, built around the existing profile controls. */
-    main.account-page.cardex-page{width:min(1480px,96%)!important;margin:20px auto 58px!important;padding:clamp(16px,2.5vw,36px)!important;border:20px solid #304967!important;border-radius:19px!important;outline:2px solid #d0b66c!important;outline-offset:-9px!important;background:linear-gradient(100deg,#f3eddd,#e9e1cc)!important;color:#26364a!important;box-shadow:1px 2px 0 #f7f0df,3px 4px 0 #ad9b73,5px 6px 0 #f2e9d4,7px 8px 0 #88764f,0 18px 32px #10203a55,inset 0 0 0 3px #8293a7,inset 0 0 0 6px #d4b66d,inset 0 0 0 8px #344d6c,inset 0 0 0 11px #d5c38f,inset 0 0 0 13px #f7efd9!important}
+    main.account-page.cardex-page{width:min(1600px,96%)!important;margin:20px auto 58px!important;padding:clamp(16px,2.5vw,36px)!important;border:20px solid #304967!important;border-radius:19px!important;outline:2px solid #d0b66c!important;outline-offset:-9px!important;background:linear-gradient(100deg,#f3eddd,#e9e1cc)!important;color:#26364a!important;box-shadow:1px 2px 0 #f7f0df,3px 4px 0 #ad9b73,5px 6px 0 #f2e9d4,7px 8px 0 #88764f,0 18px 32px #10203a55,inset 0 0 0 3px #8293a7,inset 0 0 0 6px #d4b66d,inset 0 0 0 8px #344d6c,inset 0 0 0 11px #d5c38f,inset 0 0 0 13px #f7efd9!important}
     .account-page>.eyebrow{margin:0;color:#8b6541!important;font-size:.65rem!important;letter-spacing:.2em!important}
     .account-page>h1{margin:6px 0 4px!important;color:#26364a!important;font:500 clamp(2.4rem,5vw,4.1rem)/1 Georgia,serif!important;letter-spacing:-.045em!important}
     .account-page>.lede{max-width:780px;margin:0!important;color:#655d4d!important;font:400 .97rem/1.6 Arial,sans-serif!important}
@@ -137,7 +137,7 @@
     .privacy-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
     .future-badge{border:1px dashed #b49a68!important;border-radius:3px!important;background:#f4ecd8!important;color:#665e50!important}
     .future-badge strong{color:#344963!important}
-    .profile-savebar{grid-column:1/-1!important;position:sticky;bottom:8px;z-index:10;justify-content:space-between!important;margin:0!important;padding:12px 14px!important;border:1px solid #b49a68!important;background:#efe5ceee!important;box-shadow:0 5px 18px #1e2a3b26!important;backdrop-filter:blur(8px)}
+    .profile-savebar{grid-column:1/-1!important;position:relative!important;inset:auto!important;z-index:auto!important;justify-content:space-between!important;margin:0!important;padding:16px 0 0!important;border:0!important;border-top:1px solid #b49a68!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
     .profile-savebar .button,.account-page .account-shortcut .button{border:1px solid #263e5c!important;border-radius:3px!important;background:#263e5c!important;color:#fff8e8!important}
     .account-shortcut{min-height:132px!important;padding:20px!important;border:1px solid #b49a68!important;border-radius:4px!important;background:linear-gradient(135deg,#f5eedc,#e8dec6)!important;color:#293b55!important;box-shadow:inset 0 0 0 2px #fff8e8,0 4px 0 #c5b48e!important}
     .account-shortcut h2{color:#304967!important;font-size:1.2rem!important}
@@ -190,8 +190,7 @@
       </form>
     </section>
     <section id="account-panel" class="account-dashboard hidden" aria-label="Profil">
-      <details class="account-section" open>
-        <summary class="section-trigger"><span><strong>Ton dossier de joueur</strong><small>Personnalise ta présence dans la communauté Duskclaw</small></span><span class="section-arrow" aria-hidden="true">⌄</span></summary>
+      <div class="account-section">
         <div class="section-content">
       <div class="profile-cover" id="profile-cover" data-theme="water"><div class="profile-cover-inner">
         <div class="avatar-edit-wrap"><button id="avatar-edit" class="avatar cover-avatar" type="button" aria-label="Changer la photo de profil">D</button><button class="edit-pencil" type="button" data-edit="avatar" aria-label="Modifier la photo">✎</button></div>
@@ -230,7 +229,7 @@
       <dialog class="card-dialog" id="featured-card-dialog" aria-labelledby="featured-dialog-title"><div class="dialog-head"><h2 id="featured-dialog-title">Choisir une carte</h2><button class="button secondary" id="close-featured-dialog" type="button" aria-label="Fermer">Fermer</button></div><div id="dialog-card-list" class="dialog-list"></div></dialog>
       <div class="profile-savebar"><p id="style-message" class="message" aria-live="polite"></p><button id="save-profile-style" class="button" type="button">Enregistrer les modifications</button></div>
         </div>
-      </details>
+      </div>
       <section class="account-shortcut"><div><h2>Collection des cartes</h2><p>Retrouve les cartes que tu as ajoutées à ton compte.</p></div><a class="button" href="collection.html">Ouvrir ma collection <span aria-hidden="true">→</span></a></section>
       <section class="account-shortcut"><div><h2>Rencontres Duskclaw</h2><p>Découvre les événements et soirées autour du jeu physique.</p></div><a class="button" href="evenements.html">Voir les événements <span aria-hidden="true">→</span></a></section>
       <section class="account-shortcut"><div><h2>Deck Builder</h2><p>Prépare, enregistre et partage tes listes pour les parties physiques.</p></div><a class="button" href="deck-builder.html">Construire un deck <span aria-hidden="true">→</span></a></section>
