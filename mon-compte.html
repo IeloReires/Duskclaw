@@ -1,122 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101526">
-  <meta name="description" content="Accès au compte Duskclaw.">
-  <title>Mon compte — Duskclaw</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101526">
+  <meta name="description" content="Personnalise ton profil de joueur Duskclaw."><title>Mon profil — Duskclaw</title>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2">
-  <style>
-    html body.profile-reset-page:not(.home):not(.dual-page){min-height:100vh!important;background:#101526!important;background-image:radial-gradient(ellipse at 50% 0,#202a46 0,transparent 50%),linear-gradient(140deg,#101526,#0d1220)!important;color:#eef0f8!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
-    html body.profile-reset-page:not(.home):not(.dual-page)::before{display:none!important}
-    html body.profile-reset-page:not(.home):not(.dual-page)>main.profile-start:not(.cardex-page):not(.family-page):not(.dusk-main){box-sizing:border-box!important;position:relative!important;isolation:auto!important;width:min(1100px,calc(100% - 40px))!important;min-height:52vh!important;margin:36px auto!important;padding:28px 0!important;border:0!important;border-radius:0!important;outline:0!important;background:transparent!important;color:#eef0f8!important;box-shadow:none!important}
-    .profile-start .auth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:0}
-    .profile-start .panel{padding:clamp(22px,3vw,34px);border:1px solid #303b58;border-radius:18px;background:linear-gradient(145deg,#1b2339,#151b2d);color:#eef0f8;box-shadow:0 18px 50px #05081666}
-    .profile-start h2{margin:0 0 20px;color:#f4f2fb;font:650 1.4rem/1.2 Inter,system-ui,sans-serif;letter-spacing:-.02em}
-    .profile-start .field{display:grid;gap:8px;margin:15px 0;color:#afb8ce;font-size:.9rem}
-    .profile-start .field input{box-sizing:border-box;width:100%;min-height:46px;padding:11px 13px;border:1px solid #35415f;border-radius:10px;background:#0e1424;color:#f2f3fa;font:inherit}
-    .profile-start .field input:focus{border-color:#a99cf5;outline:2px solid #a99cf555;outline-offset:1px}
-    .profile-start .small{color:#9fa9c0;font-size:.8rem}
-    .profile-start .button{display:inline-flex;min-height:44px;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:10px 16px;border:1px solid #a99cf5;border-radius:10px;background:#a99cf5;color:#17152c;font:700 .9rem Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer}
-    .profile-start .button:hover{filter:brightness(1.08)}
-    .profile-start .text-button{display:block;margin-top:12px;padding:4px 0;border:0;background:none;color:#88ddcf;font:inherit;text-decoration:underline;cursor:pointer}
-    .profile-start .message{min-height:1.5em;margin:12px 0 0;color:#b9c2d5;font-size:.88rem}
-    .profile-start .message.error{color:#ffaaa8}.profile-start .message.success{color:#9bd7b1}
-    .profile-start .hidden{display:none!important}
-    #page-message{padding:14px 16px;border:1px solid #804d58;border-radius:12px;background:#2a1d2c;color:#ffe4df}
-    #account-panel{display:none!important}
-    @media(max-width:760px){html body.profile-reset-page:not(.home):not(.dual-page)>main.profile-start:not(.cardex-page):not(.family-page):not(.dusk-main){width:calc(100% - 28px)!important;min-height:45vh!important;margin:26px auto!important;padding:0!important;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important}.profile-start .auth-grid{grid-template-columns:1fr}}
-  </style>
+  <link rel="stylesheet" href="site-shell.css?v=20261005-header-unified2"><link rel="stylesheet" href="profile-page.css?v=20261007-steam-profile1">
 </head>
-<body class="profile-reset-page">
+<body class="profile-page">
   <header class="site-shell-header">
     <a class="site-shell-brand" href="index.html" aria-label="Duskclaw — accueil">DUSK<span>CLAW</span></a>
     <button class="site-shell-menu-toggle" type="button" aria-expanded="false" aria-controls="site-shell-menu" aria-label="Ouvrir le menu de navigation"><span></span><span></span><span></span></button>
-    <div class="site-shell-actions">
-      <a class="site-shell-support" href="soutenir.html">Soutenir</a>
-      <a id="moderation-nav-link" class="site-shell-moderation hidden" href="moderation.html">Modération</a>
-      <a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a>
-    </div>
-    <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert>
-      <a href="personnages.html">Cardex</a><a href="univers.html">Univers</a><a href="deck-builder.html">Deck Builder</a><a href="evenements.html">Événements</a><a href="faq.html">FAQ</a><a href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a href="amis.html">Amis</a>
-    </nav>
+    <div class="site-shell-actions"><a class="site-shell-support" href="soutenir.html">Soutenir</a><a id="moderation-nav-link" class="site-shell-moderation hidden" href="moderation.html">Modération</a><a id="account-nav-link" class="site-shell-account" href="mon-compte.html" aria-label="Mon compte">Mon compte</a></div>
+    <nav class="site-shell-menu" id="site-shell-menu" aria-label="Navigation principale" inert><a href="personnages.html">Cardex</a><a href="univers.html">Univers</a><a href="deck-builder.html">Deck Builder</a><a href="evenements.html">Événements</a><a href="faq.html">FAQ</a><a href="regles.html">Les règles <span aria-hidden="true">↗</span></a><a href="amis.html">Amis</a></nav>
   </header>
-  <main class="profile-start" aria-label="Espace de compte">
-    <div id="page-message" class="message hidden" role="status"></div>
+  <main class="profile-main">
+    <div class="page-heading"><div><p class="eyebrow">ESPACE JOUEUR · DUSKCLAW</p><h1>Mon profil</h1><p>Ta vitrine, tes cartes, ton identité dans l’univers Duskclaw.</p></div><div class="heading-actions"><span class="sync-state"><i></i><span id="profile-state">Chargement du profil</span></span><button id="logout-button" class="subtle-button hidden" type="button">Déconnexion</button></div></div>
+    <div id="page-message" class="alert hidden" role="status"></div>
     <section id="auth-panel" class="auth-grid hidden" aria-label="Connexion ou création de compte">
-      <form id="login-form" class="panel">
-        <h2>Se connecter</h2>
-        <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
-        <label class="field">Mot de passe<input name="password" type="password" autocomplete="current-password" required></label>
-        <button class="button" type="submit">Connexion <span aria-hidden="true">→</span></button>
-        <button id="forgot-password" class="text-button" type="button">Mot de passe oublié ?</button>
-        <p id="login-message" class="message" aria-live="polite"></p>
-      </form>
-      <form id="signup-form" class="panel">
-        <h2>Créer un compte</h2>
-        <label class="field">Pseudo<input name="nickname" type="text" minlength="2" maxlength="15" autocomplete="nickname" required><span class="small">2 à 15 caractères.</span></label>
-        <label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label>
-        <label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="10" required><span class="small">10 caractères minimum.</span></label>
-        <button class="button" type="submit">Créer mon compte <span aria-hidden="true">→</span></button>
-        <p id="signup-message" class="message" aria-live="polite"></p>
-      </form>
+      <form id="login-form" class="surface"><h2>Se connecter</h2><label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label><label class="field">Mot de passe<input name="password" type="password" autocomplete="current-password" required></label><button class="primary-button" type="submit">Connexion <span>→</span></button><button id="forgot-password" class="text-button" type="button">Mot de passe oublié ?</button><p id="login-message" class="form-message" aria-live="polite"></p></form>
+      <form id="signup-form" class="surface"><h2>Créer un compte</h2><label class="field">Pseudo<input name="nickname" type="text" minlength="2" maxlength="15" autocomplete="nickname" required><small>2 à 15 caractères.</small></label><label class="field">Adresse e-mail<input name="email" type="email" autocomplete="email" required></label><label class="field">Mot de passe<input name="password" type="password" autocomplete="new-password" minlength="10" required><small>10 caractères minimum.</small></label><button class="primary-button" type="submit">Créer mon compte <span>→</span></button><p id="signup-message" class="form-message" aria-live="polite"></p></form>
     </section>
-    <section id="account-panel" hidden aria-label="Profil"></section>
+    <section id="account-panel" class="profile-app hidden" aria-label="Profil joueur">
+      <section id="profile-hero" class="profile-hero" data-pattern="waves"><div class="hero-inner">
+        <div class="avatar-wrap"><button id="avatar-edit" class="profile-avatar" type="button" aria-label="Changer la photo de profil">D</button><button id="avatar-pencil" class="avatar-pencil" type="button" aria-label="Modifier la photo">✎</button><input id="avatar-file" class="hidden" type="file" accept="image/jpeg,image/png,image/webp"></div>
+        <div class="hero-copy"><p class="hero-label">FICHE DE JOUEUR · DUSKCLAW</p><div class="hero-name"><h2 id="welcome-name">Joueur</h2><button id="edit-nickname" class="edit-icon" type="button" aria-label="Modifier le pseudo">✎</button></div><input id="nickname-input" class="hero-input hidden" maxlength="15" placeholder="Ton pseudo" aria-label="Pseudo"><p id="hero-tagline" class="hero-tagline">Choisis ta voie, écris ton histoire.</p><label id="tagline-editor" class="hero-tagline-editor hidden"><input id="tagline-setting" maxlength="90" placeholder="Ta phrase de profil"></label><div id="hero-chips" class="hero-chips"></div></div>
+      </div></section>
+      <div class="stat-strip"><div><b id="stat-level">01</b><span>NIVEAU</span></div><div><b id="stat-cards">0</b><span>CARTES</span></div><div><b id="stat-badges">0</b><span>BADGES</span></div><div><b id="stat-since">—</b><span>MEMBRE DEPUIS</span></div></div>
+      <div class="profile-layout">
+        <div class="main-column">
+          <section class="surface"><div class="section-head"><div><small>TA COLLECTION</small><h3>Cartes à l’honneur</h3><p>Choisis jusqu’à trois cartes qui te représentent.</p></div><button id="add-featured" class="subtle-button" type="button">＋ Ajouter</button></div><div id="featured-gallery" class="featured-grid"></div></section>
+          <section class="surface"><div class="section-head"><div><small>À PROPOS</small><h3>Qui es-tu dans Duskclaw ?</h3></div><button id="toggle-bio" class="subtle-button" type="button">Modifier</button></div><p id="bio-display" class="bio-display empty">Ajoute quelques mots pour te présenter.</p><div id="bio-editor" class="hidden"><textarea id="profile-bio" class="control textarea" maxlength="280" placeholder="Quelques mots pour te présenter…"></textarea><small class="counter"><output id="bio-count">0</output> / 280</small></div><div id="profile-facts" class="fact-list"></div></section>
+          <section class="surface"><div class="section-head"><div><small>TES ACCOMPLISSEMENTS</small><h3>Badges</h3><p>Les étapes franchies pendant tes explorations.</p></div></div><div id="badge-list" class="badge-grid"></div></section>
+          <section class="surface customizer" id="customizer"><div class="section-head"><div><small>ATELIER DU PROFIL</small><h3>Personnalise ta vitrine</h3><p>Les changements s’affichent en direct. Enregistre quand tu es prêt.</p></div></div>
+            <div class="tabs" role="tablist" aria-label="Réglages du profil"><button class="tab active" role="tab" aria-selected="true" data-tab="appearance">Apparence</button><button class="tab" role="tab" aria-selected="false" data-tab="identity">Identité</button><button class="tab" role="tab" aria-selected="false" data-tab="privacy">Confidentialité</button></div>
+            <div id="panel-appearance" class="tab-panel active" role="tabpanel"><p class="helper">Choisis une ambiance, ajuste les couleurs et compose une bannière unique.</p><div class="theme-list"><button data-theme-choice="water" aria-pressed="true" style="--a:#123b58;--b:#29788a"><span>≈</span><b>Rivages</b></button><button data-theme-choice="plant" aria-pressed="false" style="--a:#17382c;--b:#61834a"><span>❧</span><b>Forêt</b></button><button data-theme-choice="ice" aria-pressed="false" style="--a:#273d64;--b:#8aa6ca"><span>✧</span><b>Givre</b></button><button data-theme-choice="rock" aria-pressed="false" style="--a:#392c26;--b:#a5734e"><span>⌁</span><b>Montagne</b></button><button data-theme-choice="wind" aria-pressed="false" style="--a:#344957;--b:#94a9ad"><span>〰</span><b>Ciel</b></button></div>
+              <div class="control-grid"><label>Couleur principale<input id="banner-color" type="color" value="#62bfd1"></label><label>Couleur secondaire<input id="banner-color2" type="color" value="#17334d"></label><label>Lueur<input id="banner-glow-color" type="color" value="#b8a6df"></label><label>Accent<input id="accent-color" type="color" value="#9c8cff"></label><label>Motif<select id="banner-pattern" class="control"><option value="waves">Ondes</option><option value="leaves">Feuillages</option><option value="crystals">Facettes</option><option value="strata">Strates</option><option value="stars">Constellations</option><option value="none">Aucun</option></select></label><label>Disposition<select id="profile-layout" class="control"><option value="classic">Classique</option><option value="wide">Vitrine large</option><option value="compact">Compacte</option></select></label></div>
+              <div class="slider-grid"><label>Intensité du motif<output id="pattern-opacity-value">28 %</output><input data-setting="pattern_opacity" type="range" min="0" max="75" value="28"></label><label>Taille du motif<output id="pattern-size-value">100 %</output><input data-setting="pattern_size" type="range" min="55" max="180" value="100"></label><label>Angle du dégradé<output id="gradient-angle-value">125°</output><input data-setting="gradient_angle" type="range" min="0" max="360" value="125"></label><label>Lueur<output id="glow-value">35 %</output><input data-setting="glow" type="range" min="0" max="80" value="35"></label><label>Lueur horizontale<output id="glow-x-value">78 %</output><input data-setting="glow_x" type="range" min="0" max="100" value="78"></label><label>Lueur verticale<output id="glow-y-value">18 %</output><input data-setting="glow_y" type="range" min="0" max="100" value="18"></label></div>
+            </div>
+            <div id="panel-identity" class="tab-panel" role="tabpanel"><p class="helper">Quelques détails pour que les autres joueurs te reconnaissent.</p><div class="form-grid"><label class="full">Phrase de profil<input id="tagline-input" class="control" maxlength="90" placeholder="Ex. Stratège des hautes terres"></label><label>Rôle<select id="community-role" class="control"><option>Joueur</option><option>Collectionneur</option><option>Créateur de decks</option><option>Artiste</option><option>Playtester</option><option>Organisateur</option></select></label><label>Furry favori<select id="favorite-furry" class="control"><option value="">Choisir un Furry</option></select></label><label>Type favori<select id="favorite-type" class="control"><option value="">Choisir un type</option><option>Glace</option><option>Eau</option><option>Vent</option><option>Plante</option><option>Roche</option></select></label></div></div>
+            <div id="panel-privacy" class="tab-panel" role="tabpanel"><p class="helper">Tu gardes le contrôle de ce que les autres peuvent consulter.</p><div class="form-grid"><label>Profil<select id="profile-visibility" class="control"><option value="public">Tout le monde connecté</option><option value="friends">Mes amis</option><option value="private">Moi uniquement</option></select></label><label>Collection<select id="collection-visibility" class="control"><option value="private">Moi uniquement</option><option value="friends">Mes amis</option><option value="public">Tout le monde connecté</option></select></label><label>Wishlist<select id="wishlist-visibility" class="control"><option value="private">Moi uniquement</option><option value="friends">Mes amis</option><option value="public">Tout le monde connecté</option></select></label></div><p class="helper">Les quantités carte par carte restent privées.</p></div>
+            <div class="save-row"><p id="save-message" class="save-message" aria-live="polite"></p><button id="save-profile" class="save-button" type="button">Enregistrer le profil</button></div>
+          </section>
+        </div>
+        <aside class="side-column"><section class="surface"><div class="section-head"><div><small>IDENTITÉ</small><h3>Repères de joueur</h3></div></div><div class="side-facts"><div><i>✦</i><span>Rôle</span><b id="side-role">Joueur</b></div><div><i>❖</i><span>Furry favori</span><b id="side-furry">À choisir</b></div><div><i>◈</i><span>Type favori</span><b id="side-type">À choisir</b></div></div></section><section class="surface"><div class="section-head"><div><small>RACCOURCIS</small><h3>Ton univers</h3></div></div><nav class="quick-links"><a href="collection.html">Ma collection <span>↗</span></a><a href="deck-builder.html">Deck Builder <span>↗</span></a><a href="amis.html">Mes amis <span>↗</span></a><a href="evenements.html">Événements <span>↗</span></a></nav></section></aside>
+      </div>
+      <dialog id="featured-dialog" class="picker-dialog"><div class="dialog-head"><h2>Choisir une carte</h2><button id="close-picker" class="subtle-button" type="button">Fermer</button></div><div id="card-picker" class="card-picker"></div></dialog>
+    </section>
   </main>
   <footer class="site-shell-footer"><a class="site-shell-contact" href="contact.html">Contact <span aria-hidden="true">↗</span></a><span class="site-shell-handle">@Duskclaw</span></footer>
-  <script>
-    (() => {
-      const SUPABASE_URL = "https://bqqbciifmfbsjurkulfo.supabase.co";
-      const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior";
-      const SITE_URL = "https://ieloreires.github.io/Duskclaw/";
-      const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-      const authPanel = document.getElementById("auth-panel");
-      const accountPanel = document.getElementById("account-panel");
-      const params = new URLSearchParams(location.search);
-      const shouldOpenCollection = params.get("redirect") === "collection.html";
-      const shouldOpenEvents = params.get("redirect") === "evenements.html";
-      const showMessage = (id, text, kind = "") => { const el = document.getElementById(id); el.textContent = text; el.className = "message" + (kind ? " " + kind : ""); };
-      const pageMessage = text => { const el = document.getElementById("page-message"); el.textContent = text; el.classList.toggle("hidden", !text); };
-      const afterLogin = () => { if (shouldOpenCollection) location.replace("collection.html"); else if (shouldOpenEvents) location.replace("evenements.html"); };
-      const renderUser = user => {
-        authPanel.classList.toggle("hidden", !!user);
-        accountPanel.hidden = !user;
-        const link = document.getElementById("account-nav-link");
-        if (!user) link.textContent = "Mon compte";
-        if (user) client.rpc("is_site_moderator").then(({ data }) => { if (data === true) document.getElementById("moderation-nav-link").classList.remove("hidden"); }).catch(() => {});
-      };
-      client.auth.onAuthStateChange((_event, session) => { renderUser(session?.user || null); if (session?.user) afterLogin(); });
-      client.auth.getSession().then(({ data, error }) => {
-        if (error) { pageMessage("Impossible de vérifier la connexion. Recharge la page."); authPanel.classList.remove("hidden"); return; }
-        renderUser(data.session?.user || null);
-        if (data.session?.user) afterLogin();
-      }).catch(() => { pageMessage("Impossible de vérifier la connexion. Recharge la page."); authPanel.classList.remove("hidden"); });
-      document.getElementById("login-form").addEventListener("submit", async event => {
-        event.preventDefault(); const form = new FormData(event.currentTarget); showMessage("login-message", "Connexion…");
-        const { error } = await client.auth.signInWithPassword({ email: form.get("email"), password: form.get("password") });
-        if (error) showMessage("login-message", error.message, "error"); else { showMessage("login-message", "Connexion réussie.", "success"); afterLogin(); }
-      });
-      document.getElementById("signup-form").addEventListener("submit", async event => {
-        event.preventDefault(); const form = new FormData(event.currentTarget); const password = String(form.get("password") || ""); const nickname = String(form.get("nickname") || "").trim();
-        if (nickname.length < 2 || nickname.length > 15) { showMessage("signup-message", "Le pseudo doit contenir de 2 à 15 caractères.", "error"); return; }
-        if (password.length < 10) { showMessage("signup-message", "Choisis au moins 10 caractères.", "error"); return; }
-        showMessage("signup-message", "Création du compte…");
-        const { data, error } = await client.auth.signUp({ email: form.get("email"), password, options: { data: { nickname }, emailRedirectTo: SITE_URL + "collection.html" } });
-        if (error) showMessage("signup-message", error.message, "error");
-        else if (data.session) { showMessage("signup-message", "Compte créé.", "success"); afterLogin(); }
-        else showMessage("signup-message", "Compte créé. Consulte ta boîte mail pour confirmer ton adresse, puis connecte-toi.", "success");
-      });
-      document.getElementById("forgot-password").addEventListener("click", async () => {
-        const email = document.querySelector('#login-form [name="email"]').value.trim();
-        if (!email) { showMessage("login-message", "Entre ton adresse e-mail pour recevoir le lien de réinitialisation.", "error"); return; }
-        showMessage("login-message", "Envoi du lien…");
-        const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo: SITE_URL + "collection.html" });
-        showMessage("login-message", error ? error.message : "Si un compte correspond à cette adresse, un lien de réinitialisation vient d’être envoyé.", error ? "error" : "success");
-      });
-    })();
-  </script>
-  <script src="site-shell.js?v=20261005-header-unified2"></script>
+  <script src="profile-page.js?v=20261007-steam-profile1"></script><script src="site-shell.js?v=20261005-header-unified2"></script>
 </body>
 </html>
