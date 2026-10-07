@@ -138,6 +138,37 @@
   // Account notifications shared by every page using the site shell.
   const accountLink = document.getElementById("account-nav-link");
   const actions = accountLink?.closest(".site-shell-actions");
+  if (accountLink && !accountLink.dataset.avatarSyncStarted && window.supabase?.createClient) {
+    accountLink.dataset.avatarSyncStarted = "true";
+    const avatarClient = window.supabase.createClient(
+      "https://bqqbciifmfbsjurkulfo.supabase.co",
+      "sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior"
+    );
+    avatarClient.auth.getSession().then(async ({ data }) => {
+      const user = data.session?.user;
+      if (!user) return;
+      const { data: profile } = await avatarClient.from("user_profiles")
+        .select("nickname,avatar_path").eq("user_id", user.id).maybeSingle();
+      const name = profile?.nickname?.trim() || "Mon compte";
+      const avatar = document.createElement("span");
+      avatar.className = "site-shell-avatar";
+      avatar.setAttribute("aria-hidden", "true");
+      avatar.textContent = name.charAt(0).toUpperCase();
+      if (profile?.avatar_path) {
+        const { data: image } = await avatarClient.storage.from("user-avatars")
+          .createSignedUrl(profile.avatar_path, 3600);
+        if (image?.signedUrl) {
+          const photo = new Image();
+          photo.src = image.signedUrl;
+          photo.alt = "";
+          avatar.replaceChildren(photo);
+        }
+      }
+      accountLink.replaceChildren(avatar);
+      accountLink.setAttribute("aria-label", `Profil de ${name}`);
+      accountLink.setAttribute("title", name);
+    }).catch(() => {});
+  }
   if (accountLink && actions) {
     const wrap = document.createElement("div");
     wrap.className = "site-shell-notification-wrap";

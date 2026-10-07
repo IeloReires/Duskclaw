@@ -281,8 +281,8 @@
   const themeSwitch=document.getElementById('theme-toggle');function setTheme(time,save=false){document.body.dataset.time=time;themeSwitch.checked=time==='nuit';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=time==='nuit'?'#111724':'#f1ead9';if(save)localStorage.setItem('duskclaw-time',time);}themeSwitch.addEventListener('change',()=>setTheme(themeSwitch.checked?'nuit':'jour',true));setTheme(localStorage.getItem('duskclaw-time')==='nuit'?'nuit':'jour');
 </script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="account-nav.js?v=20261004-2215"></script>
-<script src="site-shell.js?v=20261007-shared-atmosphere3"></script>
+<script src="account-nav.js?v=20261007-profile-avatar1"></script>
+<script src="site-shell.js?v=20261007-profile-avatar1"></script>
 </body>
 </html>
 

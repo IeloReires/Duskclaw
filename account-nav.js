@@ -1,6 +1,7 @@
 (() => {
   const link = document.getElementById("account-nav-link");
   if (!link || !window.supabase) return;
+  link.dataset.avatarSyncStarted = "true";
 
   const client = window.supabase.createClient(
     "https://bqqbciifmfbsjurkulfo.supabase.co",

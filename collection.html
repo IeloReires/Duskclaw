@@ -193,8 +193,8 @@
       document.getElementById('clear-collection').addEventListener('click',async()=>{if(!confirm('Retirer toutes les cartes de ta collection ? Cette action est définitive.'))return;const {error}=await backend.from('user_collection').delete().eq('user_id',currentUser.id);if(error)globalSay(friendlyError(error));else{globalSay('Ta collection est vide.');await refreshCollection();}});
     }
   </script>
-  <script src="account-nav.js?v=20261004-2215"></script>
-<script src="site-shell.js?v=20261007-shared-atmosphere3"></script>
+  <script src="account-nav.js?v=20261007-profile-avatar1"></script>
+<script src="site-shell.js?v=20261007-profile-avatar1"></script>
 </body>
 </html>
 
