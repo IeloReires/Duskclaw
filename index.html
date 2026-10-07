@@ -687,15 +687,14 @@
         for(let channel=0;channel<2;channel++){const data=buffer.getChannelData(channel);for(let i=0;i<length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/length,3.2)}
         return buffer;
       };
-      const playVinylStop=()=>{
+      const playVinylRub=()=>{
         if(!context)return;
-        const now=context.currentTime,length=Math.floor(context.sampleRate*.58),buffer=context.createBuffer(1,length,context.sampleRate),samples=buffer.getChannelData(0);
-        for(let i=0;i<length;i++)samples[i]=(Math.random()*2-1)*(1-i/length)**1.8;
+        const now=context.currentTime,duration=.62,length=Math.floor(context.sampleRate*duration),buffer=context.createBuffer(1,length,context.sampleRate),samples=buffer.getChannelData(0);
+        for(let i=0;i<length;i++){const t=i/context.sampleRate,pulse=.42+.58*Math.abs(Math.sin(2*Math.PI*10.5*t));samples[i]=(Math.random()*2-1)*(1-i/length)**1.45*pulse}
         const source=context.createBufferSource();source.buffer=buffer;
-        const filter=context.createBiquadFilter();filter.type="lowpass";filter.frequency.setValueAtTime(2600,now);filter.frequency.exponentialRampToValueAtTime(360,now+.55);
-        const noiseGain=context.createGain();noiseGain.gain.setValueAtTime(.0001,now);noiseGain.gain.exponentialRampToValueAtTime(.085,now+.035);noiseGain.gain.exponentialRampToValueAtTime(.0001,now+.58);
-        source.connect(filter);filter.connect(noiseGain);noiseGain.connect(context.destination);source.start(now);source.stop(now+.6);
-        const motor=context.createOscillator(),motorGain=context.createGain();motor.type="triangle";motor.frequency.setValueAtTime(138,now);motor.frequency.exponentialRampToValueAtTime(43,now+.62);motorGain.gain.setValueAtTime(.0001,now);motorGain.gain.exponentialRampToValueAtTime(.035,now+.03);motorGain.gain.exponentialRampToValueAtTime(.0001,now+.62);motor.connect(motorGain);motorGain.connect(context.destination);motor.start(now);motor.stop(now+.64);
+        const filter=context.createBiquadFilter();filter.type="bandpass";filter.Q.value=1.15;filter.frequency.setValueAtTime(1450,now);filter.frequency.exponentialRampToValueAtTime(3300,now+.12);filter.frequency.exponentialRampToValueAtTime(560,now+.29);filter.frequency.exponentialRampToValueAtTime(2100,now+.43);filter.frequency.exponentialRampToValueAtTime(430,now+.62);
+        const noiseGain=context.createGain();noiseGain.gain.setValueAtTime(.0001,now);noiseGain.gain.exponentialRampToValueAtTime(.105,now+.035);noiseGain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+        source.connect(filter);filter.connect(noiseGain);noiseGain.connect(context.destination);source.start(now);source.stop(now+duration);
       };
       const buildSound=()=>{
         context=new Context();const source=context.createMediaElementSource(audio);
@@ -717,9 +716,14 @@
       };
       const pause=()=>{
         if(!playing)return;
-        const initialTransform=logo?getComputedStyle(logo).transform:"none";
-        playing=false;window.clearTimeout(variationTimer);playVinylStop();if(master&&context)master.gain.setTargetAtTime(0,context.currentTime,.22);setButton();
-        if(logo){logo.getAnimations().forEach(animation=>animation.cancel());const returnMotion=logo.animate([{transform:initialTransform==="none"?"rotate(0deg)":initialTransform},{transform:"rotate(0deg)"}],{duration:1050,easing:"cubic-bezier(.25,.1,.25,1)",fill:"forwards"});returnMotion.onfinish=()=>returnMotion.cancel()}
+        const spin=logo?.getAnimations().find(animation=>animation.animationName==="home-vinyl-spin");
+        let currentAngle;
+        if(spin&&typeof spin.currentTime==="number")currentAngle=-11+((spin.currentTime%3200)/3200)*360;
+        else if(logo){const matrix=new DOMMatrixReadOnly(getComputedStyle(logo).transform);currentAngle=Math.atan2(matrix.b,matrix.a)*180/Math.PI}
+        else currentAngle=0;
+        const startAngle=((currentAngle%360)+360)%360;const normalizedAngle=startAngle>180?startAngle-360:startAngle;const targetAngle=normalizedAngle<0?0:360;
+        playing=false;window.clearTimeout(variationTimer);playVinylRub();if(master&&context)master.gain.setTargetAtTime(0,context.currentTime,.22);setButton();
+        if(logo){logo.getAnimations().forEach(animation=>animation.cancel());const returnMotion=logo.animate([{transform:`rotate(${normalizedAngle}deg)`},{transform:`rotate(${targetAngle}deg)`}],{duration:520+((targetAngle-normalizedAngle)/360)*560,easing:"cubic-bezier(.25,.1,.25,1)",fill:"forwards"});returnMotion.onfinish=()=>returnMotion.cancel()}
         const started=performance.now(),duration=780,initialRate=audio.playbackRate;cancelAnimationFrame(stopFrame);
         const coast=now=>{const progress=Math.min(1,(now-started)/duration);audio.playbackRate=Math.max(.035,initialRate*(1-progress)**2);if(progress<1){stopFrame=requestAnimationFrame(coast)}else{audio.pause();audio.currentTime=0;audio.playbackRate=1}};
         stopFrame=requestAnimationFrame(coast);
