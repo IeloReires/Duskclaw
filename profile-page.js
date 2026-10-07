@@ -56,8 +56,8 @@
     window.setDuskclawPawCursor?.(pawColor, state.user?.id);
   }
   function pawCursor(color) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="${color}" stroke="#352719" stroke-width="1.15" stroke-linejoin="round"><ellipse cx="8" cy="10" rx="3.2" ry="4.4"/><ellipse cx="15.5" cy="6.5" rx="3.2" ry="4.4"/><ellipse cx="23" cy="8" rx="3.2" ry="4.4"/><ellipse cx="27" cy="14" rx="2.8" ry="3.8"/><path d="M5.1 22.4c0-4.2 3.3-7.5 7.4-7.5 2.4 0 3.8 1.2 5.4 1.2 1.8 0 3.1-1.3 5.2-1.3 3.1 0 5.4 2.5 5.4 5.8 0 5.1-5.4 8.5-11.7 8.5-6.6 0-11.7-2.4-11.7-6.7z"/></g></svg>`;
-    return `url("data:image/svg+xml,${encodeURIComponent(svg)}") 16 16, auto`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g fill="${color}" stroke="#352719" stroke-width="1.4" stroke-linejoin="round"><ellipse cx="8.5" cy="12" rx="4.1" ry="5.5"/><ellipse cx="17" cy="7.5" rx="4.1" ry="5.5"/><ellipse cx="26" cy="8.5" rx="4.1" ry="5.5"/><ellipse cx="33" cy="14" rx="3.6" ry="4.8"/><path d="M4.8 27.3c0-5.4 4.1-9.1 9.1-9.1 2.7 0 4.4 1.6 6.4 1.6 2.2 0 3.8-1.6 6.4-1.6 4 0 7.1 3.1 7.1 7.4 0 6.2-6.5 10.2-14.2 10.2-8.2 0-14.8-3-14.8-8.5z"/></g></svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}") 12 10, auto`;
   }
   function makeElementResetButton(key) {
     const button = document.createElement("button"); button.type = "button"; button.className = "subtle-button reset-element-button"; button.dataset.resetElement = key;

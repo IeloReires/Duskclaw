@@ -354,19 +354,21 @@
     };
     let supabaseClient = null;
     let currentUserId = null;
+    let currentPawCursorColor = "#d4b46d";
     let rows = [];
     let realtimeChannel = null;
     const notebookColorKey = userId => `duskclaw-notebook-color:${userId}`;
     const validNotebookColor = color => /^#[\da-f]{6}$/i.test(String(color || ""));
     const pawCursorKey = userId => `duskclaw-paw-cursor:${userId}`;
+    const pawSvgMarkup = color => `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g fill="${color}" stroke="#352719" stroke-width="1.4" stroke-linejoin="round"><ellipse cx="8.5" cy="12" rx="4.1" ry="5.5"/><ellipse cx="17" cy="7.5" rx="4.1" ry="5.5"/><ellipse cx="26" cy="8.5" rx="4.1" ry="5.5"/><ellipse cx="33" cy="14" rx="3.6" ry="4.8"/><path d="M4.8 27.3c0-5.4 4.1-9.1 9.1-9.1 2.7 0 4.4 1.6 6.4 1.6 2.2 0 3.8-1.6 6.4-1.6 4 0 7.1 3.1 7.1 7.4 0 6.2-6.5 10.2-14.2 10.2-8.2 0-14.8-3-14.8-8.5z"/></g></svg>`;
     const pawSvgCursor = color => {
       if (!validNotebookColor(color)) return;
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="${color}" stroke="#352719" stroke-width="1.15" stroke-linejoin="round"><ellipse cx="8" cy="10" rx="3.2" ry="4.4"/><ellipse cx="15.5" cy="6.5" rx="3.2" ry="4.4"/><ellipse cx="23" cy="8" rx="3.2" ry="4.4"/><ellipse cx="27" cy="14" rx="2.8" ry="3.8"/><path d="M5.1 22.4c0-4.2 3.3-7.5 7.4-7.5 2.4 0 3.8 1.2 5.4 1.2 1.8 0 3.1-1.3 5.2-1.3 3.1 0 5.4 2.5 5.4 5.8 0 5.1-5.4 8.5-11.7 8.5-6.6 0-11.7-2.4-11.7-6.7z"/></g></svg>`;
-      return `url("data:image/svg+xml,${encodeURIComponent(svg)}") 16 16, auto`;
+      return `url("data:image/svg+xml,${encodeURIComponent(pawSvgMarkup(color))}") 12 10, auto`;
     };
     const setPawCursor = (color, userId = currentUserId) => {
       const cursor = pawSvgCursor(color);
       if (!cursor) return;
+      currentPawCursorColor = color;
       document.documentElement.style.setProperty("--duskclaw-paw-cursor", cursor);
       if (userId) { try { localStorage.setItem(pawCursorKey(userId), color); } catch (_) {} }
     };
@@ -387,6 +389,7 @@
       style.textContent = `
         :root{--duskclaw-book-color:#203b61;--duskclaw-paw-cursor:${pawSvgCursor("#d4b46d")}}
         body,body *{cursor:var(--duskclaw-paw-cursor)!important}input,textarea,[contenteditable="true"]{cursor:text!important}
+        .duskclaw-paw-tap{position:fixed;z-index:2147483000;width:27px;height:27px;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 2px 2px #28180d66);animation:duskclaw-paw-tap .52s cubic-bezier(.2,.75,.3,1) forwards}.duskclaw-paw-tap img{display:block;width:100%;height:100%;object-fit:contain}@keyframes duskclaw-paw-tap{0%{opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-12deg)}18%{opacity:.82;transform:translate(-50%,-50%) scale(1.08) rotate(4deg)}38%{opacity:.62;transform:translate(-50%,-50%) scale(.92) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(.78) rotate(0)}}
         body.home .home-open-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 68%,#d0ad5e)!important;background:linear-gradient(90deg,color-mix(in srgb,var(--duskclaw-book-color) 58%,#d0ad5e),color-mix(in srgb,var(--duskclaw-book-color) 80%,#101b2d) 24%,var(--duskclaw-book-color) 58%,color-mix(in srgb,var(--duskclaw-book-color) 76%,#101b2d))!important}
         main.cardex-page,main.rules-page,main.family-page,main.dusk-main:not(.home-main),html body:not(.home):not(.dual-page)>main:not(.family-page):not(.dusk-main){border-color:var(--duskclaw-book-color)!important;outline-color:color-mix(in srgb,var(--duskclaw-book-color) 64%,#d4b46d)!important}
         .travel-book{border-color:color-mix(in srgb,var(--duskclaw-book-color) 66%,#d2ad5e)!important;background:linear-gradient(135deg,color-mix(in srgb,var(--duskclaw-book-color) 78%,#fff) 0%,var(--duskclaw-book-color) 44%,color-mix(in srgb,var(--duskclaw-book-color) 68%,#080f19) 100%)!important}
@@ -407,6 +410,13 @@
       } catch (_) {}
     };
     installNotebookColorRules();
+    document.addEventListener("click", event => {
+      if (!Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return;
+      const mark = document.createElement("span"); mark.className = "duskclaw-paw-tap";
+      mark.style.left = `${event.clientX}px`; mark.style.top = `${event.clientY}px`;
+      const image = document.createElement("img"); image.alt = ""; image.src = `data:image/svg+xml,${encodeURIComponent(pawSvgMarkup(currentPawCursorColor))}`;
+      mark.append(image); document.body.append(mark); window.setTimeout(() => mark.remove(), 560);
+    }, true);
     const updateCount = () => {
       const unread = rows.filter(row => !row.read_at).length;
       count.textContent = "";
