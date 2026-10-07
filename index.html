@@ -679,12 +679,23 @@
       if(!Context){button.disabled=true;button.title="Audio indisponible";return}
       const audio=new Audio(new URL("assets/duskclaw-ambiance.mp3",document.baseURI));
       audio.loop=true;audio.preload="auto";
-      let context=null,master=null,playing=false,variationTimer=0,variation=1;
+      let context=null,master=null,playing=false,variationTimer=0,variation=1,stopFrame=0;
+      const logo=button.querySelector("svg");
       const setButton=()=>{button.setAttribute("aria-pressed",String(playing));button.setAttribute("aria-label",playing?"Arrêter la musique d’ambiance":"Lancer la musique d’ambiance");button.title=playing?"Arrêter la musique d’ambiance":"Lancer la musique d’ambiance"};
       const makeRoomTone=()=>{
         const length=Math.floor(context.sampleRate*1.8),buffer=context.createBuffer(2,length,context.sampleRate);
         for(let channel=0;channel<2;channel++){const data=buffer.getChannelData(channel);for(let i=0;i<length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/length,3.2)}
         return buffer;
+      };
+      const playVinylStop=()=>{
+        if(!context)return;
+        const now=context.currentTime,length=Math.floor(context.sampleRate*.58),buffer=context.createBuffer(1,length,context.sampleRate),samples=buffer.getChannelData(0);
+        for(let i=0;i<length;i++)samples[i]=(Math.random()*2-1)*(1-i/length)**1.8;
+        const source=context.createBufferSource();source.buffer=buffer;
+        const filter=context.createBiquadFilter();filter.type="lowpass";filter.frequency.setValueAtTime(2600,now);filter.frequency.exponentialRampToValueAtTime(360,now+.55);
+        const noiseGain=context.createGain();noiseGain.gain.setValueAtTime(.0001,now);noiseGain.gain.exponentialRampToValueAtTime(.085,now+.035);noiseGain.gain.exponentialRampToValueAtTime(.0001,now+.58);
+        source.connect(filter);filter.connect(noiseGain);noiseGain.connect(context.destination);source.start(now);source.stop(now+.6);
+        const motor=context.createOscillator(),motorGain=context.createGain();motor.type="triangle";motor.frequency.setValueAtTime(138,now);motor.frequency.exponentialRampToValueAtTime(43,now+.62);motorGain.gain.setValueAtTime(.0001,now);motorGain.gain.exponentialRampToValueAtTime(.035,now+.03);motorGain.gain.exponentialRampToValueAtTime(.0001,now+.62);motor.connect(motorGain);motorGain.connect(context.destination);motor.start(now);motor.stop(now+.64);
       };
       const buildSound=()=>{
         context=new Context();const source=context.createMediaElementSource(audio);
@@ -701,9 +712,18 @@
       const setLevel=(seconds=.3)=>{if(master&&context)master.gain.setTargetAtTime(.65*variation,context.currentTime,seconds)};
       const varyGently=()=>{if(!playing)return;variation=.97+Math.random()*.06;setLevel(1.4);variationTimer=window.setTimeout(varyGently,4500+Math.random()*6500)};
       const start=async()=>{
+        cancelAnimationFrame(stopFrame);audio.playbackRate=1;logo?.getAnimations().forEach(animation=>animation.cancel());
         if(!context)buildSound();await context.resume();await audio.play();playing=true;variation=1;setLevel(.9);setButton();window.clearTimeout(variationTimer);varyGently();
       };
-      const pause=()=>{playing=false;window.clearTimeout(variationTimer);if(master&&context){master.gain.setTargetAtTime(0,context.currentTime,.22);window.setTimeout(()=>{if(!playing)audio.pause()},900)}else audio.pause();setButton()};
+      const pause=()=>{
+        if(!playing)return;
+        const initialTransform=logo?getComputedStyle(logo).transform:"none";
+        playing=false;window.clearTimeout(variationTimer);playVinylStop();if(master&&context)master.gain.setTargetAtTime(0,context.currentTime,.22);setButton();
+        if(logo){logo.getAnimations().forEach(animation=>animation.cancel());const returnMotion=logo.animate([{transform:initialTransform==="none"?"rotate(0deg)":initialTransform},{transform:"rotate(0deg)"}],{duration:1050,easing:"cubic-bezier(.25,.1,.25,1)",fill:"forwards"});returnMotion.onfinish=()=>returnMotion.cancel()}
+        const started=performance.now(),duration=780,initialRate=audio.playbackRate;cancelAnimationFrame(stopFrame);
+        const coast=now=>{const progress=Math.min(1,(now-started)/duration);audio.playbackRate=Math.max(.035,initialRate*(1-progress)**2);if(progress<1){stopFrame=requestAnimationFrame(coast)}else{audio.pause();audio.currentTime=0;audio.playbackRate=1}};
+        stopFrame=requestAnimationFrame(coast);
+      };
       button.addEventListener("click",()=>{if(playing){pause();return}start().catch(()=>{pause();button.title="Musique indisponible"})});
       audio.addEventListener("error",()=>{button.disabled=true;button.title="Musique indisponible"});
       setButton();
