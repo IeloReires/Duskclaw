@@ -49,6 +49,16 @@
     <div id="status" class="notice" role="status">Vérification du compte…</div>
     <section id="dashboard" class="hidden">
       <div class="toolbar"><input id="search" class="field" type="search" placeholder="Chercher par pseudo" aria-label="Chercher un membre"><span id="user-count" class="muted"></span></div>
+      <section class="panel" aria-labelledby="announce-character-title" style="margin-bottom:20px">
+        <h2 id="announce-character-title">Annoncer un nouveau personnage</h2>
+        <p class="muted">La publication envoie une notification dans la cloche de chaque membre et un message dans Discord.</p>
+        <div class="actions">
+          <label>Nom du personnage<input id="character-announcement-name" class="field" maxlength="80" autocomplete="off" placeholder="Ex. Aster"></label>
+          <label>Page du Cardex<input id="character-announcement-href" class="field" maxlength="100" autocomplete="off" value="personnages.html" placeholder="famille-5.html"></label>
+          <button id="character-announcement-submit" class="button" type="button">Annoncer</button>
+        </div>
+        <p id="character-announcement-note" class="notice" role="status" hidden></p>
+      </section>
       <div class="layout"><section class="panel"><h2>Comptes inscrits</h2><div id="user-list" class="user-list"></div></section><section id="profile-panel" class="panel"><div class="empty">Choisis un compte dans la liste pour afficher son profil.</div></section></div>
     </section>
   </main>
@@ -65,6 +75,7 @@
     const SUPABASE_PUBLISHABLE_KEY='sb_publishable_czfRsCCIui4YMjCk9ImtpQ_loqFKior';
     const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
     const status=document.getElementById('status'),dashboard=document.getElementById('dashboard'),list=document.getElementById('user-list'),profilePanel=document.getElementById('profile-panel');
+    const announcementName=document.getElementById('character-announcement-name'),announcementHref=document.getElementById('character-announcement-href'),announcementSubmit=document.getElementById('character-announcement-submit'),announcementNote=document.getElementById('character-announcement-note');
     let users=[], selected=null, badgeCatalog={};
     const BADGE_NAMES={founder:'Fondateur',pioneer:'Pionnier',ally:'Allié',artist:'Artiste',playtester:'Testeur',community:'Esprit de communauté'};
     function say(text,error=false){status.textContent=text;status.classList.toggle('error',error)}
@@ -81,11 +92,12 @@
       const ban=document.createElement('button');ban.type='button';ban.className='button '+(isBanned(selected)?'secondary':'danger');ban.textContent=isBanned(selected)?'Lever le bannissement':'Bannir ce compte';ban.style.marginTop='20px';ban.addEventListener('click',async()=>{if(isBanned(selected)){await runAction('unban')}else{const ok=confirm('Bannir '+(selected.nickname||'ce compte')+' ? Cette personne ne pourra plus se connecter.');if(ok){const reason=prompt('Motif (facultatif) :')||'';await runAction('ban',{reason})}}});profilePanel.append(ban)}
     async function loadUsers(){say('Chargement des comptes…');const {data,error}=await client.functions.invoke('clever-service',{body:{action:'list'}});if(error||data?.error)throw new Error(data?.error||'La liste des comptes n’a pas pu être chargée. Vérifie que la fonction Supabase est déployée.');users=data.users||[];badgeCatalog=data.badges||{};dashboard.classList.remove('hidden');say('');renderList();if(selected){selected=users.find(user=>user.id===selected.id)||null;renderProfile()}}
     async function runAction(action,extra={}){if(!selected)return;const target=selected;const buttons=profilePanel.querySelectorAll('button');buttons.forEach(b=>b.disabled=true);say('Enregistrement de l’action…');const {data,error}=await client.functions.invoke('clever-service',{body:{action,user_id:target.id,...extra}});if(error||data?.error){say(data?.error||'Action refusée. Vérifie la configuration de la fonction.',true);buttons.forEach(b=>b.disabled=false);return}say(data?.audit_logged===false?'Action effectuée, mais son journal n’a pas été enregistré.':'Action effectuée et journalisée.');await loadUsers()}
+    announcementSubmit.addEventListener('click',async()=>{const character_name=announcementName.value.trim(),href=announcementHref.value.trim();if(!character_name){announcementName.focus();return}if(!/^[a-z0-9][a-z0-9-]*\.html(?:#[a-z0-9_-]+)?$/i.test(href)){announcementNote.hidden=false;announcementNote.classList.add('error');announcementNote.textContent='Indique une page du site, par exemple famille-5.html.';return}announcementSubmit.disabled=true;announcementNote.hidden=false;announcementNote.classList.remove('error');announcementNote.textContent='Envoi des notifications…';const {data,error}=await client.functions.invoke('clever-service',{body:{action:'announce_character',character_name,href}});announcementSubmit.disabled=false;if(error||data?.error){announcementNote.classList.add('error');announcementNote.textContent=data?.error||'L’annonce n’a pas pu être envoyée. Vérifie la configuration Supabase et du webhook Discord.';return}announcementNote.classList.remove('error');announcementNote.textContent=data?.already_sent?'Cette annonce a déjà été envoyée.':'Annonce envoyée aux membres et sur Discord.'});
     document.getElementById('search').addEventListener('input',renderList);
     (async()=>{const {data,error}=await client.auth.getSession();if(error||!data.session?.user){location.replace('mon-compte.html');return}const {data:isMod,error:roleError}=await client.rpc('is_site_moderator');if(roleError||isMod!==true){say('Accès réservé au compte modérateur.',true);return}try{await loadUsers()}catch(e){say(e.message,true)}})();
   </script>
 <script src="account-nav.js?v=20261007-profile-avatar1"></script>
-<script src="site-shell.js?v=20261008-click-magic1"></script>
+<script src="site-shell.js?v=20261124-character-announcements"></script>
 </body>
 </html>
 

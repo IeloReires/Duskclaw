@@ -346,6 +346,7 @@
       if (row.kind === "friend_accepted") return "amis.html";
       if (row.kind === "badge_awarded") return "mon-compte.html";
       if (row.kind === "trade_offer") return "collection.html";
+      if (row.kind === "new_character" && /^[a-z0-9][a-z0-9-]*\.html(?:#[a-z0-9_-]+)?$/i.test(row.href || "")) return row.href;
       return "amis.html";
     };
     const formatDate = value => {
