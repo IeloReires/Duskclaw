@@ -427,6 +427,8 @@
       "Marin|base": "marin.png",
       "Marin|niveau-1": "marin-evolution-1.png",
       "Marin|niveau-2": "marin-evolution-2.png",
+      "Famille 5|base": "famille-5-base.png",
+      "Famille 5|niveau-1": "famille-5-niveau-1.png",
       "Caine|niveau-2": "caine-niveau-2.png",
       "Kael|base": "kael-base.png",
       "Kael|niveau-1": "kael-evolution-1.png"
@@ -459,7 +461,7 @@
         const caption = document.createElement("span");
         caption.className = "furry-caption";
         const name = document.createElement("strong");
-        name.textContent = furry.name;
+        name.textContent = furry.name || furry.familyName;
         const stage = document.createElement("span");
         const prettyType = furry.type.charAt(0).toLocaleUpperCase("fr") + furry.type.slice(1);
         stage.textContent = `${prettyType} · ${furry.levelLabel}`;

@@ -118,7 +118,7 @@
     "type": "Roche",
     "rarity": "Commun",
     "route": "famille-5.html",
-    "image": ""
+    "image": "famille-5-base.png"
   },
   {
     "id": 12,
@@ -129,7 +129,7 @@
     "type": "Roche",
     "rarity": "Peu commun",
     "route": "famille-5.html",
-    "image": ""
+    "image": "famille-5-niveau-1.png"
   },
   {
     "id": 13,
